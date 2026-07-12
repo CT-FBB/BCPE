@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ST-244F ONU Swap & Deployment Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d1117; --card:#161b22; --card2:#1c2128; --border:#30363d;
+  --text:#e6edf3; --muted:#7d8590;
+  --orange:#f97316; --blue:#3b82f6; --green:#10b981;
+  --purple:#a855f7; --red:#ef4444; --yellow:#eab308; --cyan:#06b6d4;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;padding:22px;}
+
+/* ── Header ── */
+.header{
+  background:linear-gradient(135deg,#100500 0%,#0d1117 45%,#010a1a 100%);
+  border:1px solid var(--border);border-radius:18px;padding:30px 36px;margin-bottom:24px;
+  position:relative;overflow:hidden;
+}
+.header::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 15% 60%,rgba(249,115,22,.14) 0%,transparent 55%),
+    radial-gradient(ellipse at 85% 40%,rgba(59,130,246,.10) 0%,transparent 55%);
+}
+.header h1{font-size:2.4rem;font-weight:900;
+  background:linear-gradient(100deg,#f97316 0%,#fb923c 40%,#3b82f6 80%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header .sub{color:var(--muted);font-size:.9rem;margin-top:6px;}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;}
+.tag{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.78rem;font-weight:600;
+     background:rgba(249,115,22,.13);border:1px solid rgba(249,115,22,.3);color:#fb923c;}
+.tag.blue{background:rgba(59,130,246,.13);border-color:rgba(59,130,246,.3);color:#60a5fa;}
+.tag.green{background:rgba(16,185,129,.13);border-color:rgba(16,185,129,.3);color:#34d399;}
+
+/* ── KPI strip ── */
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:14px;margin-bottom:22px;}
+.kpi-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:18px 20px;position:relative;overflow:hidden;
+  transition:transform .18s,box-shadow .18s;
+}
+.kpi-card:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.45);}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.kpi-card.or::before{background:linear-gradient(90deg,#f97316,#fb923c);}
+.kpi-card.bl::before{background:linear-gradient(90deg,#3b82f6,#60a5fa);}
+.kpi-card.gr::before{background:linear-gradient(90deg,#10b981,#34d399);}
+.kpi-card.pu::before{background:linear-gradient(90deg,#a855f7,#c084fc);}
+.kpi-card.re::before{background:linear-gradient(90deg,#ef4444,#f87171);}
+.kpi-card.cy::before{background:linear-gradient(90deg,#06b6d4,#22d3ee);}
+.kl{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.kv{font-size:2.1rem;font-weight:800;line-height:1;}
+.kv.or{color:#f97316;} .kv.bl{color:#3b82f6;} .kv.gr{color:#10b981;}
+.kv.pu{color:#a855f7;} .kv.re{color:#ef4444;} .kv.cy{color:#06b6d4;}
+.ks{font-size:.74rem;color:var(--muted);margin-top:5px;}
+.ki{position:absolute;top:14px;right:14px;font-size:1.5rem;opacity:.2;}
+
+/* ── Layout ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px;}
+@media(max-width:920px){.g2,.g3{grid-template-columns:1fr;}}
+
+/* ── Card ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px;}
+.card h3{font-size:.95rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+.ch{position:relative;height:260px;}
+.ch.tall{height:310px;}
+
+/* ── Donut ── */
+.donut-wrap{position:relative;display:flex;justify-content:center;height:260px;}
+.donut-center{position:absolute;top:50%;left:35%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;}
+.dc-big{font-size:1.9rem;font-weight:800;color:#10b981;}
+.dc-sm{font-size:.72rem;color:var(--muted);}
+
+/* ── Region bars ── */
+.rrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+.rrow:last-child{border-bottom:none;}
+.rl{width:95px;font-size:.8rem;color:var(--muted);}
+.rb{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;}
+.rbf{height:100%;border-radius:4px;}
+.rv{width:80px;text-align:right;font-size:.82rem;font-weight:600;}
+
+/* ── Table ── */
+.tbl{width:100%;border-collapse:collapse;font-size:.83rem;}
+.tbl th{background:var(--card2);color:var(--muted);font-weight:600;font-size:.72rem;
+         text-transform:uppercase;letter-spacing:.05em;padding:9px 12px;text-align:left;}
+.tbl td{padding:9px 12px;border-top:1px solid var(--border);vertical-align:middle;}
+.tbl tr:hover td{background:rgba(255,255,255,.025);}
+.scr{overflow-x:auto;max-height:340px;overflow-y:auto;}
+.scr::-webkit-scrollbar{width:4px;height:4px;}
+.scr::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* ── Pills ── */
+.pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.74rem;font-weight:600;}
+.p-or{background:rgba(249,115,22,.15);color:#fb923c;}
+.p-bl{background:rgba(59,130,246,.15);color:#60a5fa;}
+.p-gr{background:rgba(16,185,129,.15);color:#34d399;}
+.p-pu{background:rgba(168,85,247,.15);color:#c084fc;}
+.p-re{background:rgba(239,68,68,.15);color:#f87171;}
+.p-gy{background:rgba(125,133,144,.15);color:#9ca3af;}
+.p-cy{background:rgba(6,182,212,.15);color:#22d3ee;}
+
+/* ── Arrow flow ── */
+.flow-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.flow-row:last-child{border-bottom:none;}
+.flow-from{flex:1;font-size:.82rem;}
+.flow-arrow{color:var(--muted);font-size:1rem;}
+.flow-to{font-size:.82rem;font-weight:600;color:#f97316;}
+.flow-count{min-width:56px;text-align:right;font-weight:700;font-size:.9rem;color:#f97316;}
+
+/* ── Info box ── */
+.info-box{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.22);
+           border-radius:10px;padding:14px 18px;font-size:.85rem;color:#93c5fd;
+           display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
+.warn-box{background:rgba(234,179,8,.07);border:1px solid rgba(234,179,8,.22);
+           border-radius:10px;padding:14px 18px;font-size:.85rem;color:#fbbf24;
+           display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
+
+/* ── Mini stat row ── */
+.statrow{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;}
+.stat-mini{background:var(--card);border:1px solid var(--border);border-radius:10px;
+           padding:12px 16px;flex:1;min-width:130px;text-align:center;}
+.stat-mini .sv{font-size:1.5rem;font-weight:800;}
+.stat-mini .sl{font-size:.72rem;color:var(--muted);margin-top:4px;}
+
+/* ── Footer ── */
+.footer{text-align:center;color:var(--muted);font-size:.76rem;
+         margin-top:32px;padding-top:16px;border-top:1px solid var(--border);}
+</style>
+</head>
+<body>
+<div id="root">Loading...</div>
+
+<script>
+async function load(){
+  let d;
+  try{ const r=await fetch('st244f_dashboard_data.json'); d=await r.json(); }
+  catch(e){ d=null; }
+  
+  let trendData = [];
+  try{ const tr=await fetch('st244f_trend_data.json'); trendData=await tr.json(); }
+  catch(e){ console.log(e); }
+
+  if(!d){ document.getElementById('root').innerHTML='<p style="padding:40px;color:#f87171">❌ ไม่พบ st244f_dashboard_data.json</p>'; return; }
+  
+  d.trend_advanced = trendData;
+  renderDashboard(d);
+}
+
+function fmt(n,d=0){ return n==null?'-':Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function pct(a,b){ return b?((a/b)*100).toFixed(1)+'%':'-'; }
+
+function renderDashboard(d){
+  window.ST244F_DATA = d;
+  const total   = d.total_st244f_latest ?? d.total_st244f ?? 204212;
+  const base    = d.total_st244f_base   ?? 204248;
+  const net     = d.net_change          ?? (total-base);
+  const newInst = d.new_installs        ?? 0;
+  const dataCorrect = d.data_correction ?? 0;
+  const swapIn  = d.swap_from_other     ?? 0;
+  const removed = d.removed_st244f      ?? 0;
+  const latDate = d.latest_date         ?? '-';
+  const basDate = d.baseline_date       ?? '-';
+  const byRegion= d.by_region           ?? {};
+  const topOlt  = d.top_olt             ?? [];
+  const byVar   = d.by_variant          ?? {};
+  const chgFrom = d.change_from_models  ?? [];
+  const chgRows = d.change_rows         ?? [];
+  const byModel = d.by_olt_model        ?? [];
+  const trend   = d.daily_trend         ?? [];
+  const trendAdv= d.trend_advanced      ?? [];
+
+  // Region colours
+  const rColor = {BMA:'#f97316',Central:'#3b82f6',North:'#10b981',Northeast:'#a855f7',South:'#eab308',Other:'#6b7280'};
+  const maxR = Math.max(...Object.values(byRegion),1);
+
+  const regionHTML = Object.entries(byRegion).sort((a,b)=>b[1]-a[1]).map(([r,v])=>`
+    <div class="rrow">
+      <div class="rl">${r}</div>
+      <div class="rb"><div class="rbf" style="width:${(v/maxR*100).toFixed(1)}%;background:${rColor[r]||'#6b7280'}"></div></div>
+      <div class="rv" style="color:${rColor[r]||'#9ca3af'}">${fmt(v)}</div>
+    </div>`).join('');
+
+  // Variant pills
+  const varHTML = Object.entries(byVar).sort((a,b)=>b[1]-a[1]).map(([m,c])=>`
+    <span class="pill p-or" style="margin:3px;font-size:.8rem">${m}: ${fmt(c)}</span>`).join('');
+
+  // OLT model table
+  const vCls = {Huawei:'p-bl',ZTE:'p-or',Fiberhome:'p-gr',GCOM:'p-pu',Raisecom:'p-re',Dasan:'p-gy',Nokia:'p-gy'};
+  const modelTbl = (byModel.length>0?byModel:topOlt.slice(0,10).map(o=>({vendor:'',model:o.olt,count:o.count})))
+    .slice(0,10).map((r,i)=>`
+      <tr>
+        <td style="color:var(--muted);font-size:.72rem">${i+1}</td>
+        <td>${r.vendor?`<span class="pill ${vCls[r.vendor]||'p-gy'}">${r.vendor}</span>`:''}</td>
+        <td style="font-weight:600">${r.model}</td>
+        <td style="text-align:right;font-weight:700;color:#f97316">${fmt(r.count)}</td>
+        <td><div style="background:rgba(249,115,22,.1);border-radius:3px;height:6px">
+          <div style="background:#f97316;border-radius:3px;height:6px;width:${Math.round(r.count/(byModel[0]?.count||topOlt[0]?.count||1)*100)}px"></div></div></td>
+      </tr>`).join('');
+
+  const oltTbl = topOlt.slice(0,15).map((r,i)=>`
+    <tr>
+      <td style="color:var(--muted);font-size:.72rem">${i+1}</td>
+      <td style="font-family:monospace;font-size:.8rem;font-weight:600">${r.olt}</td>
+      <td style="text-align:right;font-weight:700;color:#10b981">${fmt(r.count)}</td>
+    </tr>`).join('');
+
+  // Change flow
+  const noSwap = chgFrom.length===0 && swapIn===0;
+  const swapBox = noSwap
+    ? `<div class="warn-box"><span style="font-size:1.2rem">⚠️</span>
+        <span>ในช่วงที่วิเคราะห์ (<strong>${basDate} → ${latDate}</strong>) ยังไม่พบการเปลี่ยน ONU จาก model อื่น → ST-244F ผ่าน AccessId เดิม<br>
+        <span style="font-size:.82rem;opacity:.8">อาจเป็นเพราะช่วงเวลาสั้นเกินไป (1 วัน) หรือ ST-244F ส่วนใหญ่ถูกติดตั้งใหม่แทนการ swap</span></span></div>`
+    : '';
+
+  const flowHTML = chgFrom.length>0 ? chgFrom.map(r=>`
+    <div class="flow-row">
+      <div class="flow-from"><span class="pill p-gy">${r.from_model}</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-to">ST-244F</div>
+      <div class="flow-count">${fmt(r.count)}</div>
+    </div>`).join('')
+    : `<div style="color:var(--muted);font-size:.85rem;text-align:center;padding:20px 0">ไม่พบการ swap ในช่วงที่วิเคราะห์</div>`;
+
+  // Change detail rows
+  const detailRows = chgRows.slice(0,100).map(r=>`
+    <tr>
+      <td style="font-size:.75rem;color:var(--muted)">${r.AccessId||''}</td>
+      <td style="font-family:monospace;font-size:.76rem">${r.Device||''}</td>
+      <td style="font-size:.76rem">${r.Old_Serial||'-'}</td>
+      <td style="font-size:.76rem">${r.New_Serial||'-'}</td>
+      <td><span class="pill p-gy" style="font-size:.72rem">${r.From_Model||'-'}</span></td>
+      <td><span class="pill p-or" style="font-size:.72rem">${r.To_Model||'ST-244F'}</span></td>
+    </tr>`).join('');
+
+  // net indicator
+  const netColor = net>=0?'#10b981':'#ef4444';
+  const netSign = net>=0?'+':'';
+
+  document.getElementById('root').innerHTML = `
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <h1>📦 ST-244F ONU Deployment</h1>
+        <div class="sub">ติดตามการใช้งาน และการเปลี่ยน ONU เป็นรุ่น ST-244F บนโครงข่าย XGS-PON ทั่วประเทศ</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="tag">📅 ล่าสุด: ${latDate}</span>
+        <span class="tag blue">เปรียบเทียบ: ${basDate}</span>
+        <span class="tag green">รวม ${fmt(total)} เครื่อง</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi">
+    <div class="kpi-card or"><div class="ki">📦</div>
+      <div class="kl">ST-244F ทั้งหมด (ล่าสุด)</div>
+      <div class="kv or">${fmt(total)}</div>
+      <div class="ks">เครื่อง บนเครือข่าย</div>
+    </div>
+    <div class="kpi-card bl"><div class="ki">📊</div>
+      <div class="kl">วันก่อนหน้า (Baseline)</div>
+      <div class="kv bl">${fmt(base)}</div>
+      <div class="ks">เครื่อง ณ ${basDate}</div>
+    </div>
+    <div class="kpi-card ${net>=0?'gr':'re'}"><div class="ki">📈</div>
+      <div class="kl">การเปลี่ยนแปลงสุทธิ</div>
+      <div class="kv ${net>=0?'gr':'re'}">${netSign}${fmt(net)}</div>
+      <div class="ks">${net>=0?'เพิ่มขึ้น':'ลดลง'} จากวันก่อน</div>
+    </div>
+    <div class="kpi-card cy">
+      <div class="ki">🆕</div>
+      <div class="kl">ติดตั้งใหม่ (New Device)</div>
+      <div class="kv cy">${fmt(newInst)}</div>
+      <div class="ks">AccessId ใหม่ บน ST-244F</div>
+      <button onclick="exportNewInstalls()" style="margin-top:8px;padding:4px 8px;background:rgba(6,182,212,.2);border:1px solid rgba(6,182,212,.5);color:#22d3ee;border-radius:4px;cursor:pointer;font-size:0.75rem;width:100%;">📥 Export เฉพาะชุดนี้</button>
+    </div>
+    <div class="kpi-card pu"><div class="ki">🔁</div>
+        <div class="kl">Swap เข้าจากรุ่นอื่น</div>
+        <div class="kv pu">${fmt(swapIn)}</div>
+        <div class="ks">โผล่ขึ้นมาแทน Serial เดิม</div>
+      </div>
+      <div class="kpi-card gy">
+        <div class="kl">Data Correction</div>
+        <div class="kv gy" style="color: #9ca3af;">${fmt(dataCorrect)}</div>
+        <div class="ks">LOID เก่า (ก่อนปี 25)</div>
+      </div>
+      <div class="kpi-card re"><div class="ki">❌</div>
+      <div class="kl">ถอด ST-244F ออก</div>
+      <div class="kv re">${fmt(removed)}</div>
+      <div class="ks">เปลี่ยนไป model อื่น</div>
+    </div>
+  </div>
+
+  <!-- Variant pills -->
+  <div class="card" style="margin-bottom:18px">
+    <h3><span class="dot" style="background:#f97316"></span> รุ่นย่อย ST-244F ที่พบบนเครือข่าย</h3>
+    <div>${varHTML||'<span style="color:var(--muted)">ST-244F, ST-244FV2</span>'}</div>
+  </div>
+
+  <!-- Swap notice -->
+  ${swapBox}
+
+  <!-- Row 1: Region + Donut -->
+  <div class="g2">
+    <div class="card">
+      <h3><span class="dot" style="background:#f97316"></span> ST-244F แยกตามภูมิภาค</h3>
+      ${regionHTML}
+    </div>
+    <div class="card">
+      <h3><span class="dot" style="background:#3b82f6"></span> สัดส่วน ST-244F ต่อ OLT Vendor</h3>
+      <div class="donut-wrap">
+        <canvas id="donutChart"></canvas>
+        <div class="donut-center">
+          <div class="dc-big">${fmt(total)}</div>
+          <div class="dc-sm">เครื่อง</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trend chart (if data) -->
+  ${trendAdv.length>1?`
+  <div class="card">
+    <h3><span class="dot" style="background:#10b981"></span> แนวโน้ม ST-244F รวม และ Swap OUT สะสม (เทียบ 20/05)</h3>
+    <div class="ch tall"><canvas id="trendChart"></canvas></div>
+  </div>`:''}
+
+  <!-- Row 2: OLT model table + Top OLT -->
+  <div class="g2">
+    <div class="card">
+      <h3><span class="dot" style="background:#a855f7"></span> ST-244F แยกตาม OLT Model (Top 10)</h3>
+      <div class="scr">
+        <table class="tbl">
+          <thead><tr><th>#</th><th>Vendor</th><th>OLT Model</th><th style="text-align:right">จำนวน</th><th style="min-width:80px">สัดส่วน</th></tr></thead>
+          <tbody>${modelTbl||`<tr><td colspan="5" style="color:var(--muted);text-align:center;padding:20px">ไม่มีข้อมูล OLT Model</td></tr>`}</tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3><span class="dot" style="background:#10b981"></span> Top OLT ที่มี ST-244F (Top 15)</h3>
+      <div class="scr">
+        <table class="tbl">
+          <thead><tr><th>#</th><th>OLT Name</th><th style="text-align:right">จำนวน</th></tr></thead>
+          <tbody>${oltTbl||`<tr><td colspan="3" style="color:var(--muted);text-align:center;padding:20px">ไม่มีข้อมูล</td></tr>`}</tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3: Swap flow + Detail -->
+  <div class="g2">
+    <div class="card">
+      <h3><span class="dot" style="background:#f97316"></span> 🔄 Swap จาก Model ใด → ST-244F</h3>
+      ${flowHTML}
+    </div>
+    <div class="card">
+      <h3><span class="dot" style="background:#06b6d4"></span> รายละเอียดการ Swap (ล่าสุด ${chgRows.length} รายการ)</h3>
+      ${chgRows.length>0?`
+      <div class="scr">
+        <table class="tbl">
+          <thead><tr><th>AccessId</th><th>OLT</th><th>Serial เดิม</th><th>Serial ใหม่</th><th>จาก</th><th>เป็น</th></tr></thead>
+          <tbody>${detailRows}</tbody>
+        </table>
+      </div>`
+      :`<div style="color:var(--muted);font-size:.85rem;text-align:center;padding:30px 0">
+          <div style="font-size:2rem;margin-bottom:8px">🔍</div>
+          ไม่พบรายการ Swap ในช่วงที่วิเคราะห์<br>
+          <span style="font-size:.78rem">(${basDate} → ${latDate})</span>
+        </div>`}
+    </div>
+  </div>
+
+  <div class="footer">
+    ST-244F ONU Deployment Dashboard · เปรียบเทียบ ${basDate} → ${latDate} · ข้อมูลจาก CPE Daily & ST244F.xlsx
+  </div>`;
+
+  // ── Charts ─────────────────────────────────────────────────
+
+  // Donut: by OLT vendor or top region
+  let dLabels, dData, dColors;
+  if(byModel.length>0){
+    const vendorSums={};
+    byModel.forEach(r=>{ vendorSums[r.vendor]=(vendorSums[r.vendor]||0)+r.count; });
+    dLabels=Object.keys(vendorSums);
+    dData=Object.values(vendorSums);
+    dColors=['#f97316','#3b82f6','#10b981','#a855f7','#eab308','#ef4444'];
+  } else {
+    dLabels=Object.keys(byRegion);
+    dData=Object.values(byRegion);
+    dColors=['#f97316','#3b82f6','#10b981','#a855f7','#eab308','#6b7280'];
+  }
+  new Chart(document.getElementById('donutChart'),{
+    type:'doughnut',
+    data:{ labels:dLabels, datasets:[{data:dData,backgroundColor:dColors,borderWidth:2,borderColor:'#161b22',hoverBorderWidth:3}] },
+    options:{
+      responsive:true,maintainAspectRatio:false,cutout:'65%',
+      plugins:{
+        legend:{position:'right',labels:{color:'#7d8590',font:{size:11},boxWidth:12,padding:8}},
+        tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${ctx.parsed.toLocaleString()} เครื่อง`}}
+      }
+    },
+    plugins: [{
+      id: 'center-text',
+      afterDraw: chart => {
+        const centerDiv = document.querySelector('.donut-center');
+        if(centerDiv && chart.chartArea) {
+          const cx = chart.chartArea.left + (chart.chartArea.right - chart.chartArea.left) / 2;
+          const cy = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
+          centerDiv.style.left = cx + 'px';
+          centerDiv.style.top = cy + 'px';
+        }
+      }
+    }]
+  });
+
+  // Trend
+  if(trendAdv.length>1){
+    new Chart(document.getElementById('trendChart'),{
+      type:'line',
+      data:{
+        labels:trendAdv.map(r=>r.date),
+        datasets:[
+          {
+            label:'ST-244F Total',
+            data:trendAdv.map(r=>r.st244f_total),
+            borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',
+            borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#10b981',
+            fill:true,tension:.4, yAxisID: 'y'
+          },
+          {
+            label:'Swap OUT (สะสม)',
+            data:trendAdv.map(r=>r.swap_out_from_base),
+            borderColor:'#ef4444',backgroundColor:'transparent',
+            borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#ef4444',
+            borderDash: [5, 5], tension:.4, yAxisID: 'y1'
+          }
+        ]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{labels:{color:'#7d8590'}},tooltip:{mode:'index'}},
+        scales:{
+          x:{ticks:{color:'#7d8590',maxTicksLimit:12},grid:{color:'rgba(255,255,255,.04)'}},
+          y:{
+            type: 'linear', display: true, position: 'left',
+            ticks:{color:'#10b981',callback:v=>v.toLocaleString()},
+            grid:{color:'rgba(255,255,255,.04)'}
+          },
+          y1:{
+            type: 'linear', display: true, position: 'right',
+            ticks:{color:'#ef4444',callback:v=>v.toLocaleString()},
+            grid:{drawOnChartArea:false}
+          }
+        }
+      }
+    });
+  }
+}
+
+function exportNewInstalls() {
+  const rows = window.ST244F_DATA?.new_install_rows;
+  if(!rows || rows.length === 0) { alert('ไม่มีข้อมูลติดตั้งใหม่'); return; }
+  
+  const wb = XLSX.utils.book_new();
+  const sData = [["#", "LOID", "AccessId", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]];
+  rows.forEach((r, i) => {
+    sData.push([i + 1, r.LOID||'', r.AccessId||'', r.SN_New||'', r.Model||'', r.Device||'', r.PonPort||'', r.ONT_ID||'', r.Region||'']);
+  });
+  
+  const ws = XLSX.utils.aoa_to_sheet(sData);
+  ws['!cols'] = [{wch:5},{wch:12},{wch:16},{wch:20},{wch:15},{wch:20},{wch:15},{wch:15},{wch:10}];
+  XLSX.utils.book_append_sheet(wb, ws, "ST-244F ติดตั้งใหม่");
+  
+  XLSX.writeFile(wb, "ST-244F_NewInstalls_" + new Date().toISOString().slice(0,10) + ".xlsx");
+}
+
+load();
+</script>
+</body>
+</html>
