@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ONU Model Report Dashboard — BCPE Monitor</title>
+  <!-- Detect iframe early — hide topnav before any render if inside parent frame -->
+  <script>
+  if (window.self !== window.top) {
+    document.documentElement.classList.add('in-iframe');
+  }
+  </script>
+  <style>
+  /* Hide own topnav when embedded as iframe tab */
+  html.in-iframe nav.topnav { display: none !important; }
+  html.in-iframe body { padding-top: 0 !important; }
+  html.in-iframe { overflow-y: auto !important; }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <meta name="description" content="ONU CPE model distribution dashboard: Top 10 models by region and model change tracking across access IDs.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1155,6 +1167,10 @@ body {
     height: 60px !important;
     z-index: 9999 !important;
 }
+/* === iframe mode: hide own topnav, reset padding === */
+html.in-iframe { overflow-y: auto !important; scrollbar-gutter: auto !important; }
+html.in-iframe body { padding: 0 !important; }
+html.in-iframe nav.topnav { display: none !important; }
 </style>
 </head>
 <body>
@@ -2797,13 +2813,17 @@ function hexToRgb(hex) {
 
 function buildChangeRegionBar(s2) {
   const ctx = document.getElementById('chart-change-region-bar').getContext('2d');
-  const values = REGION_ORDER.map(r => s2.by_region[r]?.total_changed || 0);
-  const colors = REGION_ORDER.map(r => REGION_COLORS[r].bg);
-  const borders= REGION_ORDER.map(r => REGION_COLORS[r].border);
+  // Sort regions descending by total_changed
+  const sortedRegions = [...REGION_ORDER].sort((a, b) =>
+    (s2.by_region[b]?.total_changed || 0) - (s2.by_region[a]?.total_changed || 0)
+  );
+  const values = sortedRegions.map(r => s2.by_region[r]?.total_changed || 0);
+  const colors = sortedRegions.map(r => REGION_COLORS[r].bg);
+  const borders= sortedRegions.map(r => REGION_COLORS[r].border);
   charts['changeRegionBar'] = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: REGION_ORDER.map(r => REGION_LABELS[r] || r),
+      labels: sortedRegions.map(r => REGION_LABELS[r] || r),
       datasets: [{
         label: 'Model Changed',
         data: values,

@@ -581,6 +581,11 @@
         padding: 80px 2rem 2rem 2rem !important;
         overflow-x: hidden !important;
     }
+    /* When ONU tab is active, body needs no extra scroll — iframe handles it */
+    body.onu-active {
+        overflow: hidden !important;
+        padding: 60px 0 0 0 !important;
+    }
     .topnav {
         position: fixed !important;
         top: 0 !important;
@@ -589,6 +594,8 @@
         height: 60px !important;
         z-index: 9999 !important;
     }
+    #tab-onu { height: calc(100vh - 60px); overflow: hidden; }
+    #onu-iframe { width: 100%; height: 100%; border: none; display: block; }
     </style>
 </head>
 <body>
@@ -597,12 +604,14 @@
     <nav class="topnav">
         <div class="topnav-logo">📦 <span>BCPE Monitor</span></div>
         <div class="topnav-links">
-            <a href="index.html" class="active">CPE Dashboard</a>
-            <a href="onu_model_dashboard.html" id="nav-onumodel">ONU Model</a>
+            <a href="#" id="nav-cpe" class="active" onclick="switchTab('cpe',this);return false;">CPE Dashboard</a>
+            <a href="#" id="nav-onu" onclick="switchTab('onu',this);return false;">ONU Model</a>
         </div>
         <div class="topnav-right"></div>
     </nav>
 
+    <!-- TAB: CPE Dashboard -->
+    <div id="tab-cpe" class="tab-panel">
     <div class="dashboard-container">
         
         <!-- HEADER -->
@@ -3886,7 +3895,7 @@
       "Type": "HGW"
     }
   ],
-  "GeneratedAt": "2026-07-12 20:03:10"
+  "GeneratedAt": "2026-07-12 20:42:57"
 };
 
         // GLOBAL CHARTS AND STATES
@@ -4567,6 +4576,45 @@
             const dateStr = new Date().toISOString().slice(0, 10);
             XLSX.writeFile(wb, `BCPE_Device_Breakdown_${activeType}_${dateStr}.xlsx`);
         }
+    </script>
+
+    </div><!-- /dashboard-container -->
+    </div><!-- /tab-cpe -->
+
+    <!-- TAB: ONU Model (iframe, lazy-loaded) -->
+    <div id="tab-onu" class="tab-panel" style="display:none;">
+        <iframe id="onu-iframe"
+            src=""
+            style="width:100%; height:calc(100vh - 60px); border:none; display:block;"
+            loading="lazy">
+        </iframe>
+    </div>
+
+    <style>
+    .tab-panel { width: 100%; }
+    </style>
+
+    <script>
+    function switchTab(tab, btn) {
+        // Update active nav link
+        document.querySelectorAll('.topnav-links a').forEach(a => a.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (tab === 'onu') {
+            document.getElementById('tab-cpe').style.display = 'none';
+            document.getElementById('tab-onu').style.display = 'block';
+            document.body.classList.add('onu-active');
+            // Lazy-load iframe only on first click
+            const iframe = document.getElementById('onu-iframe');
+            if (!iframe.src || iframe.src === window.location.href) {
+                iframe.src = 'onu_model_dashboard.html';
+            }
+        } else {
+            document.getElementById('tab-onu').style.display = 'none';
+            document.getElementById('tab-cpe').style.display = 'block';
+            document.body.classList.remove('onu-active');
+        }
+    }
     </script>
 </body>
 </html>
