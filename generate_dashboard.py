@@ -241,8 +241,8 @@ def get_html_template():
         }
 
         .dashboard-container {
+            width: 100%;
             max-width: 1400px;
-            margin: 0 auto;
         }
 
         /* ── Header ── */
@@ -692,6 +692,9 @@ def get_html_template():
         margin: 0 !important;
         padding: 80px 2rem 2rem 2rem !important;
         overflow-x: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
     }
     /* When ONU tab is active, body needs no extra scroll — iframe handles it */
     body.onu-active {
