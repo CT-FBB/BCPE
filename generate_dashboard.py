@@ -1173,21 +1173,38 @@ def get_html_template():
             const sortedVersions = modelData.Versions;
             const labels = [];
             const counts = [];
-            let othersTotal = 0;
 
-            sortedVersions.forEach((v, idx) => {
-                if (idx < 10) {
-                    labels.push(v.SoftwareVersion);
-                    counts.push(v.Count);
-                } else {
-                    othersTotal += v.Count;
-                }
+            // Show top 5 versions only
+            sortedVersions.slice(0, 5).forEach(v => {
+                labels.push(v.SoftwareVersion);
+                counts.push(v.Count);
             });
 
-            if (othersTotal > 0) {
-                labels.push("Others");
-                counts.push(othersTotal);
-            }
+            // Inline plugin to draw value labels at end of each bar
+            const versionBarLabelsPlugin = {
+                id: 'versionBarLabels',
+                afterDatasetDraw(chart) {
+                    const { ctx, data, scales } = chart;
+                    const xScale = scales.x;
+                    const yScale = scales.y;
+                    ctx.save();
+                    data.datasets[0].data.forEach((val, i) => {
+                        const bar = chart.getDatasetMeta(0).data[i];
+                        const x = xScale.getPixelForValue(val) + 6;
+                        const y = bar.y;
+                        // Format: if >= 1M show "1.2M", if >= 1k show "120k", else plain
+                        let label;
+                        if (val >= 1000000) label = (val / 1000000).toFixed(1).replace(/\\.0$/, '') + 'M';
+                        else if (val >= 1000) label = (val / 1000).toFixed(1).replace(/\\.0$/, '') + 'k';
+                        else label = val.toLocaleString();
+                        ctx.fillStyle = '#cbd5e1';
+                        ctx.font = 'bold 11px Inter, sans-serif';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(label, x, y);
+                    });
+                    ctx.restore();
+                }
+            };
 
             if (versionChartObj) {
                 versionChartObj.destroy();
@@ -1195,6 +1212,7 @@ def get_html_template():
 
             versionChartObj = new Chart(ctx, {
                 type: 'bar',
+                plugins: [versionBarLabelsPlugin],
                 data: {
                     labels: labels,
                     datasets: [{
@@ -1210,6 +1228,7 @@ def get_html_template():
                     responsive: true,
                     maintainAspectRatio: false,
                     indexAxis: 'y',
+                    layout: { padding: { right: 55 } },
                     scales: {
                         x: {
                             ticks: { color: '#9ca3af', font: { family: 'Inter', size: 9 } },
@@ -1256,21 +1275,12 @@ def get_html_template():
             const sortedVersions = modelData.Versions;
             const labels = [];
             const counts = [];
-            let othersTotal = 0;
 
-            sortedVersions.forEach((v, idx) => {
-                if (idx < 6) {
-                    labels.push(v.SoftwareVersion);
-                    counts.push(v.Count);
-                } else {
-                    othersTotal += v.Count;
-                }
+            // Show top 5 versions only
+            sortedVersions.slice(0, 5).forEach(v => {
+                labels.push(v.SoftwareVersion);
+                counts.push(v.Count);
             });
-
-            if (othersTotal > 0) {
-                labels.push("Others");
-                counts.push(othersTotal);
-            }
 
             if (versionPieChartObj) {
                 versionPieChartObj.destroy();
