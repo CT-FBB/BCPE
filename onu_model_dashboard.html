@@ -1,0 +1,3493 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONU Model Report Dashboard — BCPE Monitor</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <meta name="description" content="ONU CPE model distribution dashboard: Top 10 models by region and model change tracking across access IDs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+  <style>
+    /* Prevent layout shift from scrollbar appear/disappear */
+    html { scrollbar-gutter: stable; overflow-y: scroll; }
+
+    :root {
+      --bg-color: #030712;
+      --bg-gradient: radial-gradient(circle at 15% 50%, rgba(99,102,241,0.09), transparent 28%),
+                     radial-gradient(circle at 85% 20%, rgba(16,185,129,0.08), transparent 28%),
+                     radial-gradient(circle at 50% 85%, rgba(245,158,11,0.05), transparent 30%);
+      --card-bg: rgba(17,24,39,0.72);
+      --card-border: rgba(255,255,255,0.06);
+      --card-border-hover: rgba(99,102,241,0.3);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --cyan: #06b6d4;
+      --indigo: #6366f1;
+      --indigo-glow: rgba(99,102,241,0.15);
+      --amber: #f59e0b;
+      --amber-glow: rgba(245,158,11,0.15);
+      --emerald: #10b981;
+      --emerald-glow: rgba(16,185,129,0.15);
+      --rose: #f43f5e;
+      --rose-glow: rgba(244,63,94,0.15);
+      --violet: #8b5cf6;
+      --shadow-md: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      background-image: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+        padding: 20px 2rem 2rem 270px !important;
+    }
+
+    /* ── Global Nav ── */
+    
+    
+    
+    
+    
+    
+
+    /* ── Layout ── */
+    .container { max-width: 1600px; margin: 0; padding: 2rem 1.5rem; }
+
+    /* ── Page Header ── */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .header-title {
+      display: flex;
+      flex-direction: column;
+    }
+    .page-header h1 {
+      font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 800;
+      background: linear-gradient(135deg, #a5b4fc, #6366f1 40%, #818cf8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p { color: var(--text-secondary); font-size: 0.95rem; }
+    
+    .header-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+    .date-badges { display: flex; justify-content: flex-end; gap: 1rem; flex-wrap: wrap; }
+    .date-badge {
+      padding: 0.3rem 1rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .badge-latest { background: rgba(99,102,241,0.18); border: 1px solid rgba(99,102,241,0.35); color: #a5b4fc; }
+    .badge-base   { background: rgba(100,116,139,0.18); border: 1px solid rgba(100,116,139,0.3); color: #94a3b8; }
+
+    .btn-export {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+      border: 1px solid #10b981;
+      border-radius: 6px;
+      color: #10b981;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.15);
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-export:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 25px rgba(16, 185, 129, 0.3);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.3));
+    }
+
+    /* ── Story Tabs ── */
+    .story-tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 2rem;
+      background: rgba(17,24,39,0.6); padding: 0.4rem; border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.06); width: fit-content;
+    }
+    .story-tab {
+      padding: 0.6rem 1.5rem; border-radius: 0.7rem; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease; border: 1px solid transparent;
+      background: none; color: var(--text-secondary);
+    }
+    .story-tab.active {
+      background: rgba(99,102,241,0.2); border-color: rgba(99,102,241,0.35);
+      color: #a5b4fc; box-shadow: 0 0 20px rgba(99,102,241,0.2);
+    }
+    .story-tab:hover:not(.active) { color: var(--text-primary); background: rgba(255,255,255,0.04); }
+
+    /* ── KPI Cards ── */
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .kpi-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 1rem; padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(12px); transition: all 0.3s ease;
+    }
+    .kpi-card:hover { border-color: var(--card-border-hover); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .kpi-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .kpi-value { font-family: 'Outfit', sans-serif; font-size: 1.9rem; font-weight: 700; line-height: 1; }
+    .kpi-sub { font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.35rem; }
+    .kpi-indigo .kpi-value { color: #a5b4fc; }
+    .kpi-amber  .kpi-value { color: #fbbf24; }
+    .kpi-emerald .kpi-value { color: #34d399; }
+    .kpi-rose   .kpi-value { color: #fb7185; }
+    .kpi-violet .kpi-value { color: #c4b5fd; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 1.2rem; padding: 1.75rem; backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+    }
+    .card:hover { border-color: var(--card-border-hover); }
+    .card-title {
+      font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .card-subtitle { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+
+    /* ── Grid layouts ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.sidebar {
+    width: 250px;
+    background: rgba(13, 18, 34, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+}
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+@media (max-width: 1100px) { .grid-2 { grid-template-columns: 1fr; } .grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 700px)  { .grid-3 { grid-template-columns: 1fr; } }
+
+    /* ── Chart containers ── */
+    .chart-wrap { position: relative; height: 320px; }
+    .chart-wrap-lg { position: relative; height: 420px; }
+    .chart-wrap-sm { position: relative; height: 240px; }
+    .chart-wrap-donut { position: relative; height: 280px; }
+
+    /* ── Region filter ── */
+    .region-filter { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .region-btn {
+      padding: 0.35rem 1rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s ease; border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.04); color: var(--text-secondary);
+    }
+    .region-btn.active { border-color: rgba(99,102,241,0.5); background: rgba(99,102,241,0.18); color: #a5b4fc; }
+    .region-btn:hover:not(.active) { color: var(--text-primary); }
+
+    /* ── Top-10 bar table ── */
+    .model-bar-list { display: flex; flex-direction: column; gap: 0.85rem; }
+    .model-bar-item { }
+    .model-bar-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem; }
+    .model-name { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); font-family: 'Outfit', sans-serif; }
+    .model-pct { font-size: 0.8rem; font-weight: 600; color: #a5b4fc; }
+    .model-count { font-size: 0.72rem; color: var(--text-muted); }
+    .bar-track { background: rgba(255,255,255,0.06); border-radius: 999px; height: 8px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; transition: width 0.8s cubic-bezier(.4,0,.2,1); }
+
+    /* ── Change Flow ── */
+    .change-flow { display: flex; flex-direction: column; gap: 0.6rem; }
+    .flow-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 0.75rem; padding: 0.65rem 1rem; transition: all 0.25s;
+    }
+    .flow-row:hover { background: rgba(99,102,241,0.08); border-color: rgba(99,102,241,0.2); }
+    .flow-from { font-size: 0.82rem; font-weight: 600; color: #94a3b8;
+      background: rgba(100,116,139,0.15); padding: 0.25rem 0.7rem; border-radius: 0.4rem; white-space: nowrap; }
+    .flow-arrow { color: #6366f1; font-size: 1.1rem; flex-shrink: 0; }
+    .flow-to { font-size: 0.82rem; font-weight: 600; color: #a5b4fc;
+      background: rgba(99,102,241,0.15); padding: 0.25rem 0.7rem; border-radius: 0.4rem; white-space: nowrap; }
+    .flow-count { margin-left: auto; font-size: 0.8rem; font-weight: 700; color: #fbbf24; white-space: nowrap; }
+    .flow-bar { width: 80px; flex-shrink: 0; }
+
+    /* ── Region summary table ── */
+    .region-summary { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .region-summary th {
+      color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); font-weight: 600;
+    }
+    .region-summary td { padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+    .region-summary tr:hover td { background: rgba(255,255,255,0.025); }
+    .region-pill {
+      display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px;
+      font-size: 0.72rem; font-weight: 700;
+    }
+
+    /* ── Sankey-style heatmap ── */
+    .heatmap-grid { display: grid; gap: 3px; }
+    .heatmap-cell {
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 600; transition: all 0.2s; cursor: default;
+      padding: 0.4rem;
+    }
+    .heatmap-header { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-align: center; }
+
+    /* ── Loading overlay ── */
+    #loading-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(3,7,18,0.92); backdrop-filter: blur(8px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .spinner {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 3px solid rgba(99,102,241,0.2);
+      border-top-color: #6366f1;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { color: #a5b4fc; font-size: 0.9rem; font-weight: 500; }
+
+    /* ── Section visibility ── */
+    .story-section { display: none; }
+    .story-section.active { display: block; }
+
+    /* ── Ambient glow ── */
+    .ambient { position: fixed; width: 400px; height: 400px; border-radius: 50%; filter: blur(80px); z-index: -1; pointer-events: none; }
+    .a1 { top: 5%; left: 5%; background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%); }
+    .a2 { bottom: 10%; right: 5%; background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%); }
+
+    /* ── Tooltip ── */
+    .tooltip-chip {
+      display: inline-block; font-size: 0.7rem; color: var(--text-muted);
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+      padding: 0.15rem 0.5rem; border-radius: 0.3rem; margin-left: 0.3rem;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 3px; }
+  
+    /* ── Global Nav Styles ── */
+    .global-nav {
+        position: fixed; top: 0; left: 0; right: 0; height: 70px;
+        background-color: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
+        display: flex; align-items: center; padding: 0 3rem; z-index: 1000;
+        box-sizing: border-box;
+    }
+    .nav-logo { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-right: 3rem; display: flex; align-items: center; gap: 0.75rem; font-family: 'Outfit', sans-serif; }
+    .nav-logo span { color: #38bdf8; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: #94a3b8; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; font-family: 'Inter', system-ui, sans-serif; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+
+
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } } .blink { animation: blink 1s infinite; }
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100% !important;
+    height: 60px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: #0d1222 !important;
+    z-index: 10000 !important;
+  }
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+</style>
+
+<style>
+/* === FORCE LAYOUT LOCK — ห้ามแก้ไข === */
+html { scrollbar-gutter: stable !important; overflow-y: scroll !important; }
+body { 
+    margin: 0 !important;
+    padding: 20px 2rem 2rem 270px !important;
+    overflow-x: hidden !important;
+}
+.sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: 250px !important;
+    z-index: 9999 !important;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR STYLES -->
+<style>
+body {
+    padding-top: 20px !important;
+    padding-left: 270px !important;
+}
+.sidebar {
+    width: 250px;
+    background: rgba(13, 18, 34, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+}
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+</style>
+<nav class="sidebar">
+    <div class="sidebar-logo">📦 <span>BCPE Monitor</span></div>
+    <div class="sidebar-links">
+        <a href="index.html" id="nav-cpe-main">CPE Dashboard</a>
+        <a href="onu_model_dashboard.html" id="nav-onumodel" class="active">ONU Model</a>
+    </div>
+    <button id="runCheckBtn" style="display:none; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.35); color:#f59e0b; font-weight:600; cursor:pointer; padding:10px 16px; border-radius:8px; font-family:'Outfit',sans-serif; margin:12px 16px 8px; width:calc(100% - 32px); text-align:center; font-size:0.85rem;" onclick="triggerRunCheck()">⚡ RUN-CHECK</button>
+</nav>
+
+
+
+
+
+<!-- Loading overlay -->
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text">กำลังโหลดข้อมูล ONU...</div>
+</div>
+
+<div class="ambient a1"></div>
+<div class="ambient a2"></div>
+
+<!-- ── Global Nav ── -->
+
+
+<div class="container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-title">
+      <h1>📡 ONU Model Report</h1>
+            <div style="margin-top: 8px;"><span style="background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); color: #a5b4fc; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-family: 'Outfit', sans-serif; font-weight: 600; letter-spacing: 0.04em;">📅 AS OF 11/07/2026</span></div>
+      <p>Top 10 รุ่น ONU แยกตาม Region · ติดตามการเปลี่ยน Model ระหว่างวัน</p>
+    </div>
+    
+    <div class="header-actions">
+      <div class="date-badges">
+        <span class="date-badge badge-latest">🟢 Latest: <span id="hdr-latest-date">—</span></span>
+        <span class="date-badge badge-base">⬜ Baseline: <span id="hdr-base-date">—</span></span>
+        <span class="date-badge" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);color:#34d399;">
+          📦 ONU ทั้งหมด: <span id="hdr-total">—</span> ราย
+        </span>
+      </div>
+      <button class="btn-export" onclick="exportToExcel()" id="btn-export-excel">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M15.8,20H14L12,16.6L10,20H8.2L11.1,15.5L8.2,11H10L12,14.4L14,11H15.8L12.9,15.5L15.8,20M13,9V3.5L18.5,9H13Z" /></svg>
+        ดาวน์โหลด Excel (Full)
+      </button>
+    </div>
+  </div>
+
+  <!-- Story Tab Switch -->
+  <div style="display:flex;justify-content:center;margin-bottom:2rem;">
+    <div class="story-tabs">
+      <button class="story-tab active" onclick="switchStory('story1',this)" id="tab-s1">
+        🏆 Story 1 · Top 10 ONU Models by Region
+      </button>
+      <button class="story-tab" onclick="switchStory('story2',this)" id="tab-s2">
+        🔄 Story 2 · Model Change Tracking
+      </button>
+      <button class="story-tab" onclick="switchStory('story3',this);initST244F()" id="tab-s3" style="background:none;border:1px solid transparent;">
+        📦 Story 3 · ST-244F Trend
+      </button>
+      <button class="story-tab" onclick="switchStory('story4',this)" id="tab-s4" style="background:none;border:1px solid transparent;">
+        📦 Story 4 · F688 Trend
+      </button>
+      <button class="story-tab" onclick="switchStory('story5',this)" id="tab-s5" style="background:none;border:1px solid transparent;">
+        📦 Story 5 · GN542VF Trend
+      </button>
+      <button class="story-tab" onclick="switchStory('story6',this)" id="tab-s6" style="background:none;border:1px solid transparent;">
+        📦 Story 6 · HG8247W Trend
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       STORY 1 — Top 10 ONU Models
+  ══════════════════════════════════════ -->
+  <div id="story1" class="story-section active">
+
+    <!-- KPI Row -->
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-indigo">
+        <div class="kpi-label">ONU ทั้งหมด (latest)</div>
+        <div class="kpi-value" id="s1-total">—</div>
+        <div class="kpi-sub">จาก <span id="s1-latest-date">—</span></div>
+      </div>
+      <div class="kpi-card kpi-amber">
+        <div class="kpi-label">Top Model #1</div>
+        <div class="kpi-value" id="s1-top1-name" style="font-size:1.3rem">—</div>
+        <div class="kpi-sub" id="s1-top1-stat">—</div>
+      </div>
+      <div class="kpi-card kpi-emerald">
+        <div class="kpi-label">Top 10 รวม % ของฐาน</div>
+        <div class="kpi-value" id="s1-top10-pct">—</div>
+        <div class="kpi-sub">จาก 10 รุ่นหลัก</div>
+      </div>
+      <div class="kpi-card kpi-violet">
+        <div class="kpi-label">Region ใหญ่สุด</div>
+        <div class="kpi-value" id="s1-top-region" style="font-size:1.3rem">—</div>
+        <div class="kpi-sub" id="s1-top-region-stat">—</div>
+      </div>
+      <div class="kpi-card kpi-rose">
+        <div class="kpi-label">จำนวน Model ทั้งหมด</div>
+        <div class="kpi-value" id="s1-unique-models">58</div>
+        <div class="kpi-sub">unique CPE models</div>
+      </div>
+    </div>
+
+    <!-- Charts Row 1 -->
+    <div class="grid-2" style="margin-bottom:1.5rem;">
+
+      <!-- Horizontal bar: Top 10 overall -->
+      <div class="card">
+        <div class="card-title">🏆 Top 10 ONU Models — ภาพรวมทั้งประเทศ</div>
+        <div class="card-subtitle">% ของ ONU ทั้งฐาน (latest file)</div>
+        <div class="chart-wrap">
+          <canvas id="chart-top10-bar"></canvas>
+        </div>
+      </div>
+
+      <!-- Donut: top10 vs others -->
+      <div class="card">
+        <div class="card-title">🍩 สัดส่วน Top 10 Models</div>
+        <div class="card-subtitle">% share จาก ONU ทั้งหมด</div>
+        <div class="chart-wrap-donut" style="height:280px;">
+          <canvas id="chart-top10-donut"></canvas>
+        </div>
+        <div id="donut-legend" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.75rem;justify-content:center;"></div>
+      </div>
+    </div>
+
+    <!-- Stacked bar: model × region -->
+    <div class="card" style="margin-bottom:1.5rem;">
+      <div class="card-title">🗺️ Top 10 Models — แยกตาม Region <span class="tooltip-chip">% of total ONU base</span></div>
+      <div class="card-subtitle">แต่ละ bar = % ของ ONU ทั้งฐาน แยกตาม region และ model</div>
+      <div class="chart-wrap-lg">
+        <canvas id="chart-stacked-region"></canvas>
+      </div>
+    </div>
+
+    <!-- Per-model bar list + region heatmap -->
+    <div class="grid-2">
+
+      <!-- Model list with bar -->
+      <div class="card">
+        <div class="card-title">📊 Top 10 Models Ranked</div>
+        <div class="card-subtitle">เรียงตามจำนวน ONU มากสุด</div>
+        <div class="model-bar-list" id="model-bar-list"></div>
+      </div>
+
+      <!-- Region breakdown per selected model -->
+      <div class="card">
+        <div class="card-title">🌐 Region Breakdown by Model</div>
+        <div class="card-subtitle">เลือก model เพื่อดูการกระจายตาม region</div>
+        <div class="region-filter" id="model-select-btns"></div>
+        <div class="chart-wrap-sm">
+          <canvas id="chart-model-region-pie"></canvas>
+        </div>
+        <table class="region-summary" id="region-breakdown-table" style="margin-top:1rem;"></table>
+      </div>
+    </div>
+
+    <!-- Heatmap: model × region % -->
+    <div class="card" style="margin-top:1.5rem;">
+      <div class="card-title">🔥 Heatmap: Model × Region (% of total ONU base)</div>
+      <div class="card-subtitle">สีเข้ม = สัดส่วนสูง | แต่ละ cell = % ของ ONU ทั้งฐาน</div>
+      <div id="heatmap-container" style="overflow-x:auto;margin-top:0.5rem;"></div>
+    </div>
+
+  </div><!-- /story1 -->
+
+
+  <!-- ══════════════════════════════════════
+       STORY 2 — Model Change Tracking
+  ══════════════════════════════════════ -->
+  <div id="story2" class="story-section">
+
+    <!-- KPI Row -->
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-indigo">
+        <div class="kpi-label">AccessId เปรียบเทียบได้</div>
+        <div class="kpi-value" id="s2-compared">—</div>
+        <div class="kpi-sub">พบใน 2 ไฟล์พร้อมกัน</div>
+      </div>
+      <div class="kpi-card kpi-rose">
+        <div class="kpi-label">AccessId ที่ Model เปลี่ยน</div>
+        <div class="kpi-value" id="s2-changed">—</div>
+        <div class="kpi-sub" id="s2-changed-pct">—% ของที่เปรียบเทียบได้</div>
+      </div>
+      <div class="kpi-card kpi-amber">
+        <div class="kpi-label">เปลี่ยน → Top change</div>
+        <div class="kpi-value" id="s2-top-change" style="font-size:1rem">—</div>
+        <div class="kpi-sub" id="s2-top-change-cnt">—</div>
+      </div>
+      <div class="kpi-card kpi-emerald">
+        <div class="kpi-label">Region เปลี่ยนมากสุด</div>
+        <div class="kpi-value" id="s2-top-change-region" style="font-size:1.3rem">—</div>
+        <div class="kpi-sub" id="s2-top-change-region-cnt">—</div>
+      </div>
+    </div>
+
+    <!-- Change overview chart + flow -->
+    <div class="grid-2" style="margin-bottom:1.5rem;">
+
+      <!-- Bar: changed count by region -->
+      <div class="card">
+        <div class="card-title">📊 Model Changes แยกตาม Region</div>
+        <div class="card-subtitle">จำนวน AccessId ที่ถูกเปลี่ยน Model ระหว่าง 2 วัน</div>
+        <div class="chart-wrap">
+          <canvas id="chart-change-region-bar"></canvas>
+        </div>
+      </div>
+
+      <!-- Donut: changed vs unchanged -->
+      <div class="card">
+        <div class="card-title">🔄 เปลี่ยน vs คงเดิม</div>
+        <div class="card-subtitle">สัดส่วน AccessId ที่ model เปลี่ยน/ไม่เปลี่ยน</div>
+        <div style="height:220px;position:relative;">
+          <canvas id="chart-change-donut"></canvas>
+        </div>
+        <div id="change-donut-legend" style="display:flex;gap:1.5rem;justify-content:center;margin-top:0.75rem;"></div>
+      </div>
+    </div>
+
+    <!-- Top change flows (overall) -->
+    <div class="card" style="margin-bottom:1.5rem;">
+      <div class="card-title">🔀 Top Model Changes — จากรุ่นใด → ไปรุ่นใด (ทั้งประเทศ)</div>
+      <div class="card-subtitle">เรียงตามจำนวน AccessId ที่ถูกเปลี่ยน</div>
+      <div class="change-flow" id="global-flow-list"></div>
+    </div>
+
+    <!-- Per-region change flows -->
+    <div class="card">
+      <div class="card-title">🌍 Model Changes แยกตาม Region</div>
+      <div class="card-subtitle">เลือก region เพื่อดู flow การเปลี่ยน model</div>
+      <div class="region-filter" id="region-filter-s2"></div>
+      <div class="change-flow" id="region-flow-list" style="margin-top:1rem;"></div>
+    </div>
+
+  </div><!-- /story2 -->
+
+
+  <!-- ══════════════════════════════════════
+       STORY 3 — ST-244F Trend Analysis
+  ══════════════════════════════════════ -->
+      <div id="story3" class="story-section" style="padding: 0; margin: 0; background: transparent;">
+    <iframe src="st244f_swap_dashboard.html?v=4" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+  </div><!-- /story3 -->
+
+  <!-- ══════════════════════════════════════
+       STORY 4 — F688 Trend Analysis
+  ══════════════════════════════════════ -->
+  <div id="story4" class="story-section" style="padding: 0; margin: 0; background: transparent;">
+    <iframe src="f688_swap_dashboard.html?v=4" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+  </div><!-- /story4 -->
+
+  <!-- ══════════════════════════════════════
+       STORY 5 — GN542VF Trend Analysis
+  ══════════════════════════════════════ -->
+  <div id="story5" class="story-section" style="padding: 0; margin: 0; background: transparent;">
+    <iframe src="gn542vf_swap_dashboard.html?v=1" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+  </div><!-- /story5 -->
+
+  <!-- ══════════════════════════════════════
+       STORY 6 — HG8247W Trend Analysis
+  ══════════════════════════════════════ -->
+  <div id="story6" class="story-section" style="padding: 0; margin: 0; background: transparent;">
+    <iframe src="hg8247w_swap_dashboard.html?v=1" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+  </div><!-- /story6 -->
+
+</div><!-- /container -->
+
+<script>
+// EMBEDDED_DATA_START
+const embeddedData = {
+  "story1": {
+    "latest_date": "20260708",
+    "baseline_date": "20260520",
+    "total_onu": 3015429,
+    "models": [
+      "T626ProV2",
+      "T623L",
+      "GN542VF",
+      "T626Pro",
+      "ST-244F",
+      "F688",
+      "T625LM",
+      "HG8247W5-6T",
+      "T625Pro",
+      "T623"
+    ],
+    "model_counts": {
+      "T626ProV2": 791579,
+      "T623L": 367355,
+      "GN542VF": 357700,
+      "T626Pro": 287898,
+      "ST-244F": 172402,
+      "F688": 140060,
+      "T625LM": 138010,
+      "HG8247W5-6T": 120267,
+      "T625Pro": 119209,
+      "T623": 78999
+    },
+    "model_pct_total": {
+      "T626ProV2": 26.25,
+      "T623L": 12.18,
+      "GN542VF": 11.86,
+      "T626Pro": 9.55,
+      "ST-244F": 5.72,
+      "F688": 4.64,
+      "T625LM": 4.58,
+      "HG8247W5-6T": 3.99,
+      "T625Pro": 3.95,
+      "T623": 2.62
+    },
+    "regions": [
+      "BMA",
+      "Central",
+      "North",
+      "Northeast",
+      "South"
+    ],
+    "by_region": {
+      "BMA": {
+        "total": 1298713,
+        "pct_of_total": 43.07,
+        "models": {
+          "T626ProV2": {
+            "count": 278949,
+            "pct_of_total": 9.251,
+            "pct_of_region": 21.48
+          },
+          "T623L": {
+            "count": 118745,
+            "pct_of_total": 3.938,
+            "pct_of_region": 9.14
+          },
+          "GN542VF": {
+            "count": 196876,
+            "pct_of_total": 6.529,
+            "pct_of_region": 15.16
+          },
+          "T626Pro": {
+            "count": 132128,
+            "pct_of_total": 4.382,
+            "pct_of_region": 10.17
+          },
+          "ST-244F": {
+            "count": 72878,
+            "pct_of_total": 2.417,
+            "pct_of_region": 5.61
+          },
+          "F688": {
+            "count": 68621,
+            "pct_of_total": 2.276,
+            "pct_of_region": 5.28
+          },
+          "T625LM": {
+            "count": 46122,
+            "pct_of_total": 1.53,
+            "pct_of_region": 3.55
+          },
+          "HG8247W5-6T": {
+            "count": 73132,
+            "pct_of_total": 2.425,
+            "pct_of_region": 5.63
+          },
+          "T625Pro": {
+            "count": 79175,
+            "pct_of_total": 2.626,
+            "pct_of_region": 6.1
+          },
+          "T623": {
+            "count": 37607,
+            "pct_of_total": 1.247,
+            "pct_of_region": 2.9
+          }
+        }
+      },
+      "Central": {
+        "total": 501697,
+        "pct_of_total": 16.64,
+        "models": {
+          "T626ProV2": {
+            "count": 152841,
+            "pct_of_total": 5.069,
+            "pct_of_region": 30.46
+          },
+          "T623L": {
+            "count": 63771,
+            "pct_of_total": 2.115,
+            "pct_of_region": 12.71
+          },
+          "GN542VF": {
+            "count": 52967,
+            "pct_of_total": 1.757,
+            "pct_of_region": 10.56
+          },
+          "T626Pro": {
+            "count": 48248,
+            "pct_of_total": 1.6,
+            "pct_of_region": 9.62
+          },
+          "ST-244F": {
+            "count": 28681,
+            "pct_of_total": 0.951,
+            "pct_of_region": 5.72
+          },
+          "F688": {
+            "count": 20464,
+            "pct_of_total": 0.679,
+            "pct_of_region": 4.08
+          },
+          "T625LM": {
+            "count": 26992,
+            "pct_of_total": 0.895,
+            "pct_of_region": 5.38
+          },
+          "HG8247W5-6T": {
+            "count": 15588,
+            "pct_of_total": 0.517,
+            "pct_of_region": 3.11
+          },
+          "T625Pro": {
+            "count": 13397,
+            "pct_of_total": 0.444,
+            "pct_of_region": 2.67
+          },
+          "T623": {
+            "count": 13040,
+            "pct_of_total": 0.432,
+            "pct_of_region": 2.6
+          }
+        }
+      },
+      "North": {
+        "total": 373519,
+        "pct_of_total": 12.39,
+        "models": {
+          "T626ProV2": {
+            "count": 102346,
+            "pct_of_total": 3.394,
+            "pct_of_region": 27.4
+          },
+          "T623L": {
+            "count": 58173,
+            "pct_of_total": 1.929,
+            "pct_of_region": 15.57
+          },
+          "GN542VF": {
+            "count": 29153,
+            "pct_of_total": 0.967,
+            "pct_of_region": 7.8
+          },
+          "T626Pro": {
+            "count": 31300,
+            "pct_of_total": 1.038,
+            "pct_of_region": 8.38
+          },
+          "ST-244F": {
+            "count": 22441,
+            "pct_of_total": 0.744,
+            "pct_of_region": 6.01
+          },
+          "F688": {
+            "count": 13351,
+            "pct_of_total": 0.443,
+            "pct_of_region": 3.57
+          },
+          "T625LM": {
+            "count": 17242,
+            "pct_of_total": 0.572,
+            "pct_of_region": 4.62
+          },
+          "HG8247W5-6T": {
+            "count": 18785,
+            "pct_of_total": 0.623,
+            "pct_of_region": 5.03
+          },
+          "T625Pro": {
+            "count": 8219,
+            "pct_of_total": 0.273,
+            "pct_of_region": 2.2
+          },
+          "T623": {
+            "count": 9259,
+            "pct_of_total": 0.307,
+            "pct_of_region": 2.48
+          }
+        }
+      },
+      "Northeast": {
+        "total": 577517,
+        "pct_of_total": 19.15,
+        "models": {
+          "T626ProV2": {
+            "count": 175953,
+            "pct_of_total": 5.835,
+            "pct_of_region": 30.47
+          },
+          "T623L": {
+            "count": 88370,
+            "pct_of_total": 2.931,
+            "pct_of_region": 15.3
+          },
+          "GN542VF": {
+            "count": 53329,
+            "pct_of_total": 1.769,
+            "pct_of_region": 9.23
+          },
+          "T626Pro": {
+            "count": 53062,
+            "pct_of_total": 1.76,
+            "pct_of_region": 9.19
+          },
+          "ST-244F": {
+            "count": 33545,
+            "pct_of_total": 1.112,
+            "pct_of_region": 5.81
+          },
+          "F688": {
+            "count": 22638,
+            "pct_of_total": 0.751,
+            "pct_of_region": 3.92
+          },
+          "T625LM": {
+            "count": 33025,
+            "pct_of_total": 1.095,
+            "pct_of_region": 5.72
+          },
+          "HG8247W5-6T": {
+            "count": 10436,
+            "pct_of_total": 0.346,
+            "pct_of_region": 1.81
+          },
+          "T625Pro": {
+            "count": 11871,
+            "pct_of_total": 0.394,
+            "pct_of_region": 2.06
+          },
+          "T623": {
+            "count": 13757,
+            "pct_of_total": 0.456,
+            "pct_of_region": 2.38
+          }
+        }
+      },
+      "South": {
+        "total": 263974,
+        "pct_of_total": 8.75,
+        "models": {
+          "T626ProV2": {
+            "count": 81487,
+            "pct_of_total": 2.702,
+            "pct_of_region": 30.87
+          },
+          "T623L": {
+            "count": 38296,
+            "pct_of_total": 1.27,
+            "pct_of_region": 14.51
+          },
+          "GN542VF": {
+            "count": 25375,
+            "pct_of_total": 0.842,
+            "pct_of_region": 9.61
+          },
+          "T626Pro": {
+            "count": 23160,
+            "pct_of_total": 0.768,
+            "pct_of_region": 8.77
+          },
+          "ST-244F": {
+            "count": 14857,
+            "pct_of_total": 0.493,
+            "pct_of_region": 5.63
+          },
+          "F688": {
+            "count": 14986,
+            "pct_of_total": 0.497,
+            "pct_of_region": 5.68
+          },
+          "T625LM": {
+            "count": 14628,
+            "pct_of_total": 0.485,
+            "pct_of_region": 5.54
+          },
+          "HG8247W5-6T": {
+            "count": 2326,
+            "pct_of_total": 0.077,
+            "pct_of_region": 0.88
+          },
+          "T625Pro": {
+            "count": 6547,
+            "pct_of_total": 0.217,
+            "pct_of_region": 2.48
+          },
+          "T623": {
+            "count": 5336,
+            "pct_of_total": 0.177,
+            "pct_of_region": 2.02
+          }
+        }
+      }
+    }
+  },
+  "story2": {
+    "total_compared": 2875185,
+    "total_changed": 26460,
+    "change_pct": 0.92,
+    "top_changes": [
+      {
+        "from": "ST-244F",
+        "to": "T626ProV2",
+        "count": 2223
+      },
+      {
+        "from": "GN542VF",
+        "to": "T625Pro",
+        "count": 1731
+      },
+      {
+        "from": "ST-244F",
+        "to": "T625Pro",
+        "count": 1634
+      },
+      {
+        "from": "GN542VF",
+        "to": "T626ProV2",
+        "count": 1530
+      },
+      {
+        "from": "T623L",
+        "to": "T626ProV2",
+        "count": 1032
+      },
+      {
+        "from": "F688",
+        "to": "T626ProV2",
+        "count": 968
+      },
+      {
+        "from": "HG8247W5-6T",
+        "to": "T626ProV2",
+        "count": 825
+      },
+      {
+        "from": "HG8247W5-6T",
+        "to": "T625Pro",
+        "count": 807
+      },
+      {
+        "from": "F688",
+        "to": "T625Pro",
+        "count": 788
+      },
+      {
+        "from": "HG8247H",
+        "to": "T626ProV2",
+        "count": 779
+      },
+      {
+        "from": "T625LM",
+        "to": "T626ProV2",
+        "count": 752
+      },
+      {
+        "from": "T626Pro",
+        "to": "T626ProV2",
+        "count": 587
+      },
+      {
+        "from": "HG8247H",
+        "to": "T625Pro",
+        "count": 387
+      },
+      {
+        "from": "H662GR",
+        "to": "T626ProV2",
+        "count": 336
+      },
+      {
+        "from": "ST-244F",
+        "to": "T623L",
+        "count": 309
+      },
+      {
+        "from": "HG8247H",
+        "to": "HG6145F4",
+        "count": 305
+      },
+      {
+        "from": "ST-244F",
+        "to": "T627Pro",
+        "count": 287
+      },
+      {
+        "from": "ST-244FV2",
+        "to": "T626ProV2",
+        "count": 281
+      },
+      {
+        "from": "F668",
+        "to": "T625Pro",
+        "count": 280
+      },
+      {
+        "from": "F612C",
+        "to": "T626ProV2",
+        "count": 271
+      }
+    ],
+    "by_region": {
+      "BMA": {
+        "total_changed": 13930,
+        "top_changes": [
+          {
+            "from": "GN542VF",
+            "to": "T625Pro",
+            "count": 1309
+          },
+          {
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 1107
+          },
+          {
+            "from": "ST-244F",
+            "to": "T626ProV2",
+            "count": 793
+          },
+          {
+            "from": "GN542VF",
+            "to": "T626ProV2",
+            "count": 718
+          },
+          {
+            "from": "HG8247W5-6T",
+            "to": "T625Pro",
+            "count": 693
+          },
+          {
+            "from": "F688",
+            "to": "T625Pro",
+            "count": 579
+          },
+          {
+            "from": "HG8247W5-6T",
+            "to": "T626ProV2",
+            "count": 517
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 417
+          },
+          {
+            "from": "HG8247H",
+            "to": "T626ProV2",
+            "count": 319
+          },
+          {
+            "from": "T623L",
+            "to": "T626ProV2",
+            "count": 295
+          }
+        ]
+      },
+      "Central": {
+        "total_changed": 3838,
+        "top_changes": [
+          {
+            "from": "ST-244F",
+            "to": "T626ProV2",
+            "count": 335
+          },
+          {
+            "from": "GN542VF",
+            "to": "T626ProV2",
+            "count": 233
+          },
+          {
+            "from": "T623L",
+            "to": "T626ProV2",
+            "count": 182
+          },
+          {
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 160
+          },
+          {
+            "from": "GN542VF",
+            "to": "T625Pro",
+            "count": 151
+          },
+          {
+            "from": "T625LM",
+            "to": "T626ProV2",
+            "count": 143
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 139
+          },
+          {
+            "from": "ST-244F",
+            "to": "T627Pro",
+            "count": 117
+          },
+          {
+            "from": "HG8247H",
+            "to": "T626ProV2",
+            "count": 115
+          },
+          {
+            "from": "H662GR",
+            "to": "T626ProV2",
+            "count": 111
+          }
+        ]
+      },
+      "North": {
+        "total_changed": 2890,
+        "top_changes": [
+          {
+            "from": "ST-244F",
+            "to": "T626ProV2",
+            "count": 329
+          },
+          {
+            "from": "H662GR",
+            "to": "T626ProV2",
+            "count": 202
+          },
+          {
+            "from": "GN542VF",
+            "to": "T626ProV2",
+            "count": 196
+          },
+          {
+            "from": "HG8247H",
+            "to": "T626ProV2",
+            "count": 191
+          },
+          {
+            "from": "T623L",
+            "to": "T626ProV2",
+            "count": 189
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 134
+          },
+          {
+            "from": "HG8247W5-6T",
+            "to": "T626ProV2",
+            "count": 128
+          },
+          {
+            "from": "T625LM",
+            "to": "T626ProV2",
+            "count": 122
+          },
+          {
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 104
+          },
+          {
+            "from": "HG8247H",
+            "to": "HG6145F4",
+            "count": 89
+          }
+        ]
+      },
+      "Northeast": {
+        "total_changed": 4062,
+        "top_changes": [
+          {
+            "from": "ST-244F",
+            "to": "T626ProV2",
+            "count": 641
+          },
+          {
+            "from": "T623L",
+            "to": "T626ProV2",
+            "count": 289
+          },
+          {
+            "from": "GN542VF",
+            "to": "T626ProV2",
+            "count": 278
+          },
+          {
+            "from": "T625LM",
+            "to": "T626ProV2",
+            "count": 211
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 197
+          },
+          {
+            "from": "GN2000-02GS-1VT",
+            "to": "T626ProV2",
+            "count": 181
+          },
+          {
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 156
+          },
+          {
+            "from": "HG8247H",
+            "to": "T626ProV2",
+            "count": 154
+          },
+          {
+            "from": "HT803G-UA",
+            "to": "T626ProV2",
+            "count": 139
+          },
+          {
+            "from": "T626Pro",
+            "to": "T626ProV2",
+            "count": 123
+          }
+        ]
+      },
+      "South": {
+        "total_changed": 1740,
+        "top_changes": [
+          {
+            "from": "ST-244F",
+            "to": "T626ProV2",
+            "count": 125
+          },
+          {
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 107
+          },
+          {
+            "from": "GN542VF",
+            "to": "T626ProV2",
+            "count": 105
+          },
+          {
+            "from": "F612C",
+            "to": "T626ProV2",
+            "count": 91
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 81
+          },
+          {
+            "from": "T623L",
+            "to": "T626ProV2",
+            "count": 77
+          },
+          {
+            "from": "GN542VF",
+            "to": "T625Pro",
+            "count": 76
+          },
+          {
+            "from": "T625LM",
+            "to": "T626ProV2",
+            "count": 57
+          },
+          {
+            "from": "F688",
+            "to": "T625Pro",
+            "count": 55
+          },
+          {
+            "from": "T626ProV2",
+            "to": "T623L",
+            "count": 51
+          }
+        ]
+      }
+    },
+    "raw_changes": []
+  }
+};
+// EMBEDDED_DATA_END
+// ═════════════════════════════════════════
+// ST-244F TREND (Story 3)
+// ═════════════════════════════════════════
+let ST244F_DATA = null;
+let s3TrendView = 'daily';
+let s3TrendChart = null, s3DeltaChart = null, s3DonutChart = null;
+let s3Initialized = false;
+
+async function initST244F() {
+  // Using iframe now
+}
+
+function s3SetView(v) {
+  // handled by iframe
+}
+
+function fmtN(n) { return n==null?'-':Number(n).toLocaleString(); }
+function fmtDiff(n) { if(n==null)return'-'; return (n>=0?'+':'')+Number(n).toLocaleString(); }
+
+function renderST244F() {
+  // handled by iframe
+}
+
+function renderTrendChart() {
+  const d = ST244F_DATA;
+  const trend = d.daily_trend ?? [];
+  let labels, values;
+
+  if (s3TrendView === 'weekly' && trend.length > 0) {
+    // Group by ISO week
+    const weekMap = {};
+    trend.forEach(r => {
+      const dt = new Date(r.date);
+      const mon = new Date(dt); mon.setDate(dt.getDate() - dt.getDay() + 1);
+      const key = mon.toISOString().slice(0,10);
+      if (!weekMap[key]) weekMap[key] = [];
+      weekMap[key].push(r.count);
+    });
+    labels = Object.keys(weekMap).sort();
+    values = labels.map(k => Math.round(weekMap[k].reduce((a,b)=>a+b,0)/weekMap[k].length));
+  } else {
+    labels = trend.map(r => r.date);
+    values = trend.map(r => r.count);
+  }
+
+  // Build delta points (change from prev)
+  const deltas = values.map((v,i) => i===0 ? 0 : v - values[i-1]);
+  const deltaColors = deltas.map(v => v >= 0 ? 'rgba(16,185,129,0.7)' : 'rgba(239,68,68,0.7)');
+
+  if (s3TrendChart) s3TrendChart.destroy();
+  const ctx = document.getElementById('chart-s3-trend').getContext('2d');
+
+  // Gradient fill
+  const grad = ctx.createLinearGradient(0, 0, 0, 400);
+  grad.addColorStop(0, 'rgba(249,115,22,0.25)');
+  grad.addColorStop(1, 'rgba(249,115,22,0.00)');
+
+  s3TrendChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'ST-244F (เครื่อง)',
+          data: values,
+          borderColor: '#f97316',
+          backgroundColor: grad,
+          borderWidth: 2.5,
+          pointRadius: labels.length > 30 ? 2 : 5,
+          pointBackgroundColor: '#f97316',
+          pointHoverRadius: 7,
+          fill: true,
+          tension: 0.35,
+          yAxisID: 'y'
+        },
+        {
+          label: 'เปลี่ยนแปลง (Net)',
+          data: deltas,
+          type: 'bar',
+          backgroundColor: deltaColors,
+          borderRadius: 3,
+          yAxisID: 'y2',
+          order: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: '#94a3b8', font: { size: 12 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const v = ctx.parsed.y;
+              if (ctx.datasetIndex === 1) return ` Δ ${v>=0?'+':''}${v.toLocaleString()}`;
+              return ` ${ctx.dataset.label}: ${v.toLocaleString()}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#64748b', maxTicksLimit: 14, maxRotation: 45 }, grid: { color: 'rgba(255,255,255,.04)' } },
+        y: { position: 'left', ticks: { color: '#94a3b8', callback: v => v.toLocaleString() }, grid: { color: 'rgba(255,255,255,.06)' } },
+        y2: { position: 'right', ticks: { color: '#64748b', callback: v => (v>=0?'+':'')+v.toLocaleString() }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+function renderDeltaChart() {
+  const d = ST244F_DATA;
+  // Show +new, -removed as stacked absolute bars
+  const labels = [d.baseline_date + ' → ' + d.latest_date];
+  const newData = [d.new_installs ?? 0];
+  const swapData = [d.swap_from_other ?? 0];
+  const removedData = [-(d.removed_st244f ?? 0)];
+
+  if (s3DeltaChart) s3DeltaChart.destroy();
+  s3DeltaChart = new Chart(document.getElementById('chart-s3-delta'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'New Device (+)', data: newData, backgroundColor: 'rgba(6,182,212,0.7)', borderRadius: 4 },
+        { label: 'Swap เข้า (+)', data: swapData, backgroundColor: 'rgba(168,85,247,0.7)', borderRadius: 4 },
+        { label: 'ถอดออก (-)', data: removedData, backgroundColor: 'rgba(239,68,68,0.7)', borderRadius: 4 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#94a3b8' } }, tooltip: { mode: 'index' } },
+      scales: {
+        x: { stacked: true, ticks: { color: '#64748b' }, grid: { color: 'rgba(255,255,255,.04)' } },
+        y: { stacked: false, ticks: { color: '#94a3b8', callback: v => (v>=0?'+':'')+v.toLocaleString() }, grid: { color: 'rgba(255,255,255,.06)' } }
+      }
+    }
+  });
+}
+
+function renderRegionBars() {
+  const d = ST244F_DATA;
+  const byRegion = d.by_region ?? {};
+  const rColor = { BMA:'#f97316', Central:'#3b82f6', North:'#10b981', Northeast:'#a855f7', South:'#eab308', Other:'#6b7280' };
+  const maxR = Math.max(...Object.values(byRegion), 1);
+  const html = Object.entries(byRegion).sort((a,b)=>b[1]-a[1]).map(([r,v]) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);">
+      <div style="width:95px;font-size:.8rem;color:#64748b;">${r}</div>
+      <div style="flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden;">
+        <div style="width:${(v/maxR*100).toFixed(1)}%;height:100%;background:${rColor[r]||'#6b7280'};border-radius:4px;"></div>
+      </div>
+      <div style="width:80px;text-align:right;font-size:.82rem;font-weight:600;color:${rColor[r]||'#9ca3af'};">${fmtN(v)}</div>
+    </div>`).join('');
+  document.getElementById('s3-region-bars').innerHTML = html;
+}
+
+function renderS3Donut() {
+  const d = ST244F_DATA;
+  let labels, values, colors;
+  if ((d.by_olt_model ?? []).length > 0) {
+    const vs = {};
+    d.by_olt_model.forEach(r => { vs[r.vendor] = (vs[r.vendor]||0) + r.count; });
+    labels = Object.keys(vs); values = Object.values(vs);
+    colors = ['#f97316','#3b82f6','#10b981','#a855f7','#eab308','#6b7280'];
+  } else if (d.by_variant && Object.keys(d.by_variant).length > 0) {
+    labels = Object.keys(d.by_variant); values = Object.values(d.by_variant);
+    colors = ['#f97316','#06b6d4','#a855f7'];
+  } else {
+    labels = Object.keys(d.by_region ?? {}); values = Object.values(d.by_region ?? {});
+    colors = ['#f97316','#3b82f6','#10b981','#a855f7','#eab308','#6b7280'];
+  }
+  if (s3DonutChart) s3DonutChart.destroy();
+  s3DonutChart = new Chart(document.getElementById('chart-s3-donut'), {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 2, borderColor: 'rgba(17,24,39,.9)' }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '62%',
+      plugins: {
+        legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 }, boxWidth: 12, padding: 8 } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed.toLocaleString()}` } }
+      }
+    }
+  });
+}
+
+function renderRemovedTable() {
+  const d = ST244F_DATA;
+  const removed = d.removed_to_models ?? [];
+  // Build from change_rows if available
+  const rows = d.change_rows ?? [];
+  const fromST = rows.filter(r => (r.From_Model||'').includes('244') && !(r.To_Model||'').includes('244'));
+  const toCounts = {};
+  fromST.forEach(r => { const m = r.To_Model||'Unknown'; toCounts[m]=(toCounts[m]||0)+1; });
+
+  // Also use removed metadata if present
+  const removedData = Object.entries(toCounts).sort((a,b)=>b[1]-a[1]);
+  const tbody = document.getElementById('s3-removed-tbody');
+  if (removedData.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="2" style="color:#64748b;text-align:center;padding:20px">
+      ไม่มีข้อมูล หรือยังไม่พบการเปลี่ยน ST-244F → model อื่น ในช่วงล่าสุด</td></tr>`;
+  } else {
+    tbody.innerHTML = removedData.map(([m,c]) =>
+      `<tr><td style="padding:9px 12px;border-top:1px solid rgba(255,255,255,.06);"><span style="display:inline-block;padding:3px 10px;border-radius:20px;background:rgba(100,116,139,.15);color:#94a3b8;font-size:.76rem;">${m}</span></td>
+       <td style="padding:9px 12px;border-top:1px solid rgba(255,255,255,.06);text-align:right;font-weight:700;color:#ef4444;">${c}</td></tr>`
+    ).join('');
+  }
+}
+
+// ═════════════════════════════════════════
+// Palette
+// ═════════════════════════════════════════
+const MODEL_COLORS = [
+  '#6366f1','#22d3ee','#f59e0b','#10b981','#f43f5e',
+  '#8b5cf6','#ec4899','#14b8a6','#fb923c','#a3e635'
+];
+const REGION_COLORS = {
+  'BMA':       { bg:'rgba(99,102,241,0.75)',  border:'#6366f1', pill:'background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);color:#a5b4fc' },
+  'Central':   { bg:'rgba(34,211,238,0.75)',  border:'#22d3ee', pill:'background:rgba(34,211,238,0.15);border:1px solid rgba(34,211,238,0.35);color:#67e8f9' },
+  'North':     { bg:'rgba(16,185,129,0.75)',  border:'#10b981', pill:'background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.35);color:#34d399' },
+  'Northeast': { bg:'rgba(245,158,11,0.75)',  border:'#f59e0b', pill:'background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.35);color:#fbbf24' },
+  'South':     { bg:'rgba(244,63,94,0.75)',   border:'#f43f5e', pill:'background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.35);color:#fb7185'  },
+  'Other':     { bg:'rgba(100,116,139,0.5)',  border:'#64748b', pill:'background:rgba(100,116,139,0.1);border:1px solid rgba(100,116,139,0.2);color:#94a3b8' },
+};
+const REGION_ORDER = ['BMA','Central','North','Northeast','South'];
+const REGION_LABELS = { BMA:'BMA (กทม.)', Central:'Central', North:'North (เหนือ)', Northeast:'Northeast (อีสาน)', South:'South (ใต้)' };
+
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.font.family = "'Inter', sans-serif";
+
+// ═════════════════════════════════════════
+// State
+// ═════════════════════════════════════════
+let DATA = null;
+let activeModelIdx = 0;
+let activeRegionS2 = 'BMA';
+const charts = {};
+
+// ═════════════════════════════════════════
+// Story switch
+// ═════════════════════════════════════════
+function switchStory(id, btn) {
+  document.querySelectorAll('.story-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.story-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ═════════════════════════════════════════
+// Number formatting
+// ═════════════════════════════════════════
+function fmt(n) { return n ? n.toLocaleString('th-TH') : '0'; }
+function fmtPct(n) { return n != null ? n.toFixed(2) + '%' : '0%'; }
+
+// ═════════════════════════════════════════
+// ═════════════════════════════════════════
+function initDashboard(data) {
+  DATA = data;
+  const s1 = data.story1;
+  const s2 = data.story2;
+
+  // ฟังก์ชันแปลงวันที่ เช่น "20260610" -> "10-06-26"
+  function formatDateStr(dStr) {
+    if (!dStr || dStr.length !== 8) return dStr;
+    return `${dStr.substring(6,8)}-${dStr.substring(4,6)}-${dStr.substring(2,4)}`;
+  }
+
+  // ── Header ──
+  document.getElementById('hdr-latest-date').textContent = formatDateStr(s1.latest_date);
+  document.getElementById('hdr-base-date').textContent   = formatDateStr(s1.baseline_date);
+  document.getElementById('hdr-total').textContent       = fmt(s1.total_onu);
+  document.getElementById('s1-total').textContent        = fmt(s1.total_onu);
+  document.getElementById('s1-latest-date').textContent  = formatDateStr(s1.latest_date);
+
+  const top1 = s1.models[0];
+  document.getElementById('s1-top1-name').textContent = top1;
+  document.getElementById('s1-top1-stat').textContent =
+    fmt(s1.model_counts[top1]) + ' ราย (' + fmtPct(s1.model_pct_total[top1]) + ')';
+
+  const top10pct = s1.models.reduce((a,m) => a + (s1.model_pct_total[m]||0), 0);
+  document.getElementById('s1-top10-pct').textContent = fmtPct(top10pct);
+
+  // Biggest region
+  let topR = REGION_ORDER[0], topRcnt = 0;
+  REGION_ORDER.forEach(r => {
+    const cnt = s1.by_region[r] ? s1.by_region[r].total : 0;
+    if (cnt > topRcnt) { topR = r; topRcnt = cnt; }
+  });
+  document.getElementById('s1-top-region').textContent = topR;
+  document.getElementById('s1-top-region-stat').textContent =
+    fmt(topRcnt) + ' ราย (' + fmtPct(s1.by_region[topR]?.pct_of_total) + ')';
+
+  // ── Story 2 KPIs ──
+  document.getElementById('s2-compared').textContent = fmt(s2.total_compared);
+  document.getElementById('s2-changed').textContent  = fmt(s2.total_changed);
+  document.getElementById('s2-changed-pct').textContent = fmtPct(s2.change_pct) + ' ของที่เปรียบเทียบได้';
+  if (s2.top_changes.length > 0) {
+    const tc = s2.top_changes[0];
+    document.getElementById('s2-top-change').textContent = tc.from + ' → ' + tc.to;
+    document.getElementById('s2-top-change-cnt').textContent = fmt(tc.count) + ' ราย';
+  }
+
+  // Biggest change region
+  let topCR = 'BMA', topCRcnt = 0;
+  REGION_ORDER.forEach(r => {
+    const cnt = s2.by_region[r]?.total_changed || 0;
+    if (cnt > topCRcnt) { topCR = r; topCRcnt = cnt; }
+  });
+  document.getElementById('s2-top-change-region').textContent = topCR;
+  document.getElementById('s2-top-change-region-cnt').textContent = fmt(topCRcnt) + ' AccessId';
+
+  // ── Build all charts / UI ──
+  buildTop10Bar(s1);
+  buildTop10Donut(s1);
+  buildStackedRegion(s1);
+  buildModelBarList(s1);
+  buildModelSelectBtns(s1);
+  buildModelRegionPie(s1, 0);
+  buildRegionBreakdownTable(s1, 0);
+  buildHeatmap(s1);
+
+  buildChangeRegionBar(s2);
+  buildChangeDonut(s2);
+  buildGlobalFlowList(s2);
+  buildRegionFilterS2(s2);
+  buildRegionFlowList(s2, REGION_ORDER[0]);
+
+  document.getElementById('loading-overlay').style.display = 'none';
+}
+
+// ═════════════════════════════════════════
+// STORY 1 CHARTS
+// ═════════════════════════════════════════
+
+function buildTop10Bar(s1) {
+  const ctx = document.getElementById('chart-top10-bar').getContext('2d');
+  const labels = [...s1.models].reverse();
+  const values = labels.map(m => s1.model_pct_total[m]);
+  const colors = [...MODEL_COLORS].reverse();
+  charts['top10bar'] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.raw.toFixed(2)}% (${fmt(s1.model_counts[ctx.label])} ราย)`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { callback: v => v + '%' },
+          title: { display: true, text: '% of total ONU base', color: '#64748b', font: { size: 11 } }
+        },
+        y: { grid: { display: false }, ticks: { font: { weight: '600' } } }
+      }
+    }
+  });
+}
+
+function buildTop10Donut(s1) {
+  const ctx = document.getElementById('chart-top10-donut').getContext('2d');
+  const top10pct = s1.models.reduce((a,m) => a + (s1.model_pct_total[m]||0), 0);
+  const otherPct = 100 - top10pct;
+  const labels = [...s1.models, 'Other Models'];
+  const values = [...s1.models.map(m => s1.model_pct_total[m]), otherPct];
+  const colors = [...MODEL_COLORS, 'rgba(100,116,139,0.5)'];
+
+  charts['top10donut'] = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 0, hoverOffset: 8 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '65%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw.toFixed(2)}%` } }
+      }
+    }
+  });
+
+  // Custom legend
+  const leg = document.getElementById('donut-legend');
+  labels.forEach((l, i) => {
+    const el = document.createElement('div');
+    el.style.cssText = 'display:flex;align-items:center;gap:0.3rem;font-size:0.72rem;color:#94a3b8;';
+    el.innerHTML = `<span style="width:10px;height:10px;border-radius:2px;background:${colors[i]};flex-shrink:0;"></span>${l}`;
+    leg.appendChild(el);
+  });
+}
+
+function buildStackedRegion(s1) {
+  const ctx = document.getElementById('chart-stacked-region').getContext('2d');
+  const datasets = REGION_ORDER.map((r, ri) => ({
+    label: REGION_LABELS[r] || r,
+    data: s1.models.map(m => s1.by_region[r]?.models[m]?.pct_of_total || 0),
+    backgroundColor: REGION_COLORS[r].bg,
+    borderColor: REGION_COLORS[r].border,
+    borderWidth: 1,
+    borderRadius: 4,
+  }));
+  charts['stackedRegion'] = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: s1.models, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { usePointStyle: true, pointStyle: 'rectRounded', padding: 14 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toFixed(3)}%`
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true, grid: { display: false }, ticks: { font: { weight: '600', size: 11 } } },
+        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => v + '%' } }
+      }
+    }
+  });
+}
+
+function buildModelBarList(s1) {
+  const el = document.getElementById('model-bar-list');
+  const maxPct = s1.model_pct_total[s1.models[0]];
+  s1.models.forEach((m, i) => {
+    const pct = s1.model_pct_total[m];
+    const cnt = s1.model_counts[m];
+    const barW = (pct / maxPct * 100).toFixed(1);
+    el.innerHTML += `
+      <div class="model-bar-item">
+        <div class="model-bar-header">
+          <span class="model-name"><span style="color:${MODEL_COLORS[i]};margin-right:0.4rem;">#${i+1}</span>${m}</span>
+          <span>
+            <span class="model-count">${fmt(cnt)} ราย</span>
+            <span class="model-pct" style="margin-left:0.5rem;">${fmtPct(pct)}</span>
+          </span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${barW}%;background:${MODEL_COLORS[i]};"></div>
+        </div>
+      </div>`;
+  });
+}
+
+function buildModelSelectBtns(s1) {
+  const el = document.getElementById('model-select-btns');
+  s1.models.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'region-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = m;
+    btn.style.borderColor = MODEL_COLORS[i] + '60';
+    btn.onclick = () => {
+      document.querySelectorAll('#model-select-btns .region-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeModelIdx = i;
+      buildModelRegionPie(s1, i);
+      buildRegionBreakdownTable(s1, i);
+    };
+    el.appendChild(btn);
+  });
+}
+
+function buildModelRegionPie(s1, idx) {
+  const model = s1.models[idx];
+  const values = REGION_ORDER.map(r => s1.by_region[r]?.models[model]?.count || 0);
+  const total  = values.reduce((a,b) => a+b, 0);
+  const colors = REGION_ORDER.map(r => REGION_COLORS[r].bg);
+  const borders= REGION_ORDER.map(r => REGION_COLORS[r].border);
+  const labels = REGION_ORDER.map(r => REGION_LABELS[r]);
+
+  if (charts['modelRegionPie']) charts['modelRegionPie'].destroy();
+  const ctx = document.getElementById('chart-model-region-pie').getContext('2d');
+  charts['modelRegionPie'] = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderColor: borders, borderWidth: 1, hoverOffset: 6 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '60%',
+      plugins: {
+        legend: { position: 'right', labels: { usePointStyle: true, pointStyle: 'rectRounded', padding: 10, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${fmt(ctx.raw)} ราย (${total > 0 ? (ctx.raw/total*100).toFixed(1) : 0}%)`
+          }
+        }
+      }
+    }
+  });
+}
+
+function buildRegionBreakdownTable(s1, idx) {
+  const model = s1.models[idx];
+  const modelTotal = s1.model_counts[model];
+  let html = `<thead><tr>
+    <th>Region</th><th>จำนวน (ราย)</th><th>% ของ Model</th><th>% ของ ONU ทั้งหมด</th>
+  </tr></thead><tbody>`;
+  REGION_ORDER.forEach(r => {
+    const d = s1.by_region[r]?.models[model];
+    const cnt = d?.count || 0;
+    const pctModel = modelTotal > 0 ? (cnt/modelTotal*100).toFixed(1) : '0';
+    const pctTotal = d?.pct_of_total?.toFixed(3) || '0.000';
+    const pc = REGION_COLORS[r];
+    html += `<tr>
+      <td><span class="region-pill" style="${pc.pill}">${r}</span></td>
+      <td style="font-weight:600;">${fmt(cnt)}</td>
+      <td>${pctModel}%</td>
+      <td style="color:#a5b4fc;">${pctTotal}%</td>
+    </tr>`;
+  });
+  html += `</tbody>`;
+  document.getElementById('region-breakdown-table').innerHTML = html;
+}
+
+function buildHeatmap(s1) {
+  const container = document.getElementById('heatmap-container');
+  const models = s1.models;
+  const regions = REGION_ORDER;
+
+  // Build value matrix for color scaling
+  const allVals = [];
+  models.forEach(m => regions.forEach(r => {
+    allVals.push(s1.by_region[r]?.models[m]?.pct_of_total || 0);
+  }));
+  const maxVal = Math.max(...allVals);
+
+  // Grid: rows = models, cols = regions
+  const cols = regions.length + 1;
+  let html = `<div class="heatmap-grid" style="grid-template-columns:160px ${regions.map(()=>'1fr').join(' ')};">`;
+
+  // Header row
+  html += `<div class="heatmap-header" style="text-align:left;padding:0.4rem;">Model</div>`;
+  regions.forEach(r => {
+    html += `<div class="heatmap-header" style="color:${REGION_COLORS[r].border};">${r}</div>`;
+  });
+
+  // Data rows
+  models.forEach((m, mi) => {
+    html += `<div style="font-size:0.78rem;font-weight:600;color:${MODEL_COLORS[mi]};padding:0.4rem 0.4rem;display:flex;align-items:center;">${m}</div>`;
+    regions.forEach(r => {
+      const val = s1.by_region[r]?.models[m]?.pct_of_total || 0;
+      const intensity = maxVal > 0 ? val / maxVal : 0;
+      const alpha = 0.12 + intensity * 0.75;
+      const textColor = intensity > 0.5 ? '#fff' : '#94a3b8';
+      const bg = `rgba(${hexToRgb(REGION_COLORS[r].border)},${alpha.toFixed(2)})`;
+      html += `<div class="heatmap-cell" title="${m} · ${r}: ${val.toFixed(3)}% of total"
+        style="background:${bg};color:${textColor};">
+        ${val > 0 ? val.toFixed(2) + '%' : '—'}
+      </div>`;
+    });
+  });
+
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? `${parseInt(result[1],16)},${parseInt(result[2],16)},${parseInt(result[3],16)}` : '99,102,241';
+}
+
+// ═════════════════════════════════════════
+// STORY 2 CHARTS
+// ═════════════════════════════════════════
+
+function buildChangeRegionBar(s2) {
+  const ctx = document.getElementById('chart-change-region-bar').getContext('2d');
+  const values = REGION_ORDER.map(r => s2.by_region[r]?.total_changed || 0);
+  const colors = REGION_ORDER.map(r => REGION_COLORS[r].bg);
+  const borders= REGION_ORDER.map(r => REGION_COLORS[r].border);
+  charts['changeRegionBar'] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: REGION_ORDER.map(r => REGION_LABELS[r] || r),
+      datasets: [{
+        label: 'Model Changed',
+        data: values,
+        backgroundColor: colors,
+        borderColor: borders,
+        borderWidth: 1,
+        borderRadius: 8,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${fmt(ctx.raw)} AccessId` } }
+      },
+      scales: {
+        x: { grid: { display: false } },
+        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: v => fmt(v) } }
+      }
+    }
+  });
+}
+
+function buildChangeDonut(s2) {
+  const ctx = document.getElementById('chart-change-donut').getContext('2d');
+  const changed   = s2.total_changed;
+  const unchanged = s2.total_compared - changed;
+  charts['changeDonut'] = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Model เปลี่ยน','Model คงเดิม'],
+      datasets: [{
+        data: [changed, unchanged],
+        backgroundColor: ['rgba(244,63,94,0.7)','rgba(16,185,129,0.5)'],
+        borderColor: ['#f43f5e','#10b981'],
+        borderWidth: 1,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '62%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${fmt(ctx.raw)} (${(ctx.raw/s2.total_compared*100).toFixed(2)}%)` } }
+      }
+    }
+  });
+  // Legend
+  const leg = document.getElementById('change-donut-legend');
+  [
+    { label:'Model เปลี่ยน', color:'#f43f5e', val: changed },
+    { label:'Model คงเดิม', color:'#10b981', val: unchanged }
+  ].forEach(({label, color, val}) => {
+    leg.innerHTML += `<div style="display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;color:#94a3b8;">
+      <span style="width:12px;height:12px;border-radius:2px;background:${color};display:inline-block;"></span>
+      ${label}: <strong style="color:#f8fafc;">${fmt(val)}</strong>
+    </div>`;
+  });
+}
+
+function buildGlobalFlowList(s2) {
+  const el = document.getElementById('global-flow-list');
+  if (!s2.top_changes || s2.top_changes.length === 0) {
+    el.innerHTML = `<div style="color:var(--text-muted);text-align:center;padding:2rem;">ไม่พบการเปลี่ยน Model ที่มีนัยสำคัญ</div>`;
+    return;
+  }
+  const maxCount = s2.top_changes[0].count;
+  s2.top_changes.forEach(({from, to, count}) => {
+    const barW = (count / maxCount * 100).toFixed(1);
+    el.innerHTML += `
+      <div class="flow-row">
+        <span class="flow-from">${from}</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-to">${to}</span>
+        <div class="flow-bar">
+          <div style="background:rgba(255,255,255,0.06);border-radius:999px;height:6px;overflow:hidden;">
+            <div style="width:${barW}%;height:100%;background:linear-gradient(90deg,#6366f1,#8b5cf6);border-radius:999px;"></div>
+          </div>
+        </div>
+        <span class="flow-count">${fmt(count)} ราย</span>
+      </div>`;
+  });
+}
+
+function buildRegionFilterS2(s2) {
+  const el = document.getElementById('region-filter-s2');
+  REGION_ORDER.forEach((r, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'region-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = REGION_LABELS[r] || r;
+    btn.style.borderColor = REGION_COLORS[r].border + '60';
+    btn.onclick = () => {
+      document.querySelectorAll('#region-filter-s2 .region-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeRegionS2 = r;
+      buildRegionFlowList(s2, r);
+    };
+    el.appendChild(btn);
+  });
+}
+
+function buildRegionFlowList(s2, region) {
+  const el = document.getElementById('region-flow-list');
+  el.innerHTML = '';
+  const changes = s2.by_region[region]?.top_changes || [];
+  if (changes.length === 0) {
+    el.innerHTML = `<div style="color:var(--text-muted);text-align:center;padding:1.5rem;">ไม่พบการเปลี่ยน Model ใน ${region}</div>`;
+    return;
+  }
+  const maxCount = changes[0].count;
+  const regionColor = REGION_COLORS[region].border;
+  changes.forEach(({from, to, count}) => {
+    const barW = (count / maxCount * 100).toFixed(1);
+    el.innerHTML += `
+      <div class="flow-row" style="border-color:${regionColor}20;">
+        <span class="flow-from">${from}</span>
+        <span class="flow-arrow" style="color:${regionColor};">→</span>
+        <span class="flow-to" style="background:${regionColor}20;color:${regionColor};">${to}</span>
+        <div class="flow-bar">
+          <div style="background:rgba(255,255,255,0.06);border-radius:999px;height:6px;overflow:hidden;">
+            <div style="width:${barW}%;height:100%;background:${regionColor};border-radius:999px;opacity:0.8;"></div>
+          </div>
+        </div>
+        <span class="flow-count" style="color:${regionColor};">${fmt(count)} ราย</span>
+      </div>`;
+  });
+}
+
+// ═════════════════════════════════════════
+// Load JSON data
+// ═════════════════════════════════════════
+async function loadData() {
+  try {
+    // BCPE Standalone: use embeddedData injected at build time — no fetch needed
+    if (typeof embeddedData !== 'undefined' && embeddedData) {
+      initDashboard(embeddedData);
+      return;
+    }
+    // Fallback: try fetching JSON (GPTCodex local server context)
+    const res = await fetch('onu_dashboard_data.json');
+    if (!res.ok) throw new Error('not ready');
+    const data = await res.json();
+    initDashboard(data);
+  } catch(e) {
+    // JSON ยังไม่พร้อม — แสดง placeholder
+    document.getElementById('loading-overlay').innerHTML = `
+      <div style="text-align:center;">
+        <div class="spinner"></div>
+        <div class="loading-text" style="margin-top:1rem;">กำลังประมวลผลข้อมูล 3 ล้าน ONU...</div>
+        <div style="color:#64748b;font-size:0.8rem;margin-top:0.5rem;">ไฟล์ JSON กำลังถูกสร้าง โปรดรอสักครู่แล้ว Refresh</div>
+        <button onclick="location.reload()" style="margin-top:1.5rem;padding:0.5rem 1.5rem;
+          background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);
+          color:#a5b4fc;border-radius:0.5rem;cursor:pointer;font-size:0.85rem;">
+          🔄 Refresh
+        </button>
+      </div>`;
+  }
+}
+
+// ═════════════════════════════════════════
+// Export Excel
+// ═════════════════════════════════════════
+function exportToExcel() {
+  if (!DATA) { alert("Data not loaded yet"); return; }
+  
+  const wb = XLSX.utils.book_new();
+  
+  // Sheet 1: Top 10 Summary
+  const s1Data = [
+    ["Model", "Total ONU", "% of Total Base"]
+  ];
+  DATA.story1.models.forEach(m => {
+    s1Data.push([m, DATA.story1.model_counts[m], DATA.story1.model_pct_total[m]]);
+  });
+  const ws1 = XLSX.utils.aoa_to_sheet(s1Data);
+  XLSX.utils.book_append_sheet(wb, ws1, "Top 10 Models");
+  
+  // Sheet 2: Region Breakdown
+  const s2Data = [
+    ["Region", "Model", "Count", "% of Model", "% of Region"]
+  ];
+  REGION_ORDER.forEach(r => {
+    DATA.story1.models.forEach(m => {
+      const d = DATA.story1.by_region[r]?.models[m];
+      if(d) {
+        s2Data.push([r, m, d.count, (d.count / DATA.story1.model_counts[m] * 100).toFixed(2), d.pct_of_region]);
+      }
+    });
+  });
+  const ws2 = XLSX.utils.aoa_to_sheet(s2Data);
+  XLSX.utils.book_append_sheet(wb, ws2, "Region Breakdown");
+  
+  // Sheet 3: Model Changes Detail
+  const s3Data = [
+    ["Region", "AccessId", "OLT Name", "Slot/Port", "ONT ID", "From SN", "To SN", "From Model", "To Model"]
+  ];
+  if (DATA.story2.raw_changes) {
+    DATA.story2.raw_changes.forEach(c => {
+      s3Data.push([c.Region_Latest, c.AccessId, c.OLT_Name, c.Slot_Port, c.ONT_ID, c.Serial_Baseline, c.Serial, c.Model_Baseline, c.Model_Latest]);
+    });
+  } else {
+    DATA.story2.top_changes.forEach(c => {
+      s3Data.push(["-", "-", "-", "-", "-", "-", "-", c.from, c.to]);
+    });
+  }
+  const ws3 = XLSX.utils.aoa_to_sheet(s3Data);
+  XLSX.utils.book_append_sheet(wb, ws3, "Model Changes Detail");
+
+  // Sheet 4: ST-244F Snapshot (from st244f_dashboard_data.json)
+  if (ST244F_DATA) {
+    const d = ST244F_DATA;
+    // Summary sheet
+    const s4Sum = [
+      ["รายการ", "ค่า"],
+      ["ST-244F ทั้งหมด (ล่าสุด)", d.total_st244f_latest ?? d.total_st244f ?? ''],
+      ["Baseline", d.total_st244f_base ?? ''],
+      ["Net Change", d.net_change ?? ''],
+      ["New Installs", d.new_installs ?? ''],
+      ["Swap จาก Model อื่น", d.swap_from_other ?? ''],
+      ["ถอด ST-244F ออก", d.removed_st244f ?? ''],
+      ["วันล่าสุด", d.latest_date ?? ''],
+      ["Baseline Date", d.baseline_date ?? ''],
+      ["", ""],
+      ["ภูมิภาค", "จำนวน"],
+      ...Object.entries(d.by_region ?? {}).sort((a,b)=>b[1]-a[1]).map(([r,v])=>[r, v]),
+      ["", ""],
+      ["รุ่นย่อย", "จำนวน"],
+      ...Object.entries(d.by_variant ?? {}).map(([m,c])=>[m, c]),
+      ["", ""],
+      ["OLT Vendor", "OLT Model", "จำนวน"],
+      ...(d.by_olt_model ?? []).map(r=>[r.vendor, r.model, r.count]),
+    ];
+    const ws4 = XLSX.utils.aoa_to_sheet(s4Sum);
+    ws4['!cols'] = [{wch:35},{wch:18},{wch:12}];
+    XLSX.utils.book_append_sheet(wb, ws4, "ST-244F Summary");
+
+    // Detail: Swap rows (SN + AccessId)
+    if ((d.change_rows ?? []).length > 0) {
+      const s4Det = [
+        ["AccessId", "OLT Name", "Old Serial (SN)", "New Serial (SN)", "From Model", "To Model"]
+      ];
+      d.change_rows.forEach(r => {
+        s4Det.push([r.AccessId||'', r.Device||'', r.Old_Serial||'', r.New_Serial||'', r.From_Model||'', r.To_Model||'']);
+      });
+      const ws4d = XLSX.utils.aoa_to_sheet(s4Det);
+      ws4d['!cols'] = [{wch:16},{wch:18},{wch:22},{wch:22},{wch:18},{wch:12}];
+      XLSX.utils.book_append_sheet(wb, ws4d, "ST-244F Swap Detail");
+    }
+
+    // Detail: Truly New Installs (SN + AccessId + LOID)
+    if ((d.new_install_rows ?? []).length > 0) {
+      const s4New = [
+        ["#", "LOID", "AccessId", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]
+      ];
+      d.new_install_rows.forEach((r, i) => {
+        s4New.push([
+          i + 1,
+          r.LOID || '',
+          r.AccessId || '',
+          r.SN_New || '',
+          r.Model || '',
+          r.Device || '',
+          r.PonPort || '',
+          r.ONT_ID || '',
+          r.Region || ''
+        ]);
+      });
+      const ws4n = XLSX.utils.aoa_to_sheet(s4New);
+      ws4n['!cols'] = [{wch:5},{wch:12},{wch:16},{wch:20},{wch:15},{wch:20},{wch:15},{wch:15},{wch:10}];
+      XLSX.utils.book_append_sheet(wb, ws4n, "ST-244F ติดตั้งใหม่");
+    }
+
+    // Trend sheet
+    if ((d.daily_trend ?? []).length > 0) {
+      const s4Tr = [["Date", "ST-244F Count"]];
+      d.daily_trend.forEach(r => s4Tr.push([r.date, r.count]));
+      const ws4t = XLSX.utils.aoa_to_sheet(s4Tr);
+      ws4t['!cols'] = [{wch:14},{wch:16}];
+      XLSX.utils.book_append_sheet(wb, ws4t, "ST-244F Trend");
+    }
+  }
+  
+  XLSX.writeFile(wb, "ONU_Model_Report_" + new Date().toISOString().slice(0,10) + ".xlsx");
+}
+
+// ─── Export ST-244F Full Detail (SN + AccessId from JSON) ─────────────────
+async function exportST244F() {
+  const btn = document.getElementById('btn-export-st244f');
+  if (btn) { btn.textContent = '⏳ กำลัง Export...'; btn.disabled = true; }
+
+  try {
+    // Ensure data loaded
+    if (!ST244F_DATA) {
+      const res = await fetch('st244f_dashboard_data.json');
+      ST244F_DATA = await res.json();
+    }
+    const d = ST244F_DATA;
+    const wb = XLSX.utils.book_new();
+
+    // Sheet 1: ST-244F Summary
+    const sumRows = [
+      ["รายการ", "ค่า"],
+      ["วันที่ข้อมูล (ล่าสุด)",         d.latest_date ?? '-'],
+      ["วันเปรียบเทียบ (Baseline)",      d.baseline_date ?? '-'],
+      ["ST-244F ทั้งหมด (ล่าสุด)",       d.total_st244f_latest ?? d.total_st244f ?? ''],
+      ["ST-244F (Baseline)",              d.total_st244f_base ?? ''],
+      ["เปลี่ยนแปลงสุทธิ (Net Change)",   d.net_change ?? ''],
+      ["ติดตั้งใหม่ (New Device)",         d.new_installs ?? ''],
+      ["Swap เข้า (จาก Model อื่น)",      d.swap_from_other ?? ''],
+      ["ถอด ST-244F ออก",                d.removed_st244f ?? ''],
+      ["",""],
+      ["=== รุ่นย่อย ===", "จำนวน"],
+      ...Object.entries(d.by_variant ?? {}).map(([m,c])=>[m,c]),
+      ["",""],
+      ["=== ภูมิภาค ===", "จำนวน"],
+      ...Object.entries(d.by_region ?? {}).sort((a,b)=>b[1]-a[1]).map(([r,v])=>[r,v]),
+      ["",""],
+      ["=== OLT Vendor ===", "OLT Model", "จำนวน"],
+      ...(d.by_olt_model ?? []).map(r=>[r.vendor, r.model, r.count]),
+    ];
+    const wsSummary = XLSX.utils.aoa_to_sheet(sumRows);
+    wsSummary['!cols'] = [{wch:35},{wch:18},{wch:12}];
+    XLSX.utils.book_append_sheet(wb, wsSummary, "📊 Summary");
+
+    // Sheet 2: ST-244F Swap Detail (SN + AccessId)
+    const swapRows = [
+      ["#", "AccessId", "OLT Name (Device)", "Serial เดิม (SN_Old)", "Serial ใหม่ (SN_New)", "From Model", "To Model"]
+    ];
+    (d.change_rows ?? []).forEach((r, i) => {
+      swapRows.push([
+        i + 1,
+        r.AccessId  || '',
+        r.Device    || '',
+        r.Old_Serial|| '',
+        r.New_Serial|| '',
+        r.From_Model|| '',
+        r.To_Model  || 'ST-244F',
+      ]);
+    });
+    if (swapRows.length === 1) swapRows.push(['', '(ไม่พบรายการ Swap)', '', '', '', '', '']);
+    const wsSwap = XLSX.utils.aoa_to_sheet(swapRows);
+    wsSwap['!cols'] = [{wch:5},{wch:16},{wch:20},{wch:22},{wch:22},{wch:18},{wch:12}];
+    XLSX.utils.book_append_sheet(wb, wsSwap, "🔁 Swap Detail");
+
+    // Sheet 3: Top OLT with ST-244F (SN-level from top_olt)
+    const oltRows = [["#", "OLT Name", "จำนวน ST-244F"]];
+    (d.top_olt ?? []).forEach((r,i) => {
+      oltRows.push([i+1, r.olt, r.count]);
+    });
+    const wsOlt = XLSX.utils.aoa_to_sheet(oltRows);
+    wsOlt['!cols'] = [{wch:5},{wch:22},{wch:18}];
+    XLSX.utils.book_append_sheet(wb, wsOlt, "🏭 Top OLT");
+
+    // Sheet 4: Daily Trend
+    const trendRows = [["Date", "ST-244F Count", "Delta (+/-)"], ];
+    const trend = d.daily_trend ?? [];
+    trend.forEach((r, i) => {
+      const delta = i === 0 ? '' : r.count - trend[i-1].count;
+      trendRows.push([r.date, r.count, delta]);
+    });
+    if (trendRows.length === 1) trendRows.push(['(ไม่มีข้อมูล trend)', '', '']);
+    const wsTrend = XLSX.utils.aoa_to_sheet(trendRows);
+    wsTrend['!cols'] = [{wch:14},{wch:16},{wch:12}];
+    XLSX.utils.book_append_sheet(wb, wsTrend, "📈 Daily Trend");
+
+    // Sheet 5: ติดตั้งใหม่ (New Install ST-244F) — SN + AccessId + LOID
+    const newInstRows = [
+      ["#", "LOID", "AccessId", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]
+    ];
+    (d.new_install_rows ?? []).forEach((r, i) => {
+      newInstRows.push([
+        i + 1,
+        r.LOID      || '',
+        r.AccessId  || '',
+        r.SN_New    || '',
+        r.Model     || '',
+        r.Device    || '',
+        r.PonPort   || '',
+        r.ONT_ID    || '',
+        r.Region    || '',
+      ]);
+    });
+    if (newInstRows.length === 1) newInstRows.push(['', '(ไม่พบรายการติดตั้งใหม่)', '', '', '', '', '', '', '']);
+    const wsNew = XLSX.utils.aoa_to_sheet(newInstRows);
+    wsNew['!cols'] = [{wch:5},{wch:14},{wch:16},{wch:22},{wch:18},{wch:22},{wch:10},{wch:8},{wch:10}];
+    XLSX.utils.book_append_sheet(wb, wsNew, "🆕 ติดตั้งใหม่");
+
+    const today = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(wb, `ST244F_Full_Report_${today}.xlsx`);
+
+  } catch(err) {
+    alert('❌ Export ล้มเหลว: ' + err.message);
+  } finally {
+    if (btn) { btn.textContent = '📥 Export ST-244F (Excel)'; btn.disabled = false; }
+  }
+}
+
+function exportNewInstalls() {
+  const d = ST244F_DATA;
+  if (!d) { alert("ข้อมูล ST-244F ยังโหลดไม่เสร็จ"); return; }
+  const rows = d.new_install_rows;
+  if(!rows || rows.length === 0) { alert('ไม่มีข้อมูลติดตั้งใหม่'); return; }
+  
+  const wb = XLSX.utils.book_new();
+  const sData = [["#", "LOID", "AccessId", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]];
+  rows.forEach((r, i) => {
+    sData.push([i + 1, r.LOID||'', r.AccessId||'', r.SN_New||'', r.Model||'', r.Device||'', r.PonPort||'', r.ONT_ID||'', r.Region||'']);
+  });
+  
+  const ws = XLSX.utils.aoa_to_sheet(sData);
+  ws['!cols'] = [{wch:5},{wch:12},{wch:16},{wch:20},{wch:15},{wch:20},{wch:15},{wch:15},{wch:10}];
+  XLSX.utils.book_append_sheet(wb, ws, "ST-244F ติดตั้งใหม่");
+  
+  XLSX.writeFile(wb, "ST-244F_NewInstalls_" + new Date().toISOString().slice(0,10) + ".xlsx");
+}
+loadData();
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        // --- RUN CHECK LOGIC (LOCAL ONLY) ---
+        function checkLocalEnv() {
+            const btn = document.getElementById('runCheckBtn');
+            if (btn) {
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                btn.style.display = isLocal ? 'inline-block' : 'none';
+            }
+        }
+
+        async function triggerRunCheck() {
+            const btn = document.getElementById('runCheckBtn');
+            if (!btn) return;
+            const originalHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Processing... Please wait';
+            btn.style.background = 'rgba(239,68,68,0.2)';
+            btn.style.borderColor = 'rgba(239,68,68,0.4)';
+            btn.style.color = '#ef4444';
+            btn.style.cursor = 'not-allowed';
+            
+            // Set 10 minutes timeout for fetch
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 600000); 
+
+            try {
+                const resp = await fetch('http://127.0.0.1:5050/api/run-check/nav-onumodel', { 
+                    method: 'POST',
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                const data = await resp.json();
+                if (resp.ok) {
+                    alert(data.message || 'สแกนและประมวลผลเสร็จสิ้น!');
+                    window.location.reload();
+                } else {
+                    alert('เกิดข้อผิดพลาด: ' + (data.message || 'Unknown Error'));
+                }
+            } catch (e) {
+                clearTimeout(timeoutId);
+                if (e.name === 'AbortError') {
+                    alert('การเชื่อมต่อหมดเวลา (Timeout) เนื่องจากใช้เวลาประมวลผลข้อมูลขนาดใหญ่นานเกินไป');
+                } else {
+                    alert('ไม่สามารถเชื่อมต่อ Local API Server ได้\n1. ตรวจสอบว่าเปิดเว็บผ่าน http://localhost:9000 หรือ http://127.0.0.1:9000 เท่านั้น (ห้ามเปิดผ่าน file://)\n2. หากยังไม่ได้ผล ให้ลองรัน: python3 /Users/bbae/GPTCodex/scrip/finalize_dashboard.py อีกครั้ง');
+                }
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+                btn.style.background = 'rgba(245,158,11,0.15)';
+                btn.style.borderColor = 'rgba(245,158,11,0.35)';
+                btn.style.color = '#f59e0b';
+                btn.style.cursor = 'pointer';
+            }
+        }
+        setTimeout(checkLocalEnv, 300);
+        // --- END RUN CHECK LOGIC ---
+
+        </script>
+</body>
+</html>
