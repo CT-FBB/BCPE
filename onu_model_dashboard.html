@@ -51,7 +51,7 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
-        padding: 20px 2rem 2rem 270px !important;
+      padding: 80px 2rem 2rem 2rem !important;
     }
 
     /* ── Global Nav ── */
@@ -171,92 +171,66 @@
     /* ── Grid layouts ── */
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
     .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
-.sidebar {
-    width: 250px;
-    background: rgba(13, 18, 34, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 9999;
-}
-.sidebar-logo {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.25rem;
-    color: #f8fafc;
-    font-weight: 800;
-    padding: 24px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.sidebar-logo span {
-    background: linear-gradient(135deg, #06b6d4, #6366f1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.sidebar-links {
-    flex-grow: 1;
-    padding: 20px 0;
-    overflow-y: auto;
-    scrollbar-width: thin;
-}
-.sidebar-links::-webkit-scrollbar { width: 4px; }
-.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
-.sidebar-links a {
-    display: flex;
-    align-items: center;
-    padding: 12px 24px;
-    color: #94a3b8;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border-left: 3px solid transparent;
-    box-sizing: border-box;
-}
-.sidebar-links a:hover {
-    color: #f8fafc;
-    background: rgba(255,255,255,0.03);
-    border-left-color: rgba(6, 182, 212, 0.3);
-}
-.sidebar-links a.active {
-    color: #f8fafc;
-    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
-    border-left-color: #06b6d4;
-    font-weight: 600;
-}
-.sidebar-links a.sub-link {
-    padding: 8px 24px 8px 40px;
-    font-size: 0.82rem;
-    color: #64748b;
-    border-left: 3px solid transparent;
-    position: relative;
-}
-.sidebar-links a.sub-link::before {
-    content: '\2514';
-    position: absolute;
-    left: 24px;
-    color: rgba(6,182,212,0.35);
-    font-size: 0.8rem;
-}
-.sidebar-links a.sub-link:hover {
-    color: #22d3ee;
-    background: rgba(6,182,212,0.06);
-    border-left-color: rgba(6,182,212,0.2);
-}
-.sidebar-links a.sub-link.active {
-    color: #22d3ee;
-    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
-    border-left-color: rgba(6,182,212,0.5);
-    font-weight: 600;
-}
+        /* ── Top Navigation Bar CSS ── */
+        .topnav {
+            height: 60px;
+            background: rgba(13, 18, 34, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+        }
+        .topnav-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            color: #f8fafc;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .topnav-logo span {
+            background: linear-gradient(135deg, #06b6d4, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .topnav-links {
+            display: flex;
+            gap: 8px;
+            height: 100%;
+            align-items: center;
+        }
+        .topnav-links a {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .topnav-links a:hover {
+            color: #f8fafc;
+            background: rgba(255,255,255,0.03);
+        }
+        .topnav-links a.active {
+            color: #f8fafc;
+            background: rgba(6, 182, 212, 0.15);
+            font-weight: 600;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
 
 @media (max-width: 1100px) { .grid-2 { grid-template-columns: 1fr; } .grid-3 { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 700px)  { .grid-3 { grid-template-columns: 1fr; } }
@@ -1151,143 +1125,94 @@
 html { scrollbar-gutter: stable !important; overflow-y: scroll !important; }
 body { 
     margin: 0 !important;
-    padding: 20px 2rem 2rem 270px !important;
+    padding: 80px 2rem 2rem 2rem !important;
     overflow-x: hidden !important;
 }
-.sidebar {
+.topnav {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
-    bottom: 0 !important;
-    width: 250px !important;
+    right: 0 !important;
+    height: 60px !important;
     z-index: 9999 !important;
 }
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR STYLES -->
+<!-- TOPNAV STYLES -->
 <style>
 body {
-    padding-top: 20px !important;
-    padding-left: 270px !important;
+    padding-top: 80px !important;
+    padding-left: 2rem !important;
 }
-.sidebar {
-    width: 250px;
+.topnav {
+    height: 60px;
     background: rgba(13, 18, 34, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
     position: fixed;
     top: 0;
-    bottom: 0;
     left: 0;
+    right: 0;
     z-index: 9999;
 }
-.sidebar-logo {
+.topnav-logo {
     font-family: 'Outfit', sans-serif;
     font-size: 1.25rem;
     color: #f8fafc;
     font-weight: 800;
-    padding: 24px 20px;
     display: flex;
     align-items: center;
     gap: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-.sidebar-logo span {
+.topnav-logo span {
     background: linear-gradient(135deg, #06b6d4, #6366f1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
-.sidebar-links {
-    flex-grow: 1;
-    padding: 20px 0;
-    overflow-y: auto;
-    scrollbar-width: thin;
+.topnav-links {
+    display: flex;
+    gap: 8px;
+    height: 100%;
+    align-items: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.sidebar-links a {
+.topnav-links a {
     display: flex;
     align-items: center;
-    padding: 12px 24px;
+    height: 40px;
+    padding: 0 16px;
     color: #94a3b8;
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
     transition: all 0.2s ease;
-    border-left: 3px solid transparent;
+    border-radius: 8px;
+    box-sizing: border-box;
 }
-.sidebar-links a:hover {
+.topnav-links a:hover {
     color: #f8fafc;
     background: rgba(255,255,255,0.03);
-    border-left-color: rgba(6, 182, 212, 0.3);
 }
-.sidebar-links a.active {
+.topnav-links a.active {
     color: #f8fafc;
-    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
-    border-left-color: #06b6d4;
+    background: rgba(6, 182, 212, 0.15);
     font-weight: 600;
+    border: 1px solid rgba(6, 182, 212, 0.2);
 }
 </style>
-<nav class="sidebar">
-    <div class="sidebar-logo">📦 <span>BCPE Monitor</span></div>
-    <div class="sidebar-links">
-        <a href="index.html" id="nav-cpe-main">CPE Dashboard</a>
+<nav class="topnav">
+    <div class="topnav-logo">📦 <span>BCPE Monitor</span></div>
+    <div class="topnav-links" style="display: flex; align-items: center; gap: 12px;">
+        <a href="../index.html" id="nav-cpe-main">CPE Dashboard</a>
         <a href="onu_model_dashboard.html" id="nav-onumodel" class="active">ONU Model</a>
+        <button id="runCheckBtn" style="display:none; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.35); color:#f59e0b; font-weight:600; cursor:pointer; padding:6px 12px; border-radius:8px; font-family:'Outfit',sans-serif; font-size:0.8rem; margin:0;" onclick="triggerRunCheck()">⚡ RUN-CHECK</button>
     </div>
-    <button id="runCheckBtn" style="display:none; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.35); color:#f59e0b; font-weight:600; cursor:pointer; padding:10px 16px; border-radius:8px; font-family:'Outfit',sans-serif; margin:12px 16px 8px; width:calc(100% - 32px); text-align:center; font-size:0.85rem;" onclick="triggerRunCheck()">⚡ RUN-CHECK</button>
 </nav>
 
 
