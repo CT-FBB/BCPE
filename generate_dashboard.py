@@ -134,7 +134,7 @@ def get_html_template():
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             padding: 0 2rem;
             position: fixed;
             top: 0;
@@ -150,6 +150,13 @@ def get_html_template():
             display: flex;
             align-items: center;
             gap: 10px;
+            position: absolute;
+            left: 2rem;
+        }
+        @media (max-width: 768px) {
+            .topnav-logo {
+                display: none !important;
+            }
         }
         .topnav-logo span {
             background: linear-gradient(135deg, #06b6d4, #6366f1);
