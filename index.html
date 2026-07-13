@@ -346,19 +346,39 @@
         /* ── Dropdown / Controls ── */
         .select-control {
             padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: rgba(17, 24, 39, 0.8);
-            color: var(--text-primary);
+            padding-right: 36px;
+            border-radius: 10px;
+            border: 2px solid #f97316;
+            background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(251,146,60,0.05) 100%),
+                        rgba(3, 7, 18, 0.92);
+            color: #fed7aa;
             font-family: var(--font-body);
             font-size: 0.85rem;
+            font-weight: 600;
             cursor: pointer;
             outline: none;
             min-width: 180px;
+            box-shadow: 0 0 12px rgba(249, 115, 22, 0.3), 0 2px 8px rgba(0,0,0,0.4);
+            transition: box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f97316' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"),
+                linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(251,146,60,0.05) 100%);
+            background-repeat: no-repeat, no-repeat;
+            background-position: calc(100% - 12px) center, 0 0;
+            background-size: 12px 8px, cover;
+        }
+
+        .select-control:hover {
+            border-color: #fb923c;
+            box-shadow: 0 0 22px rgba(249, 115, 22, 0.5), 0 4px 16px rgba(251, 146, 60, 0.25);
+            transform: translateY(-1px);
         }
 
         .select-control:focus {
-            border-color: var(--indigo);
+            border-color: #fdba74;
+            box-shadow: 0 0 26px rgba(249, 115, 22, 0.6), 0 0 10px rgba(251, 146, 60, 0.3);
         }
 
         /* ── Interactive Tables ── */
@@ -3898,7 +3918,7 @@
       "Type": "HGW"
     }
   ],
-  "GeneratedAt": "2026-07-12 21:22:28"
+  "GeneratedAt": "2026-07-13 08:43:03"
 };
 
         // GLOBAL CHARTS AND STATES
