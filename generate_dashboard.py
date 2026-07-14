@@ -5,7 +5,7 @@ from datetime import datetime
 
 def main():
     csv_path = "/Users/bbae/BCPE/CPE Total.csv"
-    html_path = "/Users/bbae/BCPE/onu_model/index.html"
+    html_path = "/Users/bbae/BCPE/index.html"
 
     if not os.path.exists(csv_path):
         print(f"Error: CSV file not found at {csv_path}")
@@ -132,9 +132,9 @@ def get_html_template():
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: grid;
-            grid-template-columns: 250px 1fr 250px;
+            display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 0 2rem;
             position: fixed;
             top: 0;
@@ -150,20 +150,6 @@ def get_html_template():
             display: flex;
             align-items: center;
             gap: 10px;
-            justify-self: start;
-        }
-        @media (max-width: 900px) {
-            .topnav {
-                grid-template-columns: 1fr;
-                justify-items: center;
-                padding: 0 1rem;
-            }
-            .topnav-logo {
-                display: none !important;
-            }
-            .topnav-links {
-                justify-self: center;
-            }
         }
         .topnav-logo span {
             background: linear-gradient(135deg, #06b6d4, #6366f1);
@@ -174,12 +160,6 @@ def get_html_template():
             display: flex;
             gap: 8px;
             height: 100%;
-            align-items: center;
-            justify-self: center;
-        }
-        .topnav-right {
-            justify-self: end;
-            display: flex;
             align-items: center;
         }
         .topnav-links a {
@@ -241,8 +221,8 @@ def get_html_template():
         }
 
         .dashboard-container {
-            width: 100%;
             max-width: 1400px;
+            margin: 0 auto;
         }
 
         /* ── Header ── */
@@ -458,39 +438,19 @@ def get_html_template():
         /* ── Dropdown / Controls ── */
         .select-control {
             padding: 8px 16px;
-            padding-right: 36px;
-            border-radius: 10px;
-            border: 2px solid #f97316;
-            background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(251,146,60,0.05) 100%),
-                        rgba(3, 7, 18, 0.92);
-            color: #fed7aa;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(17, 24, 39, 0.8);
+            color: var(--text-primary);
             font-family: var(--font-body);
             font-size: 0.85rem;
-            font-weight: 600;
             cursor: pointer;
             outline: none;
             min-width: 180px;
-            box-shadow: 0 0 12px rgba(249, 115, 22, 0.3), 0 2px 8px rgba(0,0,0,0.4);
-            transition: box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image:
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f97316' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"),
-                linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(251,146,60,0.05) 100%);
-            background-repeat: no-repeat, no-repeat;
-            background-position: calc(100% - 12px) center, 0 0;
-            background-size: 12px 8px, cover;
-        }
-
-        .select-control:hover {
-            border-color: #fb923c;
-            box-shadow: 0 0 22px rgba(249, 115, 22, 0.5), 0 4px 16px rgba(251, 146, 60, 0.25);
-            transform: translateY(-1px);
         }
 
         .select-control:focus {
-            border-color: #fdba74;
-            box-shadow: 0 0 26px rgba(249, 115, 22, 0.6), 0 0 10px rgba(251, 146, 60, 0.3);
+            border-color: var(--indigo);
         }
 
         /* ── Interactive Tables ── */
@@ -712,14 +672,6 @@ def get_html_template():
         margin: 0 !important;
         padding: 80px 2rem 2rem 2rem !important;
         overflow-x: hidden !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-    /* When ONU tab is active, body needs no extra scroll — iframe handles it */
-    body.onu-active {
-        overflow: hidden !important;
-        padding: 60px 0 0 0 !important;
     }
     .topnav {
         position: fixed !important;
@@ -729,8 +681,6 @@ def get_html_template():
         height: 60px !important;
         z-index: 9999 !important;
     }
-    #tab-onu { height: calc(100vh - 60px); overflow: hidden; }
-    #onu-iframe { width: 100%; height: 100%; border: none; display: block; }
     </style>
 </head>
 <body>
@@ -739,20 +689,17 @@ def get_html_template():
     <nav class="topnav">
         <div class="topnav-logo">📦 <span>BCPE Monitor</span></div>
         <div class="topnav-links">
-            <a href="#" id="nav-cpe" class="active" onclick="switchTab('cpe',this);return false;">CPE Dashboard</a>
-            <a href="#" id="nav-onu" onclick="switchTab('onu',this);return false;">ONU Model</a>
+            <a href="index.html" class="active">Device (ACS)</a>
+            <a href="onu_model/onu_model_dashboard.html" id="nav-onumodel">ONU (QRUN)</a>
         </div>
-        <div class="topnav-right"></div>
     </nav>
 
-    <!-- TAB: CPE Dashboard -->
-    <div id="tab-cpe" class="tab-panel">
     <div class="dashboard-container">
         
         <!-- HEADER -->
         <header class="header">
             <div class="header-title">
-                <h1>BCPE Standalone CPE Device Dashboard</h1>
+                <h1>CPE Device Dashboard</h1>
                 <div class="sub">Total devices breakdown by Product Class and Software Version (All Models)</div>
             </div>
             <div class="badge-container" style="align-items: center; display: flex; gap: 12px;">
@@ -761,7 +708,6 @@ def get_html_template():
                     <option value="ALL">All Types</option>
                 </select>
                 <span class="badge violet">📅 Compiled: <span id="compile-date">-</span></span>
-                <span class="badge cyan">📦 Standalone Version</span>
             </div>
         </header>
 
@@ -907,7 +853,7 @@ def get_html_template():
 
         <!-- FOOTER -->
         <footer class="footer">
-            BCPE Standalone CPE Device Dashboard &copy; 2026 · Standalone Project view
+            CPE Device Dashboard &copy; 2026 · Standalone Project view
         </footer>
 
     </div>
@@ -1205,38 +1151,21 @@ def get_html_template():
             const sortedVersions = modelData.Versions;
             const labels = [];
             const counts = [];
+            let othersTotal = 0;
 
-            // Show top 5 versions only
-            sortedVersions.slice(0, 5).forEach(v => {
-                labels.push(v.SoftwareVersion);
-                counts.push(v.Count);
+            sortedVersions.forEach((v, idx) => {
+                if (idx < 10) {
+                    labels.push(v.SoftwareVersion);
+                    counts.push(v.Count);
+                } else {
+                    othersTotal += v.Count;
+                }
             });
 
-            // Inline plugin to draw value labels at end of each bar
-            const versionBarLabelsPlugin = {
-                id: 'versionBarLabels',
-                afterDatasetDraw(chart) {
-                    const { ctx, data, scales } = chart;
-                    const xScale = scales.x;
-                    const yScale = scales.y;
-                    ctx.save();
-                    data.datasets[0].data.forEach((val, i) => {
-                        const bar = chart.getDatasetMeta(0).data[i];
-                        const x = xScale.getPixelForValue(val) + 6;
-                        const y = bar.y;
-                        // Format: if >= 1M show "1.2M", if >= 1k show "120k", else plain
-                        let label;
-                        if (val >= 1000000) label = (val / 1000000).toFixed(1).replace(/\\.0$/, '') + 'M';
-                        else if (val >= 1000) label = (val / 1000).toFixed(1).replace(/\\.0$/, '') + 'k';
-                        else label = val.toLocaleString();
-                        ctx.fillStyle = '#cbd5e1';
-                        ctx.font = 'bold 11px Inter, sans-serif';
-                        ctx.textBaseline = 'middle';
-                        ctx.fillText(label, x, y);
-                    });
-                    ctx.restore();
-                }
-            };
+            if (othersTotal > 0) {
+                labels.push("Others");
+                counts.push(othersTotal);
+            }
 
             if (versionChartObj) {
                 versionChartObj.destroy();
@@ -1244,7 +1173,6 @@ def get_html_template():
 
             versionChartObj = new Chart(ctx, {
                 type: 'bar',
-                plugins: [versionBarLabelsPlugin],
                 data: {
                     labels: labels,
                     datasets: [{
@@ -1260,7 +1188,6 @@ def get_html_template():
                     responsive: true,
                     maintainAspectRatio: false,
                     indexAxis: 'y',
-                    layout: { padding: { right: 55 } },
                     scales: {
                         x: {
                             ticks: { color: '#9ca3af', font: { family: 'Inter', size: 9 } },
@@ -1307,12 +1234,21 @@ def get_html_template():
             const sortedVersions = modelData.Versions;
             const labels = [];
             const counts = [];
+            let othersTotal = 0;
 
-            // Show top 5 versions only
-            sortedVersions.slice(0, 5).forEach(v => {
-                labels.push(v.SoftwareVersion);
-                counts.push(v.Count);
+            sortedVersions.forEach((v, idx) => {
+                if (idx < 6) {
+                    labels.push(v.SoftwareVersion);
+                    counts.push(v.Count);
+                } else {
+                    othersTotal += v.Count;
+                }
             });
+
+            if (othersTotal > 0) {
+                labels.push("Others");
+                counts.push(othersTotal);
+            }
 
             if (versionPieChartObj) {
                 versionPieChartObj.destroy();
@@ -1595,45 +1531,6 @@ def get_html_template():
             const dateStr = new Date().toISOString().slice(0, 10);
             XLSX.writeFile(wb, `BCPE_Device_Breakdown_${activeType}_${dateStr}.xlsx`);
         }
-    </script>
-
-    </div><!-- /dashboard-container -->
-    </div><!-- /tab-cpe -->
-
-    <!-- TAB: ONU Model (iframe, lazy-loaded) -->
-    <div id="tab-onu" class="tab-panel" style="display:none;">
-        <iframe id="onu-iframe"
-            src=""
-            style="width:100%; height:calc(100vh - 60px); border:none; display:block;"
-            loading="lazy">
-        </iframe>
-    </div>
-
-    <style>
-    .tab-panel { width: 100%; }
-    </style>
-
-    <script>
-    function switchTab(tab, btn) {
-        // Update active nav link
-        document.querySelectorAll('.topnav-links a').forEach(a => a.classList.remove('active'));
-        btn.classList.add('active');
-
-        if (tab === 'onu') {
-            document.getElementById('tab-cpe').style.display = 'none';
-            document.getElementById('tab-onu').style.display = 'block';
-            document.body.classList.add('onu-active');
-            // Lazy-load iframe only on first click
-            const iframe = document.getElementById('onu-iframe');
-            if (!iframe.src || iframe.src === window.location.href) {
-                iframe.src = 'onu_model_dashboard.html';
-            }
-        } else {
-            document.getElementById('tab-onu').style.display = 'none';
-            document.getElementById('tab-cpe').style.display = 'block';
-            document.body.classList.remove('onu-active');
-        }
-    }
     </script>
 </body>
 </html>
