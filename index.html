@@ -2414,7 +2414,7 @@
     },
     {
       "ProductClass": "G1611",
-      "Type": "AP",
+      "Type": "Mesh",
       "TotalDevices": 117,
       "VersionCount": 1,
       "Share": 0.003113349056189564,
@@ -2428,7 +2428,7 @@
     },
     {
       "ProductClass": "G6605",
-      "Type": "FTTR",
+      "Type": "HGW",
       "TotalDevices": 80,
       "VersionCount": 1,
       "Share": 0.0021287856794458557,
@@ -2442,7 +2442,7 @@
     },
     {
       "ProductClass": "HG8141XR-10",
-      "Type": "FTTR",
+      "Type": "HGW",
       "TotalDevices": 66,
       "VersionCount": 2,
       "Share": 0.0017562481855428308,
@@ -2523,7 +2523,7 @@
     },
     {
       "ProductClass": "G8605",
-      "Type": "FTTR",
+      "Type": "HGW",
       "TotalDevices": 25,
       "VersionCount": 2,
       "Share": 0.0006652455248268299,
@@ -2622,7 +2622,7 @@
     },
     {
       "ProductClass": "K153-10",
-      "Type": "AP",
+      "Type": "Mesh",
       "TotalDevices": 6,
       "VersionCount": 2,
       "Share": 0.0001596589259584392,
@@ -2703,7 +2703,7 @@
     },
     {
       "ProductClass": "K251s-11",
-      "Type": "AP",
+      "Type": "Mesh",
       "TotalDevices": 3,
       "VersionCount": 1,
       "Share": 7.98294629792196e-05,
@@ -2759,7 +2759,7 @@
     },
     {
       "ProductClass": "K153",
-      "Type": "AP",
+      "Type": "Mesh",
       "TotalDevices": 2,
       "VersionCount": 1,
       "Share": 5.321964198614639e-05,
@@ -2801,7 +2801,7 @@
     },
     {
       "ProductClass": "V281s",
-      "Type": "FTTR",
+      "Type": "HGW",
       "TotalDevices": 2,
       "VersionCount": 1,
       "Share": 5.321964198614639e-05,
@@ -3365,7 +3365,7 @@
       "ProductClass": "G1611",
       "SoftwareVersion": "V9.0.10P1N15",
       "TotalDevices": 117,
-      "Type": "AP"
+      "Type": "Mesh"
     },
     {
       "ProductClass": "G2100",
@@ -3377,19 +3377,19 @@
       "ProductClass": "G6605",
       "SoftwareVersion": "V1.0.10P2N11",
       "TotalDevices": 80,
-      "Type": "FTTR"
+      "Type": "HGW"
     },
     {
       "ProductClass": "G8605",
       "SoftwareVersion": "V1.0.10P3N10",
       "TotalDevices": 4,
-      "Type": "FTTR"
+      "Type": "HGW"
     },
     {
       "ProductClass": "G8605",
       "SoftwareVersion": "V1.0.10P3N11",
       "TotalDevices": 21,
-      "Type": "FTTR"
+      "Type": "HGW"
     },
     {
       "ProductClass": "GN2000-02GS-1VT",
@@ -3617,13 +3617,13 @@
       "ProductClass": "HG8141XR-10",
       "SoftwareVersion": "V5R021C00S204",
       "TotalDevices": 1,
-      "Type": "FTTR"
+      "Type": "HGW"
     },
     {
       "ProductClass": "HG8141XR-10",
       "SoftwareVersion": "V5R022C10S308",
       "TotalDevices": 65,
-      "Type": "FTTR"
+      "Type": "HGW"
     },
     {
       "ProductClass": "HG8245",
@@ -3773,19 +3773,19 @@
       "ProductClass": "K153",
       "SoftwareVersion": "V5R023C10S969T",
       "TotalDevices": 2,
-      "Type": "AP"
+      "Type": "Mesh"
     },
     {
       "ProductClass": "K153-10",
       "SoftwareVersion": "V5R022C10S178",
       "TotalDevices": 1,
-      "Type": "AP"
+      "Type": "Mesh"
     },
     {
       "ProductClass": "K153-10",
       "SoftwareVersion": "V5R022C10S181",
       "TotalDevices": 5,
-      "Type": "AP"
+      "Type": "Mesh"
     },
     {
       "ProductClass": "K251a-21",
@@ -3797,7 +3797,7 @@
       "ProductClass": "K251s-11",
       "SoftwareVersion": "V5R023C10S313",
       "TotalDevices": 3,
-      "Type": "AP"
+      "Type": "Mesh"
     },
     {
       "ProductClass": "PE3102-00",
@@ -4601,7 +4601,7 @@
       "ProductClass": "V281s",
       "SoftwareVersion": "V5R023C10S313",
       "TotalDevices": 2,
-      "Type": "FTTR"
+      "Type": "HGW"
     },
     {
       "ProductClass": "WR6221-T",
@@ -4652,7 +4652,7 @@
       "Type": "Mesh"
     }
   ],
-  "GeneratedAt": "2026-07-16 00:10:16"
+  "GeneratedAt": "2026-07-16 07:39:25"
 };
 
         // GLOBAL CHARTS AND STATES
@@ -5386,7 +5386,7 @@
             // Lazy-load iframe only on first click
             const iframe = document.getElementById('cpepairing-iframe');
             if (!iframe.src || iframe.src === window.location.href) {
-                iframe.src = '../cpe_pairing_dashboard.html';
+                iframe.src = 'cpe_pairing_dashboard.html';
             }
         } else {
             document.getElementById('tab-cpe').style.display = 'block';
