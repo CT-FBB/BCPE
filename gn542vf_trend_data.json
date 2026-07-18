@@ -76,5 +76,23 @@
     "gn542vf_total": 370472,
     "swap_in_from_base": 248,
     "swap_out_from_base": 4949
+  },
+  {
+    "date": "2026-07-16",
+    "gn542vf_total": 370409,
+    "swap_in_from_base": 250,
+    "swap_out_from_base": 4977
+  },
+  {
+    "date": "2026-07-17",
+    "gn542vf_total": 370267,
+    "swap_in_from_base": 253,
+    "swap_out_from_base": 5074
+  },
+  {
+    "date": "2026-07-18",
+    "gn542vf_total": 370040,
+    "swap_in_from_base": 259,
+    "swap_out_from_base": 5164
   }
 ]

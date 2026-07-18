@@ -76,5 +76,23 @@
     "st244f_total": 212291,
     "swap_in_from_base": 9,
     "swap_out_from_base": 6373
+  },
+  {
+    "date": "2026-07-16",
+    "st244f_total": 212219,
+    "swap_in_from_base": 9,
+    "swap_out_from_base": 6414
+  },
+  {
+    "date": "2026-07-17",
+    "st244f_total": 212064,
+    "swap_in_from_base": 9,
+    "swap_out_from_base": 6530
+  },
+  {
+    "date": "2026-07-18",
+    "st244f_total": 211900,
+    "swap_in_from_base": 9,
+    "swap_out_from_base": 6625
   }
 ]

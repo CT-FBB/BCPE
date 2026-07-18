@@ -4641,7 +4641,7 @@
       "Type": "Mesh"
     }
   ],
-  "GeneratedAt": "2026-07-18 14:08:59"
+  "GeneratedAt": "2026-07-18 14:40:00"
 };
 
         // GLOBAL CHARTS AND STATES
@@ -4833,17 +4833,17 @@
             }
         }
 
-        // Render Top Models Doughnut Chart
+        // Render Top Models Pie Chart
         function renderTopModelsChart() {
             const ctx = document.getElementById('topModelsChart').getContext('2d');
             
-            // Get top 8 models, group others
+            // Get top 10 models, group others
             const labels = [];
             const data = [];
             let othersTotal = 0;
 
             activeSummary.forEach((item, idx) => {
-                if (idx < 8) {
+                if (idx < 10) {
                     labels.push(item.ProductClass);
                     data.push(item.TotalDevices);
                 } else {
@@ -4869,11 +4869,13 @@
                 '#ec4899', // Pink
                 '#ef4444', // Red
                 '#3b82f6', // Blue
+                '#14b8a6', // Teal
+                '#f97316', // Orange
                 '#4b5563'  // Dark Gray
             ];
 
             topModelsChartObj = new Chart(ctx, {
-                type: 'doughnut',
+                type: 'pie',
                 data: {
                     labels: labels,
                     datasets: [{
@@ -4906,8 +4908,7 @@
                                 }
                             }
                         }
-                    },
-                    cutout: '70%'
+                    }
                 }
             });
         }

@@ -1,24 +1,24 @@
 {
-  "total_f688": 144146,
+  "total_f688": 143950,
   "total_f688_base": 143911,
-  "net_change": 235,
+  "net_change": 39,
   "new_installs": 0,
   "data_correction": 0,
   "swap_from_other": 0,
   "change_from_models": [],
-  "removed_f688": 841,
-  "latest_date": "cpe_-pa-ram-daily-20260715.csv",
+  "removed_f688": 888,
+  "latest_date": "cpe_-pa-ram-daily-20260718.csv",
   "baseline_date": "2026-05-20",
   "by_region": {
-    "BMA": 55512,
-    "Central": 10012,
-    "North": 11798,
-    "Northeast": 13013,
-    "Other": 45062,
-    "South": 8749
+    "BMA": 55433,
+    "Central": 9998,
+    "North": 11767,
+    "Northeast": 13002,
+    "Other": 45008,
+    "South": 8742
   },
   "by_variant": {
-    "F688": 144146
+    "F688": 143950
   },
   "top_olt": [
     {
@@ -27,7 +27,7 @@
     },
     {
       "olt": "BKK05003G00",
-      "count": 346
+      "count": 345
     },
     {
       "olt": "BKK36002G00",
@@ -42,20 +42,20 @@
       "count": 294
     },
     {
-      "olt": "NKS01001G00",
-      "count": 293
-    },
-    {
       "olt": "NTB02001G00",
       "count": 293
     },
     {
-      "olt": "BKK42001G00",
-      "count": 291
+      "olt": "NKS01001G00",
+      "count": 292
     },
     {
       "olt": "NTB03AGNG00",
       "count": 291
+    },
+    {
+      "olt": "BKK42001G00",
+      "count": 290
     },
     {
       "olt": "NTB01001G00",
@@ -66,12 +66,12 @@
       "count": 280
     },
     {
-      "olt": "NTB01005G00",
-      "count": 279
+      "olt": "BKK36001G00",
+      "count": 278
     },
     {
-      "olt": "BKK36001G00",
-      "count": 279
+      "olt": "NTB01005G00",
+      "count": 278
     },
     {
       "olt": "NTB04002G00",
@@ -91,7 +91,7 @@
     },
     {
       "olt": "NTB01006G00",
-      "count": 256
+      "count": 255
     },
     {
       "olt": "BKK27002G00",
@@ -164,6 +164,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "BKK40014GO0",
+      "Region": "BMA"
+    },
+    {
+      "AccessId": "9600106194",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8B640FF",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NTB03001G01",
       "Region": "BMA"
     },
     {
@@ -1031,6 +1040,15 @@
       "Region": "Other"
     },
     {
+      "AccessId": "9604587271",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D18F2B",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "SMP01AGNG00",
+      "Region": "Other"
+    },
+    {
       "AccessId": "9604590450",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8BAD27D",
@@ -1247,6 +1265,15 @@
       "Region": "BMA"
     },
     {
+      "AccessId": "9604887616",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8C6D349",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK45020GO0",
+      "Region": "BMA"
+    },
+    {
       "AccessId": "9604903178",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8BCB3C9",
@@ -1371,6 +1398,15 @@
       "From_Model": "F688",
       "Device": "PCB01002GO0",
       "Region": "Central"
+    },
+    {
+      "AccessId": "9605052490",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8AEF013",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK46001G00",
+      "Region": "BMA"
     },
     {
       "AccessId": "9605052769",
@@ -1506,6 +1542,15 @@
       "From_Model": "F688",
       "Device": "SMP01025GO0",
       "Region": "Other"
+    },
+    {
+      "AccessId": "9605194022",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8DE0B3A",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NTB03005GO0",
+      "Region": "BMA"
     },
     {
       "AccessId": "9605196784",
@@ -1688,6 +1733,15 @@
       "Region": "BMA"
     },
     {
+      "AccessId": "9605465395",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D5FCEF",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "UBR01028G00",
+      "Region": "Other"
+    },
+    {
       "AccessId": "9605491965",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8EB7FC0",
@@ -1722,6 +1776,15 @@
       "From_Model": "F688",
       "Device": "PTL02005G00",
       "Region": "South"
+    },
+    {
+      "AccessId": "9605560845",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BCE162",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NKR15023GO0",
+      "Region": "Northeast"
     },
     {
       "AccessId": "9605572844",
@@ -1784,6 +1847,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "SRT03003GO0",
+      "Region": "Other"
+    },
+    {
+      "AccessId": "9605663037",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BCB4C8",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "SMP01058GO0",
       "Region": "Other"
     },
     {
@@ -1868,6 +1940,15 @@
       "Region": "BMA"
     },
     {
+      "AccessId": "9605728695",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BEE01A",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "RYG06003G00",
+      "Region": "Central"
+    },
+    {
       "AccessId": "9605744102",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8D8F4A1",
@@ -1884,6 +1965,15 @@
       "From_Model": "F688",
       "Device": "BKK35002G01",
       "Region": "BMA"
+    },
+    {
+      "AccessId": "9605751210",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BF0783",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "SMP05005G00",
+      "Region": "Other"
     },
     {
       "AccessId": "9605772788",
@@ -2480,6 +2570,15 @@
       "Region": "BMA"
     },
     {
+      "AccessId": "9606630014",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EB83A8",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK48001G00",
+      "Region": "BMA"
+    },
+    {
       "AccessId": "9606641857",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8BCCD13",
@@ -2768,6 +2867,15 @@
       "Region": "South"
     },
     {
+      "AccessId": "9606881950",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EFD1CB",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NTB01033GO0",
+      "Region": "BMA"
+    },
+    {
       "AccessId": "9606891895",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8BB56E0",
@@ -3029,6 +3137,15 @@
       "Region": "BMA"
     },
     {
+      "AccessId": "9607200097",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8B5D87A",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK47016GO0",
+      "Region": "BMA"
+    },
+    {
       "AccessId": "9607200999",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8D179C2",
@@ -3206,6 +3323,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "BKK06010GO0",
+      "Region": "BMA"
+    },
+    {
+      "AccessId": "9607281696",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8DE09D6",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK36002G01",
       "Region": "BMA"
     },
     {
@@ -3443,6 +3569,15 @@
       "Region": "Other"
     },
     {
+      "AccessId": "9607497157",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BCD5CF",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NKI08002G00",
+      "Region": "Other"
+    },
+    {
       "AccessId": "9607503330",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8EB5F49",
@@ -3675,6 +3810,15 @@
       "From_Model": "F688",
       "Device": "AYT01037GO0",
       "Region": "Central"
+    },
+    {
+      "AccessId": "9607615596",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BAD122",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NKR01009G00",
+      "Region": "Northeast"
     },
     {
       "AccessId": "9607615727",
@@ -3947,6 +4091,15 @@
       "Region": "Central"
     },
     {
+      "AccessId": "9607797246",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BEF239",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK39035GO0",
+      "Region": "BMA"
+    },
+    {
       "AccessId": "9607800755",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8BEE8AC",
@@ -3962,6 +4115,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "PTT03008GO0",
+      "Region": "Other"
+    },
+    {
+      "AccessId": "9607819275",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8C5899D",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "SRB12001G00",
       "Region": "Other"
     },
     {
@@ -4053,6 +4215,15 @@
       "From_Model": "F688",
       "Device": "BKK45022GO0",
       "Region": "BMA"
+    },
+    {
+      "AccessId": "9607883461",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EE5DF6",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "UBR01028G00",
+      "Region": "Other"
     },
     {
       "AccessId": "9607886986",
@@ -4152,6 +4323,15 @@
       "From_Model": "F688",
       "Device": "PCK01001G00",
       "Region": "Central"
+    },
+    {
+      "AccessId": "9607942318",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EF54A0",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "PBR05025GO0",
+      "Region": "Other"
     },
     {
       "AccessId": "9607945640",
@@ -4352,6 +4532,24 @@
       "Region": "Northeast"
     },
     {
+      "AccessId": "9608003050",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8C6D960",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "PCK01008G00",
+      "Region": "Central"
+    },
+    {
+      "AccessId": "9608017711",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8C927F3",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "CBR07009G00",
+      "Region": "Other"
+    },
+    {
       "AccessId": "9608020436",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8EF6527",
@@ -4368,6 +4566,15 @@
       "From_Model": "F688",
       "Device": "NTB04004G00",
       "Region": "BMA"
+    },
+    {
+      "AccessId": "9608050551",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8C9D42A",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "PSN01005G00",
+      "Region": "Other"
     },
     {
       "AccessId": "9608057565",
@@ -4457,6 +4664,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "CPN07011G00",
+      "Region": "Other"
+    },
+    {
+      "AccessId": "9608133047",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8CBA162",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "SPB01039GO0",
       "Region": "Other"
     },
     {
@@ -4592,6 +4808,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "BKK40013G00",
+      "Region": "BMA"
+    },
+    {
+      "AccessId": "9608257507",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D16D88",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK09020GO0",
       "Region": "BMA"
     },
     {
@@ -4793,6 +5018,15 @@
       "Region": "Other"
     },
     {
+      "AccessId": "9608393477",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D605A2",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "SRT11001GO0",
+      "Region": "Other"
+    },
+    {
       "AccessId": "9608393858",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8EE4746",
@@ -4919,6 +5153,15 @@
       "Region": "Other"
     },
     {
+      "AccessId": "9608446290",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D79204",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NKS09021G00",
+      "Region": "North"
+    },
+    {
       "AccessId": "9608449687",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8D8D9FC",
@@ -5027,6 +5270,15 @@
       "Region": "Other"
     },
     {
+      "AccessId": "9608484406",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D60E18",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "ANC01007G00",
+      "Region": "Other"
+    },
+    {
       "AccessId": "9608485103",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8D84FA6",
@@ -5051,6 +5303,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "AYT14016GO0",
+      "Region": "Central"
+    },
+    {
+      "AccessId": "9608499934",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D683D1",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "RCB01022G00",
       "Region": "Central"
     },
     {
@@ -5097,6 +5358,15 @@
       "From_Model": "F688",
       "Device": "PSN07002GO0",
       "Region": "Other"
+    },
+    {
+      "AccessId": "9608511462",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8CB98D5",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NTB06036GO0",
+      "Region": "BMA"
     },
     {
       "AccessId": "9608515871",
@@ -5402,6 +5672,24 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "CBR04075GO0",
+      "Region": "Other"
+    },
+    {
+      "AccessId": "9608636770",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8DB8E21",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "YST01021G00",
+      "Region": "Northeast"
+    },
+    {
+      "AccessId": "9608643107",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EBB03D",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "PTT06003G01",
       "Region": "Other"
     },
     {
@@ -5738,6 +6026,15 @@
       "Region": "BMA"
     },
     {
+      "AccessId": "9608807790",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8DE1D05",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "PKT02002G00",
+      "Region": "South"
+    },
+    {
       "AccessId": "9608808775",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8E25532",
@@ -5846,6 +6143,15 @@
       "Region": "Central"
     },
     {
+      "AccessId": "9608905342",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8E1D68F",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NKS04006GO0",
+      "Region": "North"
+    },
+    {
       "AccessId": "9608905857",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8DA4CC1",
@@ -5936,6 +6242,15 @@
       "Region": "South"
     },
     {
+      "AccessId": "9609012694",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8DDAFA3",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NBL01027G00",
+      "Region": "Northeast"
+    },
+    {
       "AccessId": "9609016205",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8EB5E02",
@@ -5960,6 +6275,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "BKK49001G01",
+      "Region": "BMA"
+    },
+    {
+      "AccessId": "9609040178",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EB4B88",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK31015G00",
       "Region": "BMA"
     },
     {
@@ -5997,6 +6321,15 @@
       "From_Model": "F688",
       "Device": "CBR04097GO0",
       "Region": "Other"
+    },
+    {
+      "AccessId": "9609055579",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8C58598",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK30AGNG01",
+      "Region": "BMA"
     },
     {
       "AccessId": "9609059470",
@@ -6134,6 +6467,15 @@
       "Region": "Northeast"
     },
     {
+      "AccessId": "9609131514",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EBAB2B",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "AYT06032G00",
+      "Region": "Central"
+    },
+    {
       "AccessId": "9609135460",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8DBBE52",
@@ -6206,6 +6548,15 @@
       "Region": "Other"
     },
     {
+      "AccessId": "9609156119",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EB97E6",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "AYT01039GO0",
+      "Region": "Central"
+    },
+    {
       "AccessId": "9609158318",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8EB95BC",
@@ -6213,6 +6564,15 @@
       "From_Model": "F688",
       "Device": "NKR23005G00",
       "Region": "Northeast"
+    },
+    {
+      "AccessId": "9609159557",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D84901",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "LPG12008G00",
+      "Region": "North"
     },
     {
       "AccessId": "9609173052",
@@ -6278,6 +6638,15 @@
       "Region": "North"
     },
     {
+      "AccessId": "9609231498",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BF19D3",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK49001G00",
+      "Region": "BMA"
+    },
+    {
       "AccessId": "9609240465",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8EBA579",
@@ -6323,12 +6692,30 @@
       "Region": "Northeast"
     },
     {
+      "AccessId": "9609276805",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EBA4B0",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "PTL04001GO0",
+      "Region": "South"
+    },
+    {
       "AccessId": "9609277060",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8E1E070",
       "To_Model": "",
       "From_Model": "F688",
       "Device": "ATG01010G00",
+      "Region": "North"
+    },
+    {
+      "AccessId": "9609282338",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EE5507",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NKS21003G00",
       "Region": "North"
     },
     {
@@ -6501,6 +6888,15 @@
       "From_Model": "F688",
       "Device": "SRT02001GO0",
       "Region": "Other"
+    },
+    {
+      "AccessId": "9609365923",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8F032DB",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "KKN01002G00",
+      "Region": "Northeast"
     },
     {
       "AccessId": "9609366726",
@@ -6716,6 +7112,15 @@
       "To_Model": "",
       "From_Model": "F688",
       "Device": "BKK25001G00",
+      "Region": "BMA"
+    },
+    {
+      "AccessId": "9609448235",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EFCE74",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "BKK06002G00",
       "Region": "BMA"
     },
     {
@@ -7142,6 +7547,15 @@
       "Region": "BMA"
     },
     {
+      "AccessId": "9610433007",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8F0393C",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "LOI01027GO0",
+      "Region": "Other"
+    },
+    {
       "AccessId": "9610433650",
       "New_Serial": "",
       "Old_Serial": "ZTEGC8EB8663",
@@ -7356,6 +7770,15 @@
       "From_Model": "F688",
       "Device": "CBR05019GO0",
       "Region": "Other"
+    },
+    {
+      "AccessId": "9610742401",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EFCBF9",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Device": "NKS10001G00",
+      "Region": "North"
     },
     {
       "AccessId": "9610745622",
