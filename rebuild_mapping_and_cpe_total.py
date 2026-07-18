@@ -83,24 +83,23 @@ def generate_cpe_total(mapping):
     df = pd.read_csv(raw_file, low_memory=False)
     df.columns = [c.strip() for c in df.columns]
 
-    # ─── KPI Filter Rules (3 conditions must ALL be met) ────────────────────
-    # 1. มี Firmware Version (ACS discovery สำเร็จ)
+    # ─── KPI Filter Rules (2 conditions must ALL be met) ────────────────────
+    # 1. มี Firmware Version (ACS discovery สำเร็จ / device online แล้ว)
     # 2. มี homepassID / circuit (ผูกกับ circuit แล้ว)
-    # 3. type ตรง = ไม่ใช่ Unknown (Product Class อยู่ใน mapping)
-    # เหตุผล: device ที่ไม่มี version = ACS ยังไม่ discover (ไม่เคย online)
-    #         device ที่ไม่มี circuit = ยังไม่ได้ provision
-    #         device ที่ type = Unknown = ไม่รู้จัก model ยังไม่ควร count
+    # หมายเหตุ: ไม่กรอง Unknown type เพราะ device ที่ online บน ACS แล้ว
+    #           ถือว่าใช้งานจริง แม้ว่า model จะยังไม่อยู่ใน mapping
 
-    print("Applying KPI filter: must have Firmware Version + homepassID + known type...")
+    print("Applying KPI filter: must have Firmware Version + homepassID...")
 
-    # Step 1: filter Firmware Version and homepassID not null/empty
     df_clean = df[
         df['Firmware Version'].notna() & (df['Firmware Version'].str.strip() != '') &
         df['homepassID'].notna() & (df['homepassID'].astype(str).str.strip() != '') &
         (df['homepassID'].astype(str).str.strip() != 'nan')
     ].copy()
 
-    # Step 2: map type per row so we can filter Unknown
+    print(f"  Raw rows      : {len(df):,}")
+    print(f"  KPI Count     : {len(df_clean):,}  (มี Firmware + homepassID)")
+
     def get_type(model):
         model_str = str(model).strip()
         if model_str in mapping:
@@ -111,31 +110,52 @@ def generate_cpe_total(mapping):
             return 'Mesh'
         return 'Unknown'
 
-    df_clean['_type'] = df_clean['Product Class'].apply(get_type)
-
-    # Step 3: drop Unknown type
-    before = len(df_clean)
-    df_clean = df_clean[df_clean['_type'] != 'Unknown']
-    after = len(df_clean)
-    print(f"  Raw rows: {len(df):,}")
-    print(f"  After firmware+circuit filter: {before:,}")
-    print(f"  After Unknown type filter: {after:,}  (KPI Count)")
-
     print("Aggregating device counts...")
     df_grouped = df_clean.groupby(['Product Class', 'Firmware Version']).size().reset_index(name='Total devices')
 
     print("Mapping device types...")
     df_grouped['type'] = df_grouped['Product Class'].apply(get_type)
-    
+
+    # ─── Unknown Type Confirmation ──────────────────────────────────────────
+    # ถ้าพบ device ที่ผ่าน KPI filter แล้ว (มี Firmware + homepassID)
+    # แต่ type ยัง = Unknown → ให้หยุดรอ confirm ก่อนทุกครั้ง
+    unknown_rows = df_grouped[df_grouped['type'] == 'Unknown'].copy()
+    if not unknown_rows.empty:
+        unknown_summary = unknown_rows.groupby('Product Class')['Total devices'].sum().reset_index()
+        unknown_summary = unknown_summary.sort_values('Total devices', ascending=False)
+
+        print()
+        print("=" * 65)
+        print("⚠️  พบ type = Unknown ที่ผ่าน KPI filter (มี Firmware + Circuit):")
+        print("-" * 65)
+        print(f"  {'Model':<25} {'Total':>10}  {'Versions'}")
+        print("-" * 65)
+        for _, row in unknown_summary.iterrows():
+            pc = row['Product Class']
+            total = int(row['Total devices'])
+            versions = unknown_rows[unknown_rows['Product Class'] == pc]['Firmware Version'].tolist()
+            ver_str = ', '.join(versions[:3]) + ('...' if len(versions) > 3 else '')
+            print(f"  {pc:<25} {total:>10,}  {ver_str}")
+        print("=" * 65)
+        print()
+        answer = input("รวม Unknown type เข้า KPI ไหมครับ? (y = รวม / n = ตัดออก): ").strip().lower()
+        if answer == 'n':
+            df_grouped = df_grouped[df_grouped['type'] != 'Unknown']
+            print(f"  ✅ ตัด Unknown type ออกแล้ว — KPI Count: {df_grouped['Total devices'].sum():,}")
+        else:
+            print(f"  ✅ รวม Unknown type เข้า KPI — KPI Count: {df_grouped['Total devices'].sum():,}")
+        print()
+    # ────────────────────────────────────────────────────────────────────────
+
     # Rename columns to match CPE Total.csv header format: ProductClass,SoftwareVersion,Total devices,type
     df_grouped.rename(columns={
         'Product Class': 'ProductClass',
         'Firmware Version': 'SoftwareVersion'
     }, inplace=True)
-    
+
     # Reorder columns
     df_grouped = df_grouped[['ProductClass', 'SoftwareVersion', 'Total devices', 'type']]
-    
+
     print(f"Saving output to {output_file}...")
     df_grouped.to_csv(output_file, index=False, encoding='utf-8-sig')
     print("Completed generating CPE Total.csv!")
