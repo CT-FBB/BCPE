@@ -1,6 +1,6 @@
 [
   {
-    "date": "20260520",
+    "date": "2026-05-20",
     "st244f_total": 201352,
     "swap_in_from_base": 0,
     "swap_out_from_base": 0
@@ -64,12 +64,6 @@
     "st244f_total": 200895,
     "swap_in_from_base": 0,
     "swap_out_from_base": 4511
-  },
-  {
-    "date": "2026-05-20.csv",
-    "st244f_total": 201352,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 0
   },
   {
     "date": "2026-07-08",

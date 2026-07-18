@@ -3,7 +3,7 @@
   "total_st244f_base": 201352,
   "net_change": 10945,
   "new_installs": 1,
-  "data_correction": 18704,
+  "data_correction": 0,
   "swap_from_other": 9,
   "removed_st244f": 1402,
   "latest_date": "2026-07-15",
@@ -12865,10 +12865,6 @@
     {
       "date": "2026-06-30",
       "count": 200895
-    },
-    {
-      "date": "2026-05-20.csv",
-      "count": 201352
     },
     {
       "date": "2026-07-08",
