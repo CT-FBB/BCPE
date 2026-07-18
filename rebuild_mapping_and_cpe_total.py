@@ -83,22 +83,17 @@ def generate_cpe_total(mapping):
     df = pd.read_csv(raw_file, low_memory=False)
     df.columns = [c.strip() for c in df.columns]
 
-    # ─── KPI Filter Rules (2 conditions must ALL be met) ────────────────────
-    # 1. มี Firmware Version (ACS discovery สำเร็จ / device online แล้ว)
-    # 2. มี homepassID / circuit (ผูกกับ circuit แล้ว)
-    # หมายเหตุ: ไม่กรอง Unknown type เพราะ device ที่ online บน ACS แล้ว
-    #           ถือว่าใช้งานจริง แม้ว่า model จะยังไม่อยู่ใน mapping
-
-    print("Applying KPI filter: must have Firmware Version + homepassID...")
+    # ─── KPI Filter Rules (Omit homepassID filter per user request) ──────────
+    # 1. มี Firmware Version และ Product Class (ต้องมีค่าไม่ว่างเปล่า)
+    print("Applying filter: must have Product Class and Firmware Version...")
 
     df_clean = df[
-        df['Firmware Version'].notna() & (df['Firmware Version'].str.strip() != '') &
-        df['homepassID'].notna() & (df['homepassID'].astype(str).str.strip() != '') &
-        (df['homepassID'].astype(str).str.strip() != 'nan')
+        df['Product Class'].notna() & (df['Product Class'].str.strip() != '') &
+        df['Firmware Version'].notna() & (df['Firmware Version'].str.strip() != '')
     ].copy()
 
     print(f"  Raw rows      : {len(df):,}")
-    print(f"  KPI Count     : {len(df_clean):,}  (มี Firmware + homepassID)")
+    print(f"  Valid Count   : {len(df_clean):,}  (มี Product Class + Firmware)")
 
     def get_type(model):
         model_str = str(model).strip()
