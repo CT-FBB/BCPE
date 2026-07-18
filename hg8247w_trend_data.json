@@ -66,9 +66,21 @@
     "swap_out_from_base": 1920
   },
   {
+    "date": "2026-05-20.csv",
+    "hg8247w_total": 132353,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 0
+  },
+  {
     "date": "2026-07-08",
     "hg8247w_total": 128097,
     "swap_in_from_base": 1,
     "swap_out_from_base": 2336
+  },
+  {
+    "date": "2026-07-15",
+    "hg8247w_total": 133765,
+    "swap_in_from_base": 1,
+    "swap_out_from_base": 2767
   }
 ]

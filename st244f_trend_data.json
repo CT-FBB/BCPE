@@ -66,9 +66,21 @@
     "swap_out_from_base": 4511
   },
   {
+    "date": "2026-05-20.csv",
+    "st244f_total": 201352,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 0
+  },
+  {
     "date": "2026-07-08",
     "st244f_total": 201346,
     "swap_in_from_base": 0,
     "swap_out_from_base": 5509
+  },
+  {
+    "date": "2026-07-15",
+    "st244f_total": 212291,
+    "swap_in_from_base": 9,
+    "swap_out_from_base": 6373
   }
 ]
