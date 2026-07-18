@@ -141,11 +141,11 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 <script>
 async function load(){
   let d;
-  try{ const r=await fetch('hg8247w_dashboard_data.json'); d=await r.json(); }
+  try{ const r=await fetch('hg8247w_dashboard_data.json?v=5'); d=await r.json(); }
   catch(e){ d=null; }
   
   let trendData = [];
-  try{ const tr=await fetch('hg8247w_trend_data.json'); trendData=await tr.json(); }
+  try{ const tr=await fetch('hg8247w_trend_data.json?v=5'); trendData=await tr.json(); }
   catch(e){ console.log(e); }
 
   if(!d){ document.getElementById('root').innerHTML='<p style="padding:40px;color:#f87171">❌ ไม่พบ hg8247w_dashboard_data.json</p>'; return; }
