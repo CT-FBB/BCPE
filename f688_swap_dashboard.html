@@ -163,7 +163,6 @@ function renderDashboard(d){
   const base    = d.total_f688_base   ?? 204248;
   const net     = d.net_change          ?? (total-base);
   const newInst = d.new_installs        ?? 0;
-  const dataCorrect = d.data_correction ?? 0;
   const swapIn  = d.swap_from_other     ?? 0;
   const removed = d.removed_f688      ?? 0;
   function formatDateStr(dStr) {
@@ -292,11 +291,6 @@ function renderDashboard(d){
         <div class="kl">Swap เข้าจากรุ่นอื่น</div>
         <div class="kv pu">${fmt(swapIn)}</div>
         <div class="ks">โผล่ขึ้นมาแทน Serial เดิม</div>
-      </div>
-      <div class="kpi-card gy">
-        <div class="kl">Data Correction</div>
-        <div class="kv gy" style="color: #9ca3af;">${fmt(dataCorrect)}</div>
-        <div class="ks">LOID เก่า (ก่อนปี 25)</div>
       </div>
       <div class="kpi-card re"><div class="ki">❌</div>
       <div class="kl">ถอด F688 ออก</div>
