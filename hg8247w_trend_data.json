@@ -94,53 +94,5 @@
     "hg8247w_total": 133581,
     "swap_in_from_base": 1,
     "swap_out_from_base": 2877
-  },
-  {
-    "date": "2026-07-19",
-    "hg8247w_total": 135839,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 3841
-  },
-  {
-    "date": "2026-07-20",
-    "hg8247w_total": 135789,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 3902
-  },
-  {
-    "date": "2026-07-21",
-    "hg8247w_total": 135730,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 3956
-  },
-  {
-    "date": "2026-07-22",
-    "hg8247w_total": 135714,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 3999
-  },
-  {
-    "date": "2026-07-23",
-    "hg8247w_total": 135700,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 4051
-  },
-  {
-    "date": "2026-07-24",
-    "hg8247w_total": 134242,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 3963
-  },
-  {
-    "date": "2026-07-25",
-    "hg8247w_total": 133673,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 3494
-  },
-  {
-    "date": "2026-07-26",
-    "hg8247w_total": 133624,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 3406
   }
 ]

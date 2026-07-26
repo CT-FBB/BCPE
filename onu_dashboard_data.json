@@ -1,8 +1,8 @@
 {
   "story1": {
-    "latest_date": "20260725",
+    "latest_date": "20260718",
     "baseline_date": "20260520",
-    "total_onu": 2633274,
+    "total_onu": 3240910,
     "models": [
       "T626ProV2",
       "T623L",
@@ -11,33 +11,33 @@
       "ST-244F",
       "T625LM",
       "F688",
-      "T625Pro",
       "HG8247W5-6T",
+      "T625Pro",
       "T623"
     ],
     "model_counts": {
-      "T626ProV2": 714706,
-      "T623L": 308738,
-      "GN542VF": 292860,
-      "T626Pro": 251500,
-      "ST-244F": 140877,
-      "T625LM": 116295,
-      "F688": 113715,
-      "T625Pro": 100713,
-      "HG8247W5-6T": 99881,
-      "T623": 65452
+      "T626ProV2": 883157,
+      "T623L": 384443,
+      "GN542VF": 370040,
+      "T626Pro": 308776,
+      "ST-244F": 181653,
+      "T625LM": 147340,
+      "F688": 143950,
+      "HG8247W5-6T": 125338,
+      "T625Pro": 124768,
+      "T623": 81845
     },
     "model_pct_total": {
-      "T626ProV2": 27.14,
-      "T623L": 11.72,
-      "GN542VF": 11.12,
-      "T626Pro": 9.55,
-      "ST-244F": 5.35,
-      "T625LM": 4.42,
-      "F688": 4.32,
-      "T625Pro": 3.82,
-      "HG8247W5-6T": 3.79,
-      "T623": 2.49
+      "T626ProV2": 27.25,
+      "T623L": 11.86,
+      "GN542VF": 11.42,
+      "T626Pro": 9.53,
+      "ST-244F": 5.6,
+      "T625LM": 4.55,
+      "F688": 4.44,
+      "HG8247W5-6T": 3.87,
+      "T625Pro": 3.85,
+      "T623": 2.53
     },
     "regions": [
       "BMA",
@@ -48,281 +48,281 @@
     ],
     "by_region": {
       "BMA": {
-        "total": 1099110,
-        "pct_of_total": 41.74,
+        "total": 1349020,
+        "pct_of_total": 41.62,
         "models": {
           "T626ProV2": {
-            "count": 237344,
-            "pct_of_total": 9.013,
-            "pct_of_region": 21.59
+            "count": 292882,
+            "pct_of_total": 9.037,
+            "pct_of_region": 21.71
           },
           "T623L": {
-            "count": 98581,
-            "pct_of_total": 3.744,
-            "pct_of_region": 8.97
+            "count": 122604,
+            "pct_of_total": 3.783,
+            "pct_of_region": 9.09
           },
           "GN542VF": {
-            "count": 159299,
-            "pct_of_total": 6.049,
-            "pct_of_region": 14.49
+            "count": 200382,
+            "pct_of_total": 6.183,
+            "pct_of_region": 14.85
           },
           "T626Pro": {
-            "count": 113321,
-            "pct_of_total": 4.303,
-            "pct_of_region": 10.31
+            "count": 137935,
+            "pct_of_total": 4.256,
+            "pct_of_region": 10.22
           },
           "ST-244F": {
-            "count": 58761,
-            "pct_of_total": 2.231,
-            "pct_of_region": 5.35
+            "count": 75158,
+            "pct_of_total": 2.319,
+            "pct_of_region": 5.57
           },
           "T625LM": {
-            "count": 38132,
-            "pct_of_total": 1.448,
-            "pct_of_region": 3.47
+            "count": 48277,
+            "pct_of_total": 1.49,
+            "pct_of_region": 3.58
           },
           "F688": {
-            "count": 55121,
-            "pct_of_total": 2.093,
-            "pct_of_region": 5.02
-          },
-          "T625Pro": {
-            "count": 65957,
-            "pct_of_total": 2.505,
-            "pct_of_region": 6.0
+            "count": 69483,
+            "pct_of_total": 2.144,
+            "pct_of_region": 5.15
           },
           "HG8247W5-6T": {
-            "count": 59441,
-            "pct_of_total": 2.257,
-            "pct_of_region": 5.41
+            "count": 74651,
+            "pct_of_total": 2.303,
+            "pct_of_region": 5.53
+          },
+          "T625Pro": {
+            "count": 81480,
+            "pct_of_total": 2.514,
+            "pct_of_region": 6.04
           },
           "T623": {
-            "count": 30709,
-            "pct_of_total": 1.166,
-            "pct_of_region": 2.79
+            "count": 38414,
+            "pct_of_total": 1.185,
+            "pct_of_region": 2.85
           }
         }
       },
       "Central": {
-        "total": 420004,
-        "pct_of_total": 15.95,
+        "total": 519097,
+        "pct_of_total": 16.02,
         "models": {
           "T626ProV2": {
-            "count": 128830,
-            "pct_of_total": 4.892,
-            "pct_of_region": 30.67
+            "count": 160453,
+            "pct_of_total": 4.951,
+            "pct_of_region": 30.91
           },
           "T623L": {
-            "count": 52188,
-            "pct_of_total": 1.982,
-            "pct_of_region": 12.43
+            "count": 65189,
+            "pct_of_total": 2.011,
+            "pct_of_region": 12.56
           },
           "GN542VF": {
-            "count": 42782,
-            "pct_of_total": 1.625,
-            "pct_of_region": 10.19
+            "count": 53969,
+            "pct_of_total": 1.665,
+            "pct_of_region": 10.4
           },
           "T626Pro": {
-            "count": 41070,
-            "pct_of_total": 1.56,
-            "pct_of_region": 9.78
+            "count": 50443,
+            "pct_of_total": 1.556,
+            "pct_of_region": 9.72
           },
           "ST-244F": {
-            "count": 22905,
-            "pct_of_total": 0.87,
-            "pct_of_region": 5.45
+            "count": 29402,
+            "pct_of_total": 0.907,
+            "pct_of_region": 5.66
           },
           "T625LM": {
-            "count": 22177,
-            "pct_of_total": 0.842,
-            "pct_of_region": 5.28
+            "count": 27947,
+            "pct_of_total": 0.862,
+            "pct_of_region": 5.38
           },
           "F688": {
-            "count": 16365,
-            "pct_of_total": 0.621,
-            "pct_of_region": 3.9
-          },
-          "T625Pro": {
-            "count": 11008,
-            "pct_of_total": 0.418,
-            "pct_of_region": 2.62
+            "count": 20702,
+            "pct_of_total": 0.639,
+            "pct_of_region": 3.99
           },
           "HG8247W5-6T": {
-            "count": 12745,
-            "pct_of_total": 0.484,
-            "pct_of_region": 3.03
+            "count": 15951,
+            "pct_of_total": 0.492,
+            "pct_of_region": 3.07
+          },
+          "T625Pro": {
+            "count": 13686,
+            "pct_of_total": 0.422,
+            "pct_of_region": 2.64
           },
           "T623": {
-            "count": 10588,
-            "pct_of_total": 0.402,
-            "pct_of_region": 2.52
+            "count": 13259,
+            "pct_of_total": 0.409,
+            "pct_of_region": 2.55
           }
         }
       },
       "North": {
-        "total": 314365,
-        "pct_of_total": 11.94,
+        "total": 385060,
+        "pct_of_total": 11.88,
         "models": {
           "T626ProV2": {
-            "count": 85033,
-            "pct_of_total": 3.229,
-            "pct_of_region": 27.05
+            "count": 105414,
+            "pct_of_total": 3.253,
+            "pct_of_region": 27.38
           },
           "T623L": {
-            "count": 47525,
-            "pct_of_total": 1.805,
-            "pct_of_region": 15.12
+            "count": 59355,
+            "pct_of_total": 1.831,
+            "pct_of_region": 15.41
           },
           "GN542VF": {
-            "count": 23496,
-            "pct_of_total": 0.892,
-            "pct_of_region": 7.47
+            "count": 29608,
+            "pct_of_total": 0.914,
+            "pct_of_region": 7.69
           },
           "T626Pro": {
-            "count": 26422,
-            "pct_of_total": 1.003,
-            "pct_of_region": 8.4
+            "count": 32646,
+            "pct_of_total": 1.007,
+            "pct_of_region": 8.48
           },
           "ST-244F": {
-            "count": 17833,
-            "pct_of_total": 0.677,
-            "pct_of_region": 5.67
+            "count": 22860,
+            "pct_of_total": 0.705,
+            "pct_of_region": 5.94
           },
           "T625LM": {
-            "count": 14186,
-            "pct_of_total": 0.539,
-            "pct_of_region": 4.51
+            "count": 17863,
+            "pct_of_total": 0.551,
+            "pct_of_region": 4.64
           },
           "F688": {
-            "count": 10854,
-            "pct_of_total": 0.412,
-            "pct_of_region": 3.45
-          },
-          "T625Pro": {
-            "count": 6793,
-            "pct_of_total": 0.258,
-            "pct_of_region": 2.16
+            "count": 13482,
+            "pct_of_total": 0.416,
+            "pct_of_region": 3.5
           },
           "HG8247W5-6T": {
-            "count": 15356,
-            "pct_of_total": 0.583,
-            "pct_of_region": 4.88
+            "count": 19109,
+            "pct_of_total": 0.59,
+            "pct_of_region": 4.96
+          },
+          "T625Pro": {
+            "count": 8409,
+            "pct_of_total": 0.259,
+            "pct_of_region": 2.18
           },
           "T623": {
-            "count": 7552,
-            "pct_of_total": 0.287,
-            "pct_of_region": 2.4
+            "count": 9413,
+            "pct_of_total": 0.29,
+            "pct_of_region": 2.44
           }
         }
       },
       "Northeast": {
-        "total": 480133,
-        "pct_of_total": 18.23,
+        "total": 591969,
+        "pct_of_total": 18.27,
         "models": {
           "T626ProV2": {
-            "count": 145362,
-            "pct_of_total": 5.52,
-            "pct_of_region": 30.28
+            "count": 181291,
+            "pct_of_total": 5.594,
+            "pct_of_region": 30.63
           },
           "T623L": {
-            "count": 72495,
-            "pct_of_total": 2.753,
-            "pct_of_region": 15.1
+            "count": 90163,
+            "pct_of_total": 2.782,
+            "pct_of_region": 15.23
           },
           "GN542VF": {
-            "count": 43015,
-            "pct_of_total": 1.634,
-            "pct_of_region": 8.96
+            "count": 54166,
+            "pct_of_total": 1.671,
+            "pct_of_region": 9.15
           },
           "T626Pro": {
-            "count": 44202,
-            "pct_of_total": 1.679,
-            "pct_of_region": 9.21
+            "count": 54764,
+            "pct_of_total": 1.69,
+            "pct_of_region": 9.25
           },
           "ST-244F": {
-            "count": 26748,
-            "pct_of_total": 1.016,
-            "pct_of_region": 5.57
+            "count": 34093,
+            "pct_of_total": 1.052,
+            "pct_of_region": 5.76
           },
           "T625LM": {
-            "count": 27127,
-            "pct_of_total": 1.03,
-            "pct_of_region": 5.65
+            "count": 34024,
+            "pct_of_total": 1.05,
+            "pct_of_region": 5.75
           },
           "F688": {
-            "count": 18197,
-            "pct_of_total": 0.691,
-            "pct_of_region": 3.79
-          },
-          "T625Pro": {
-            "count": 9757,
-            "pct_of_total": 0.371,
-            "pct_of_region": 2.03
+            "count": 22899,
+            "pct_of_total": 0.707,
+            "pct_of_region": 3.87
           },
           "HG8247W5-6T": {
-            "count": 8464,
-            "pct_of_total": 0.321,
-            "pct_of_region": 1.76
+            "count": 10602,
+            "pct_of_total": 0.327,
+            "pct_of_region": 1.79
+          },
+          "T625Pro": {
+            "count": 12152,
+            "pct_of_total": 0.375,
+            "pct_of_region": 2.05
           },
           "T623": {
-            "count": 11227,
-            "pct_of_total": 0.426,
-            "pct_of_region": 2.34
+            "count": 13986,
+            "pct_of_total": 0.432,
+            "pct_of_region": 2.36
           }
         }
       },
       "South": {
-        "total": 222496,
-        "pct_of_total": 8.45,
+        "total": 274803,
+        "pct_of_total": 8.48,
         "models": {
           "T626ProV2": {
-            "count": 68596,
-            "pct_of_total": 2.605,
-            "pct_of_region": 30.83
+            "count": 85659,
+            "pct_of_total": 2.643,
+            "pct_of_region": 31.17
           },
           "T623L": {
-            "count": 31625,
-            "pct_of_total": 1.201,
-            "pct_of_region": 14.21
+            "count": 39461,
+            "pct_of_total": 1.218,
+            "pct_of_region": 14.36
           },
           "GN542VF": {
-            "count": 20585,
-            "pct_of_total": 0.782,
-            "pct_of_region": 9.25
+            "count": 25883,
+            "pct_of_total": 0.799,
+            "pct_of_region": 9.42
           },
           "T626Pro": {
-            "count": 19634,
-            "pct_of_total": 0.746,
-            "pct_of_region": 8.82
+            "count": 24305,
+            "pct_of_total": 0.75,
+            "pct_of_region": 8.84
           },
           "ST-244F": {
-            "count": 12019,
-            "pct_of_total": 0.456,
-            "pct_of_region": 5.4
+            "count": 15310,
+            "pct_of_total": 0.472,
+            "pct_of_region": 5.57
           },
           "T625LM": {
-            "count": 12100,
-            "pct_of_total": 0.46,
-            "pct_of_region": 5.44
+            "count": 15343,
+            "pct_of_total": 0.473,
+            "pct_of_region": 5.58
           },
           "F688": {
-            "count": 11962,
-            "pct_of_total": 0.454,
-            "pct_of_region": 5.38
-          },
-          "T625Pro": {
-            "count": 5399,
-            "pct_of_total": 0.205,
-            "pct_of_region": 2.43
+            "count": 15186,
+            "pct_of_total": 0.469,
+            "pct_of_region": 5.53
           },
           "HG8247W5-6T": {
-            "count": 1906,
-            "pct_of_total": 0.072,
+            "count": 2374,
+            "pct_of_total": 0.073,
             "pct_of_region": 0.86
           },
+          "T625Pro": {
+            "count": 6757,
+            "pct_of_total": 0.208,
+            "pct_of_region": 2.46
+          },
           "T623": {
-            "count": 4417,
-            "pct_of_total": 0.168,
+            "count": 5473,
+            "pct_of_total": 0.169,
             "pct_of_region": 1.99
           }
         }
@@ -330,384 +330,384 @@
     }
   },
   "story2": {
-    "total_compared": 2419396,
-    "total_changed": 67676,
-    "change_pct": 2.8,
+    "total_compared": 2960806,
+    "total_changed": 33667,
+    "change_pct": 1.14,
     "top_changes": [
       {
-        "from": "T623L",
-        "to": "A623",
-        "count": 3589
-      },
-      {
-        "from": "T625LM",
-        "to": "A625M",
-        "count": 2578
-      },
-      {
         "from": "ST-244F",
         "to": "T626ProV2",
-        "count": 2427
-      },
-      {
-        "from": "T626Pro",
-        "to": "A625M",
-        "count": 2058
+        "count": 2669
       },
       {
         "from": "GN542VF",
         "to": "T625Pro",
-        "count": 1906
+        "count": 2098
       },
       {
         "from": "ST-244F",
         "to": "T625Pro",
-        "count": 1779
-      },
-      {
-        "from": "GN542VF",
-        "to": "RN510",
-        "count": 1744
+        "count": 1959
       },
       {
         "from": "GN542VF",
         "to": "T626ProV2",
-        "count": 1732
-      },
-      {
-        "from": "T625Pro",
-        "to": "A625M",
-        "count": 1613
-      },
-      {
-        "from": "F6600P",
-        "to": "ZXHN H3601P V9",
-        "count": 1460
-      },
-      {
-        "from": "T623",
-        "to": "A623",
-        "count": 1422
+        "count": 1885
       },
       {
         "from": "T626Pro",
         "to": "T626ProV2",
-        "count": 1414
+        "count": 1376
       },
       {
         "from": "T623L",
         "to": "T626ProV2",
-        "count": 1185
-      },
-      {
-        "from": "HG8122",
-        "to": "WR6221-T",
-        "count": 1142
-      },
-      {
-        "from": "F612C",
-        "to": "WR6221-T",
-        "count": 1106
-      },
-      {
-        "from": "HG8247H",
-        "to": "WR6221-T",
-        "count": 1061
+        "count": 1250
       },
       {
         "from": "F688",
         "to": "T626ProV2",
-        "count": 1054
-      },
-      {
-        "from": "F612C",
-        "to": "RE1200R4GC-V3",
-        "count": 971
+        "count": 1172
       },
       {
         "from": "HG8247W5-6T",
         "to": "T625Pro",
-        "count": 937
+        "count": 1015
+      },
+      {
+        "from": "HG8247W5-6T",
+        "to": "T626ProV2",
+        "count": 1013
+      },
+      {
+        "from": "F688",
+        "to": "T625Pro",
+        "count": 979
+      },
+      {
+        "from": "T625LM",
+        "to": "T626ProV2",
+        "count": 932
       },
       {
         "from": "HG8247H",
-        "to": "RE1200R4GC-V3",
-        "count": 936
+        "to": "T626ProV2",
+        "count": 923
+      },
+      {
+        "from": "T626ProV2",
+        "to": "T626Pro",
+        "count": 620
+      },
+      {
+        "from": "HG8247H",
+        "to": "T625Pro",
+        "count": 461
+      },
+      {
+        "from": "H662GR",
+        "to": "T626ProV2",
+        "count": 415
+      },
+      {
+        "from": "HG8247H",
+        "to": "HG6145F4",
+        "count": 376
+      },
+      {
+        "from": "ST-244F",
+        "to": "T623L",
+        "count": 367
+      },
+      {
+        "from": "T625Pro",
+        "to": "T626ProV2",
+        "count": 348
+      },
+      {
+        "from": "ST-244F",
+        "to": "T627Pro",
+        "count": 338
+      },
+      {
+        "from": "ST-244FV2",
+        "to": "T626ProV2",
+        "count": 337
       }
     ],
     "by_region": {
       "BMA": {
-        "total_changed": 32641,
+        "total_changed": 17714,
         "top_changes": [
-          {
-            "from": "T623L",
-            "to": "A623",
-            "count": 1654
-          },
           {
             "from": "GN542VF",
             "to": "T625Pro",
-            "count": 1428
-          },
-          {
-            "from": "GN542VF",
-            "to": "RN510",
-            "count": 1236
+            "count": 1581
           },
           {
             "from": "ST-244F",
             "to": "T625Pro",
-            "count": 1209
+            "count": 1334
           },
           {
-            "from": "T625Pro",
-            "to": "A625M",
-            "count": 1191
+            "from": "ST-244F",
+            "to": "T626ProV2",
+            "count": 955
           },
           {
-            "from": "T625LM",
-            "to": "A625M",
-            "count": 1176
+            "from": "GN542VF",
+            "to": "T626ProV2",
+            "count": 891
+          },
+          {
+            "from": "HG8247W5-6T",
+            "to": "T625Pro",
+            "count": 863
+          },
+          {
+            "from": "F688",
+            "to": "T625Pro",
+            "count": 727
           },
           {
             "from": "T626Pro",
-            "to": "A625M",
-            "count": 1068
-          },
-          {
-            "from": "T623",
-            "to": "A623",
-            "count": 911
-          },
-          {
-            "from": "ST-244F",
             "to": "T626ProV2",
-            "count": 892
+            "count": 645
           },
           {
-            "from": "GN542VF",
+            "from": "HG8247W5-6T",
             "to": "T626ProV2",
-            "count": 832
+            "count": 625
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 505
+          },
+          {
+            "from": "T626ProV2",
+            "to": "T626Pro",
+            "count": 380
           }
         ]
       },
       "Central": {
-        "total_changed": 9288,
+        "total_changed": 4828,
         "top_changes": [
-          {
-            "from": "T623L",
-            "to": "A623",
-            "count": 700
-          },
-          {
-            "from": "T625LM",
-            "to": "A625M",
-            "count": 482
-          },
-          {
-            "from": "T626Pro",
-            "to": "A625M",
-            "count": 393
-          },
           {
             "from": "ST-244F",
             "to": "T626ProV2",
-            "count": 350
+            "count": 394
           },
           {
             "from": "GN542VF",
             "to": "T626ProV2",
-            "count": 245
-          },
-          {
-            "from": "F6600P",
-            "to": "ZXHN H3601P V9",
-            "count": 241
+            "count": 275
           },
           {
             "from": "T626Pro",
             "to": "T626ProV2",
-            "count": 236
+            "count": 221
           },
           {
             "from": "T623L",
             "to": "T626ProV2",
-            "count": 219
+            "count": 214
           },
           {
-            "from": "T623",
-            "to": "A623",
-            "count": 177
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 187
           },
           {
             "from": "GN542VF",
-            "to": "RN510",
+            "to": "T625Pro",
+            "count": 178
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
             "count": 174
+          },
+          {
+            "from": "T625LM",
+            "to": "T626ProV2",
+            "count": 172
+          },
+          {
+            "from": "H662GR",
+            "to": "T626ProV2",
+            "count": 142
+          },
+          {
+            "from": "ST-244F",
+            "to": "T627Pro",
+            "count": 134
           }
         ]
       },
       "North": {
-        "total_changed": 8843,
-        "top_changes": [
-          {
-            "from": "T623L",
-            "to": "A623",
-            "count": 472
-          },
-          {
-            "from": "H662GR",
-            "to": "WR6221-T",
-            "count": 443
-          },
-          {
-            "from": "H662GR",
-            "to": "RE1200R4GC-V3",
-            "count": 441
-          },
-          {
-            "from": "HG8122",
-            "to": "WR6221-T",
-            "count": 365
-          },
-          {
-            "from": "HG8247H",
-            "to": "WR6221-T",
-            "count": 361
-          },
-          {
-            "from": "ST-244F",
-            "to": "T626ProV2",
-            "count": 348
-          },
-          {
-            "from": "HG8247H",
-            "to": "T3ATv2",
-            "count": 302
-          },
-          {
-            "from": "HG8247H",
-            "to": "RE1200R4GC-V3",
-            "count": 288
-          },
-          {
-            "from": "T625LM",
-            "to": "A625M",
-            "count": 280
-          },
-          {
-            "from": "H662GR",
-            "to": "T3ATv2",
-            "count": 265
-          }
-        ]
-      },
-      "Northeast": {
-        "total_changed": 11185,
+        "total_changed": 3549,
         "top_changes": [
           {
             "from": "ST-244F",
             "to": "T626ProV2",
-            "count": 672
+            "count": 397
           },
           {
-            "from": "GN2000-02GS-1VT",
-            "to": "WR6221-T",
-            "count": 495
-          },
-          {
-            "from": "GN2000-02GS-1VT",
-            "to": "RE1200R4GC-V3",
-            "count": 482
-          },
-          {
-            "from": "T623L",
-            "to": "A623",
-            "count": 452
-          },
-          {
-            "from": "T625LM",
-            "to": "A625M",
-            "count": 384
-          },
-          {
-            "from": "T623L",
+            "from": "H662GR",
             "to": "T626ProV2",
-            "count": 335
+            "count": 242
           },
           {
             "from": "GN542VF",
             "to": "T626ProV2",
-            "count": 317
+            "count": 229
           },
           {
-            "from": "GN2000-02GS-1VT",
-            "to": "T3ATv2",
-            "count": 253
+            "from": "HG8247H",
+            "to": "T626ProV2",
+            "count": 229
+          },
+          {
+            "from": "T623L",
+            "to": "T626ProV2",
+            "count": 227
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 156
+          },
+          {
+            "from": "HG8247W5-6T",
+            "to": "T626ProV2",
+            "count": 154
+          },
+          {
+            "from": "T625LM",
+            "to": "T626ProV2",
+            "count": 149
           },
           {
             "from": "T626Pro",
             "to": "T626ProV2",
-            "count": 248
+            "count": 140
+          },
+          {
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 122
+          }
+        ]
+      },
+      "Northeast": {
+        "total_changed": 5023,
+        "top_changes": [
+          {
+            "from": "ST-244F",
+            "to": "T626ProV2",
+            "count": 746
+          },
+          {
+            "from": "GN542VF",
+            "to": "T626ProV2",
+            "count": 347
+          },
+          {
+            "from": "T623L",
+            "to": "T626ProV2",
+            "count": 346
+          },
+          {
+            "from": "T625LM",
+            "to": "T626ProV2",
+            "count": 262
+          },
+          {
+            "from": "T626Pro",
+            "to": "T626ProV2",
+            "count": 239
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 235
+          },
+          {
+            "from": "GN2000-02GS-1VT",
+            "to": "T626ProV2",
+            "count": 209
+          },
+          {
+            "from": "HG8247H",
+            "to": "T626ProV2",
+            "count": 181
+          },
+          {
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 178
           },
           {
             "from": "HT803G-UA",
-            "to": "WR6221-T",
-            "count": 246
+            "to": "T626ProV2",
+            "count": 163
           }
         ]
       },
       "South": {
-        "total_changed": 5273,
+        "total_changed": 2261,
         "top_changes": [
-          {
-            "from": "F612C",
-            "to": "WR6221-T",
-            "count": 326
-          },
-          {
-            "from": "T623L",
-            "to": "A623",
-            "count": 308
-          },
-          {
-            "from": "F612C",
-            "to": "RE1200R4GC-V3",
-            "count": 286
-          },
-          {
-            "from": "T625LM",
-            "to": "A625M",
-            "count": 247
-          },
-          {
-            "from": "F612C",
-            "to": "T3ATv2",
-            "count": 203
-          },
-          {
-            "from": "HT803G-UA",
-            "to": "WR6221-T",
-            "count": 173
-          },
-          {
-            "from": "F6600P",
-            "to": "ZXHN H3601P V9",
-            "count": 163
-          },
-          {
-            "from": "HT803G-UA",
-            "to": "T3ATv2",
-            "count": 163
-          },
-          {
-            "from": "T626Pro",
-            "to": "A625M",
-            "count": 156
-          },
           {
             "from": "ST-244F",
             "to": "T626ProV2",
-            "count": 140
+            "count": 149
+          },
+          {
+            "from": "GN542VF",
+            "to": "T626ProV2",
+            "count": 132
+          },
+          {
+            "from": "ST-244F",
+            "to": "T625Pro",
+            "count": 126
+          },
+          {
+            "from": "T626Pro",
+            "to": "T626ProV2",
+            "count": 121
+          },
+          {
+            "from": "F612C",
+            "to": "T626ProV2",
+            "count": 101
+          },
+          {
+            "from": "GN542VF",
+            "to": "T625Pro",
+            "count": 93
+          },
+          {
+            "from": "T623L",
+            "to": "T626ProV2",
+            "count": 92
+          },
+          {
+            "from": "F688",
+            "to": "T626ProV2",
+            "count": 92
+          },
+          {
+            "from": "T625LM",
+            "to": "T626ProV2",
+            "count": 66
+          },
+          {
+            "from": "F688",
+            "to": "T625Pro",
+            "count": 65
           }
         ]
       }
