@@ -1,0 +1,90 @@
+{
+  "date": "20260708",
+  "prev_date": "20260630",
+  "baseline_date": "20260520",
+  "models": {
+    "T626ProV2": {
+      "model": "T626ProV2",
+      "total_latest": 791579,
+      "total_prev": 780137,
+      "total_base": 728724,
+      "net_change_prev": 11442,
+      "net_change_base": 62855,
+      "by_region": {
+        "BMA": 214003,
+        "Central": 69095,
+        "North": 69866,
+        "Northeast": 96107,
+        "Other": 296439,
+        "South": 46069
+      },
+      "by_version": {
+        "T3THA3": 534960,
+        "T3THB4": 129667,
+        "T3TH65": 76507,
+        "T3THB6": 50076,
+        "T3THA1": 367,
+        "Other": 2
+      }
+    },
+    "T626Pro": {
+      "model": "T626Pro",
+      "total_latest": 287898,
+      "total_prev": 289010,
+      "total_base": 294693,
+      "net_change_prev": -1112,
+      "net_change_base": -6795,
+      "by_region": {
+        "BMA": 103008,
+        "Central": 21300,
+        "North": 20975,
+        "Northeast": 30013,
+        "Other": 99586,
+        "South": 13016
+      },
+      "by_version": {
+        "T3TH65": 287894,
+        "Other": 4
+      }
+    },
+    "T625Pro": {
+      "model": "T625Pro",
+      "total_latest": 119209,
+      "total_prev": 118005,
+      "total_base": 111965,
+      "net_change_prev": 1204,
+      "net_change_base": 7244,
+      "by_region": {
+        "BMA": 61929,
+        "Central": 4990,
+        "North": 5379,
+        "Northeast": 6982,
+        "Other": 35297,
+        "South": 4632
+      },
+      "by_version": {
+        "T3TH17": 119209
+      }
+    },
+    "T627Pro": {
+      "model": "T627Pro",
+      "total_latest": 20002,
+      "total_prev": 19341,
+      "total_base": 16665,
+      "net_change_prev": 661,
+      "net_change_base": 3337,
+      "by_region": {
+        "BMA": 10566,
+        "Central": 1630,
+        "North": 536,
+        "Northeast": 680,
+        "Other": 6431,
+        "South": 159
+      },
+      "by_version": {
+        "T3THA3": 17419,
+        "T3THA1": 2583
+      }
+    }
+  }
+}
