@@ -1,0 +1,220 @@
+{
+  "stats": {
+    "total_degraded": 20,
+    "critical": 5,
+    "warning": 15,
+    "improved": 23,
+    "prev_month": "May",
+    "curr_month": "Jun",
+    "total_links": 30507,
+    "months": [
+      "Mar",
+      "Apr",
+      "May",
+      "Jun"
+    ]
+  },
+  "top20_degraded": [
+    {
+      "name": "BKK26006G00",
+      "vendor": "ZTE",
+      "interface": "xgei_1/4/2",
+      "prev_rx": -10.96,
+      "curr_rx": -32.41,
+      "drop": -21.45,
+      "severity": "critical"
+    },
+    {
+      "name": "BKK03034GO0",
+      "vendor": "ZTE",
+      "interface": "xgei_1/3/2",
+      "prev_rx": -5.71,
+      "curr_rx": -25.15,
+      "drop": -19.45,
+      "severity": "critical"
+    },
+    {
+      "name": "BKK03011GO0",
+      "vendor": "ZTE",
+      "interface": "xgei_1/4/2",
+      "prev_rx": -4.02,
+      "curr_rx": -20.58,
+      "drop": -16.56,
+      "severity": "critical"
+    },
+    {
+      "name": "BKK03028GO0",
+      "vendor": "ZTE",
+      "interface": "xgei_1/4/2",
+      "prev_rx": -5.96,
+      "curr_rx": -22.12,
+      "drop": -16.16,
+      "severity": "critical"
+    },
+    {
+      "name": "BKK18005GO0",
+      "vendor": "HW",
+      "interface": "ethernet0/3/0",
+      "prev_rx": -14.79,
+      "curr_rx": -30.2,
+      "drop": -15.4,
+      "severity": "critical"
+    },
+    {
+      "name": "PTT04005GO0",
+      "vendor": "FBH",
+      "interface": "SFP28 19/1",
+      "prev_rx": -12.35,
+      "curr_rx": -26.14,
+      "drop": -13.79,
+      "severity": "warning"
+    },
+    {
+      "name": "PTT06023GO0",
+      "vendor": "ZTE",
+      "interface": "xgei_1/4/2",
+      "prev_rx": -12.64,
+      "curr_rx": -24.32,
+      "drop": -11.68,
+      "severity": "warning"
+    },
+    {
+      "name": "BKK26013GO0",
+      "vendor": "N/A",
+      "interface": "xgei-1/5/1",
+      "prev_rx": -11.06,
+      "curr_rx": -21.09,
+      "drop": -10.02,
+      "severity": "warning"
+    },
+    {
+      "name": "SMP03020GO1",
+      "vendor": "HW",
+      "interface": "ethernet0/3/0",
+      "prev_rx": -9.09,
+      "curr_rx": -17.67,
+      "drop": -8.58,
+      "severity": "warning"
+    },
+    {
+      "name": "SMP03007GO0",
+      "vendor": "HW",
+      "interface": "ethernet0/2/2",
+      "prev_rx": -7.18,
+      "curr_rx": -14.36,
+      "drop": -7.18,
+      "severity": "warning"
+    },
+    {
+      "name": "SMP03006GO0",
+      "vendor": "HW",
+      "interface": "ethernet0/3/2",
+      "prev_rx": -9.78,
+      "curr_rx": -16.65,
+      "drop": -6.86,
+      "severity": "warning"
+    },
+    {
+      "name": "NTB03010GO0",
+      "vendor": "FBH",
+      "interface": "SFP+ 3/1",
+      "prev_rx": -14.54,
+      "curr_rx": -21.18,
+      "drop": -6.64,
+      "severity": "warning"
+    },
+    {
+      "name": "PCB06010GO0",
+      "vendor": "HW",
+      "interface": "ethernet0/3/2",
+      "prev_rx": -8.32,
+      "curr_rx": -13.84,
+      "drop": -5.51,
+      "severity": "warning"
+    },
+    {
+      "name": "SMP03019GO0",
+      "vendor": "HW",
+      "interface": "ethernet0/3/2",
+      "prev_rx": -9.98,
+      "curr_rx": -14.67,
+      "drop": -4.69,
+      "severity": "warning"
+    },
+    {
+      "name": "SMP03021GO0",
+      "vendor": "HW",
+      "interface": "ethernet0/2/2",
+      "prev_rx": -7.38,
+      "curr_rx": -11.7,
+      "drop": -4.32,
+      "severity": "warning"
+    },
+    {
+      "name": "CMI15021GO0",
+      "vendor": "FBH",
+      "interface": "SFP+ 3/1",
+      "prev_rx": -5.87,
+      "curr_rx": -10.18,
+      "drop": -4.31,
+      "severity": "warning"
+    },
+    {
+      "name": "SMP03020GO0",
+      "vendor": "HW",
+      "interface": "ethernet0/3/0",
+      "prev_rx": -9.23,
+      "curr_rx": -13.41,
+      "drop": -4.18,
+      "severity": "warning"
+    },
+    {
+      "name": "SMP03021GO1",
+      "vendor": "HW",
+      "interface": "ethernet0/3/2",
+      "prev_rx": -9.23,
+      "curr_rx": -13.35,
+      "drop": -4.12,
+      "severity": "warning"
+    },
+    {
+      "name": "SMP03015GO0",
+      "vendor": "HW",
+      "interface": "ethernet0/3/2",
+      "prev_rx": -9.42,
+      "curr_rx": -13.47,
+      "drop": -4.06,
+      "severity": "warning"
+    },
+    {
+      "name": "MHS01003G00",
+      "vendor": "DZ",
+      "interface": "port14-XE-FX",
+      "prev_rx": -3.92,
+      "curr_rx": -7.44,
+      "drop": -3.52,
+      "severity": "warning"
+    }
+  ],
+  "vendor_breakdown": {
+    "ZTE": 5,
+    "HW": 10,
+    "N/A": 1,
+    "FBH": 3,
+    "DZ": 1
+  },
+  "period_pairs": [
+    [
+      "Mar",
+      "Apr"
+    ],
+    [
+      "Apr",
+      "May"
+    ],
+    [
+      "May",
+      "Jun"
+    ]
+  ]
+}

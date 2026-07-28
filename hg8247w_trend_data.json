@@ -1,153 +1,63 @@
 [
   {
-    "date": "2026-05-20",
-    "hg8247w_total": 196453,
+    "date": "2026-07-15",
+    "hg8247w_total": 136288,
     "swap_in_from_base": 0,
     "swap_out_from_base": 0
   },
   {
-    "date": "2026-05-30",
-    "hg8247w_total": 194598,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 482
-  },
-  {
-    "date": "2026-06-01",
-    "hg8247w_total": 193964,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 650
-  },
-  {
-    "date": "2026-06-03",
-    "hg8247w_total": 194155,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 845
-  },
-  {
-    "date": "2026-06-04",
-    "hg8247w_total": 194468,
-    "swap_in_from_base": 3,
-    "swap_out_from_base": 925
-  },
-  {
-    "date": "2026-06-06",
-    "hg8247w_total": 194040,
-    "swap_in_from_base": 2,
-    "swap_out_from_base": 1092
-  },
-  {
-    "date": "2026-06-10",
-    "hg8247w_total": 193626,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 1429
-  },
-  {
-    "date": "2026-06-16",
-    "hg8247w_total": 192541,
-    "swap_in_from_base": 2,
-    "swap_out_from_base": 2079
-  },
-  {
-    "date": "2026-06-18",
-    "hg8247w_total": 192424,
-    "swap_in_from_base": 2,
-    "swap_out_from_base": 2265
-  },
-  {
-    "date": "2026-06-21",
-    "hg8247w_total": 191163,
-    "swap_in_from_base": 3,
-    "swap_out_from_base": 2602
-  },
-  {
-    "date": "2026-06-30",
-    "hg8247w_total": 190679,
-    "swap_in_from_base": 3,
-    "swap_out_from_base": 3410
-  },
-  {
-    "date": "2026-07-08",
-    "hg8247w_total": 189423,
-    "swap_in_from_base": 4,
-    "swap_out_from_base": 4261
-  },
-  {
-    "date": "2026-07-15",
-    "hg8247w_total": 196139,
-    "swap_in_from_base": 20,
-    "swap_out_from_base": 16552
-  },
-  {
-    "date": "2026-07-16",
-    "hg8247w_total": 196120,
-    "swap_in_from_base": 20,
-    "swap_out_from_base": 16581
-  },
-  {
-    "date": "2026-07-17",
-    "hg8247w_total": 195612,
-    "swap_in_from_base": 21,
-    "swap_out_from_base": 16642
-  },
-  {
-    "date": "2026-07-18",
-    "hg8247w_total": 195554,
-    "swap_in_from_base": 21,
-    "swap_out_from_base": 16710
-  },
-  {
     "date": "2026-07-19",
-    "hg8247w_total": 195264,
-    "swap_in_from_base": 21,
-    "swap_out_from_base": 16805
+    "hg8247w_total": 135839,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 186
   },
   {
     "date": "2026-07-20",
-    "hg8247w_total": 195189,
-    "swap_in_from_base": 21,
-    "swap_out_from_base": 16886
+    "hg8247w_total": 135789,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 250
   },
   {
     "date": "2026-07-21",
-    "hg8247w_total": 195108,
-    "swap_in_from_base": 20,
-    "swap_out_from_base": 16982
+    "hg8247w_total": 135730,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 305
   },
   {
     "date": "2026-07-22",
-    "hg8247w_total": 195093,
-    "swap_in_from_base": 20,
-    "swap_out_from_base": 17058
+    "hg8247w_total": 135714,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 348
   },
   {
     "date": "2026-07-23",
-    "hg8247w_total": 195088,
-    "swap_in_from_base": 20,
-    "swap_out_from_base": 17135
+    "hg8247w_total": 135700,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 403
   },
   {
     "date": "2026-07-24",
-    "hg8247w_total": 192290,
-    "swap_in_from_base": 9,
-    "swap_out_from_base": 16921
+    "hg8247w_total": 134242,
+    "swap_in_from_base": 11,
+    "swap_out_from_base": 434
   },
   {
     "date": "2026-07-25",
-    "hg8247w_total": 193367,
-    "swap_in_from_base": 9,
-    "swap_out_from_base": 15705
+    "hg8247w_total": 133673,
+    "swap_in_from_base": 8,
+    "swap_out_from_base": 411
   },
   {
     "date": "2026-07-26",
-    "hg8247w_total": 195746,
-    "swap_in_from_base": 10,
-    "swap_out_from_base": 14923
+    "hg8247w_total": 133624,
+    "swap_in_from_base": 103,
+    "swap_out_from_base": 477
   },
   {
     "date": "2026-07-27",
     "hg8247w_total": 133299,
-    "swap_in_from_base": 1,
-    "swap_out_from_base": 4032
+    "swap_in_from_base": 226,
+    "swap_out_from_base": 632
   },
   {
     "date": "2026-07-28",
