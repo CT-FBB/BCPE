@@ -139,9 +139,29 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 <div id="root">Loading...</div>
 
 <script>
+let globalData = null;
+function downloadSwapCSV(filename) {
+  if (!globalData || !globalData.swap_in_details || globalData.swap_in_details.length === 0) {
+      alert("ไม่มีข้อมูล Swap หรือข้อมูลเป็น 0");
+      return;
+  }
+  const data = globalData.swap_in_details;
+  let csv = "AccessId,Serial,Model_Old,Model_New\n";
+  data.forEach(r => { 
+      csv += r.AccessId + "," + r.Serial + "," + r.Model_Old + "," + r.Model_New + "\n"; 
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
 async function load(){
   let d;
-  try{ const r=await fetch('gn542vf_dashboard_data.json?v=202607272243'); d=await r.json(); }
+  try{ const r=await fetch('gn542vf_dashboard_data.json?v=202607310930'); d=await r.json(); }
   catch(e){ d=null; }
   
   let trendData = [];
@@ -150,7 +170,7 @@ async function load(){
 
   if(!d){ document.getElementById('root').innerHTML='<p style="padding:40px;color:#f87171">❌ ไม่พบ gn542vf_dashboard_data.json</p>'; return; }
   
-  d.trend_advanced = trendData;
+  d.trend_advanced = trendData;\n  globalData = d;
   renderDashboard(d);
 }
 
@@ -292,7 +312,7 @@ function renderDashboard(d){
         <div class="kl">Swap เข้าจากรุ่นอื่น</div>
         <div class="kv pu">
             ${fmt(swapIn)}<br>
-            <a href="swap_in_gn542vf.csv" download style="font-size:0.75rem; text-decoration:underline; color:#fff; opacity:0.8;">📥 Download CSV</a>
+            <a href='#' onclick='downloadSwapCSV('swap_in_gn542vf.csv'); return false;' style='font-size:0.75rem; text-decoration:underline; color:#fff; opacity:0.8;'>📥 Download CSV</a>
         </div>
         <div class="ks">โผล่ขึ้นมาแทน Serial เดิม</div>
       </div>
