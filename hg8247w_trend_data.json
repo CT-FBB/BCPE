@@ -154,5 +154,29 @@
     "hg8247w_total": 133341,
     "swap_in_from_base": 3,
     "swap_out_from_base": 4184
+  },
+  {
+    "date": "2026-07-29",
+    "hg8247w_total": 125740,
+    "swap_in_from_base": 3,
+    "swap_out_from_base": 4194
+  },
+  {
+    "date": "2026-07-30",
+    "hg8247w_total": 125735,
+    "swap_in_from_base": 3,
+    "swap_out_from_base": 4204
+  },
+  {
+    "date": "2026-07-31",
+    "hg8247w_total": 125773,
+    "swap_in_from_base": 3,
+    "swap_out_from_base": 4214
+  },
+  {
+    "date": "2026-08-01",
+    "hg8247w_total": 125789,
+    "swap_in_from_base": 3,
+    "swap_out_from_base": 4224
   }
 ]

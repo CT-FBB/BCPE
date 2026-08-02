@@ -1282,10 +1282,9 @@ body {
     
     <div class="header-actions">
       <div class="date-badges">
-        <span class="date-badge badge-latest">🟢 Latest: <span id="hdr-latest-date">—</span></span>
         <span class="date-badge badge-base">⬜ Baseline: <span id="hdr-base-date">—</span></span>
         <span class="date-badge" style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);color:#34d399;">
-          📦 ONU ทั้งหมด: <span id="hdr-total">—</span> ราย
+          📦 Device ทั้งหมด: <span id="hdr-total">—</span> ราย
         </span>
       </div>
       <button class="btn-export" onclick="exportToExcel()" id="btn-export-excel">
@@ -1327,7 +1326,7 @@ body {
     <!-- KPI Row -->
     <div class="kpi-grid">
       <div class="kpi-card kpi-indigo">
-        <div class="kpi-label">ONU ทั้งหมด (latest)</div>
+        <div class="kpi-label">Device ทั้งหมด (latest)</div>
         <div class="kpi-value" id="s1-total">—</div>
         <div class="kpi-sub">จาก <span id="s1-latest-date">—</span></div>
       </div>
@@ -1368,7 +1367,7 @@ body {
       <!-- Donut: top10 vs others -->
       <div class="card">
         <div class="card-title">🍩 สัดส่วน Top 10 Models</div>
-        <div class="card-subtitle">% share จาก ONU ทั้งหมด</div>
+        <div class="card-subtitle">% share จาก Device ทั้งหมด</div>
         <div class="chart-wrap-donut" style="height:280px;">
           <canvas id="chart-top10-donut"></canvas>
         </div>
@@ -1521,9 +1520,9 @@ body {
 // EMBEDDED_DATA_START
 const embeddedData = {
   "story1": {
-    "latest_date": "20260728",
+    "latest_date": "20260801",
     "baseline_date": "20260520",
-    "total_onu": 3421214,
+    "total_onu": 3729274,
     "models": [
       "T626ProV2",
       "T623L",
@@ -1537,16 +1536,16 @@ const embeddedData = {
       "T623"
     ],
     "model_counts": {
-      "T626ProV2": 882325,
-      "T623L": 384980,
-      "GN542VF": 365707,
-      "T626Pro": 306953,
-      "ST-244F": 182811,
-      "F688": 143329,
-      "T625LM": 142308,
-      "HG8247W5-6T": 125155,
-      "T625Pro": 122231,
-      "T623": 81246
+      "T626ProV2": 974644,
+      "T623L": 394880,
+      "GN542VF": 372852,
+      "T626Pro": 337019,
+      "ST-244F": 184611,
+      "F688": 144126,
+      "T625LM": 150097,
+      "HG8247W5-6T": 125789,
+      "T625Pro": 128920,
+      "T623": 85334
     },
     "model_pct_total": {
       "T626ProV2": 25.79,
@@ -2504,7 +2503,7 @@ function initDashboard(data) {
   }
 
   // ── Header ──
-  document.getElementById('hdr-latest-date').textContent = formatDateStr(s1.latest_date);
+  //.textContent = formatDateStr(s1.latest_date);
   document.getElementById('hdr-base-date').textContent   = formatDateStr(s1.baseline_date);
   document.getElementById('hdr-total').textContent       = fmt(s1.total_onu);
   document.getElementById('s1-total').textContent        = fmt(s1.total_onu);
@@ -2743,7 +2742,7 @@ function buildRegionBreakdownTable(s1, idx) {
   const model = s1.models[idx];
   const modelTotal = s1.model_counts[model];
   let html = `<thead><tr>
-    <th>Region</th><th>จำนวน (ราย)</th><th>% ของ Model</th><th>% ของ ONU ทั้งหมด</th>
+    <th>Region</th><th>จำนวน (ราย)</th><th>% ของ Model</th><th>% ของ Device ทั้งหมด</th>
   </tr></thead><tbody>`;
   REGION_ORDER.forEach(r => {
     const d = s1.by_region[r]?.models[model];

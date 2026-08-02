@@ -154,5 +154,29 @@
     "f688_total": 143329,
     "swap_in_from_base": 0,
     "swap_out_from_base": 4106
+  },
+  {
+    "date": "2026-07-29",
+    "f688_total": 144056,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 4116
+  },
+  {
+    "date": "2026-07-30",
+    "f688_total": 144058,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 4126
+  },
+  {
+    "date": "2026-07-31",
+    "f688_total": 144098,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 4136
+  },
+  {
+    "date": "2026-08-01",
+    "f688_total": 144126,
+    "swap_in_from_base": 0,
+    "swap_out_from_base": 4146
   }
 ]

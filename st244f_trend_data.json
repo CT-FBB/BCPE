@@ -154,5 +154,29 @@
     "st244f_total": 214051,
     "swap_in_from_base": 8,
     "swap_out_from_base": 9266
+  },
+  {
+    "date": "2026-07-29",
+    "st244f_total": 184170,
+    "swap_in_from_base": 8,
+    "swap_out_from_base": 9276
+  },
+  {
+    "date": "2026-07-30",
+    "st244f_total": 184337,
+    "swap_in_from_base": 8,
+    "swap_out_from_base": 9286
+  },
+  {
+    "date": "2026-07-31",
+    "st244f_total": 184486,
+    "swap_in_from_base": 8,
+    "swap_out_from_base": 9296
+  },
+  {
+    "date": "2026-08-01",
+    "st244f_total": 184611,
+    "swap_in_from_base": 8,
+    "swap_out_from_base": 9306
   }
 ]
