@@ -1,5 +1,5 @@
 {
-  "total_hg8247w": 133341,
+  "total_hg8247w": 125789,
   "total_hg8247w_base": 132353,
   "net_change": 42,
   "new_installs": 0,
@@ -12,7 +12,7 @@
     }
   ],
   "removed_hg8247w": 1915,
-  "latest_date": "devi-ce-_export_20260728_003001.csv",
+  "latest_date": "device_export_20260801_003001.csv",
   "baseline_date": "2026-05-20",
   "by_region": {
     "BMA": 62206,

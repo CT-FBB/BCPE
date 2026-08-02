@@ -1,12 +1,12 @@
 {
-  "total_st244f": 214051,
+  "total_st244f": 184611,
   "total_st244f_base": 201352,
   "net_change": 221,
   "new_installs": 0,
   "data_correction": 0,
   "swap_from_other": 8,
   "removed_st244f": 4932,
-  "latest_date": "2026-07-28",
+  "latest_date": "device_export_20260801_003001.csv",
   "baseline_date": "2026-05-20",
   "by_region": {
     "BMA": 66022,

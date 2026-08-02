@@ -1,5 +1,5 @@
 {
-  "total_f688": 143329,
+  "total_f688": 144126,
   "total_f688_base": 143911,
   "net_change": 68,
   "new_installs": 0,
@@ -7,7 +7,7 @@
   "swap_from_other": 0,
   "change_from_models": [],
   "removed_f688": 2152,
-  "latest_date": "devi-ce-_export_20260728_003001.csv",
+  "latest_date": "device_export_20260801_003001.csv",
   "baseline_date": "2026-05-20",
   "by_region": {
     "BMA": 55028,

@@ -1,5 +1,5 @@
 {
-  "total_gn542vf": 365707,
+  "total_gn542vf": 372852,
   "total_gn542vf_base": 365092,
   "net_change": 129,
   "new_installs": 62,
@@ -104,7 +104,7 @@
     }
   ],
   "removed_gn542vf": 5257,
-  "latest_date": "devi-ce-_export_20260728_003001.csv",
+  "latest_date": "device_export_20260801_003001.csv",
   "baseline_date": "2026-05-20",
   "by_region": {
     "BMA": 151804,
