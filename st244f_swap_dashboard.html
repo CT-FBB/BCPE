@@ -141,14 +141,14 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 <script>
 let globalData = null;
 function downloadSwapCSV(filename) {
-  if (!globalData || !globalData.swap_in_details || globalData.swap_in_details.length === 0) {
+  if (!globalData || !globalData.change_rows || globalData.change_rows.length === 0) {
       alert("ไม่มีข้อมูล Swap หรือข้อมูลเป็น 0");
       return;
   }
-  const data = globalData.swap_in_details;
-  let csv = "AccessId,Serial,Model_Old,Model_New\n";
+  const data = globalData.change_rows;
+  let csv = "\uFEFFAccessId,Serial_Old,Serial_New,Model_Old,Model_New\n";
   data.forEach(r => { 
-      csv += r.AccessId + "," + r.Serial + "," + r.Model_Old + "," + r.Model_New + "\n"; 
+      csv += (r.AccessId||'') + "," + (r.Old_Serial||'') + "," + (r.New_Serial||'') + "," + (r.From_Model||'') + "," + (r.To_Model||'') + "\n"; 
   });
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = window.URL.createObjectURL(blob);
@@ -358,28 +358,6 @@ function renderDashboard(d){
     <h3><span class="dot" style="background:#10b981"></span> แนวโน้ม ST-244F รวม และ Swap OUT สะสม (เทียบ 20/05)</h3>
     <div class="ch tall"><canvas id="trendChart"></canvas></div>
   </div>`:''}
-
-  <!-- Row 2: OLT model table + Top OLT -->
-  <div class="g2">
-    <div class="card">
-      <h3><span class="dot" style="background:#a855f7"></span> ST-244F แยกตาม OLT Model (Top 10)</h3>
-      <div class="scr">
-        <table class="tbl">
-          <thead><tr><th>#</th><th>Vendor</th><th>OLT Model</th><th style="text-align:right">จำนวน</th><th style="min-width:80px">สัดส่วน</th></tr></thead>
-          <tbody>${modelTbl||`<tr><td colspan="5" style="color:var(--muted);text-align:center;padding:20px">ไม่มีข้อมูล OLT Model</td></tr>`}</tbody>
-        </table>
-      </div>
-    </div>
-    <div class="card">
-      <h3><span class="dot" style="background:#10b981"></span> Top OLT ที่มี ST-244F (Top 15)</h3>
-      <div class="scr">
-        <table class="tbl">
-          <thead><tr><th>#</th><th>OLT Name</th><th style="text-align:right">จำนวน</th></tr></thead>
-          <tbody>${oltTbl||`<tr><td colspan="3" style="color:var(--muted);text-align:center;padding:20px">ไม่มีข้อมูล</td></tr>`}</tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 
   <!-- Row 3: Swap flow + Detail -->
   <div class="g2">

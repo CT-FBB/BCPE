@@ -168,9 +168,9 @@
     },
     {
       "AccessId": "9600017021",
-      "New_Serial": "",
+      "New_Serial": "SCOM36624A0E",
       "Old_Serial": "SCOM36624A0E",
-      "To_Model": "",
+      "To_Model": "9600017021",
       "From_Model": "ST-244F",
       "Device": "LOI05006G00",
       "Region": "Other"
@@ -231,9 +231,9 @@
     },
     {
       "AccessId": "9600032558",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664613A",
       "Old_Serial": "SCOM3664613A",
-      "To_Model": "",
+      "To_Model": "9600032558",
       "From_Model": "ST-244F",
       "Device": "LBR01003GO0",
       "Region": "Other"
@@ -249,9 +249,9 @@
     },
     {
       "AccessId": "9600041488",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664A3DB",
       "Old_Serial": "SCOM3664A3DB",
-      "To_Model": "",
+      "To_Model": "9600041488",
       "From_Model": "ST-244F",
       "Device": "SKT07001GO0",
       "Region": "Other"
@@ -546,9 +546,9 @@
     },
     {
       "AccessId": "9600098689",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C27D5",
       "Old_Serial": "SCOM366C27D5",
-      "To_Model": "",
+      "To_Model": "9600098689",
       "From_Model": "ST-244F",
       "Device": "SMK02002G01",
       "Region": "BMA"
@@ -744,9 +744,9 @@
     },
     {
       "AccessId": "9600140453",
-      "New_Serial": "",
+      "New_Serial": "SCOM366391AB",
       "Old_Serial": "SCOM366391AB",
-      "To_Model": "",
+      "To_Model": "9600140453",
       "From_Model": "ST-244F",
       "Device": "BKK10001G01",
       "Region": "BMA"
@@ -780,9 +780,9 @@
     },
     {
       "AccessId": "9600151747",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667F2B3",
       "Old_Serial": "SCOM3667F2B3",
-      "To_Model": "",
+      "To_Model": "9600151747",
       "From_Model": "ST-244F",
       "Device": "SRT14005GO0",
       "Region": "Other"
@@ -861,9 +861,9 @@
     },
     {
       "AccessId": "9600173608",
-      "New_Serial": "",
+      "New_Serial": "SCOM366374FE",
       "Old_Serial": "SCOM366374FE",
-      "To_Model": "",
+      "To_Model": "9600173608",
       "From_Model": "ST-244F",
       "Device": "CBR07066GO0",
       "Region": "Other"
@@ -1068,9 +1068,9 @@
     },
     {
       "AccessId": "9600226302",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667B30B",
       "Old_Serial": "SCOM3667B30B",
-      "To_Model": "",
+      "To_Model": "9600226302",
       "From_Model": "ST-244F",
       "Device": "SKT01016G00",
       "Region": "Other"
@@ -1158,9 +1158,9 @@
     },
     {
       "AccessId": "9600245276",
-      "New_Serial": "",
+      "New_Serial": "SCOM36663AEE",
       "Old_Serial": "SCOM36663AEE",
-      "To_Model": "",
+      "To_Model": "9600245276",
       "From_Model": "ST-244F",
       "Device": "CBR01073GO0",
       "Region": "Other"
@@ -1176,9 +1176,9 @@
     },
     {
       "AccessId": "9600253359",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661CF04",
       "Old_Serial": "SCOM3661CF04",
-      "To_Model": "",
+      "To_Model": "9600253359",
       "From_Model": "ST-244F",
       "Device": "BKK32013GO0",
       "Region": "BMA"
@@ -1221,9 +1221,9 @@
     },
     {
       "AccessId": "9600262666",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663479F",
       "Old_Serial": "SCOM3663479F",
-      "To_Model": "",
+      "To_Model": "9600262666",
       "From_Model": "ST-244F",
       "Device": "BKK09005GO0",
       "Region": "BMA"
@@ -1383,18 +1383,18 @@
     },
     {
       "AccessId": "9600279791",
-      "New_Serial": "",
+      "New_Serial": "SCOM36632DDC",
       "Old_Serial": "SCOM36632DDC",
-      "To_Model": "",
+      "To_Model": "9600279791",
       "From_Model": "ST-244F",
       "Device": "ATG01001GO0",
       "Region": "North"
     },
     {
       "AccessId": "9600281715",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664398E",
       "Old_Serial": "SCOM3664398E",
-      "To_Model": "",
+      "To_Model": "9600281715",
       "From_Model": "ST-244F",
       "Device": "NKR01089GO0",
       "Region": "Northeast"
@@ -1437,9 +1437,9 @@
     },
     {
       "AccessId": "9600288422",
-      "New_Serial": "",
+      "New_Serial": "SCOM366330BB",
       "Old_Serial": "SCOM366330BB",
-      "To_Model": "",
+      "To_Model": "9600288422",
       "From_Model": "ST-244F",
       "Device": "BKK05010GO0",
       "Region": "BMA"
@@ -1509,9 +1509,9 @@
     },
     {
       "AccessId": "9600291609",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666D549",
       "Old_Serial": "SCOM3666D549",
-      "To_Model": "",
+      "To_Model": "9600291609",
       "From_Model": "ST-244F",
       "Device": "BKK06013GO0",
       "Region": "BMA"
@@ -1581,9 +1581,9 @@
     },
     {
       "AccessId": "9600300404",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663164B",
       "Old_Serial": "SCOM3663164B",
-      "To_Model": "",
+      "To_Model": "9600300404",
       "From_Model": "ST-244F",
       "Device": "NKR06002G00",
       "Region": "Northeast"
@@ -1851,9 +1851,9 @@
     },
     {
       "AccessId": "9600330746",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662DD98",
       "Old_Serial": "SCOM3662DD98",
-      "To_Model": "",
+      "To_Model": "9600330746",
       "From_Model": "ST-244F",
       "Device": "BKK45020GO0",
       "Region": "BMA"
@@ -1869,9 +1869,9 @@
     },
     {
       "AccessId": "9600331841",
-      "New_Serial": "",
+      "New_Serial": "T3THB4139A54",
       "Old_Serial": "SCOM3663BC7D",
-      "To_Model": "",
+      "To_Model": "9600331841",
       "From_Model": "ST-244F",
       "Device": "SMP01AGNG01",
       "Region": "Other"
@@ -1941,9 +1941,9 @@
     },
     {
       "AccessId": "9600337304",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663CD7F",
       "Old_Serial": "SCOM3663CD7F",
-      "To_Model": "",
+      "To_Model": "9600337304",
       "From_Model": "ST-244F",
       "Device": "CPN07008G00",
       "Region": "Other"
@@ -1968,9 +1968,9 @@
     },
     {
       "AccessId": "9600340405",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A3738",
       "Old_Serial": "SCOM366A3738",
-      "To_Model": "",
+      "To_Model": "9600340405",
       "From_Model": "ST-244F",
       "Device": "BKK29001G01",
       "Region": "BMA"
@@ -2058,9 +2058,9 @@
     },
     {
       "AccessId": "9600346811",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662ACE0",
       "Old_Serial": "SCOM3662ACE0",
-      "To_Model": "",
+      "To_Model": "9600346811",
       "From_Model": "ST-244F",
       "Device": "CBR01004GO0",
       "Region": "Other"
@@ -2229,9 +2229,9 @@
     },
     {
       "AccessId": "9600361623",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662CAFB",
       "Old_Serial": "SCOM3662CAFB",
-      "To_Model": "",
+      "To_Model": "9600361623",
       "From_Model": "ST-244F",
       "Device": "KCN01005G00",
       "Region": "Other"
@@ -2427,9 +2427,9 @@
     },
     {
       "AccessId": "9600381796",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663BA87",
       "Old_Serial": "SCOM3663BA87",
-      "To_Model": "",
+      "To_Model": "9600381796",
       "From_Model": "ST-244F",
       "Device": "SSK10011G00",
       "Region": "Other"
@@ -2580,9 +2580,9 @@
     },
     {
       "AccessId": "9600402702",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662999A",
       "Old_Serial": "SCOM3662999A",
-      "To_Model": "",
+      "To_Model": "9600402702",
       "From_Model": "ST-244F",
       "Device": "BKK32003G01",
       "Region": "BMA"
@@ -2625,9 +2625,9 @@
     },
     {
       "AccessId": "9600408061",
-      "New_Serial": "",
+      "New_Serial": "SCOM36652BF0",
       "Old_Serial": "SCOM36652BF0",
-      "To_Model": "",
+      "To_Model": "9600408061",
       "From_Model": "ST-244F",
       "Device": "NTB02005GO0",
       "Region": "BMA"
@@ -2643,27 +2643,27 @@
     },
     {
       "AccessId": "9600408821",
-      "New_Serial": "",
+      "New_Serial": "SCOM366491FC",
       "Old_Serial": "SCOM366491FC",
-      "To_Model": "",
+      "To_Model": "9600408821",
       "From_Model": "ST-244F",
       "Device": "BKK22001G00",
       "Region": "BMA"
     },
     {
       "AccessId": "9600410355",
-      "New_Serial": "",
+      "New_Serial": "SCOM36637CBC",
       "Old_Serial": "SCOM36637CBC",
-      "To_Model": "",
+      "To_Model": "9600410355",
       "From_Model": "ST-244F",
       "Device": "PCB07003GO0",
       "Region": "Central"
     },
     {
       "AccessId": "9600410357",
-      "New_Serial": "",
+      "New_Serial": "T3THB6307550",
       "Old_Serial": "SCOM366346E2",
-      "To_Model": "",
+      "To_Model": "9600410357",
       "From_Model": "ST-244F",
       "Device": "BKK47019GO0",
       "Region": "BMA"
@@ -2688,9 +2688,9 @@
     },
     {
       "AccessId": "9600412042",
-      "New_Serial": "",
+      "New_Serial": "SCOM366472F4",
       "Old_Serial": "SCOM366472F4",
-      "To_Model": "",
+      "To_Model": "9600412042",
       "From_Model": "ST-244F",
       "Device": "SMK02002G01",
       "Region": "BMA"
@@ -2796,9 +2796,9 @@
     },
     {
       "AccessId": "9600419009",
-      "New_Serial": "",
+      "New_Serial": "SCOM36624A58",
       "Old_Serial": "SCOM36624A58",
-      "To_Model": "",
+      "To_Model": "9600419009",
       "From_Model": "ST-244F",
       "Device": "SSK01018GO0",
       "Region": "Other"
@@ -2823,9 +2823,9 @@
     },
     {
       "AccessId": "9600421480",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664AAE3",
       "Old_Serial": "SCOM3664AAE3",
-      "To_Model": "",
+      "To_Model": "9600421480",
       "From_Model": "ST-244F",
       "Device": "CMI15001G00",
       "Region": "North"
@@ -2976,9 +2976,9 @@
     },
     {
       "AccessId": "9600432981",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662DFFC",
       "Old_Serial": "SCOM3662DFFC",
-      "To_Model": "",
+      "To_Model": "9600432981",
       "From_Model": "ST-244F",
       "Device": "NKR01093GO0",
       "Region": "Northeast"
@@ -3381,9 +3381,9 @@
     },
     {
       "AccessId": "9600466793",
-      "New_Serial": "",
+      "New_Serial": "T3THA393BAA2",
       "Old_Serial": "SCOM3664AD9D",
-      "To_Model": "",
+      "To_Model": "9600466793",
       "From_Model": "ST-244F",
       "Device": "NKT06046G00",
       "Region": "Other"
@@ -3471,9 +3471,9 @@
     },
     {
       "AccessId": "9600478150",
-      "New_Serial": "",
+      "New_Serial": "SCOM36642831",
       "Old_Serial": "SCOM36642831",
-      "To_Model": "",
+      "To_Model": "9600478150",
       "From_Model": "ST-244F",
       "Device": "NKR10020G00",
       "Region": "Northeast"
@@ -3714,9 +3714,9 @@
     },
     {
       "AccessId": "9600502190",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664C825",
       "Old_Serial": "SCOM3664C825",
-      "To_Model": "",
+      "To_Model": "9600502190",
       "From_Model": "ST-244F",
       "Device": "LPN01001G00",
       "Region": "North"
@@ -3876,9 +3876,9 @@
     },
     {
       "AccessId": "9600512930",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662C9EC",
       "Old_Serial": "SCOM3662C9EC",
-      "To_Model": "",
+      "To_Model": "9600512930",
       "From_Model": "ST-244F",
       "Device": "AYT08013G00",
       "Region": "Central"
@@ -3903,9 +3903,9 @@
     },
     {
       "AccessId": "9600516159",
-      "New_Serial": "",
+      "New_Serial": "SCOM366ACFC5",
       "Old_Serial": "SCOM366ACFC5",
-      "To_Model": "",
+      "To_Model": "9600516159",
       "From_Model": "ST-244F",
       "Device": "BKK06035GO0",
       "Region": "BMA"
@@ -3939,9 +3939,9 @@
     },
     {
       "AccessId": "9600518166",
-      "New_Serial": "",
+      "New_Serial": "SCOM366637FA",
       "Old_Serial": "SCOM366637FA",
-      "To_Model": "",
+      "To_Model": "9600518166",
       "From_Model": "ST-244F",
       "Device": "KKN01005G00",
       "Region": "Northeast"
@@ -4155,9 +4155,9 @@
     },
     {
       "AccessId": "9600532999",
-      "New_Serial": "",
+      "New_Serial": "SCOM36654427",
       "Old_Serial": "SCOM36654427",
-      "To_Model": "",
+      "To_Model": "9600532999",
       "From_Model": "ST-244F",
       "Device": "BKK05003G00",
       "Region": "BMA"
@@ -4236,9 +4236,9 @@
     },
     {
       "AccessId": "9600539496",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665F01F",
       "Old_Serial": "SCOM3665F01F",
-      "To_Model": "",
+      "To_Model": "9600539496",
       "From_Model": "ST-244F",
       "Device": "NKS20001GO0",
       "Region": "North"
@@ -4308,9 +4308,9 @@
     },
     {
       "AccessId": "9600544974",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662A112",
       "Old_Serial": "SCOM3662A112",
-      "To_Model": "",
+      "To_Model": "9600544974",
       "From_Model": "ST-244F",
       "Device": "CCS04015G00",
       "Region": "Other"
@@ -4398,9 +4398,9 @@
     },
     {
       "AccessId": "9601925130",
-      "New_Serial": "",
+      "New_Serial": "SCOM36661838",
       "Old_Serial": "SCOM36661838",
-      "To_Model": "",
+      "To_Model": "9601925130",
       "From_Model": "ST-244F",
       "Device": "SKN12001G00",
       "Region": "Northeast"
@@ -4704,9 +4704,9 @@
     },
     {
       "AccessId": "9602877040",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661A144",
       "Old_Serial": "SCOM3661A144",
-      "To_Model": "",
+      "To_Model": "9602877040",
       "From_Model": "ST-244F",
       "Device": "LPG03001G00",
       "Region": "North"
@@ -4911,9 +4911,9 @@
     },
     {
       "AccessId": "9603454310",
-      "New_Serial": "",
+      "New_Serial": "SCOM36666ED2",
       "Old_Serial": "SCOM36666ED2",
-      "To_Model": "",
+      "To_Model": "9603454310",
       "From_Model": "ST-244F",
       "Device": "PCB06001GO0",
       "Region": "Central"
@@ -5181,9 +5181,9 @@
     },
     {
       "AccessId": "9604071035",
-      "New_Serial": "",
+      "New_Serial": "SCOM366323CB",
       "Old_Serial": "SCOM366323CB",
-      "To_Model": "",
+      "To_Model": "9604071035",
       "From_Model": "ST-244F",
       "Device": "BKK46002G01",
       "Region": "BMA"
@@ -5559,9 +5559,9 @@
     },
     {
       "AccessId": "9604145019",
-      "New_Serial": "",
+      "New_Serial": "SCOM36659D8F",
       "Old_Serial": "SCOM36659D8F",
-      "To_Model": "",
+      "To_Model": "9604145019",
       "From_Model": "ST-244F",
       "Device": "BKK33001G04",
       "Region": "BMA"
@@ -5820,9 +5820,9 @@
     },
     {
       "AccessId": "9604211247",
-      "New_Serial": "",
+      "New_Serial": "T3THB624A668",
       "Old_Serial": "SCOM3663067E",
-      "To_Model": "",
+      "To_Model": "9604211247",
       "From_Model": "ST-244F",
       "Device": "RYG06003G00",
       "Region": "Central"
@@ -5838,18 +5838,18 @@
     },
     {
       "AccessId": "9604211932",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660662A",
       "Old_Serial": "SCOM3660662A",
-      "To_Model": "",
+      "To_Model": "9604211932",
       "From_Model": "ST-244F",
       "Device": "BKK09002G00",
       "Region": "BMA"
     },
     {
       "AccessId": "9604213778",
-      "New_Serial": "",
+      "New_Serial": "SCOM366587AC",
       "Old_Serial": "SCOM366587AC",
-      "To_Model": "",
+      "To_Model": "9604213778",
       "From_Model": "ST-244F",
       "Device": "BKK33012GO0",
       "Region": "BMA"
@@ -5874,9 +5874,9 @@
     },
     {
       "AccessId": "9604216097",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A4946",
       "Old_Serial": "SCOM366A4946",
-      "To_Model": "",
+      "To_Model": "9604216097",
       "From_Model": "ST-244F",
       "Device": "CBR07006G00",
       "Region": "Other"
@@ -6072,9 +6072,9 @@
     },
     {
       "AccessId": "9604258965",
-      "New_Serial": "",
+      "New_Serial": "SCOM366735AA",
       "Old_Serial": "SCOM366735AA",
-      "To_Model": "",
+      "To_Model": "9604258965",
       "From_Model": "ST-244F",
       "Device": "BKK42001G00",
       "Region": "BMA"
@@ -6108,9 +6108,9 @@
     },
     {
       "AccessId": "9604262000",
-      "New_Serial": "",
+      "New_Serial": "SCOM36659711",
       "Old_Serial": "SCOM36659711",
-      "To_Model": "",
+      "To_Model": "9604262000",
       "From_Model": "ST-244F",
       "Device": "LBR01003GO0",
       "Region": "Other"
@@ -6252,9 +6252,9 @@
     },
     {
       "AccessId": "9604303997",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667E585",
       "Old_Serial": "SCOM3667E585",
-      "To_Model": "",
+      "To_Model": "9604303997",
       "From_Model": "ST-244F",
       "Device": "BKK29006GO0",
       "Region": "BMA"
@@ -6306,9 +6306,9 @@
     },
     {
       "AccessId": "9604310857",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666D858",
       "Old_Serial": "SCOM3666D858",
-      "To_Model": "",
+      "To_Model": "9604310857",
       "From_Model": "ST-244F",
       "Device": "BKK40003G00",
       "Region": "BMA"
@@ -6369,18 +6369,18 @@
     },
     {
       "AccessId": "9604334971",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665F7CF",
       "Old_Serial": "SCOM3665F7CF",
-      "To_Model": "",
+      "To_Model": "9604334971",
       "From_Model": "ST-244F",
       "Device": "BKK48001G01",
       "Region": "BMA"
     },
     {
       "AccessId": "9604335570",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663C295",
       "Old_Serial": "SCOM3663C295",
-      "To_Model": "",
+      "To_Model": "9604335570",
       "From_Model": "ST-244F",
       "Device": "NTB02001G00",
       "Region": "BMA"
@@ -6504,27 +6504,27 @@
     },
     {
       "AccessId": "9604362084",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665A84C",
       "Old_Serial": "SCOM3665A84C",
-      "To_Model": "",
+      "To_Model": "9604362084",
       "From_Model": "ST-244F",
       "Device": "PTT02002G00",
       "Region": "Other"
     },
     {
       "AccessId": "9604367130",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660FDE4",
       "Old_Serial": "SCOM3660FDE4",
-      "To_Model": "",
+      "To_Model": "9604367130",
       "From_Model": "ST-244F",
       "Device": "PTN01001G00",
       "Region": "Other"
     },
     {
       "AccessId": "9604367205",
-      "New_Serial": "",
+      "New_Serial": "SCOM366507B9",
       "Old_Serial": "SCOM366507B9",
-      "To_Model": "",
+      "To_Model": "9604367205",
       "From_Model": "ST-244F",
       "Device": "BKK10008GO0",
       "Region": "BMA"
@@ -6693,9 +6693,9 @@
     },
     {
       "AccessId": "9604402650",
-      "New_Serial": "",
+      "New_Serial": "HWTC90F599AD",
       "Old_Serial": "SCOM366352C1",
-      "To_Model": "",
+      "To_Model": "9604402650",
       "From_Model": "ST-244F",
       "Device": "PTT02008GO0",
       "Region": "Other"
@@ -6810,9 +6810,9 @@
     },
     {
       "AccessId": "9604428489",
-      "New_Serial": "",
+      "New_Serial": "SCOM36640719",
       "Old_Serial": "SCOM36640719",
-      "To_Model": "",
+      "To_Model": "9604428489",
       "From_Model": "ST-244F",
       "Device": "BKK12001G00",
       "Region": "BMA"
@@ -6972,9 +6972,9 @@
     },
     {
       "AccessId": "9604469214",
-      "New_Serial": "",
+      "New_Serial": "T3THB40FA86C",
       "Old_Serial": "SCOM36617FCD",
-      "To_Model": "",
+      "To_Model": "9604469214",
       "From_Model": "ST-244F",
       "Device": "SKN12017G00",
       "Region": "Northeast"
@@ -7089,9 +7089,9 @@
     },
     {
       "AccessId": "9604491788",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D4E15",
       "Old_Serial": "SCOM366D4E15",
-      "To_Model": "",
+      "To_Model": "9604491788",
       "From_Model": "ST-244FV2",
       "Device": "PKT01055GO0",
       "Region": "South"
@@ -7116,9 +7116,9 @@
     },
     {
       "AccessId": "9604499827",
-      "New_Serial": "",
+      "New_Serial": "SCOM36661B5B",
       "Old_Serial": "SCOM36661B5B",
-      "To_Model": "",
+      "To_Model": "9604499827",
       "From_Model": "ST-244F",
       "Device": "BKK06001G00",
       "Region": "BMA"
@@ -7361,7 +7361,7 @@
       "AccessId": "9604537264",
       "New_Serial": "SCOM366A5829",
       "Old_Serial": "HWTCD5F74FAA",
-      "To_Model": "ST-244F",
+      "To_Model": "9604537264",
       "From_Model": "T623L",
       "Device": "UBR14019G00",
       "Region": "Other"
@@ -7458,9 +7458,9 @@
     },
     {
       "AccessId": "9604558300",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664415E",
       "Old_Serial": "SCOM3664415E",
-      "To_Model": "",
+      "To_Model": "9604558300",
       "From_Model": "ST-244F",
       "Device": "BKK19002G00",
       "Region": "BMA"
@@ -7539,9 +7539,9 @@
     },
     {
       "AccessId": "9604568557",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666944A",
       "Old_Serial": "SCOM3666944A",
-      "To_Model": "",
+      "To_Model": "9604568557",
       "From_Model": "ST-244F",
       "Device": "BKK09002G02",
       "Region": "BMA"
@@ -7557,18 +7557,18 @@
     },
     {
       "AccessId": "9604575540",
-      "New_Serial": "",
+      "New_Serial": "SCOM366093A1",
       "Old_Serial": "SCOM366093A1",
-      "To_Model": "",
+      "To_Model": "9604575540",
       "From_Model": "ST-244F",
       "Device": "BKK46002G00",
       "Region": "BMA"
     },
     {
       "AccessId": "9604582713",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C4457",
       "Old_Serial": "SCOM366C4457",
-      "To_Model": "",
+      "To_Model": "9604582713",
       "From_Model": "ST-244F",
       "Device": "BKK05002G01",
       "Region": "BMA"
@@ -7638,9 +7638,9 @@
     },
     {
       "AccessId": "9604593813",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AD2C0",
       "Old_Serial": "SCOM366AD2C0",
-      "To_Model": "",
+      "To_Model": "9604593813",
       "From_Model": "ST-244F",
       "Device": "BKK49001G00",
       "Region": "BMA"
@@ -7791,9 +7791,9 @@
     },
     {
       "AccessId": "9604633190",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663E79D",
       "Old_Serial": "SCOM3663E79D",
-      "To_Model": "",
+      "To_Model": "9604633190",
       "From_Model": "ST-244F",
       "Device": "PTT03023GO0",
       "Region": "Other"
@@ -7863,9 +7863,9 @@
     },
     {
       "AccessId": "9604645105",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662A7E6",
       "Old_Serial": "SCOM3662A7E6",
-      "To_Model": "",
+      "To_Model": "9604645105",
       "From_Model": "ST-244F",
       "Device": "CBR07089GO1",
       "Region": "Other"
@@ -7917,9 +7917,9 @@
     },
     {
       "AccessId": "9604663960",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667FCD7",
       "Old_Serial": "SCOM3667FCD7",
-      "To_Model": "",
+      "To_Model": "9604663960",
       "From_Model": "ST-244F",
       "Device": "BKK30AGNG01",
       "Region": "BMA"
@@ -8088,9 +8088,9 @@
     },
     {
       "AccessId": "9604707079",
-      "New_Serial": "",
+      "New_Serial": "SCOM36657D01",
       "Old_Serial": "SCOM36657D01",
-      "To_Model": "",
+      "To_Model": "9604707079",
       "From_Model": "ST-244F",
       "Device": "BKK10013GO0",
       "Region": "BMA"
@@ -8178,9 +8178,9 @@
     },
     {
       "AccessId": "9604723442",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660A991",
       "Old_Serial": "SCOM3660A991",
-      "To_Model": "",
+      "To_Model": "9604723442",
       "From_Model": "ST-244F",
       "Device": "PYO01003G00",
       "Region": "Other"
@@ -8241,9 +8241,9 @@
     },
     {
       "AccessId": "9604739298",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669B005",
       "Old_Serial": "SCOM3669B005",
-      "To_Model": "",
+      "To_Model": "9604739298",
       "From_Model": "ST-244F",
       "Device": "BKK35002G00",
       "Region": "BMA"
@@ -8295,9 +8295,9 @@
     },
     {
       "AccessId": "9604746868",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A3C4B",
       "Old_Serial": "SCOM366A3C4B",
-      "To_Model": "",
+      "To_Model": "9604746868",
       "From_Model": "ST-244F",
       "Device": "SMP04001G00",
       "Region": "Other"
@@ -8313,9 +8313,9 @@
     },
     {
       "AccessId": "9604748312",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666A7F1",
       "Old_Serial": "SCOM3666A7F1",
-      "To_Model": "",
+      "To_Model": "9604748312",
       "From_Model": "ST-244F",
       "Device": "LOI09004GO0",
       "Region": "Other"
@@ -8592,18 +8592,18 @@
     },
     {
       "AccessId": "9604787867",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665F488",
       "Old_Serial": "SCOM3665F488",
-      "To_Model": "",
+      "To_Model": "9604787867",
       "From_Model": "ST-244F",
       "Device": "NKT06001G01",
       "Region": "Other"
     },
     {
       "AccessId": "9604789586",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AF90B",
       "Old_Serial": "SCOM366AF90B",
-      "To_Model": "",
+      "To_Model": "9604789586",
       "From_Model": "ST-244F",
       "Device": "NTB01004G01",
       "Region": "BMA"
@@ -8700,9 +8700,9 @@
     },
     {
       "AccessId": "9604808619",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D641F",
       "Old_Serial": "SCOM366D641F",
-      "To_Model": "",
+      "To_Model": "9604808619",
       "From_Model": "ST-244FV2",
       "Device": "BKK33002G02",
       "Region": "BMA"
@@ -8808,9 +8808,9 @@
     },
     {
       "AccessId": "9604822781",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664EB9B",
       "Old_Serial": "SCOM3664EB9B",
-      "To_Model": "",
+      "To_Model": "9604822781",
       "From_Model": "ST-244F",
       "Device": "PTT02002G01",
       "Region": "Other"
@@ -8997,9 +8997,9 @@
     },
     {
       "AccessId": "9604849766",
-      "New_Serial": "",
+      "New_Serial": "SCOM36612777",
       "Old_Serial": "SCOM36612777",
-      "To_Model": "",
+      "To_Model": "9604849766",
       "From_Model": "ST-244F",
       "Device": "BKK44001G00",
       "Region": "BMA"
@@ -9033,9 +9033,9 @@
     },
     {
       "AccessId": "9604855471",
-      "New_Serial": "",
+      "New_Serial": "SCOM36664734",
       "Old_Serial": "SCOM36664734",
-      "To_Model": "",
+      "To_Model": "9604855471",
       "From_Model": "ST-244F",
       "Device": "PTT03001G00",
       "Region": "Other"
@@ -9087,9 +9087,9 @@
     },
     {
       "AccessId": "9604862154",
-      "New_Serial": "",
+      "New_Serial": "SCOM366216D9",
       "Old_Serial": "SCOM366216D9",
-      "To_Model": "",
+      "To_Model": "9604862154",
       "From_Model": "ST-244F",
       "Device": "SMP03018GO0",
       "Region": "Other"
@@ -9168,9 +9168,9 @@
     },
     {
       "AccessId": "9604880160",
-      "New_Serial": "",
+      "New_Serial": "SCOM366446C9",
       "Old_Serial": "SCOM366446C9",
-      "To_Model": "",
+      "To_Model": "9604880160",
       "From_Model": "ST-244F",
       "Device": "KPP01001G00",
       "Region": "North"
@@ -9285,9 +9285,9 @@
     },
     {
       "AccessId": "9604900853",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666086A",
       "Old_Serial": "SCOM3666086A",
-      "To_Model": "",
+      "To_Model": "9604900853",
       "From_Model": "ST-244F",
       "Device": "BKK19001G00",
       "Region": "BMA"
@@ -9438,9 +9438,9 @@
     },
     {
       "AccessId": "9604920384",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C7119",
       "Old_Serial": "SCOM366C7119",
-      "To_Model": "",
+      "To_Model": "9604920384",
       "From_Model": "ST-244FV2",
       "Device": "BKK49001G01",
       "Region": "BMA"
@@ -9852,9 +9852,9 @@
     },
     {
       "AccessId": "9605003356",
-      "New_Serial": "",
+      "New_Serial": "SCOM36622597",
       "Old_Serial": "SCOM36622597",
-      "To_Model": "",
+      "To_Model": "9605003356",
       "From_Model": "ST-244F",
       "Device": "BKK21001G01",
       "Region": "BMA"
@@ -9917,16 +9917,16 @@
       "AccessId": "9605022083",
       "New_Serial": "SCOM3664D429",
       "Old_Serial": "HWTCAE9563AA",
-      "To_Model": "ST-244F",
+      "To_Model": "9605022083",
       "From_Model": "T623L",
       "Device": "BKK06037GO0",
       "Region": "BMA"
     },
     {
       "AccessId": "9605022202",
-      "New_Serial": "",
+      "New_Serial": "SCOM36681608",
       "Old_Serial": "SCOM36681608",
-      "To_Model": "",
+      "To_Model": "9605022202",
       "From_Model": "ST-244F",
       "Device": "BKK12007G00",
       "Region": "BMA"
@@ -10032,9 +10032,9 @@
     },
     {
       "AccessId": "9605047567",
-      "New_Serial": "",
+      "New_Serial": "T3THB63557D0",
       "Old_Serial": "SCOM366321D2",
-      "To_Model": "",
+      "To_Model": "9605047567",
       "From_Model": "ST-244F",
       "Device": "CBR07029G00",
       "Region": "Other"
@@ -10059,18 +10059,18 @@
     },
     {
       "AccessId": "9605059551",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A1968",
       "Old_Serial": "SCOM366A1968",
-      "To_Model": "",
+      "To_Model": "9605059551",
       "From_Model": "ST-244F",
       "Device": "SMP03037GO0",
       "Region": "Other"
     },
     {
       "AccessId": "9605062321",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661EFDF",
       "Old_Serial": "SCOM3661EFDF",
-      "To_Model": "",
+      "To_Model": "9605062321",
       "From_Model": "ST-244F",
       "Device": "BKK44031GO0",
       "Region": "BMA"
@@ -10158,9 +10158,9 @@
     },
     {
       "AccessId": "9605076865",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D1C56",
       "Old_Serial": "SCOM366D1C56",
-      "To_Model": "",
+      "To_Model": "9605076865",
       "From_Model": "ST-244FV2",
       "Device": "BKK22001G00",
       "Region": "BMA"
@@ -10257,9 +10257,9 @@
     },
     {
       "AccessId": "9605113106",
-      "New_Serial": "",
+      "New_Serial": "SCOM36673524",
       "Old_Serial": "SCOM36673524",
-      "To_Model": "",
+      "To_Model": "9605113106",
       "From_Model": "ST-244F",
       "Device": "BKK33021GO0",
       "Region": "BMA"
@@ -10302,9 +10302,9 @@
     },
     {
       "AccessId": "9605121293",
-      "New_Serial": "",
+      "New_Serial": "SCOM36620ABF",
       "Old_Serial": "SCOM36620ABF",
-      "To_Model": "",
+      "To_Model": "9605121293",
       "From_Model": "ST-244F",
       "Device": "NTB05003GO0",
       "Region": "BMA"
@@ -10320,9 +10320,9 @@
     },
     {
       "AccessId": "9605123055",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D596C",
       "Old_Serial": "SCOM366D596C",
-      "To_Model": "",
+      "To_Model": "9605123055",
       "From_Model": "ST-244FV2",
       "Device": "BKK49AGNG00",
       "Region": "BMA"
@@ -10365,9 +10365,9 @@
     },
     {
       "AccessId": "9605127548",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665E799",
       "Old_Serial": "SCOM3665E799",
-      "To_Model": "",
+      "To_Model": "9605127548",
       "From_Model": "ST-244F",
       "Device": "BKK28032GO0",
       "Region": "BMA"
@@ -10509,9 +10509,9 @@
     },
     {
       "AccessId": "9605174612",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C4BE4",
       "Old_Serial": "SCOM366C4BE4",
-      "To_Model": "",
+      "To_Model": "9605174612",
       "From_Model": "ST-244FV2",
       "Device": "BKK15001G00",
       "Region": "BMA"
@@ -10617,9 +10617,9 @@
     },
     {
       "AccessId": "9605201787",
-      "New_Serial": "",
+      "New_Serial": "SCOM36622ED3",
       "Old_Serial": "SCOM36622ED3",
-      "To_Model": "",
+      "To_Model": "9605201787",
       "From_Model": "ST-244F",
       "Device": "NTB06002G00",
       "Region": "BMA"
@@ -10635,18 +10635,18 @@
     },
     {
       "AccessId": "9605211545",
-      "New_Serial": "",
+      "New_Serial": "SCOM36660CE1",
       "Old_Serial": "SCOM36660CE1",
-      "To_Model": "",
+      "To_Model": "9605211545",
       "From_Model": "ST-244F",
       "Device": "SMP06008GO1",
       "Region": "Other"
     },
     {
       "AccessId": "9605215862",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662BBD3",
       "Old_Serial": "SCOM3662BBD3",
-      "To_Model": "",
+      "To_Model": "9605215862",
       "From_Model": "ST-244F",
       "Device": "UDT11013G00",
       "Region": "Other"
@@ -10689,9 +10689,9 @@
     },
     {
       "AccessId": "9605222756",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663B052",
       "Old_Serial": "SCOM3663B052",
-      "To_Model": "",
+      "To_Model": "9605222756",
       "From_Model": "ST-244F",
       "Device": "LBR11005G00",
       "Region": "Other"
@@ -10707,9 +10707,9 @@
     },
     {
       "AccessId": "9605232056",
-      "New_Serial": "",
+      "New_Serial": "SCOM36607812",
       "Old_Serial": "SCOM36607812",
-      "To_Model": "",
+      "To_Model": "9605232056",
       "From_Model": "ST-244F",
       "Device": "CBR04003G00",
       "Region": "Other"
@@ -10752,9 +10752,9 @@
     },
     {
       "AccessId": "9605239898",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661B871",
       "Old_Serial": "SCOM3661B871",
-      "To_Model": "",
+      "To_Model": "9605239898",
       "From_Model": "ST-244F",
       "Device": "NKR01006GO0",
       "Region": "Northeast"
@@ -10887,9 +10887,9 @@
     },
     {
       "AccessId": "9605268681",
-      "New_Serial": "",
+      "New_Serial": "SCOM366687A8",
       "Old_Serial": "SCOM366687A8",
-      "To_Model": "",
+      "To_Model": "9605268681",
       "From_Model": "ST-244F",
       "Device": "YST04002GO0",
       "Region": "Northeast"
@@ -10941,9 +10941,9 @@
     },
     {
       "AccessId": "9605290281",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661B0FB",
       "Old_Serial": "SCOM3661B0FB",
-      "To_Model": "",
+      "To_Model": "9605290281",
       "From_Model": "ST-244F",
       "Device": "BKK33010GO0",
       "Region": "BMA"
@@ -10995,9 +10995,9 @@
     },
     {
       "AccessId": "9605294391",
-      "New_Serial": "",
+      "New_Serial": "SCOM366350F3",
       "Old_Serial": "SCOM366350F3",
-      "To_Model": "",
+      "To_Model": "9605294391",
       "From_Model": "ST-244F",
       "Device": "RYG01007GO0",
       "Region": "Central"
@@ -11049,9 +11049,9 @@
     },
     {
       "AccessId": "9605299850",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663BF09",
       "Old_Serial": "SCOM3663BF09",
-      "To_Model": "",
+      "To_Model": "9605299850",
       "From_Model": "ST-244F",
       "Device": "CCS09002GO0",
       "Region": "Other"
@@ -11211,9 +11211,9 @@
     },
     {
       "AccessId": "9605322878",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C25B7",
       "Old_Serial": "SCOM366C25B7",
-      "To_Model": "",
+      "To_Model": "9605322878",
       "From_Model": "ST-244F",
       "Device": "BKK08001G00",
       "Region": "BMA"
@@ -11292,9 +11292,9 @@
     },
     {
       "AccessId": "9605336024",
-      "New_Serial": "",
+      "New_Serial": "SCOM36672D84",
       "Old_Serial": "SCOM36672D84",
-      "To_Model": "",
+      "To_Model": "9605336024",
       "From_Model": "ST-244F",
       "Device": "BKK06008GO0",
       "Region": "BMA"
@@ -11364,9 +11364,9 @@
     },
     {
       "AccessId": "9605351516",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662FE92",
       "Old_Serial": "SCOM3662FE92",
-      "To_Model": "",
+      "To_Model": "9605351516",
       "From_Model": "ST-244F",
       "Device": "RYG01017G00",
       "Region": "Central"
@@ -11393,7 +11393,7 @@
       "AccessId": "9605357027",
       "New_Serial": "SCOM36668537",
       "Old_Serial": "ZTEGC8BB5F50",
-      "To_Model": "ST-244F",
+      "To_Model": "9605357027",
       "From_Model": "F688",
       "Device": "BKK44007GO0",
       "Region": "BMA"
@@ -11463,9 +11463,9 @@
     },
     {
       "AccessId": "9605380037",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669CF2B",
       "Old_Serial": "SCOM3669CF2B",
-      "To_Model": "",
+      "To_Model": "9605380037",
       "From_Model": "ST-244F",
       "Device": "BKK05023GO0",
       "Region": "BMA"
@@ -11544,9 +11544,9 @@
     },
     {
       "AccessId": "9605404301",
-      "New_Serial": "",
+      "New_Serial": "T3THB62E4048",
       "Old_Serial": "SCOM36602AB1",
-      "To_Model": "",
+      "To_Model": "9605404301",
       "From_Model": "ST-244F",
       "Device": "BKK29018GO0",
       "Region": "BMA"
@@ -11652,9 +11652,9 @@
     },
     {
       "AccessId": "9605428256",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660FAAE",
       "Old_Serial": "SCOM3660FAAE",
-      "To_Model": "",
+      "To_Model": "9605428256",
       "From_Model": "ST-244F",
       "Device": "NKR01009G00",
       "Region": "Northeast"
@@ -11679,9 +11679,9 @@
     },
     {
       "AccessId": "9605437214",
-      "New_Serial": "",
+      "New_Serial": "SCOM36675286",
       "Old_Serial": "SCOM36675286",
-      "To_Model": "",
+      "To_Model": "9605437214",
       "From_Model": "ST-244F",
       "Device": "NKT04010G00",
       "Region": "Other"
@@ -11733,9 +11733,9 @@
     },
     {
       "AccessId": "9605445249",
-      "New_Serial": "",
+      "New_Serial": "SCOM36647661",
       "Old_Serial": "SCOM36647661",
-      "To_Model": "",
+      "To_Model": "9605445249",
       "From_Model": "ST-244F",
       "Device": "YLA01001G00",
       "Region": "South"
@@ -11760,9 +11760,9 @@
     },
     {
       "AccessId": "9605448465",
-      "New_Serial": "",
+      "New_Serial": "SCOM36621F11",
       "Old_Serial": "SCOM36621F11",
-      "To_Model": "",
+      "To_Model": "9605448465",
       "From_Model": "ST-244F",
       "Device": "BKK30015GO1",
       "Region": "BMA"
@@ -11796,9 +11796,9 @@
     },
     {
       "AccessId": "9605455615",
-      "New_Serial": "",
+      "New_Serial": "SCOM36642790",
       "Old_Serial": "SCOM36642790",
-      "To_Model": "",
+      "To_Model": "9605455615",
       "From_Model": "ST-244F",
       "Device": "SRN07002GO0",
       "Region": "Northeast"
@@ -12057,9 +12057,9 @@
     },
     {
       "AccessId": "9605505869",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666A778",
       "Old_Serial": "SCOM3666A778",
-      "To_Model": "",
+      "To_Model": "9605505869",
       "From_Model": "ST-244F",
       "Device": "BKK15002G00",
       "Region": "BMA"
@@ -12075,18 +12075,18 @@
     },
     {
       "AccessId": "9605506269",
-      "New_Serial": "",
+      "New_Serial": "SCOM36624DAA",
       "Old_Serial": "SCOM36624DAA",
-      "To_Model": "",
+      "To_Model": "9605506269",
       "From_Model": "ST-244F",
       "Device": "CMI07016GO0",
       "Region": "North"
     },
     {
       "AccessId": "9605506768",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660D615",
       "Old_Serial": "SCOM3660D615",
-      "To_Model": "",
+      "To_Model": "9605506768",
       "From_Model": "ST-244F",
       "Device": "PTT02002G01",
       "Region": "Other"
@@ -12174,9 +12174,9 @@
     },
     {
       "AccessId": "9605523128",
-      "New_Serial": "",
+      "New_Serial": "SCOM366737E7",
       "Old_Serial": "SCOM366737E7",
-      "To_Model": "",
+      "To_Model": "9605523128",
       "From_Model": "ST-244F",
       "Device": "BKK40003G01",
       "Region": "BMA"
@@ -12408,9 +12408,9 @@
     },
     {
       "AccessId": "9605572980",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664E53A",
       "Old_Serial": "SCOM3664E53A",
-      "To_Model": "",
+      "To_Model": "9605572980",
       "From_Model": "ST-244F",
       "Device": "PTT02010GO1",
       "Region": "Other"
@@ -12768,9 +12768,9 @@
     },
     {
       "AccessId": "9605640633",
-      "New_Serial": "",
+      "New_Serial": "SCOM366648ED",
       "Old_Serial": "SCOM366648ED",
-      "To_Model": "",
+      "To_Model": "9605640633",
       "From_Model": "ST-244F",
       "Device": "YST07002GO0",
       "Region": "Northeast"
@@ -12786,9 +12786,9 @@
     },
     {
       "AccessId": "9605643079",
-      "New_Serial": "",
+      "New_Serial": "T3THB6304700",
       "Old_Serial": "SCOM366755CF",
-      "To_Model": "",
+      "To_Model": "9605643079",
       "From_Model": "ST-244F",
       "Device": "ANC07004G00",
       "Region": "Other"
@@ -12912,9 +12912,9 @@
     },
     {
       "AccessId": "9605687214",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660E361",
       "Old_Serial": "SCOM3660E361",
-      "To_Model": "",
+      "To_Model": "9605687214",
       "From_Model": "ST-244F",
       "Device": "BKK44036GO0",
       "Region": "BMA"
@@ -13596,9 +13596,9 @@
     },
     {
       "AccessId": "9605846391",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D4614",
       "Old_Serial": "SCOM366D4614",
-      "To_Model": "",
+      "To_Model": "9605846391",
       "From_Model": "ST-244FV2",
       "Device": "BKK11013GO0",
       "Region": "BMA"
@@ -13695,9 +13695,9 @@
     },
     {
       "AccessId": "9605887145",
-      "New_Serial": "",
+      "New_Serial": "T3TH1700D050",
       "Old_Serial": "SCOM3661F91D",
-      "To_Model": "",
+      "To_Model": "9605887145",
       "From_Model": "ST-244F",
       "Device": "CBR04076GO0",
       "Region": "Other"
@@ -13947,9 +13947,9 @@
     },
     {
       "AccessId": "9605945682",
-      "New_Serial": "",
+      "New_Serial": "SCOM36622EB1",
       "Old_Serial": "SCOM36622EB1",
-      "To_Model": "",
+      "To_Model": "9605945682",
       "From_Model": "ST-244F",
       "Device": "YLA06001G00",
       "Region": "South"
@@ -14100,9 +14100,9 @@
     },
     {
       "AccessId": "9605978332",
-      "New_Serial": "",
+      "New_Serial": "SCOM36626D58",
       "Old_Serial": "SCOM36626D58",
-      "To_Model": "",
+      "To_Model": "9605978332",
       "From_Model": "ST-244F",
       "Device": "BKK06021GO0",
       "Region": "BMA"
@@ -14262,9 +14262,9 @@
     },
     {
       "AccessId": "9606123692",
-      "New_Serial": "",
+      "New_Serial": "T3THB62CAE98",
       "Old_Serial": "SCOM36619D9F",
-      "To_Model": "",
+      "To_Model": "9606123692",
       "From_Model": "ST-244F",
       "Device": "CBR04088GO1",
       "Region": "Other"
@@ -14451,9 +14451,9 @@
     },
     {
       "AccessId": "9606161565",
-      "New_Serial": "",
+      "New_Serial": "SCOM36613EAE",
       "Old_Serial": "SCOM36613EAE",
-      "To_Model": "",
+      "To_Model": "9606161565",
       "From_Model": "ST-244F",
       "Device": "KBI01004GO0",
       "Region": "South"
@@ -14469,9 +14469,9 @@
     },
     {
       "AccessId": "9606166879",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665568E",
       "Old_Serial": "SCOM3665568E",
-      "To_Model": "",
+      "To_Model": "9606166879",
       "From_Model": "ST-244F",
       "Device": "CBR01004GO0",
       "Region": "Other"
@@ -14559,9 +14559,9 @@
     },
     {
       "AccessId": "9606187634",
-      "New_Serial": "",
+      "New_Serial": "SCOM366548FB",
       "Old_Serial": "SCOM366548FB",
-      "To_Model": "",
+      "To_Model": "9606187634",
       "From_Model": "ST-244F",
       "Device": "CBR07079GO0",
       "Region": "Other"
@@ -15018,9 +15018,9 @@
     },
     {
       "AccessId": "9606290401",
-      "New_Serial": "",
+      "New_Serial": "SCOM36634E91",
       "Old_Serial": "SCOM36634E91",
-      "To_Model": "",
+      "To_Model": "9606290401",
       "From_Model": "ST-244F",
       "Device": "PCB01006G00",
       "Region": "Central"
@@ -15036,18 +15036,18 @@
     },
     {
       "AccessId": "9606292409",
-      "New_Serial": "",
+      "New_Serial": "SCOM36663547",
       "Old_Serial": "SCOM36663547",
-      "To_Model": "",
+      "To_Model": "9606292409",
       "From_Model": "ST-244F",
       "Device": "CBR07009G00",
       "Region": "Other"
     },
     {
       "AccessId": "9606295909",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663C4C7",
       "Old_Serial": "SCOM3663C4C7",
-      "To_Model": "",
+      "To_Model": "9606295909",
       "From_Model": "ST-244F",
       "Device": "SMP01017GO0",
       "Region": "Other"
@@ -15189,9 +15189,9 @@
     },
     {
       "AccessId": "9606338607",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667FFF3",
       "Old_Serial": "SCOM3667FFF3",
-      "To_Model": "",
+      "To_Model": "9606338607",
       "From_Model": "ST-244F",
       "Device": "BKK26AGNG00",
       "Region": "BMA"
@@ -15324,9 +15324,9 @@
     },
     {
       "AccessId": "9606351889",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CDF0C",
       "Old_Serial": "SCOM366CDF0C",
-      "To_Model": "",
+      "To_Model": "9606351889",
       "From_Model": "ST-244FV2",
       "Device": "NKW04009G00",
       "Region": "Northeast"
@@ -15468,9 +15468,9 @@
     },
     {
       "AccessId": "9606386820",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668175B",
       "Old_Serial": "SCOM3668175B",
-      "To_Model": "",
+      "To_Model": "9606386820",
       "From_Model": "ST-244F",
       "Device": "BKK05002G00",
       "Region": "BMA"
@@ -15522,9 +15522,9 @@
     },
     {
       "AccessId": "9606401487",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660322B",
       "Old_Serial": "SCOM3660322B",
-      "To_Model": "",
+      "To_Model": "9606401487",
       "From_Model": "ST-244F",
       "Device": "NTB06AGNG01",
       "Region": "BMA"
@@ -15549,9 +15549,9 @@
     },
     {
       "AccessId": "9606408049",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AB55E",
       "Old_Serial": "SCOM366AB55E",
-      "To_Model": "",
+      "To_Model": "9606408049",
       "From_Model": "ST-244F",
       "Device": "BKK28001G02",
       "Region": "BMA"
@@ -15576,9 +15576,9 @@
     },
     {
       "AccessId": "9606412391",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662AA01",
       "Old_Serial": "SCOM3662AA01",
-      "To_Model": "",
+      "To_Model": "9606412391",
       "From_Model": "ST-244F",
       "Device": "BKK06001G00",
       "Region": "BMA"
@@ -15594,9 +15594,9 @@
     },
     {
       "AccessId": "9606416870",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664B537",
       "Old_Serial": "SCOM3664B537",
-      "To_Model": "",
+      "To_Model": "9606416870",
       "From_Model": "ST-244F",
       "Device": "NTB06002G02",
       "Region": "BMA"
@@ -15738,9 +15738,9 @@
     },
     {
       "AccessId": "9606444953",
-      "New_Serial": "",
+      "New_Serial": "SCOM366446BC",
       "Old_Serial": "SCOM366446BC",
-      "To_Model": "",
+      "To_Model": "9606444953",
       "From_Model": "ST-244F",
       "Device": "SMP05014GO0",
       "Region": "Other"
@@ -15810,9 +15810,9 @@
     },
     {
       "AccessId": "9606455322",
-      "New_Serial": "",
+      "New_Serial": "SCOM366341B4",
       "Old_Serial": "SCOM366341B4",
-      "To_Model": "",
+      "To_Model": "9606455322",
       "From_Model": "ST-244F",
       "Device": "BKK34AGNG01",
       "Region": "BMA"
@@ -15873,9 +15873,9 @@
     },
     {
       "AccessId": "9606463277",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661FFA2",
       "Old_Serial": "SCOM3661FFA2",
-      "To_Model": "",
+      "To_Model": "9606463277",
       "From_Model": "ST-244F",
       "Device": "CBR09034GO0",
       "Region": "Other"
@@ -15891,9 +15891,9 @@
     },
     {
       "AccessId": "9606468952",
-      "New_Serial": "",
+      "New_Serial": "T3TH655A8062",
       "Old_Serial": "SCOM36618BB4",
-      "To_Model": "",
+      "To_Model": "9606468952",
       "From_Model": "ST-244F",
       "Device": "BKK46001G02",
       "Region": "BMA"
@@ -15936,9 +15936,9 @@
     },
     {
       "AccessId": "9606472765",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B645A",
       "Old_Serial": "SCOM366B645A",
-      "To_Model": "",
+      "To_Model": "9606472765",
       "From_Model": "ST-244F",
       "Device": "BKK05015GO1",
       "Region": "BMA"
@@ -15981,9 +15981,9 @@
     },
     {
       "AccessId": "9606482405",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BEA57",
       "Old_Serial": "SCOM366BEA57",
-      "To_Model": "",
+      "To_Model": "9606482405",
       "From_Model": "ST-244F",
       "Device": "CPN01016G00",
       "Region": "Other"
@@ -16008,9 +16008,9 @@
     },
     {
       "AccessId": "9606491049",
-      "New_Serial": "",
+      "New_Serial": "SCOM36626BC7",
       "Old_Serial": "SCOM36626BC7",
-      "To_Model": "",
+      "To_Model": "9606491049",
       "From_Model": "ST-244F",
       "Device": "BKK36018GO0",
       "Region": "BMA"
@@ -16080,9 +16080,9 @@
     },
     {
       "AccessId": "9606500035",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665D083",
       "Old_Serial": "SCOM3665D083",
-      "To_Model": "",
+      "To_Model": "9606500035",
       "From_Model": "ST-244F",
       "Device": "CBR05002G00",
       "Region": "Other"
@@ -16179,9 +16179,9 @@
     },
     {
       "AccessId": "9606519951",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662F9C1",
       "Old_Serial": "SCOM3662F9C1",
-      "To_Model": "",
+      "To_Model": "9606519951",
       "From_Model": "ST-244F",
       "Device": "BKK41002G01",
       "Region": "BMA"
@@ -16215,9 +16215,9 @@
     },
     {
       "AccessId": "9606530830",
-      "New_Serial": "",
+      "New_Serial": "SCOM36634AB7",
       "Old_Serial": "SCOM36634AB7",
-      "To_Model": "",
+      "To_Model": "9606530830",
       "From_Model": "ST-244F",
       "Device": "MHR08001G00",
       "Region": "Other"
@@ -16242,9 +16242,9 @@
     },
     {
       "AccessId": "9606539006",
-      "New_Serial": "",
+      "New_Serial": "SCOM36653F54",
       "Old_Serial": "SCOM36653F54",
-      "To_Model": "",
+      "To_Model": "9606539006",
       "From_Model": "ST-244F",
       "Device": "NTB06001G00",
       "Region": "BMA"
@@ -16926,9 +16926,9 @@
     },
     {
       "AccessId": "9606647840",
-      "New_Serial": "",
+      "New_Serial": "SCOM36679604",
       "Old_Serial": "SCOM36679604",
-      "To_Model": "",
+      "To_Model": "9606647840",
       "From_Model": "ST-244F",
       "Device": "NKT06048GO0",
       "Region": "Other"
@@ -17016,9 +17016,9 @@
     },
     {
       "AccessId": "9606658910",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BFB09",
       "Old_Serial": "SCOM366BFB09",
-      "To_Model": "",
+      "To_Model": "9606658910",
       "From_Model": "ST-244F",
       "Device": "CBR01054GO0",
       "Region": "Other"
@@ -17160,9 +17160,9 @@
     },
     {
       "AccessId": "9606682780",
-      "New_Serial": "",
+      "New_Serial": "SCOM366157F9",
       "Old_Serial": "SCOM366157F9",
-      "To_Model": "",
+      "To_Model": "9606682780",
       "From_Model": "ST-244F",
       "Device": "BKK06001G00",
       "Region": "BMA"
@@ -17214,18 +17214,18 @@
     },
     {
       "AccessId": "9606688599",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662FE2D",
       "Old_Serial": "SCOM3662FE2D",
-      "To_Model": "",
+      "To_Model": "9606688599",
       "From_Model": "ST-244F",
       "Device": "CBR07087GO0",
       "Region": "Other"
     },
     {
       "AccessId": "9606690474",
-      "New_Serial": "",
+      "New_Serial": "SCOM36657DCA",
       "Old_Serial": "SCOM36657DCA",
-      "To_Model": "",
+      "To_Model": "9606690474",
       "From_Model": "ST-244F",
       "Device": "UTT08001GO0",
       "Region": "Other"
@@ -17250,9 +17250,9 @@
     },
     {
       "AccessId": "9606690931",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BC430",
       "Old_Serial": "SCOM366BC430",
-      "To_Model": "",
+      "To_Model": "9606690931",
       "From_Model": "ST-244F",
       "Device": "BKK25001G00",
       "Region": "BMA"
@@ -17340,9 +17340,9 @@
     },
     {
       "AccessId": "9606704353",
-      "New_Serial": "",
+      "New_Serial": "SCOM36671B6F",
       "Old_Serial": "SCOM36671B6F",
-      "To_Model": "",
+      "To_Model": "9606704353",
       "From_Model": "ST-244F",
       "Device": "TAK01026GO0",
       "Region": "North"
@@ -17529,9 +17529,9 @@
     },
     {
       "AccessId": "9606749456",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667F109",
       "Old_Serial": "SCOM3667F109",
-      "To_Model": "",
+      "To_Model": "9606749456",
       "From_Model": "ST-244F",
       "Device": "KKN25001G00",
       "Region": "Northeast"
@@ -17592,9 +17592,9 @@
     },
     {
       "AccessId": "9606765992",
-      "New_Serial": "",
+      "New_Serial": "SCOM366259FF",
       "Old_Serial": "SCOM366259FF",
-      "To_Model": "",
+      "To_Model": "9606765992",
       "From_Model": "ST-244F",
       "Device": "CRI07002G00",
       "Region": "North"
@@ -17655,9 +17655,9 @@
     },
     {
       "AccessId": "9606784599",
-      "New_Serial": "",
+      "New_Serial": "SCOM36646B9E",
       "Old_Serial": "SCOM36646B9E",
-      "To_Model": "",
+      "To_Model": "9606784599",
       "From_Model": "ST-244F",
       "Device": "BKK30AGNG03",
       "Region": "BMA"
@@ -17835,9 +17835,9 @@
     },
     {
       "AccessId": "9606853929",
-      "New_Serial": "",
+      "New_Serial": "SCOM36686FDA",
       "Old_Serial": "SCOM36686FDA",
-      "To_Model": "",
+      "To_Model": "9606853929",
       "From_Model": "ST-244F",
       "Device": "AYT01005G00",
       "Region": "Central"
@@ -18024,9 +18024,9 @@
     },
     {
       "AccessId": "9606905628",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C4F67",
       "Old_Serial": "SCOM366C4F67",
-      "To_Model": "",
+      "To_Model": "9606905628",
       "From_Model": "ST-244FV2",
       "Device": "RET09009G00",
       "Region": "Other"
@@ -18096,9 +18096,9 @@
     },
     {
       "AccessId": "9606925907",
-      "New_Serial": "",
+      "New_Serial": "SCOM366611F5",
       "Old_Serial": "SCOM366611F5",
-      "To_Model": "",
+      "To_Model": "9606925907",
       "From_Model": "ST-244F",
       "Device": "CBR01066GO0",
       "Region": "Other"
@@ -18330,9 +18330,9 @@
     },
     {
       "AccessId": "9606970972",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666C620",
       "Old_Serial": "SCOM3666C620",
-      "To_Model": "",
+      "To_Model": "9606970972",
       "From_Model": "ST-244F",
       "Device": "CBR01060GO0",
       "Region": "Other"
@@ -18411,9 +18411,9 @@
     },
     {
       "AccessId": "9606988885",
-      "New_Serial": "",
+      "New_Serial": "SCOM36607101",
       "Old_Serial": "SCOM36607101",
-      "To_Model": "",
+      "To_Model": "9606988885",
       "From_Model": "ST-244F",
       "Device": "BKK34AGNG01",
       "Region": "BMA"
@@ -18663,9 +18663,9 @@
     },
     {
       "AccessId": "9607020693",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660F5DE",
       "Old_Serial": "SCOM3660F5DE",
-      "To_Model": "",
+      "To_Model": "9607020693",
       "From_Model": "ST-244F",
       "Device": "NKR01089GO0",
       "Region": "Northeast"
@@ -18690,9 +18690,9 @@
     },
     {
       "AccessId": "9607024534",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669C739",
       "Old_Serial": "SCOM3669C739",
-      "To_Model": "",
+      "To_Model": "9607024534",
       "From_Model": "ST-244F",
       "Device": "CBR01056GO0",
       "Region": "Other"
@@ -18798,9 +18798,9 @@
     },
     {
       "AccessId": "9607047486",
-      "New_Serial": "",
+      "New_Serial": "SCOM36653124",
       "Old_Serial": "SCOM36653124",
-      "To_Model": "",
+      "To_Model": "9607047486",
       "From_Model": "ST-244F",
       "Device": "SMP03025GO0",
       "Region": "Other"
@@ -18834,9 +18834,9 @@
     },
     {
       "AccessId": "9607053145",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A0B11",
       "Old_Serial": "SCOM366A0B11",
-      "To_Model": "",
+      "To_Model": "9607053145",
       "From_Model": "ST-244F",
       "Device": "MHS05001G00",
       "Region": "Other"
@@ -19176,9 +19176,9 @@
     },
     {
       "AccessId": "9607091309",
-      "New_Serial": "",
+      "New_Serial": "SCOM36606CA5",
       "Old_Serial": "SCOM36606CA5",
-      "To_Model": "",
+      "To_Model": "9607091309",
       "From_Model": "ST-244F",
       "Device": "AYT01002GO0",
       "Region": "Central"
@@ -19257,9 +19257,9 @@
     },
     {
       "AccessId": "9607101703",
-      "New_Serial": "",
+      "New_Serial": "SCOM36604E52",
       "Old_Serial": "SCOM36604E52",
-      "To_Model": "",
+      "To_Model": "9607101703",
       "From_Model": "ST-244F",
       "Device": "NTB06004GO0",
       "Region": "BMA"
@@ -19365,9 +19365,9 @@
     },
     {
       "AccessId": "9607113022",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A00BA",
       "Old_Serial": "SCOM366A00BA",
-      "To_Model": "",
+      "To_Model": "9607113022",
       "From_Model": "ST-244F",
       "Device": "KKN06006G00",
       "Region": "Northeast"
@@ -19392,9 +19392,9 @@
     },
     {
       "AccessId": "9607117077",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D2084",
       "Old_Serial": "SCOM366D2084",
-      "To_Model": "",
+      "To_Model": "9607117077",
       "From_Model": "ST-244FV2",
       "Device": "SMP05008GO1",
       "Region": "Other"
@@ -19491,9 +19491,9 @@
     },
     {
       "AccessId": "9607138105",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A173D",
       "Old_Serial": "SCOM366A173D",
-      "To_Model": "",
+      "To_Model": "9607138105",
       "From_Model": "ST-244F",
       "Device": "BKK49AGNG00",
       "Region": "BMA"
@@ -19608,9 +19608,9 @@
     },
     {
       "AccessId": "9607168327",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660942D",
       "Old_Serial": "SCOM3660942D",
-      "To_Model": "",
+      "To_Model": "9607168327",
       "From_Model": "ST-244F",
       "Device": "BKK46002G00",
       "Region": "BMA"
@@ -19635,9 +19635,9 @@
     },
     {
       "AccessId": "9607169013",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660CBFA",
       "Old_Serial": "SCOM3660CBFA",
-      "To_Model": "",
+      "To_Model": "9607169013",
       "From_Model": "ST-244F",
       "Device": "BKK24001G01",
       "Region": "BMA"
@@ -19680,9 +19680,9 @@
     },
     {
       "AccessId": "9607177150",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665516C",
       "Old_Serial": "SCOM3665516C",
-      "To_Model": "",
+      "To_Model": "9607177150",
       "From_Model": "ST-244F",
       "Device": "BKK06025GO0",
       "Region": "BMA"
@@ -19716,9 +19716,9 @@
     },
     {
       "AccessId": "9607178467",
-      "New_Serial": "",
+      "New_Serial": "SCOM36603D4A",
       "Old_Serial": "SCOM36603D4A",
-      "To_Model": "",
+      "To_Model": "9607178467",
       "From_Model": "ST-244F",
       "Device": "BKK05031GO0",
       "Region": "BMA"
@@ -19788,9 +19788,9 @@
     },
     {
       "AccessId": "9607184560",
-      "New_Serial": "",
+      "New_Serial": "SCOM36699238",
       "Old_Serial": "SCOM36699238",
-      "To_Model": "",
+      "To_Model": "9607184560",
       "From_Model": "ST-244F",
       "Device": "BKK26AGNG03",
       "Region": "BMA"
@@ -19941,9 +19941,9 @@
     },
     {
       "AccessId": "9607200260",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B1B2B",
       "Old_Serial": "SCOM366B1B2B",
-      "To_Model": "",
+      "To_Model": "9607200260",
       "From_Model": "ST-244F",
       "Device": "NTB01006G00",
       "Region": "BMA"
@@ -20040,9 +20040,9 @@
     },
     {
       "AccessId": "9607216697",
-      "New_Serial": "",
+      "New_Serial": "SCOM36622EB5",
       "Old_Serial": "SCOM36622EB5",
-      "To_Model": "",
+      "To_Model": "9607216697",
       "From_Model": "ST-244F",
       "Device": "BKK19009GO0",
       "Region": "BMA"
@@ -20058,9 +20058,9 @@
     },
     {
       "AccessId": "9607217097",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BBEB0",
       "Old_Serial": "SCOM366BBEB0",
-      "To_Model": "",
+      "To_Model": "9607217097",
       "From_Model": "ST-244F",
       "Device": "SMP01AGNG01",
       "Region": "Other"
@@ -20112,18 +20112,18 @@
     },
     {
       "AccessId": "9607222424",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660E35E",
       "Old_Serial": "SCOM3660E35E",
-      "To_Model": "",
+      "To_Model": "9607222424",
       "From_Model": "ST-244F",
       "Device": "BKK09014GO0",
       "Region": "BMA"
     },
     {
       "AccessId": "9607223077",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B4E9E",
       "Old_Serial": "SCOM366B4E9E",
-      "To_Model": "",
+      "To_Model": "9607223077",
       "From_Model": "ST-244F",
       "Device": "BKK24002G00",
       "Region": "BMA"
@@ -20148,9 +20148,9 @@
     },
     {
       "AccessId": "9607225018",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660B88F",
       "Old_Serial": "SCOM3660B88F",
-      "To_Model": "",
+      "To_Model": "9607225018",
       "From_Model": "ST-244F",
       "Device": "BKK32001G00",
       "Region": "BMA"
@@ -20193,9 +20193,9 @@
     },
     {
       "AccessId": "9607235086",
-      "New_Serial": "",
+      "New_Serial": "SCOM36629BAB",
       "Old_Serial": "SCOM36629BAB",
-      "To_Model": "",
+      "To_Model": "9607235086",
       "From_Model": "ST-244F",
       "Device": "BKK35002G00",
       "Region": "BMA"
@@ -20465,7 +20465,7 @@
       "AccessId": "9607272806",
       "New_Serial": "SCOM3665DEF9",
       "Old_Serial": "T3TH17830A0A",
-      "To_Model": "ST-244F",
+      "To_Model": "9607272806",
       "From_Model": "T625Pro",
       "Device": "BKK39040GO0",
       "Region": "BMA"
@@ -20841,18 +20841,18 @@
     },
     {
       "AccessId": "9607302958",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661547E",
       "Old_Serial": "SCOM3661547E",
-      "To_Model": "",
+      "To_Model": "9607302958",
       "From_Model": "ST-244F",
       "Device": "BKK41007GO0",
       "Region": "BMA"
     },
     {
       "AccessId": "9607303573",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A440D",
       "Old_Serial": "SCOM366A440D",
-      "To_Model": "",
+      "To_Model": "9607303573",
       "From_Model": "ST-244F",
       "Device": "BKK11003G00",
       "Region": "BMA"
@@ -20904,9 +20904,9 @@
     },
     {
       "AccessId": "9607307706",
-      "New_Serial": "",
+      "New_Serial": "T3THB41B6D3C",
       "Old_Serial": "SCOM366142E7",
-      "To_Model": "",
+      "To_Model": "9607307706",
       "From_Model": "ST-244F",
       "Device": "BKK46002G01",
       "Region": "BMA"
@@ -20922,9 +20922,9 @@
     },
     {
       "AccessId": "9607308083",
-      "New_Serial": "",
+      "New_Serial": "SCOM36612B23",
       "Old_Serial": "SCOM36612B23",
-      "To_Model": "",
+      "To_Model": "9607308083",
       "From_Model": "ST-244F",
       "Device": "PSN01004GO0",
       "Region": "Other"
@@ -20967,9 +20967,9 @@
     },
     {
       "AccessId": "9607311881",
-      "New_Serial": "",
+      "New_Serial": "HWTC0D2252AA",
       "Old_Serial": "SCOM3661DBD5",
-      "To_Model": "",
+      "To_Model": "9607311881",
       "From_Model": "ST-244F",
       "Device": "CBR01069GO0",
       "Region": "Other"
@@ -21075,9 +21075,9 @@
     },
     {
       "AccessId": "9607322558",
-      "New_Serial": "",
+      "New_Serial": "SCOM36616239",
       "Old_Serial": "SCOM36616239",
-      "To_Model": "",
+      "To_Model": "9607322558",
       "From_Model": "ST-244F",
       "Device": "SMP03036GO0",
       "Region": "Other"
@@ -21120,9 +21120,9 @@
     },
     {
       "AccessId": "9607325154",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661F068",
       "Old_Serial": "SCOM3661F068",
-      "To_Model": "",
+      "To_Model": "9607325154",
       "From_Model": "ST-244F",
       "Device": "BKK16002G00",
       "Region": "BMA"
@@ -21192,9 +21192,9 @@
     },
     {
       "AccessId": "9607329409",
-      "New_Serial": "",
+      "New_Serial": "SCOM366236B8",
       "Old_Serial": "SCOM366236B8",
-      "To_Model": "",
+      "To_Model": "9607329409",
       "From_Model": "ST-244F",
       "Device": "BKK33006GO0",
       "Region": "BMA"
@@ -21318,9 +21318,9 @@
     },
     {
       "AccessId": "9607337702",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662130C",
       "Old_Serial": "SCOM3662130C",
-      "To_Model": "",
+      "To_Model": "9607337702",
       "From_Model": "ST-244F",
       "Device": "CBR04088GO0",
       "Region": "Other"
@@ -21642,9 +21642,9 @@
     },
     {
       "AccessId": "9607376282",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660E9F2",
       "Old_Serial": "SCOM3660E9F2",
-      "To_Model": "",
+      "To_Model": "9607376282",
       "From_Model": "ST-244F",
       "Device": "PTT06029GO0",
       "Region": "Other"
@@ -21714,9 +21714,9 @@
     },
     {
       "AccessId": "9607382806",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662A3E1",
       "Old_Serial": "SCOM3662A3E1",
-      "To_Model": "",
+      "To_Model": "9607382806",
       "From_Model": "ST-244F",
       "Device": "BKK47001G00",
       "Region": "BMA"
@@ -21759,9 +21759,9 @@
     },
     {
       "AccessId": "9607386898",
-      "New_Serial": "",
+      "New_Serial": "SCOM36628E1C",
       "Old_Serial": "SCOM36628E1C",
-      "To_Model": "",
+      "To_Model": "9607386898",
       "From_Model": "ST-244F",
       "Device": "PTT06029GO0",
       "Region": "Other"
@@ -21804,9 +21804,9 @@
     },
     {
       "AccessId": "9607390799",
-      "New_Serial": "",
+      "New_Serial": "SCOM366120BB",
       "Old_Serial": "SCOM366120BB",
-      "To_Model": "",
+      "To_Model": "9607390799",
       "From_Model": "ST-244F",
       "Device": "NTB06008GO0",
       "Region": "BMA"
@@ -21831,9 +21831,9 @@
     },
     {
       "AccessId": "9607393456",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B93EC",
       "Old_Serial": "SCOM366B93EC",
-      "To_Model": "",
+      "To_Model": "9607393456",
       "From_Model": "ST-244F",
       "Device": "UDT10004G00",
       "Region": "Other"
@@ -22011,9 +22011,9 @@
     },
     {
       "AccessId": "9607418052",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661A66E",
       "Old_Serial": "SCOM3661A66E",
-      "To_Model": "",
+      "To_Model": "9607418052",
       "From_Model": "ST-244F",
       "Device": "SSK05001G00",
       "Region": "Other"
@@ -22101,9 +22101,9 @@
     },
     {
       "AccessId": "9607427914",
-      "New_Serial": "",
+      "New_Serial": "SCOM36624020",
       "Old_Serial": "SCOM36624020",
-      "To_Model": "",
+      "To_Model": "9607427914",
       "From_Model": "ST-244F",
       "Device": "SMP01003G00",
       "Region": "Other"
@@ -22263,9 +22263,9 @@
     },
     {
       "AccessId": "9607444605",
-      "New_Serial": "",
+      "New_Serial": "SCOM36644C5E",
       "Old_Serial": "SCOM36644C5E",
-      "To_Model": "",
+      "To_Model": "9607444605",
       "From_Model": "ST-244F",
       "Device": "BKK09005GO0",
       "Region": "BMA"
@@ -22470,9 +22470,9 @@
     },
     {
       "AccessId": "9607460961",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666D2FE",
       "Old_Serial": "SCOM3666D2FE",
-      "To_Model": "",
+      "To_Model": "9607460961",
       "From_Model": "ST-244F",
       "Device": "BKK19002G00",
       "Region": "BMA"
@@ -22569,9 +22569,9 @@
     },
     {
       "AccessId": "9607466327",
-      "New_Serial": "",
+      "New_Serial": "SCOM36659644",
       "Old_Serial": "SCOM36659644",
-      "To_Model": "",
+      "To_Model": "9607466327",
       "From_Model": "ST-244F",
       "Device": "BKK38010GO0",
       "Region": "BMA"
@@ -22713,9 +22713,9 @@
     },
     {
       "AccessId": "9607481533",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666AB9F",
       "Old_Serial": "SCOM3666AB9F",
-      "To_Model": "",
+      "To_Model": "9607481533",
       "From_Model": "ST-244F",
       "Device": "NTB01026GO0",
       "Region": "BMA"
@@ -22749,9 +22749,9 @@
     },
     {
       "AccessId": "9607483461",
-      "New_Serial": "",
+      "New_Serial": "SCOM36668FEA",
       "Old_Serial": "SCOM36668FEA",
-      "To_Model": "",
+      "To_Model": "9607483461",
       "From_Model": "ST-244F",
       "Device": "CCS04034GO0",
       "Region": "Other"
@@ -22776,9 +22776,9 @@
     },
     {
       "AccessId": "9607484996",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D261C",
       "Old_Serial": "SCOM366D261C",
-      "To_Model": "",
+      "To_Model": "9607484996",
       "From_Model": "ST-244FV2",
       "Device": "PTT02001G00",
       "Region": "Other"
@@ -22812,18 +22812,18 @@
     },
     {
       "AccessId": "9607487706",
-      "New_Serial": "",
+      "New_Serial": "SCOM36668136",
       "Old_Serial": "SCOM36668136",
-      "To_Model": "",
+      "To_Model": "9607487706",
       "From_Model": "ST-244F",
       "Device": "CCS09012GO0",
       "Region": "Other"
     },
     {
       "AccessId": "9607488153",
-      "New_Serial": "",
+      "New_Serial": "SCOM36662BD1",
       "Old_Serial": "SCOM36662BD1",
-      "To_Model": "",
+      "To_Model": "9607488153",
       "From_Model": "ST-244F",
       "Device": "SMP05001GO0",
       "Region": "Other"
@@ -22902,9 +22902,9 @@
     },
     {
       "AccessId": "9607493996",
-      "New_Serial": "",
+      "New_Serial": "SCOM366536F9",
       "Old_Serial": "SCOM366536F9",
-      "To_Model": "",
+      "To_Model": "9607493996",
       "From_Model": "ST-244F",
       "Device": "BKK02004GO0",
       "Region": "BMA"
@@ -23289,9 +23289,9 @@
     },
     {
       "AccessId": "9607557846",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667017D",
       "Old_Serial": "SCOM3667017D",
-      "To_Model": "",
+      "To_Model": "9607557846",
       "From_Model": "ST-244F",
       "Device": "CRI05001G00",
       "Region": "North"
@@ -23325,18 +23325,18 @@
     },
     {
       "AccessId": "9607559012",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668ED90",
       "Old_Serial": "SCOM3668ED90",
-      "To_Model": "",
+      "To_Model": "9607559012",
       "From_Model": "ST-244F",
       "Device": "NTB04019GO0",
       "Region": "BMA"
     },
     {
       "AccessId": "9607560216",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666C5A4",
       "Old_Serial": "SCOM3666C5A4",
-      "To_Model": "",
+      "To_Model": "9607560216",
       "From_Model": "ST-244F",
       "Device": "NKT06008GO0",
       "Region": "Other"
@@ -23415,9 +23415,9 @@
     },
     {
       "AccessId": "9607581835",
-      "New_Serial": "",
+      "New_Serial": "SCOM366610E7",
       "Old_Serial": "SCOM366610E7",
-      "To_Model": "",
+      "To_Model": "9607581835",
       "From_Model": "ST-244F",
       "Device": "CPN01018G00",
       "Region": "Other"
@@ -23838,9 +23838,9 @@
     },
     {
       "AccessId": "9607724614",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667659D",
       "Old_Serial": "SCOM3667659D",
-      "To_Model": "",
+      "To_Model": "9607724614",
       "From_Model": "ST-244F",
       "Device": "BKN01024GO0",
       "Region": "Other"
@@ -23865,9 +23865,9 @@
     },
     {
       "AccessId": "9607734877",
-      "New_Serial": "",
+      "New_Serial": "SCOM36638BB7",
       "Old_Serial": "SCOM36638BB7",
-      "To_Model": "",
+      "To_Model": "9607734877",
       "From_Model": "ST-244F",
       "Device": "BKK27007GO0",
       "Region": "BMA"
@@ -24072,9 +24072,9 @@
     },
     {
       "AccessId": "9607780032",
-      "New_Serial": "",
+      "New_Serial": "SCOM36662BDC",
       "Old_Serial": "SCOM36662BDC",
-      "To_Model": "",
+      "To_Model": "9607780032",
       "From_Model": "ST-244F",
       "Device": "BKK06020GO0",
       "Region": "BMA"
@@ -24101,7 +24101,7 @@
       "AccessId": "9607787627",
       "New_Serial": "SCOM366C9822",
       "Old_Serial": "48575443955484A0",
-      "To_Model": "ST-244FV2",
+      "To_Model": "9607787627",
       "From_Model": "HG8247W5-6T",
       "Device": "BKN01007G00",
       "Region": "Other"
@@ -24243,9 +24243,9 @@
     },
     {
       "AccessId": "9607841528",
-      "New_Serial": "",
+      "New_Serial": "SCOM36619F3C",
       "Old_Serial": "SCOM36619F3C",
-      "To_Model": "",
+      "To_Model": "9607841528",
       "From_Model": "ST-244F",
       "Device": "NKS08010G00",
       "Region": "North"
@@ -24351,9 +24351,9 @@
     },
     {
       "AccessId": "9607867303",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667999D",
       "Old_Serial": "SCOM3667999D",
-      "To_Model": "",
+      "To_Model": "9607867303",
       "From_Model": "ST-244F",
       "Device": "NKR01050GO0",
       "Region": "Northeast"
@@ -24396,9 +24396,9 @@
     },
     {
       "AccessId": "9607883104",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667F45D",
       "Old_Serial": "SCOM3667F45D",
-      "To_Model": "",
+      "To_Model": "9607883104",
       "From_Model": "ST-244F",
       "Device": "SRN09018G00",
       "Region": "Northeast"
@@ -24488,25 +24488,25 @@
       "AccessId": "9607898892",
       "New_Serial": "SCOM36691D60",
       "Old_Serial": "GCOM177B0B4C",
-      "To_Model": "ST-244F",
+      "To_Model": "9607898892",
       "From_Model": "GN2000-02GS-1VT",
       "Device": "BRR10005G00",
       "Region": "Central"
     },
     {
       "AccessId": "9607899936",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C2A56",
       "Old_Serial": "SCOM366C2A56",
-      "To_Model": "",
+      "To_Model": "9607899936",
       "From_Model": "ST-244F",
       "Device": "KKN01007G00",
       "Region": "Northeast"
     },
     {
       "AccessId": "9607900650",
-      "New_Serial": "",
+      "New_Serial": "SCOM36682AEF",
       "Old_Serial": "SCOM36682AEF",
-      "To_Model": "",
+      "To_Model": "9607900650",
       "From_Model": "ST-244F",
       "Device": "MHS05004G00",
       "Region": "Other"
@@ -24585,9 +24585,9 @@
     },
     {
       "AccessId": "9607917537",
-      "New_Serial": "",
+      "New_Serial": "SCOM366814F3",
       "Old_Serial": "SCOM366814F3",
-      "To_Model": "",
+      "To_Model": "9607917537",
       "From_Model": "ST-244F",
       "Device": "SKA15001GO0",
       "Region": "South"
@@ -24693,9 +24693,9 @@
     },
     {
       "AccessId": "9607933778",
-      "New_Serial": "",
+      "New_Serial": "SCOM366778A6",
       "Old_Serial": "SCOM366778A6",
-      "To_Model": "",
+      "To_Model": "9607933778",
       "From_Model": "ST-244F",
       "Device": "BKK09003GO0",
       "Region": "BMA"
@@ -24711,9 +24711,9 @@
     },
     {
       "AccessId": "9607936641",
-      "New_Serial": "",
+      "New_Serial": "SCOM36675777",
       "Old_Serial": "SCOM36675777",
-      "To_Model": "",
+      "To_Model": "9607936641",
       "From_Model": "ST-244F",
       "Device": "BKK32020GO1",
       "Region": "BMA"
@@ -24918,9 +24918,9 @@
     },
     {
       "AccessId": "9607975453",
-      "New_Serial": "",
+      "New_Serial": "SCOM36675F89",
       "Old_Serial": "SCOM36675F89",
-      "To_Model": "",
+      "To_Model": "9607975453",
       "From_Model": "ST-244F",
       "Device": "BKK32020GO1",
       "Region": "BMA"
@@ -24954,9 +24954,9 @@
     },
     {
       "AccessId": "9607982829",
-      "New_Serial": "",
+      "New_Serial": "SCOM36682CFB",
       "Old_Serial": "SCOM36682CFB",
-      "To_Model": "",
+      "To_Model": "9607982829",
       "From_Model": "ST-244F",
       "Device": "BKK27001G00",
       "Region": "BMA"
@@ -25188,9 +25188,9 @@
     },
     {
       "AccessId": "9608021642",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665F5E4",
       "Old_Serial": "SCOM3665F5E4",
-      "To_Model": "",
+      "To_Model": "9608021642",
       "From_Model": "ST-244F",
       "Device": "NKT03001G00",
       "Region": "Other"
@@ -25251,9 +25251,9 @@
     },
     {
       "AccessId": "9608043913",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CC613",
       "Old_Serial": "SCOM366CC613",
-      "To_Model": "",
+      "To_Model": "9608043913",
       "From_Model": "ST-244FV2",
       "Device": "PTT02007GO0",
       "Region": "Other"
@@ -25341,18 +25341,18 @@
     },
     {
       "AccessId": "9608051249",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CD982",
       "Old_Serial": "SCOM366CD982",
-      "To_Model": "",
+      "To_Model": "9608051249",
       "From_Model": "ST-244FV2",
       "Device": "CBR01065GO0",
       "Region": "Other"
     },
     {
       "AccessId": "9608052356",
-      "New_Serial": "",
+      "New_Serial": "SCOM36640B63",
       "Old_Serial": "SCOM36640B63",
-      "To_Model": "",
+      "To_Model": "9608052356",
       "From_Model": "ST-244F",
       "Device": "BKK17010G00",
       "Region": "BMA"
@@ -25431,9 +25431,9 @@
     },
     {
       "AccessId": "9608063449",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667DB7E",
       "Old_Serial": "SCOM3667DB7E",
-      "To_Model": "",
+      "To_Model": "9608063449",
       "From_Model": "ST-244F",
       "Device": "PTT06026GO0",
       "Region": "Other"
@@ -25566,9 +25566,9 @@
     },
     {
       "AccessId": "9608082576",
-      "New_Serial": "",
+      "New_Serial": "SCOM36683421",
       "Old_Serial": "SCOM36683421",
-      "To_Model": "",
+      "To_Model": "9608082576",
       "From_Model": "ST-244F",
       "Device": "BKK06012GO0",
       "Region": "BMA"
@@ -25980,9 +25980,9 @@
     },
     {
       "AccessId": "9608159634",
-      "New_Serial": "",
+      "New_Serial": "SCOM36648972",
       "Old_Serial": "SCOM36648972",
-      "To_Model": "",
+      "To_Model": "9608159634",
       "From_Model": "ST-244F",
       "Device": "BKK45014G00",
       "Region": "BMA"
@@ -26007,18 +26007,18 @@
     },
     {
       "AccessId": "9608162551",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668B623",
       "Old_Serial": "SCOM3668B623",
-      "To_Model": "",
+      "To_Model": "9608162551",
       "From_Model": "ST-244F",
       "Device": "SSK13007G00",
       "Region": "Other"
     },
     {
       "AccessId": "9608162856",
-      "New_Serial": "",
+      "New_Serial": "SCOM36682D81",
       "Old_Serial": "SCOM36682D81",
-      "To_Model": "",
+      "To_Model": "9608162856",
       "From_Model": "ST-244F",
       "Device": "SMP03027GO0",
       "Region": "Other"
@@ -26070,9 +26070,9 @@
     },
     {
       "AccessId": "9608167653",
-      "New_Serial": "",
+      "New_Serial": "SCOM36688525",
       "Old_Serial": "SCOM36688525",
-      "To_Model": "",
+      "To_Model": "9608167653",
       "From_Model": "ST-244F",
       "Device": "SKA11054GO0",
       "Region": "South"
@@ -26250,9 +26250,9 @@
     },
     {
       "AccessId": "9608199127",
-      "New_Serial": "",
+      "New_Serial": "SCOM36689AD2",
       "Old_Serial": "SCOM36689AD2",
-      "To_Model": "",
+      "To_Model": "9608199127",
       "From_Model": "ST-244F",
       "Device": "UDT01048G00",
       "Region": "Other"
@@ -26295,9 +26295,9 @@
     },
     {
       "AccessId": "9608210313",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C7A60",
       "Old_Serial": "SCOM366C7A60",
-      "To_Model": "",
+      "To_Model": "9608210313",
       "From_Model": "ST-244FV2",
       "Device": "SKN01022GO0",
       "Region": "Northeast"
@@ -26340,9 +26340,9 @@
     },
     {
       "AccessId": "9608217706",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668A2D1",
       "Old_Serial": "SCOM3668A2D1",
-      "To_Model": "",
+      "To_Model": "9608217706",
       "From_Model": "ST-244F",
       "Device": "BKK03003GO0",
       "Region": "BMA"
@@ -26466,9 +26466,9 @@
     },
     {
       "AccessId": "9608233757",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667CED7",
       "Old_Serial": "SCOM3667CED7",
-      "To_Model": "",
+      "To_Model": "9608233757",
       "From_Model": "ST-244F",
       "Device": "BKK40001G01",
       "Region": "BMA"
@@ -26547,9 +26547,9 @@
     },
     {
       "AccessId": "9608241042",
-      "New_Serial": "",
+      "New_Serial": "SCOM36641B33",
       "Old_Serial": "SCOM36641B33",
-      "To_Model": "",
+      "To_Model": "9608241042",
       "From_Model": "ST-244F",
       "Device": "NTB06002G00",
       "Region": "BMA"
@@ -26619,9 +26619,9 @@
     },
     {
       "AccessId": "9608246058",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D2AFB",
       "Old_Serial": "SCOM366D2AFB",
-      "To_Model": "",
+      "To_Model": "9608246058",
       "From_Model": "ST-244FV2",
       "Device": "AYT10001GO0",
       "Region": "Central"
@@ -26646,18 +26646,18 @@
     },
     {
       "AccessId": "9608248054",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665C798",
       "Old_Serial": "SCOM3665C798",
-      "To_Model": "",
+      "To_Model": "9608248054",
       "From_Model": "ST-244F",
       "Device": "BKK47024GO0",
       "Region": "BMA"
     },
     {
       "AccessId": "9608249079",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D3985",
       "Old_Serial": "SCOM366D3985",
-      "To_Model": "",
+      "To_Model": "9608249079",
       "From_Model": "ST-244FV2",
       "Device": "MDH01002GO0",
       "Region": "Other"
@@ -26781,9 +26781,9 @@
     },
     {
       "AccessId": "9608265723",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668E5D4",
       "Old_Serial": "SCOM3668E5D4",
-      "To_Model": "",
+      "To_Model": "9608265723",
       "From_Model": "ST-244F",
       "Device": "PHE05001G00",
       "Region": "Other"
@@ -26826,9 +26826,9 @@
     },
     {
       "AccessId": "9608270239",
-      "New_Serial": "",
+      "New_Serial": "SCOM36679EF1",
       "Old_Serial": "SCOM36679EF1",
-      "To_Model": "",
+      "To_Model": "9608270239",
       "From_Model": "ST-244F",
       "Device": "UTR01006GO0",
       "Region": "Other"
@@ -27060,18 +27060,18 @@
     },
     {
       "AccessId": "9608293000",
-      "New_Serial": "",
+      "New_Serial": "T3THB62A9178",
       "Old_Serial": "SCOM3668F968",
-      "To_Model": "",
+      "To_Model": "9608293000",
       "From_Model": "ST-244F",
       "Device": "BKK46022GO0",
       "Region": "BMA"
     },
     {
       "AccessId": "9608293204",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668B932",
       "Old_Serial": "SCOM3668B932",
-      "To_Model": "",
+      "To_Model": "9608293204",
       "From_Model": "ST-244F",
       "Device": "BKK05003G00",
       "Region": "BMA"
@@ -27159,9 +27159,9 @@
     },
     {
       "AccessId": "9608302694",
-      "New_Serial": "",
+      "New_Serial": "SCOM366904EB",
       "Old_Serial": "SCOM366904EB",
-      "To_Model": "",
+      "To_Model": "9608302694",
       "From_Model": "ST-244F",
       "Device": "NKR01007GO0",
       "Region": "Northeast"
@@ -27285,9 +27285,9 @@
     },
     {
       "AccessId": "9608313618",
-      "New_Serial": "",
+      "New_Serial": "SCOM366402E4",
       "Old_Serial": "SCOM366402E4",
-      "To_Model": "",
+      "To_Model": "9608313618",
       "From_Model": "ST-244F",
       "Device": "PCB01001G00",
       "Region": "Central"
@@ -27312,9 +27312,9 @@
     },
     {
       "AccessId": "9608315623",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669186E",
       "Old_Serial": "SCOM3669186E",
-      "To_Model": "",
+      "To_Model": "9608315623",
       "From_Model": "ST-244F",
       "Device": "SKA14001GO0",
       "Region": "South"
@@ -27384,9 +27384,9 @@
     },
     {
       "AccessId": "9608324520",
-      "New_Serial": "",
+      "New_Serial": "SCOM36686ABF",
       "Old_Serial": "SCOM36686ABF",
-      "To_Model": "",
+      "To_Model": "9608324520",
       "From_Model": "ST-244F",
       "Device": "YST01027GO0",
       "Region": "Northeast"
@@ -27447,9 +27447,9 @@
     },
     {
       "AccessId": "9608331341",
-      "New_Serial": "",
+      "New_Serial": "SCOM36690F4F",
       "Old_Serial": "SCOM36690F4F",
-      "To_Model": "",
+      "To_Model": "9608331341",
       "From_Model": "ST-244F",
       "Device": "BKK06016GO0",
       "Region": "BMA"
@@ -27474,9 +27474,9 @@
     },
     {
       "AccessId": "9608334812",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666AC97",
       "Old_Serial": "SCOM3666AC97",
-      "To_Model": "",
+      "To_Model": "9608334812",
       "From_Model": "ST-244F",
       "Device": "BKK08003GO0",
       "Region": "BMA"
@@ -27510,9 +27510,9 @@
     },
     {
       "AccessId": "9608338697",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668EB7A",
       "Old_Serial": "SCOM3668EB7A",
-      "To_Model": "",
+      "To_Model": "9608338697",
       "From_Model": "ST-244F",
       "Device": "CBR07009G00",
       "Region": "Other"
@@ -27555,9 +27555,9 @@
     },
     {
       "AccessId": "9608340784",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669699D",
       "Old_Serial": "SCOM3669699D",
-      "To_Model": "",
+      "To_Model": "9608340784",
       "From_Model": "ST-244F",
       "Device": "BRR08002GO0",
       "Region": "Central"
@@ -27573,9 +27573,9 @@
     },
     {
       "AccessId": "9608341144",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D6EDE",
       "Old_Serial": "SCOM366D6EDE",
-      "To_Model": "",
+      "To_Model": "9608341144",
       "From_Model": "ST-244FV2",
       "Device": "PKT03024GO0",
       "Region": "South"
@@ -27681,9 +27681,9 @@
     },
     {
       "AccessId": "9608348183",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669D6A1",
       "Old_Serial": "SCOM3669D6A1",
-      "To_Model": "",
+      "To_Model": "9608348183",
       "From_Model": "ST-244F",
       "Device": "SKT05008GO0",
       "Region": "Other"
@@ -27708,9 +27708,9 @@
     },
     {
       "AccessId": "9608348780",
-      "New_Serial": "",
+      "New_Serial": "SCOM36697632",
       "Old_Serial": "SCOM36697632",
-      "To_Model": "",
+      "To_Model": "9608348780",
       "From_Model": "ST-244F",
       "Device": "UTR02001GO0",
       "Region": "Other"
@@ -27726,9 +27726,9 @@
     },
     {
       "AccessId": "9608349500",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669758D",
       "Old_Serial": "SCOM3669758D",
-      "To_Model": "",
+      "To_Model": "9608349500",
       "From_Model": "ST-244F",
       "Device": "UTR07003GO0",
       "Region": "Other"
@@ -28050,9 +28050,9 @@
     },
     {
       "AccessId": "9608373409",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AD8CC",
       "Old_Serial": "SCOM366AD8CC",
-      "To_Model": "",
+      "To_Model": "9608373409",
       "From_Model": "ST-244F",
       "Device": "SMK02002G00",
       "Region": "BMA"
@@ -28149,18 +28149,18 @@
     },
     {
       "AccessId": "9608380542",
-      "New_Serial": "",
+      "New_Serial": "SCOM36670B75",
       "Old_Serial": "SCOM36670B75",
-      "To_Model": "",
+      "To_Model": "9608380542",
       "From_Model": "ST-244F",
       "Device": "BKK25006G00",
       "Region": "BMA"
     },
     {
       "AccessId": "9608380658",
-      "New_Serial": "",
+      "New_Serial": "SCOM36644451",
       "Old_Serial": "SCOM36644451",
-      "To_Model": "",
+      "To_Model": "9608380658",
       "From_Model": "ST-244F",
       "Device": "BKK05015GO1",
       "Region": "BMA"
@@ -28194,18 +28194,18 @@
     },
     {
       "AccessId": "9608384825",
-      "New_Serial": "",
+      "New_Serial": "SCOM36690FCB",
       "Old_Serial": "SCOM36690FCB",
-      "To_Model": "",
+      "To_Model": "9608384825",
       "From_Model": "ST-244F",
       "Device": "NTB02005GO0",
       "Region": "BMA"
     },
     {
       "AccessId": "9608385207",
-      "New_Serial": "",
+      "New_Serial": "SCOM366693D3",
       "Old_Serial": "SCOM366693D3",
-      "To_Model": "",
+      "To_Model": "9608385207",
       "From_Model": "ST-244F",
       "Device": "BKK48004GO0",
       "Region": "BMA"
@@ -28293,9 +28293,9 @@
     },
     {
       "AccessId": "9608392027",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669440F",
       "Old_Serial": "SCOM3669440F",
-      "To_Model": "",
+      "To_Model": "9608392027",
       "From_Model": "ST-244F",
       "Device": "BKK05039GO0",
       "Region": "BMA"
@@ -28374,9 +28374,9 @@
     },
     {
       "AccessId": "9608398558",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661C324",
       "Old_Serial": "SCOM3661C324",
-      "To_Model": "",
+      "To_Model": "9608398558",
       "From_Model": "ST-244F",
       "Device": "PTT06021GO0",
       "Region": "Other"
@@ -28617,9 +28617,9 @@
     },
     {
       "AccessId": "9608415562",
-      "New_Serial": "",
+      "New_Serial": "SCOM36697948",
       "Old_Serial": "SCOM36697948",
-      "To_Model": "",
+      "To_Model": "9608415562",
       "From_Model": "ST-244F",
       "Device": "SMP05005G00",
       "Region": "Other"
@@ -28761,9 +28761,9 @@
     },
     {
       "AccessId": "9608420506",
-      "New_Serial": "",
+      "New_Serial": "SCOM366875A2",
       "Old_Serial": "SCOM366875A2",
-      "To_Model": "",
+      "To_Model": "9608420506",
       "From_Model": "ST-244F",
       "Device": "PTT02037GO0",
       "Region": "Other"
@@ -28788,9 +28788,9 @@
     },
     {
       "AccessId": "9608424868",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668A56C",
       "Old_Serial": "SCOM3668A56C",
-      "To_Model": "",
+      "To_Model": "9608424868",
       "From_Model": "ST-244F",
       "Device": "RET09009G00",
       "Region": "Other"
@@ -28869,9 +28869,9 @@
     },
     {
       "AccessId": "9608433462",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665A059",
       "Old_Serial": "SCOM3665A059",
-      "To_Model": "",
+      "To_Model": "9608433462",
       "From_Model": "ST-244F",
       "Device": "BKK30001G00",
       "Region": "BMA"
@@ -28968,9 +28968,9 @@
     },
     {
       "AccessId": "9608438157",
-      "New_Serial": "",
+      "New_Serial": "SCOM36692436",
       "Old_Serial": "SCOM36692436",
-      "To_Model": "",
+      "To_Model": "9608438157",
       "From_Model": "ST-244F",
       "Device": "SKO08006G00",
       "Region": "Other"
@@ -28986,9 +28986,9 @@
     },
     {
       "AccessId": "9608439031",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669ED65",
       "Old_Serial": "SCOM3669ED65",
-      "To_Model": "",
+      "To_Model": "9608439031",
       "From_Model": "ST-244F",
       "Device": "RYG01062GO0",
       "Region": "Central"
@@ -29067,9 +29067,9 @@
     },
     {
       "AccessId": "9608448083",
-      "New_Serial": "",
+      "New_Serial": "SCOM36694A2D",
       "Old_Serial": "SCOM36694A2D",
-      "To_Model": "",
+      "To_Model": "9608448083",
       "From_Model": "ST-244F",
       "Device": "BKK32002G01",
       "Region": "BMA"
@@ -29085,9 +29085,9 @@
     },
     {
       "AccessId": "9608448526",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669AE82",
       "Old_Serial": "SCOM3669AE82",
-      "To_Model": "",
+      "To_Model": "9608448526",
       "From_Model": "ST-244F",
       "Device": "BKK26AGNG03",
       "Region": "BMA"
@@ -29391,9 +29391,9 @@
     },
     {
       "AccessId": "9608475520",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A0A88",
       "Old_Serial": "SCOM366A0A88",
-      "To_Model": "",
+      "To_Model": "9608475520",
       "From_Model": "ST-244F",
       "Device": "RYG02001G00",
       "Region": "Central"
@@ -29463,9 +29463,9 @@
     },
     {
       "AccessId": "9608482780",
-      "New_Serial": "",
+      "New_Serial": "SCOM36699D62",
       "Old_Serial": "SCOM36699D62",
-      "To_Model": "",
+      "To_Model": "9608482780",
       "From_Model": "ST-244F",
       "Device": "BKK28002G00",
       "Region": "BMA"
@@ -29625,18 +29625,18 @@
     },
     {
       "AccessId": "9608498479",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665D532",
       "Old_Serial": "SCOM3665D532",
-      "To_Model": "",
+      "To_Model": "9608498479",
       "From_Model": "ST-244F",
       "Device": "CMI01002G00",
       "Region": "North"
     },
     {
       "AccessId": "9608498982",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A218F",
       "Old_Serial": "SCOM366A218F",
-      "To_Model": "",
+      "To_Model": "9608498982",
       "From_Model": "ST-244F",
       "Device": "BKK47004GO0",
       "Region": "BMA"
@@ -29805,9 +29805,9 @@
     },
     {
       "AccessId": "9608511722",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669C038",
       "Old_Serial": "SCOM3669C038",
-      "To_Model": "",
+      "To_Model": "9608511722",
       "From_Model": "ST-244F",
       "Device": "BKK49AGNG00",
       "Region": "BMA"
@@ -29868,9 +29868,9 @@
     },
     {
       "AccessId": "9608517663",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662E928",
       "Old_Serial": "SCOM3662E928",
-      "To_Model": "",
+      "To_Model": "9608517663",
       "From_Model": "ST-244F",
       "Device": "CMI14025GO0",
       "Region": "North"
@@ -29886,9 +29886,9 @@
     },
     {
       "AccessId": "9608519210",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A08C5",
       "Old_Serial": "SCOM366A08C5",
-      "To_Model": "",
+      "To_Model": "9608519210",
       "From_Model": "ST-244F",
       "Device": "SKT01008G00",
       "Region": "Other"
@@ -29904,9 +29904,9 @@
     },
     {
       "AccessId": "9608523408",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669C250",
       "Old_Serial": "SCOM3669C250",
-      "To_Model": "",
+      "To_Model": "9608523408",
       "From_Model": "ST-244F",
       "Device": "SRT15006G00",
       "Region": "Other"
@@ -29949,9 +29949,9 @@
     },
     {
       "AccessId": "9608527511",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A4DD0",
       "Old_Serial": "SCOM366A4DD0",
-      "To_Model": "",
+      "To_Model": "9608527511",
       "From_Model": "ST-244F",
       "Device": "NTB04009GO0",
       "Region": "BMA"
@@ -30075,9 +30075,9 @@
     },
     {
       "AccessId": "9608539988",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AA247",
       "Old_Serial": "SCOM366AA247",
-      "To_Model": "",
+      "To_Model": "9608539988",
       "From_Model": "ST-244F",
       "Device": "NKT06004GO0",
       "Region": "Other"
@@ -30111,9 +30111,9 @@
     },
     {
       "AccessId": "9608542208",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A0C47",
       "Old_Serial": "SCOM366A0C47",
-      "To_Model": "",
+      "To_Model": "9608542208",
       "From_Model": "ST-244F",
       "Device": "CBR04058G00",
       "Region": "Other"
@@ -30156,9 +30156,9 @@
     },
     {
       "AccessId": "9608546497",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C4E0F",
       "Old_Serial": "SCOM366C4E0F",
-      "To_Model": "",
+      "To_Model": "9608546497",
       "From_Model": "ST-244FV2",
       "Device": "BKK06041GO0",
       "Region": "BMA"
@@ -30228,9 +30228,9 @@
     },
     {
       "AccessId": "9608550274",
-      "New_Serial": "",
+      "New_Serial": "SCOM36695851",
       "Old_Serial": "SCOM36695851",
-      "To_Model": "",
+      "To_Model": "9608550274",
       "From_Model": "ST-244F",
       "Device": "CNT05008G00",
       "Region": "Other"
@@ -30255,9 +30255,9 @@
     },
     {
       "AccessId": "9608552601",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663B0F5",
       "Old_Serial": "SCOM3663B0F5",
-      "To_Model": "",
+      "To_Model": "9608552601",
       "From_Model": "ST-244F",
       "Device": "BKK29003GO0",
       "Region": "BMA"
@@ -30417,9 +30417,9 @@
     },
     {
       "AccessId": "9608563317",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AAC7F",
       "Old_Serial": "SCOM366AAC7F",
-      "To_Model": "",
+      "To_Model": "9608563317",
       "From_Model": "ST-244F",
       "Device": "MHR12002G00",
       "Region": "Other"
@@ -30444,9 +30444,9 @@
     },
     {
       "AccessId": "9608565323",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A2102",
       "Old_Serial": "SCOM366A2102",
-      "To_Model": "",
+      "To_Model": "9608565323",
       "From_Model": "ST-244F",
       "Device": "CBR01005G00",
       "Region": "Other"
@@ -30579,9 +30579,9 @@
     },
     {
       "AccessId": "9608576611",
-      "New_Serial": "",
+      "New_Serial": "T3THB41A2F04",
       "Old_Serial": "SCOM366A0A99",
-      "To_Model": "",
+      "To_Model": "9608576611",
       "From_Model": "ST-244F",
       "Device": "RET09004G00",
       "Region": "Other"
@@ -30714,18 +30714,18 @@
     },
     {
       "AccessId": "9608592986",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A277D",
       "Old_Serial": "SCOM366A277D",
-      "To_Model": "",
+      "To_Model": "9608592986",
       "From_Model": "ST-244F",
       "Device": "CBR01005G00",
       "Region": "Other"
     },
     {
       "AccessId": "9608593015",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664EED3",
       "Old_Serial": "SCOM3664EED3",
-      "To_Model": "",
+      "To_Model": "9608593015",
       "From_Model": "ST-244F",
       "Device": "BKK14011GO0",
       "Region": "BMA"
@@ -30804,9 +30804,9 @@
     },
     {
       "AccessId": "9608601246",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A76A6",
       "Old_Serial": "SCOM366A76A6",
-      "To_Model": "",
+      "To_Model": "9608601246",
       "From_Model": "ST-244F",
       "Device": "SMP06002G01",
       "Region": "Other"
@@ -30984,9 +30984,9 @@
     },
     {
       "AccessId": "9608620117",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AE43A",
       "Old_Serial": "SCOM366AE43A",
-      "To_Model": "",
+      "To_Model": "9608620117",
       "From_Model": "ST-244F",
       "Device": "BKK29011GO0",
       "Region": "BMA"
@@ -31038,9 +31038,9 @@
     },
     {
       "AccessId": "9608626960",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A19AB",
       "Old_Serial": "SCOM366A19AB",
-      "To_Model": "",
+      "To_Model": "9608626960",
       "From_Model": "ST-244F",
       "Device": "NTB04026GO0",
       "Region": "BMA"
@@ -31164,9 +31164,9 @@
     },
     {
       "AccessId": "9608637753",
-      "New_Serial": "",
+      "New_Serial": "T3THB6283BC0",
       "Old_Serial": "SCOM366A6D84",
-      "To_Model": "",
+      "To_Model": "9608637753",
       "From_Model": "ST-244F",
       "Device": "KLS06005GO0",
       "Region": "Northeast"
@@ -31380,9 +31380,9 @@
     },
     {
       "AccessId": "9608661040",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AE74F",
       "Old_Serial": "SCOM366AE74F",
-      "To_Model": "",
+      "To_Model": "9608661040",
       "From_Model": "ST-244F",
       "Device": "NAN01013GO0",
       "Region": "North"
@@ -31407,9 +31407,9 @@
     },
     {
       "AccessId": "9608661940",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AAB5F",
       "Old_Serial": "SCOM366AAB5F",
-      "To_Model": "",
+      "To_Model": "9608661940",
       "From_Model": "ST-244F",
       "Device": "TRG02010G00",
       "Region": "South"
@@ -31488,18 +31488,18 @@
     },
     {
       "AccessId": "9608668164",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B1FCC",
       "Old_Serial": "SCOM366B1FCC",
-      "To_Model": "",
+      "To_Model": "9608668164",
       "From_Model": "ST-244F",
       "Device": "CBR01056GO0",
       "Region": "Other"
     },
     {
       "AccessId": "9608673800",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B487D",
       "Old_Serial": "SCOM366B487D",
-      "To_Model": "",
+      "To_Model": "9608673800",
       "From_Model": "ST-244F",
       "Device": "BKK38009GO0",
       "Region": "BMA"
@@ -31740,9 +31740,9 @@
     },
     {
       "AccessId": "9608700495",
-      "New_Serial": "",
+      "New_Serial": "T3THB62AE9A0",
       "Old_Serial": "SCOM366B4715",
-      "To_Model": "",
+      "To_Model": "9608700495",
       "From_Model": "ST-244F",
       "Device": "BKK38009GO0",
       "Region": "BMA"
@@ -31812,9 +31812,9 @@
     },
     {
       "AccessId": "9608707671",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B1F1C",
       "Old_Serial": "SCOM366B1F1C",
-      "To_Model": "",
+      "To_Model": "9608707671",
       "From_Model": "ST-244F",
       "Device": "BKK30012GO1",
       "Region": "BMA"
@@ -31866,9 +31866,9 @@
     },
     {
       "AccessId": "9608713273",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AB216",
       "Old_Serial": "SCOM366AB216",
-      "To_Model": "",
+      "To_Model": "9608713273",
       "From_Model": "ST-244F",
       "Device": "BKK06033GO0",
       "Region": "BMA"
@@ -31911,9 +31911,9 @@
     },
     {
       "AccessId": "9608718205",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B18BE",
       "Old_Serial": "SCOM366B18BE",
-      "To_Model": "",
+      "To_Model": "9608718205",
       "From_Model": "ST-244F",
       "Device": "CRI16006G00",
       "Region": "North"
@@ -32199,9 +32199,9 @@
     },
     {
       "AccessId": "9608759771",
-      "New_Serial": "",
+      "New_Serial": "SCOM366ABA89",
       "Old_Serial": "SCOM366ABA89",
-      "To_Model": "",
+      "To_Model": "9608759771",
       "From_Model": "ST-244F",
       "Device": "BKK25005GO0",
       "Region": "BMA"
@@ -32298,9 +32298,9 @@
     },
     {
       "AccessId": "9608780722",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AF5F4",
       "Old_Serial": "SCOM366AF5F4",
-      "To_Model": "",
+      "To_Model": "9608780722",
       "From_Model": "ST-244F",
       "Device": "BKK49002G00",
       "Region": "BMA"
@@ -32559,9 +32559,9 @@
     },
     {
       "AccessId": "9608830994",
-      "New_Serial": "",
+      "New_Serial": "SCOM36608E19",
       "Old_Serial": "SCOM36608E19",
-      "To_Model": "",
+      "To_Model": "9608830994",
       "From_Model": "ST-244F",
       "Device": "PNA01012GO0",
       "Region": "Other"
@@ -32694,9 +32694,9 @@
     },
     {
       "AccessId": "9608855374",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BB7EE",
       "Old_Serial": "SCOM366BB7EE",
-      "To_Model": "",
+      "To_Model": "9608855374",
       "From_Model": "ST-244F",
       "Device": "LOI01004G00",
       "Region": "Other"
@@ -32883,9 +32883,9 @@
     },
     {
       "AccessId": "9608883038",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BC5AA",
       "Old_Serial": "SCOM366BC5AA",
-      "To_Model": "",
+      "To_Model": "9608883038",
       "From_Model": "ST-244F",
       "Device": "SKA01005GO0",
       "Region": "South"
@@ -33137,7 +33137,7 @@
       "AccessId": "9608922234",
       "New_Serial": "SCOM366617CE",
       "Old_Serial": "ZTEGC8DE0873",
-      "To_Model": "ST-244F",
+      "To_Model": "9608922234",
       "From_Model": "F688",
       "Device": "CPN02005G00",
       "Region": "Other"
@@ -33396,9 +33396,9 @@
     },
     {
       "AccessId": "9608977609",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C0457",
       "Old_Serial": "SCOM366C0457",
-      "To_Model": "",
+      "To_Model": "9608977609",
       "From_Model": "ST-244F",
       "Device": "ATG04002GO0",
       "Region": "North"
@@ -33666,18 +33666,18 @@
     },
     {
       "AccessId": "9609030564",
-      "New_Serial": "",
+      "New_Serial": "T3THB4106E44",
       "Old_Serial": "SCOM366C0F14",
-      "To_Model": "",
+      "To_Model": "9609030564",
       "From_Model": "ST-244F",
       "Device": "TRG01001G00",
       "Region": "South"
     },
     {
       "AccessId": "9609033038",
-      "New_Serial": "",
+      "New_Serial": "SCOM36699226",
       "Old_Serial": "SCOM36699226",
-      "To_Model": "",
+      "To_Model": "9609033038",
       "From_Model": "ST-244F",
       "Device": "CMI19013GO0",
       "Region": "North"
@@ -33720,9 +33720,9 @@
     },
     {
       "AccessId": "9609036816",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BF45B",
       "Old_Serial": "SCOM366BF45B",
-      "To_Model": "",
+      "To_Model": "9609036816",
       "From_Model": "ST-244F",
       "Device": "BKK45022GO0",
       "Region": "BMA"
@@ -33783,9 +33783,9 @@
     },
     {
       "AccessId": "9609044315",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C14B0",
       "Old_Serial": "SCOM366C14B0",
-      "To_Model": "",
+      "To_Model": "9609044315",
       "From_Model": "ST-244F",
       "Device": "CMI01021GO0",
       "Region": "North"
@@ -33828,9 +33828,9 @@
     },
     {
       "AccessId": "9609049803",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BB734",
       "Old_Serial": "SCOM366BB734",
-      "To_Model": "",
+      "To_Model": "9609049803",
       "From_Model": "ST-244F",
       "Device": "SKA10002GO0",
       "Region": "South"
@@ -33846,9 +33846,9 @@
     },
     {
       "AccessId": "9609057131",
-      "New_Serial": "",
+      "New_Serial": "SCOM36692EFB",
       "Old_Serial": "SCOM36692EFB",
-      "To_Model": "",
+      "To_Model": "9609057131",
       "From_Model": "ST-244F",
       "Device": "CBR01004GO0",
       "Region": "Other"
@@ -33981,9 +33981,9 @@
     },
     {
       "AccessId": "9609072378",
-      "New_Serial": "",
+      "New_Serial": "SCOM36666369",
       "Old_Serial": "SCOM36666369",
-      "To_Model": "",
+      "To_Model": "9609072378",
       "From_Model": "ST-244F",
       "Device": "PCB01006G00",
       "Region": "Central"
@@ -34116,9 +34116,9 @@
     },
     {
       "AccessId": "9609090194",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C0B72",
       "Old_Serial": "SCOM366C0B72",
-      "To_Model": "",
+      "To_Model": "9609090194",
       "From_Model": "ST-244F",
       "Device": "PCR08005G00",
       "Region": "Other"
@@ -34179,9 +34179,9 @@
     },
     {
       "AccessId": "9609105479",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C26D8",
       "Old_Serial": "SCOM366C26D8",
-      "To_Model": "",
+      "To_Model": "9609105479",
       "From_Model": "ST-244F",
       "Device": "BKK34017GO0",
       "Region": "BMA"
@@ -34278,9 +34278,9 @@
     },
     {
       "AccessId": "9609133202",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C8E7F",
       "Old_Serial": "SCOM366C8E7F",
-      "To_Model": "",
+      "To_Model": "9609133202",
       "From_Model": "ST-244FV2",
       "Device": "KKN01002G00",
       "Region": "Northeast"
@@ -34305,9 +34305,9 @@
     },
     {
       "AccessId": "9609139754",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BDB28",
       "Old_Serial": "SCOM366BDB28",
-      "To_Model": "",
+      "To_Model": "9609139754",
       "From_Model": "ST-244F",
       "Device": "KKN01003G00",
       "Region": "Northeast"
@@ -34386,9 +34386,9 @@
     },
     {
       "AccessId": "9609166183",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AFE48",
       "Old_Serial": "SCOM366AFE48",
-      "To_Model": "",
+      "To_Model": "9609166183",
       "From_Model": "ST-244F",
       "Device": "SKT05021G00",
       "Region": "Other"
@@ -34512,9 +34512,9 @@
     },
     {
       "AccessId": "9609203864",
-      "New_Serial": "",
+      "New_Serial": "SCOM36623092",
       "Old_Serial": "SCOM36623092",
-      "To_Model": "",
+      "To_Model": "9609203864",
       "From_Model": "ST-244F",
       "Device": "SMP03002G01",
       "Region": "Other"
@@ -34611,9 +34611,9 @@
     },
     {
       "AccessId": "9609224554",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CC8E1",
       "Old_Serial": "SCOM366CC8E1",
-      "To_Model": "",
+      "To_Model": "9609224554",
       "From_Model": "ST-244FV2",
       "Device": "RYG02001G00",
       "Region": "Central"
@@ -34647,9 +34647,9 @@
     },
     {
       "AccessId": "9609231776",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C2AB6",
       "Old_Serial": "SCOM366C2AB6",
-      "To_Model": "",
+      "To_Model": "9609231776",
       "From_Model": "ST-244F",
       "Device": "CCS04001G00",
       "Region": "Other"
@@ -34773,9 +34773,9 @@
     },
     {
       "AccessId": "9609277839",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B0E91",
       "Old_Serial": "SCOM366B0E91",
-      "To_Model": "",
+      "To_Model": "9609277839",
       "From_Model": "ST-244F",
       "Device": "CBR07079GO0",
       "Region": "Other"
@@ -34800,9 +34800,9 @@
     },
     {
       "AccessId": "9609287587",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CC83F",
       "Old_Serial": "SCOM366CC83F",
-      "To_Model": "",
+      "To_Model": "9609287587",
       "From_Model": "ST-244FV2",
       "Device": "CNT01023GO0",
       "Region": "Other"
@@ -34872,9 +34872,9 @@
     },
     {
       "AccessId": "9609294901",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CD7D9",
       "Old_Serial": "SCOM366CD7D9",
-      "To_Model": "",
+      "To_Model": "9609294901",
       "From_Model": "ST-244FV2",
       "Device": "BKK33037G00",
       "Region": "BMA"
@@ -35007,9 +35007,9 @@
     },
     {
       "AccessId": "9609319478",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CFDB1",
       "Old_Serial": "SCOM366CFDB1",
-      "To_Model": "",
+      "To_Model": "9609319478",
       "From_Model": "ST-244FV2",
       "Device": "SRT16001G00",
       "Region": "Other"
@@ -35171,7 +35171,7 @@
       "AccessId": "9609346861",
       "New_Serial": "SCOM366C0DD4",
       "Old_Serial": "HWTC3C3EB9A8",
-      "To_Model": "ST-244F",
+      "To_Model": "9609346861",
       "From_Model": "T623L",
       "Device": "NKI16008G00",
       "Region": "Other"
@@ -35214,9 +35214,9 @@
     },
     {
       "AccessId": "9609352919",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CAAB0",
       "Old_Serial": "SCOM366CAAB0",
-      "To_Model": "",
+      "To_Model": "9609352919",
       "From_Model": "ST-244FV2",
       "Device": "BKK32002G01",
       "Region": "BMA"
@@ -35367,9 +35367,9 @@
     },
     {
       "AccessId": "9609374656",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C5DC3",
       "Old_Serial": "SCOM366C5DC3",
-      "To_Model": "",
+      "To_Model": "9609374656",
       "From_Model": "ST-244FV2",
       "Device": "PCK07003GO0",
       "Region": "Central"
@@ -35529,9 +35529,9 @@
     },
     {
       "AccessId": "9609396043",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C8260",
       "Old_Serial": "SCOM366C8260",
-      "To_Model": "",
+      "To_Model": "9609396043",
       "From_Model": "ST-244FV2",
       "Device": "SKA15007GO0",
       "Region": "South"
@@ -35556,9 +35556,9 @@
     },
     {
       "AccessId": "9609404049",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D3442",
       "Old_Serial": "SCOM366D3442",
-      "To_Model": "",
+      "To_Model": "9609404049",
       "From_Model": "ST-244FV2",
       "Device": "RYG01001G00",
       "Region": "Central"
@@ -35700,9 +35700,9 @@
     },
     {
       "AccessId": "9609419973",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CACF8",
       "Old_Serial": "SCOM366CACF8",
-      "To_Model": "",
+      "To_Model": "9609419973",
       "From_Model": "ST-244FV2",
       "Device": "MDH01002GO0",
       "Region": "Other"
@@ -35853,9 +35853,9 @@
     },
     {
       "AccessId": "9609436434",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D310C",
       "Old_Serial": "SCOM366D310C",
-      "To_Model": "",
+      "To_Model": "9609436434",
       "From_Model": "ST-244FV2",
       "Device": "BKK17026GO0",
       "Region": "BMA"
@@ -35952,9 +35952,9 @@
     },
     {
       "AccessId": "9609445057",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D49C3",
       "Old_Serial": "SCOM366D49C3",
-      "To_Model": "",
+      "To_Model": "9609445057",
       "From_Model": "ST-244FV2",
       "Device": "SMP02009GO0",
       "Region": "Other"
@@ -35970,9 +35970,9 @@
     },
     {
       "AccessId": "9609447496",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666E341",
       "Old_Serial": "SCOM3666E341",
-      "To_Model": "",
+      "To_Model": "9609447496",
       "From_Model": "ST-244F",
       "Device": "KPP01001G00",
       "Region": "North"
@@ -36222,9 +36222,9 @@
     },
     {
       "AccessId": "9609472564",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660DA8F",
       "Old_Serial": "SCOM3660DA8F",
-      "To_Model": "",
+      "To_Model": "9609472564",
       "From_Model": "ST-244F",
       "Device": "BKK42010GO0",
       "Region": "BMA"
@@ -36285,9 +36285,9 @@
     },
     {
       "AccessId": "9609487011",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D808D",
       "Old_Serial": "SCOM366D808D",
-      "To_Model": "",
+      "To_Model": "9609487011",
       "From_Model": "ST-244FV2",
       "Device": "BKK33001G02",
       "Region": "BMA"
@@ -36393,9 +36393,9 @@
     },
     {
       "AccessId": "9609503579",
-      "New_Serial": "",
+      "New_Serial": "SCOM366D8A86",
       "Old_Serial": "SCOM366D8A86",
-      "To_Model": "",
+      "To_Model": "9609503579",
       "From_Model": "ST-244FV2",
       "Device": "CCS01040GO0",
       "Region": "Other"
@@ -36438,9 +36438,9 @@
     },
     {
       "AccessId": "9609511723",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BFC38",
       "Old_Serial": "SCOM366BFC38",
-      "To_Model": "",
+      "To_Model": "9609511723",
       "From_Model": "ST-244F",
       "Device": "BKK10001G01",
       "Region": "BMA"
@@ -36564,9 +36564,9 @@
     },
     {
       "AccessId": "9609539788",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A6FF4",
       "Old_Serial": "SCOM366A6FF4",
-      "To_Model": "",
+      "To_Model": "9609539788",
       "From_Model": "ST-244F",
       "Device": "NKR14019G00",
       "Region": "Northeast"
@@ -36618,9 +36618,9 @@
     },
     {
       "AccessId": "9609551329",
-      "New_Serial": "",
+      "New_Serial": "SCOM366978AC",
       "Old_Serial": "SCOM366978AC",
-      "To_Model": "",
+      "To_Model": "9609551329",
       "From_Model": "ST-244F",
       "Device": "CMI15026GO0",
       "Region": "North"
@@ -36708,9 +36708,9 @@
     },
     {
       "AccessId": "9609562527",
-      "New_Serial": "",
+      "New_Serial": "SCOM36675587",
       "Old_Serial": "SCOM36675587",
-      "To_Model": "",
+      "To_Model": "9609562527",
       "From_Model": "ST-244F",
       "Device": "BKK46002G02",
       "Region": "BMA"
@@ -36744,9 +36744,9 @@
     },
     {
       "AccessId": "9609572840",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A8CDD",
       "Old_Serial": "SCOM366A8CDD",
-      "To_Model": "",
+      "To_Model": "9609572840",
       "From_Model": "ST-244F",
       "Device": "MHR08013G00",
       "Region": "Other"
@@ -36942,9 +36942,9 @@
     },
     {
       "AccessId": "9609653283",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669F55D",
       "Old_Serial": "SCOM3669F55D",
-      "To_Model": "",
+      "To_Model": "9609653283",
       "From_Model": "ST-244F",
       "Device": "PTT06016GO0",
       "Region": "Other"
@@ -37077,9 +37077,9 @@
     },
     {
       "AccessId": "9609705774",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660094A",
       "Old_Serial": "SCOM3660094A",
-      "To_Model": "",
+      "To_Model": "9609705774",
       "From_Model": "ST-244F",
       "Device": "CBR04097GO0",
       "Region": "Other"
@@ -37230,18 +37230,18 @@
     },
     {
       "AccessId": "9609742176",
-      "New_Serial": "",
+      "New_Serial": "SCOM36601359",
       "Old_Serial": "SCOM36601359",
-      "To_Model": "",
+      "To_Model": "9609742176",
       "From_Model": "ST-244F",
       "Device": "NTB04002G01",
       "Region": "BMA"
     },
     {
       "AccessId": "9609742260",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CF1F0",
       "Old_Serial": "SCOM366CF1F0",
-      "To_Model": "",
+      "To_Model": "9609742260",
       "From_Model": "ST-244FV2",
       "Device": "NRT11001G00",
       "Region": "Other"
@@ -37320,9 +37320,9 @@
     },
     {
       "AccessId": "9609761121",
-      "New_Serial": "",
+      "New_Serial": "SCOM36637CE1",
       "Old_Serial": "SCOM36637CE1",
-      "To_Model": "",
+      "To_Model": "9609761121",
       "From_Model": "ST-244F",
       "Device": "BKK09002G02",
       "Region": "BMA"
@@ -37365,18 +37365,18 @@
     },
     {
       "AccessId": "9609771451",
-      "New_Serial": "",
+      "New_Serial": "SCOM36619A6E",
       "Old_Serial": "SCOM36619A6E",
-      "To_Model": "",
+      "To_Model": "9609771451",
       "From_Model": "ST-244F",
       "Device": "CMI01003G00",
       "Region": "North"
     },
     {
       "AccessId": "9609773970",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C4060",
       "Old_Serial": "SCOM366C4060",
-      "To_Model": "",
+      "To_Model": "9609773970",
       "From_Model": "ST-244F",
       "Device": "BKK15001G01",
       "Region": "BMA"
@@ -37545,18 +37545,18 @@
     },
     {
       "AccessId": "9609818721",
-      "New_Serial": "",
+      "New_Serial": "SCOM366101B5",
       "Old_Serial": "SCOM366101B5",
-      "To_Model": "",
+      "To_Model": "9609818721",
       "From_Model": "ST-244F",
       "Device": "SKN18007GO0",
       "Region": "Northeast"
     },
     {
       "AccessId": "9609820516",
-      "New_Serial": "",
+      "New_Serial": "SCOM36612D2D",
       "Old_Serial": "SCOM36612D2D",
-      "To_Model": "",
+      "To_Model": "9609820516",
       "From_Model": "ST-244F",
       "Device": "PKT01044GO0",
       "Region": "South"
@@ -37617,9 +37617,9 @@
     },
     {
       "AccessId": "9609847149",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BD24C",
       "Old_Serial": "SCOM366BD24C",
-      "To_Model": "",
+      "To_Model": "9609847149",
       "From_Model": "ST-244F",
       "Device": "SRB01032GO0",
       "Region": "Other"
@@ -37797,9 +37797,9 @@
     },
     {
       "AccessId": "9609898398",
-      "New_Serial": "",
+      "New_Serial": "SCOM36619118",
       "Old_Serial": "SCOM36619118",
-      "To_Model": "",
+      "To_Model": "9609898398",
       "From_Model": "ST-244F",
       "Device": "NBL01022G00",
       "Region": "Northeast"
@@ -37824,9 +37824,9 @@
     },
     {
       "AccessId": "9609905065",
-      "New_Serial": "",
+      "New_Serial": "SCOM36676BB7",
       "Old_Serial": "SCOM36676BB7",
-      "To_Model": "",
+      "To_Model": "9609905065",
       "From_Model": "ST-244F",
       "Device": "STN01008GO0",
       "Region": "South"
@@ -37995,9 +37995,9 @@
     },
     {
       "AccessId": "9609952174",
-      "New_Serial": "",
+      "New_Serial": "SCOM36687131",
       "Old_Serial": "SCOM36687131",
-      "To_Model": "",
+      "To_Model": "9609952174",
       "From_Model": "ST-244F",
       "Device": "SKO06001G00",
       "Region": "Other"
@@ -38031,9 +38031,9 @@
     },
     {
       "AccessId": "9609973858",
-      "New_Serial": "",
+      "New_Serial": "SCOM36649885",
       "Old_Serial": "SCOM36649885",
-      "To_Model": "",
+      "To_Model": "9609973858",
       "From_Model": "ST-244F",
       "Device": "KKN10004G00",
       "Region": "Northeast"
@@ -38184,18 +38184,18 @@
     },
     {
       "AccessId": "9610013169",
-      "New_Serial": "",
+      "New_Serial": "SCOM36615C9D",
       "Old_Serial": "SCOM36615C9D",
-      "To_Model": "",
+      "To_Model": "9610013169",
       "From_Model": "ST-244F",
       "Device": "PSN01005G00",
       "Region": "Other"
     },
     {
       "AccessId": "9610024305",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664B748",
       "Old_Serial": "SCOM3664B748",
-      "To_Model": "",
+      "To_Model": "9610024305",
       "From_Model": "ST-244F",
       "Device": "BKK33001G02",
       "Region": "BMA"
@@ -38211,9 +38211,9 @@
     },
     {
       "AccessId": "9610025941",
-      "New_Serial": "",
+      "New_Serial": "SCOM3666B1EC",
       "Old_Serial": "SCOM3666B1EC",
-      "To_Model": "",
+      "To_Model": "9610025941",
       "From_Model": "ST-244F",
       "Device": "PTT02042GO0",
       "Region": "Other"
@@ -38292,9 +38292,9 @@
     },
     {
       "AccessId": "9610062385",
-      "New_Serial": "",
+      "New_Serial": "SCOM366CB890",
       "Old_Serial": "SCOM366CB890",
-      "To_Model": "",
+      "To_Model": "9610062385",
       "From_Model": "ST-244FV2",
       "Device": "NAN01001G00",
       "Region": "North"
@@ -38364,9 +38364,9 @@
     },
     {
       "AccessId": "9610087320",
-      "New_Serial": "",
+      "New_Serial": "SCOM36618B4C",
       "Old_Serial": "SCOM36618B4C",
-      "To_Model": "",
+      "To_Model": "9610087320",
       "From_Model": "ST-244F",
       "Device": "CMI14026GO0",
       "Region": "North"
@@ -38382,9 +38382,9 @@
     },
     {
       "AccessId": "9610091698",
-      "New_Serial": "",
+      "New_Serial": "SCOM366B16BF",
       "Old_Serial": "SCOM366B16BF",
-      "To_Model": "",
+      "To_Model": "9610091698",
       "From_Model": "ST-244F",
       "Device": "KLS08003G00",
       "Region": "Northeast"
@@ -38481,18 +38481,18 @@
     },
     {
       "AccessId": "9610131162",
-      "New_Serial": "",
+      "New_Serial": "SCOM366AF0E8",
       "Old_Serial": "SCOM366AF0E8",
-      "To_Model": "",
+      "To_Model": "9610131162",
       "From_Model": "ST-244F",
       "Device": "CMI15001G00",
       "Region": "North"
     },
     {
       "AccessId": "9610131647",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664D7CC",
       "Old_Serial": "SCOM3664D7CC",
-      "To_Model": "",
+      "To_Model": "9610131647",
       "From_Model": "ST-244F",
       "Device": "BKK06002G00",
       "Region": "BMA"
@@ -38850,18 +38850,18 @@
     },
     {
       "AccessId": "9610262450",
-      "New_Serial": "",
+      "New_Serial": "SCOM366248F4",
       "Old_Serial": "SCOM366248F4",
-      "To_Model": "",
+      "To_Model": "9610262450",
       "From_Model": "ST-244F",
       "Device": "BKK14001G01",
       "Region": "BMA"
     },
     {
       "AccessId": "9610262852",
-      "New_Serial": "",
+      "New_Serial": "SCOM366BE5D7",
       "Old_Serial": "SCOM366BE5D7",
-      "To_Model": "",
+      "To_Model": "9610262852",
       "From_Model": "ST-244F",
       "Device": "PKT01002G00",
       "Region": "South"
@@ -38949,9 +38949,9 @@
     },
     {
       "AccessId": "9610284480",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661C947",
       "Old_Serial": "SCOM3661C947",
-      "To_Model": "",
+      "To_Model": "9610284480",
       "From_Model": "ST-244F",
       "Device": "CMI01003G00",
       "Region": "North"
@@ -38967,9 +38967,9 @@
     },
     {
       "AccessId": "9610293977",
-      "New_Serial": "",
+      "New_Serial": "SCOM36648506",
       "Old_Serial": "SCOM36648506",
-      "To_Model": "",
+      "To_Model": "9610293977",
       "From_Model": "ST-244F",
       "Device": "BKK08008GO0",
       "Region": "BMA"
@@ -39174,9 +39174,9 @@
     },
     {
       "AccessId": "9610355714",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663750D",
       "Old_Serial": "SCOM3663750D",
-      "To_Model": "",
+      "To_Model": "9610355714",
       "From_Model": "ST-244F",
       "Device": "CBR01005G00",
       "Region": "Other"
@@ -39219,18 +39219,18 @@
     },
     {
       "AccessId": "9610362237",
-      "New_Serial": "",
+      "New_Serial": "SCOM3661157B",
       "Old_Serial": "SCOM3661157B",
-      "To_Model": "",
+      "To_Model": "9610362237",
       "From_Model": "ST-244F",
       "Device": "BKK39007GO0",
       "Region": "BMA"
     },
     {
       "AccessId": "9610367583",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668731D",
       "Old_Serial": "SCOM3668731D",
-      "To_Model": "",
+      "To_Model": "9610367583",
       "From_Model": "ST-244F",
       "Device": "PTT02042GO0",
       "Region": "Other"
@@ -39273,9 +39273,9 @@
     },
     {
       "AccessId": "9610373301",
-      "New_Serial": "",
+      "New_Serial": "SCOM366403AB",
       "Old_Serial": "SCOM366403AB",
-      "To_Model": "",
+      "To_Model": "9610373301",
       "From_Model": "ST-244F",
       "Device": "CCS04021G00",
       "Region": "Other"
@@ -39633,9 +39633,9 @@
     },
     {
       "AccessId": "9610463007",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662B4A9",
       "Old_Serial": "SCOM3662B4A9",
-      "To_Model": "",
+      "To_Model": "9610463007",
       "From_Model": "ST-244F",
       "Device": "PTT06030GO0",
       "Region": "Other"
@@ -39696,9 +39696,9 @@
     },
     {
       "AccessId": "9610473814",
-      "New_Serial": "",
+      "New_Serial": "SCOM36626772",
       "Old_Serial": "SCOM36626772",
-      "To_Model": "",
+      "To_Model": "9610473814",
       "From_Model": "ST-244F",
       "Device": "BKK09022GO0",
       "Region": "BMA"
@@ -39930,9 +39930,9 @@
     },
     {
       "AccessId": "9610494423",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A5672",
       "Old_Serial": "SCOM366A5672",
-      "To_Model": "",
+      "To_Model": "9610494423",
       "From_Model": "ST-244F",
       "Device": "PTT06003G00",
       "Region": "Other"
@@ -39966,9 +39966,9 @@
     },
     {
       "AccessId": "9610498244",
-      "New_Serial": "",
+      "New_Serial": "SCOM366C3760",
       "Old_Serial": "SCOM366C3760",
-      "To_Model": "",
+      "To_Model": "9610498244",
       "From_Model": "ST-244F",
       "Device": "UBR01046GO0",
       "Region": "Other"
@@ -40281,9 +40281,9 @@
     },
     {
       "AccessId": "9610537519",
-      "New_Serial": "",
+      "New_Serial": "SCOM36689072",
       "Old_Serial": "SCOM36689072",
-      "To_Model": "",
+      "To_Model": "9610537519",
       "From_Model": "ST-244F",
       "Device": "PTN03002G00",
       "Region": "Other"
@@ -40335,9 +40335,9 @@
     },
     {
       "AccessId": "9610545399",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667569A",
       "Old_Serial": "SCOM3667569A",
-      "To_Model": "",
+      "To_Model": "9610545399",
       "From_Model": "ST-244F",
       "Device": "PYO08003G00",
       "Region": "Other"
@@ -40596,9 +40596,9 @@
     },
     {
       "AccessId": "9610566278",
-      "New_Serial": "",
+      "New_Serial": "SCOM366570A8",
       "Old_Serial": "SCOM366570A8",
-      "To_Model": "",
+      "To_Model": "9610566278",
       "From_Model": "ST-244F",
       "Device": "PYO08003G00",
       "Region": "Other"
@@ -40623,9 +40623,9 @@
     },
     {
       "AccessId": "9610572663",
-      "New_Serial": "",
+      "New_Serial": "SCOM36663B1B",
       "Old_Serial": "SCOM36663B1B",
-      "To_Model": "",
+      "To_Model": "9610572663",
       "From_Model": "ST-244F",
       "Device": "SRT18008GO0",
       "Region": "Other"
@@ -40668,9 +40668,9 @@
     },
     {
       "AccessId": "9610580690",
-      "New_Serial": "",
+      "New_Serial": "SCOM366A9BF6",
       "Old_Serial": "SCOM366A9BF6",
-      "To_Model": "",
+      "To_Model": "9610580690",
       "From_Model": "ST-244F",
       "Device": "BKK42001G01",
       "Region": "BMA"
@@ -40740,9 +40740,9 @@
     },
     {
       "AccessId": "9610590419",
-      "New_Serial": "",
+      "New_Serial": "SCOM366547BE",
       "Old_Serial": "SCOM366547BE",
-      "To_Model": "",
+      "To_Model": "9610590419",
       "From_Model": "ST-244F",
       "Device": "NKW11010G00",
       "Region": "Northeast"
@@ -40956,9 +40956,9 @@
     },
     {
       "AccessId": "9610614958",
-      "New_Serial": "",
+      "New_Serial": "SCOM3662BFF8",
       "Old_Serial": "SCOM3662BFF8",
-      "To_Model": "",
+      "To_Model": "9610614958",
       "From_Model": "ST-244F",
       "Device": "SSK01018GO0",
       "Region": "Other"
@@ -41010,9 +41010,9 @@
     },
     {
       "AccessId": "9610621024",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660C5BF",
       "Old_Serial": "SCOM3660C5BF",
-      "To_Model": "",
+      "To_Model": "9610621024",
       "From_Model": "ST-244F",
       "Device": "NTB06001G00",
       "Region": "BMA"
@@ -41154,9 +41154,9 @@
     },
     {
       "AccessId": "9610632527",
-      "New_Serial": "",
+      "New_Serial": "SCOM36684400",
       "Old_Serial": "SCOM36684400",
-      "To_Model": "",
+      "To_Model": "9610632527",
       "From_Model": "ST-244F",
       "Device": "CTB01006GO0",
       "Region": "Central"
@@ -41343,9 +41343,9 @@
     },
     {
       "AccessId": "9610653557",
-      "New_Serial": "",
+      "New_Serial": "SCOM366860CD",
       "Old_Serial": "SCOM366860CD",
-      "To_Model": "",
+      "To_Model": "9610653557",
       "From_Model": "ST-244F",
       "Device": "PKT02002G00",
       "Region": "South"
@@ -41370,18 +41370,18 @@
     },
     {
       "AccessId": "9610654702",
-      "New_Serial": "",
+      "New_Serial": "SCOM3660F258",
       "Old_Serial": "SCOM3660F258",
-      "To_Model": "",
+      "To_Model": "9610654702",
       "From_Model": "ST-244F",
       "Device": "CRI01068GO0",
       "Region": "North"
     },
     {
       "AccessId": "9610654752",
-      "New_Serial": "",
+      "New_Serial": "SCOM36654B91",
       "Old_Serial": "SCOM36654B91",
-      "To_Model": "",
+      "To_Model": "9610654752",
       "From_Model": "ST-244F",
       "Device": "BRR08007G00",
       "Region": "Central"
@@ -41667,9 +41667,9 @@
     },
     {
       "AccessId": "9610703128",
-      "New_Serial": "",
+      "New_Serial": "SCOM3664CD01",
       "Old_Serial": "SCOM3664CD01",
-      "To_Model": "",
+      "To_Model": "9610703128",
       "From_Model": "ST-244F",
       "Device": "PCB03026G00",
       "Region": "Central"
@@ -41784,18 +41784,18 @@
     },
     {
       "AccessId": "9610714177",
-      "New_Serial": "",
+      "New_Serial": "SCOM366110B0",
       "Old_Serial": "SCOM366110B0",
-      "To_Model": "",
+      "To_Model": "9610714177",
       "From_Model": "ST-244F",
       "Device": "BKK09002G02",
       "Region": "BMA"
     },
     {
       "AccessId": "9610714763",
-      "New_Serial": "",
+      "New_Serial": "SCOM366629A9",
       "Old_Serial": "SCOM366629A9",
-      "To_Model": "",
+      "To_Model": "9610714763",
       "From_Model": "ST-244F",
       "Device": "PTT02042GO1",
       "Region": "Other"
@@ -42117,9 +42117,9 @@
     },
     {
       "AccessId": "9610764316",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663C306",
       "Old_Serial": "SCOM3663C306",
-      "To_Model": "",
+      "To_Model": "9610764316",
       "From_Model": "ST-244F",
       "Device": "BKK45002G00",
       "Region": "BMA"
@@ -42216,9 +42216,9 @@
     },
     {
       "AccessId": "9610779369",
-      "New_Serial": "",
+      "New_Serial": "SCOM366400B5",
       "Old_Serial": "SCOM366400B5",
-      "To_Model": "",
+      "To_Model": "9610779369",
       "From_Model": "ST-244F",
       "Device": "PCT05003G00",
       "Region": "Other"
@@ -42810,9 +42810,9 @@
     },
     {
       "AccessId": "9610909386",
-      "New_Serial": "",
+      "New_Serial": "SCOM3668014C",
       "Old_Serial": "SCOM3668014C",
-      "To_Model": "",
+      "To_Model": "9610909386",
       "From_Model": "ST-244F",
       "Device": "CRI01051GO0",
       "Region": "North"
@@ -42927,9 +42927,9 @@
     },
     {
       "AccessId": "9610920928",
-      "New_Serial": "",
+      "New_Serial": "SCOM36679642",
       "Old_Serial": "SCOM36679642",
-      "To_Model": "",
+      "To_Model": "9610920928",
       "From_Model": "ST-244F",
       "Device": "NKS10002G00",
       "Region": "North"
@@ -43044,9 +43044,9 @@
     },
     {
       "AccessId": "9610938338",
-      "New_Serial": "",
+      "New_Serial": "SCOM36699A78",
       "Old_Serial": "SCOM36699A78",
-      "To_Model": "",
+      "To_Model": "9610938338",
       "From_Model": "ST-244F",
       "Device": "PTT02014GO1",
       "Region": "Other"
@@ -43089,9 +43089,9 @@
     },
     {
       "AccessId": "9610943147",
-      "New_Serial": "",
+      "New_Serial": "SCOM3669A897",
       "Old_Serial": "SCOM3669A897",
-      "To_Model": "",
+      "To_Model": "9610943147",
       "From_Model": "ST-244F",
       "Device": "CBR09016G00",
       "Region": "Other"
@@ -43143,9 +43143,9 @@
     },
     {
       "AccessId": "9610955360",
-      "New_Serial": "",
+      "New_Serial": "SCOM3663E739",
       "Old_Serial": "SCOM3663E739",
-      "To_Model": "",
+      "To_Model": "9610955360",
       "From_Model": "ST-244F",
       "Device": "KCN01005G00",
       "Region": "Other"
@@ -43206,9 +43206,9 @@
     },
     {
       "AccessId": "9610958846",
-      "New_Serial": "",
+      "New_Serial": "SCOM366978B3",
       "Old_Serial": "SCOM366978B3",
-      "To_Model": "",
+      "To_Model": "9610958846",
       "From_Model": "ST-244F",
       "Device": "YST06003G00",
       "Region": "Northeast"
@@ -43791,9 +43791,9 @@
     },
     {
       "AccessId": "9611067893",
-      "New_Serial": "",
+      "New_Serial": "SCOM3667448C",
       "Old_Serial": "SCOM3667448C",
-      "To_Model": "",
+      "To_Model": "9611067893",
       "From_Model": "ST-244F",
       "Device": "NKR01092GO0",
       "Region": "Northeast"
@@ -43998,9 +43998,9 @@
     },
     {
       "AccessId": "9611156852",
-      "New_Serial": "",
+      "New_Serial": "SCOM36664097",
       "Old_Serial": "SCOM36664097",
-      "To_Model": "",
+      "To_Model": "9611156852",
       "From_Model": "ST-244F",
       "Device": "SRB01032GO0",
       "Region": "Other"
@@ -44025,9 +44025,9 @@
     },
     {
       "AccessId": "9611160587",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665A75A",
       "Old_Serial": "SCOM3665A75A",
-      "To_Model": "",
+      "To_Model": "9611160587",
       "From_Model": "ST-244F",
       "Device": "CBR07066GO0",
       "Region": "Other"
@@ -44106,9 +44106,9 @@
     },
     {
       "AccessId": "9611177274",
-      "New_Serial": "",
+      "New_Serial": "SCOM36642960",
       "Old_Serial": "SCOM36642960",
-      "To_Model": "",
+      "To_Model": "9611177274",
       "From_Model": "ST-244F",
       "Device": "BKK39039GO1",
       "Region": "BMA"
@@ -44385,9 +44385,9 @@
     },
     {
       "AccessId": "9611255827",
-      "New_Serial": "",
+      "New_Serial": "SCOM3665C979",
       "Old_Serial": "SCOM3665C979",
-      "To_Model": "",
+      "To_Model": "9611255827",
       "From_Model": "ST-244F",
       "Device": "CMI07009G00",
       "Region": "North"
