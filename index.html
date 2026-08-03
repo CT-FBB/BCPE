@@ -7,6 +7,7 @@
     
     <!-- External libraries -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     
     <!-- Google Fonts -->
@@ -4862,9 +4863,22 @@
                                     return ` ${fmt(val)} (${pct.toFixed(1)}% of Model)`;
                                 }
                             }
+                        },
+                        datalabels: {
+                            color: '#9ca3af',
+                            anchor: 'end',
+                            align: 'end',
+                            offset: 4,
+                            font: { family: 'Inter', size: 10, weight: 'bold' },
+                            formatter: function(value) {
+                                if (value >= 1000000) return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+                                if (value >= 1000) return (value / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+                                return value;
+                            }
                         }
                     }
-                }
+                },
+                plugins: [ChartDataLabels]
             });
         }
 
