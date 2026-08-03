@@ -1,98 +1,104 @@
 [
   {
-    "date": "2026-05-20",
-    "f688_total": 143911,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 0
-  },
-  {
     "date": "2026-07-15",
-    "f688_total": 148034,
+    "f688_total": 143213,
     "swap_in_from_base": 0,
     "swap_out_from_base": 3637
   },
   {
     "date": "2026-07-19",
-    "f688_total": 147546,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 3814
+    "f688_total": 142934,
+    "swap_in_from_base": 1,
+    "swap_out_from_base": 3917
   },
   {
     "date": "2026-07-20",
-    "f688_total": 147485,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 3885
-  },
-  {
-    "date": "2026-07-21",
-    "f688_total": 147429,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 3948
-  },
-  {
-    "date": "2026-07-22",
-    "f688_total": 147406,
-    "swap_in_from_base": 0,
+    "f688_total": 142841,
+    "swap_in_from_base": 1,
     "swap_out_from_base": 4010
   },
   {
+    "date": "2026-07-21",
+    "f688_total": 142718,
+    "swap_in_from_base": 1,
+    "swap_out_from_base": 4133
+  },
+  {
+    "date": "2026-07-22",
+    "f688_total": 142631,
+    "swap_in_from_base": 1,
+    "swap_out_from_base": 4220
+  },
+  {
     "date": "2026-07-23",
-    "f688_total": 147389,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 4055
+    "f688_total": 142569,
+    "swap_in_from_base": 1,
+    "swap_out_from_base": 4282
   },
   {
     "date": "2026-07-24",
-    "f688_total": 144694,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 3918
+    "f688_total": 133966,
+    "swap_in_from_base": 8,
+    "swap_out_from_base": 12892
   },
   {
     "date": "2026-07-25",
-    "f688_total": 144079,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 3467
+    "f688_total": 113122,
+    "swap_in_from_base": 9,
+    "swap_out_from_base": 33737
   },
   {
     "date": "2026-07-26",
-    "f688_total": 144166,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 3391
+    "f688_total": 109094,
+    "swap_in_from_base": 7017,
+    "swap_out_from_base": 44773
   },
   {
     "date": "2026-07-27",
-    "f688_total": 144155,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 4050
+    "f688_total": 140218,
+    "swap_in_from_base": 38201,
+    "swap_out_from_base": 44833
   },
   {
     "date": "2026-07-28",
-    "f688_total": 144222,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 4106
+    "f688_total": 140193,
+    "swap_in_from_base": 38263,
+    "swap_out_from_base": 44920
   },
   {
     "date": "2026-07-29",
-    "f688_total": 144220,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 4116
+    "f688_total": 140257,
+    "swap_in_from_base": 38395,
+    "swap_out_from_base": 44988
   },
   {
     "date": "2026-07-30",
-    "f688_total": 144222,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 4126
+    "f688_total": 140186,
+    "swap_in_from_base": 38401,
+    "swap_out_from_base": 45065
   },
   {
     "date": "2026-07-31",
-    "f688_total": 144262,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 4136
+    "f688_total": 140196,
+    "swap_in_from_base": 38469,
+    "swap_out_from_base": 45123
   },
   {
     "date": "2026-08-01",
-    "f688_total": 144291,
-    "swap_in_from_base": 0,
-    "swap_out_from_base": 4146
+    "f688_total": 140175,
+    "swap_in_from_base": 38513,
+    "swap_out_from_base": 45188
+  },
+  {
+    "date": "2026-08-02",
+    "f688_total": 140106,
+    "swap_in_from_base": 38513,
+    "swap_out_from_base": 45257
+  },
+  {
+    "date": "2026-08-03",
+    "f688_total": 140101,
+    "swap_in_from_base": 38587,
+    "swap_out_from_base": 45336
   }
 ]
