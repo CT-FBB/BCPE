@@ -4557,13 +4557,24 @@
 
         // Initialization
         window.onload = function() {
-
-            
             // Populate Type Filter Dropdown
             populateTypeFilter();
             
+            // Select HGW by default if it exists
+            const typeFilter = document.getElementById("typeFilter");
+            if (Array.from(typeFilter.options).some(opt => opt.value === "HGW")) {
+                typeFilter.value = "HGW";
+            }
+            
             // Initial aggregation and render
-            onTypeFilterChange("ALL");
+            onTypeFilterChange(typeFilter.value);
+            
+            // Select T723 by default if it exists
+            const modelSelector = document.getElementById("modelSelector");
+            if (Array.from(modelSelector.options).some(opt => opt.value === "T723")) {
+                modelSelector.value = "T723";
+                onModelSelect("T723");
+            }
         };
 
         function populateTypeFilter() {
