@@ -100,5 +100,11 @@
     "f688_total": 140101,
     "swap_in_from_base": 38587,
     "swap_out_from_base": 45336
+  },
+  {
+    "date": "2026-08-04",
+    "f688_total": 140033,
+    "swap_in_from_base": 38588,
+    "swap_out_from_base": 45405
   }
 ]

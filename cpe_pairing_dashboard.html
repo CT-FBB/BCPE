@@ -2182,8 +2182,9 @@
 
             filteredPairings.forEach(item => {
                 let typeBadge = item.Type;
-                if (item.Type === 'routing_ont_mesh') typeBadge = 'ONT + Mesh';
-                if (item.Type === '2-box') typeBadge = '2-Box';
+                if (item.Type === 'routing_ont_mesh') typeBadge = 'ONT+Mesh';
+                if (item.Type === '2-box') typeBadge = 'ONT(Type1,5)+AP';
+                if (item.Type === 'as_mesh') typeBadge = 'ONT+ AS_Mesh';
                 
                 tbody.innerHTML += `
                     <tr>
@@ -2341,15 +2342,23 @@
 
             // Pairing Chart
             const dist = dashboardData.pairing_types_dist;
+            const pairingItems = [
+                { label: 'ONT+Mesh', value: dist.routing_ont_mesh, bg: '#6366f1', border: 'rgba(99, 102, 241, 0.4)' },
+                { label: 'ONT(Type1,5)+AP', value: dist['2-box'], bg: '#8b5cf6', border: 'rgba(139, 92, 246, 0.4)' },
+                { label: 'ONT+ AS_Mesh', value: dist.as_mesh, bg: '#06b6d4', border: 'rgba(6, 182, 212, 0.4)' },
+                { label: 'Other Pairing', value: dist.other_pairing, bg: '#f43f5e', border: 'rgba(244, 63, 94, 0.4)' }
+            ];
+            pairingItems.sort((a, b) => b.value - a.value);
+
             new Chart(ctxPairing, {
                 type: 'bar',
                 data: {
-                    labels: ['ONT + Mesh', '2-Box (Legacy + AP)', 'as_mesh (Same Model)', 'Other Pairing'],
+                    labels: pairingItems.map(item => item.label),
                     datasets: [{
                         label: 'จำนวนชุดติดตั้ง (คู่)',
-                        data: [dist.routing_ont_mesh, dist['2-box'], dist.as_mesh, dist.other_pairing],
-                        backgroundColor: ['#6366f1', '#8b5cf6', '#06b6d4', '#f43f5e'],
-                        borderColor: ['rgba(99, 102, 241, 0.4)', 'rgba(139, 92, 246, 0.4)', 'rgba(6, 182, 212, 0.4)', 'rgba(244, 63, 94, 0.4)'],
+                        data: pairingItems.map(item => item.value),
+                        backgroundColor: pairingItems.map(item => item.bg),
+                        borderColor: pairingItems.map(item => item.border),
                         borderWidth: 1,
                         borderRadius: 8
                     }]

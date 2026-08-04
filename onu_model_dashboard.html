@@ -1424,12 +1424,12 @@ body {
     <!-- KPI Row -->
     <div class="kpi-grid">
       <div class="kpi-card kpi-indigo">
-        <div class="kpi-label">AccessId เปรียบเทียบได้</div>
+        <div class="kpi-label">AccessNumber เปรียบเทียบได้</div>
         <div class="kpi-value" id="s2-compared">—</div>
         <div class="kpi-sub">พบใน 2 ไฟล์พร้อมกัน</div>
       </div>
       <div class="kpi-card kpi-rose">
-        <div class="kpi-label">AccessId ที่ Model เปลี่ยน</div>
+        <div class="kpi-label">AccessNumber ที่ Model เปลี่ยน</div>
         <div class="kpi-value" id="s2-changed">—</div>
         <div class="kpi-sub" id="s2-changed-pct">—% ของที่เปรียบเทียบได้</div>
       </div>
@@ -1443,6 +1443,11 @@ body {
         <div class="kpi-value" id="s2-top-change-region" style="font-size:1.3rem">—</div>
         <div class="kpi-sub" id="s2-top-change-region-cnt">—</div>
       </div>
+      <div class="kpi-card kpi-rose">
+        <div class="kpi-label">ลูกค้ายกเลิก/ดึงอุปกรณ์ออก</div>
+        <div class="kpi-value" id="s2-ytd-churn">—</div>
+        <div class="kpi-sub">ตั้งแต่ ม.ค. 2026 (YTD Churn)</div>
+      </div>
     </div>
 
     <!-- Change overview chart + flow -->
@@ -1451,7 +1456,7 @@ body {
       <!-- Bar: changed count by region -->
       <div class="card">
         <div class="card-title">📊 Model Changes แยกตาม Region</div>
-        <div class="card-subtitle">จำนวน AccessId ที่ถูกเปลี่ยน Model ระหว่าง 2 วัน</div>
+        <div class="card-subtitle">จำนวน AccessNumber ที่ถูกเปลี่ยน Model ระหว่าง 2 วัน</div>
         <div class="chart-wrap">
           <canvas id="chart-change-region-bar"></canvas>
         </div>
@@ -1460,7 +1465,7 @@ body {
       <!-- Donut: changed vs unchanged -->
       <div class="card">
         <div class="card-title">🔄 เปลี่ยน vs คงเดิม</div>
-        <div class="card-subtitle">สัดส่วน AccessId ที่ model เปลี่ยน/ไม่เปลี่ยน</div>
+        <div class="card-subtitle">สัดส่วน AccessNumber ที่ model เปลี่ยน/ไม่เปลี่ยน</div>
         <div style="height:220px;position:relative;">
           <canvas id="chart-change-donut"></canvas>
         </div>
@@ -1471,7 +1476,7 @@ body {
     <!-- Top change flows (overall) -->
     <div class="card" style="margin-bottom:1.5rem;">
       <div class="card-title">🔀 Top Model Changes — จากรุ่นใด → ไปรุ่นใด (ทั้งประเทศ)</div>
-      <div class="card-subtitle">เรียงตามจำนวน AccessId ที่ถูกเปลี่ยน</div>
+      <div class="card-subtitle">เรียงตามจำนวน AccessNumber ที่ถูกเปลี่ยน</div>
       <div class="change-flow" id="global-flow-list"></div>
     </div>
 
@@ -1490,28 +1495,28 @@ body {
        STORY 3 — ST-244F Trend Analysis
   ══════════════════════════════════════ -->
       <div id="story3" class="story-section" style="padding: 0; margin: 0; background: transparent;">
-    <iframe src="st244f_swap_dashboard.html?v=202608021118" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+    <iframe src="st244f_swap_dashboard.html?v=' + new Date().getTime()" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
   </div><!-- /story3 -->
 
   <!-- ══════════════════════════════════════
        STORY 4 — F688 Trend Analysis
   ══════════════════════════════════════ -->
   <div id="story4" class="story-section" style="padding: 0; margin: 0; background: transparent;">
-    <iframe src="f688_swap_dashboard.html?v=202608021118" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+    <iframe src="f688_swap_dashboard.html?v=' + new Date().getTime()" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
   </div><!-- /story4 -->
 
   <!-- ══════════════════════════════════════
        STORY 5 — GN542VF Trend Analysis
   ══════════════════════════════════════ -->
   <div id="story5" class="story-section" style="padding: 0; margin: 0; background: transparent;">
-    <iframe src="gn542vf_swap_dashboard.html?v=202608021118" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+    <iframe src="gn542vf_swap_dashboard.html?v=' + new Date().getTime()" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
   </div><!-- /story5 -->
 
   <!-- ══════════════════════════════════════
        STORY 6 — HG8247W Trend Analysis
   ══════════════════════════════════════ -->
   <div id="story6" class="story-section" style="padding: 0; margin: 0; background: transparent;">
-    <iframe src="hg8247w_swap_dashboard.html?v=202608021118" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+    <iframe src="hg8247w_swap_dashboard.html?v=' + new Date().getTime()" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
   </div><!-- /story6 -->
 
 </div><!-- /container -->
@@ -2544,7 +2549,13 @@ function initDashboard(data) {
     if (cnt > topCRcnt) { topCR = r; topCRcnt = cnt; }
   });
   document.getElementById('s2-top-change-region').textContent = topCR;
-  document.getElementById('s2-top-change-region-cnt').textContent = fmt(topCRcnt) + ' AccessId';
+  document.getElementById('s2-top-change-region-cnt').textContent = fmt(topCRcnt) + ' AccessNumber';
+
+  if (YTD_CHURN_DATA && YTD_CHURN_DATA.churn_count) {
+    document.getElementById('s2-ytd-churn').textContent = fmt(YTD_CHURN_DATA.churn_count);
+  } else {
+    document.getElementById('s2-ytd-churn').textContent = "N/A";
+  }
 
   // ── Build all charts / UI ──
   buildTop10Bar(s1);
@@ -2839,7 +2850,7 @@ function buildChangeRegionBar(s2) {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ` ${fmt(ctx.raw)} AccessId` } }
+        tooltip: { callbacks: { label: ctx => ` ${fmt(ctx.raw)} AccessNumber` } }
       },
       scales: {
         x: { grid: { display: false } },
@@ -2959,13 +2970,20 @@ function buildRegionFlowList(s2, region) {
 // ═════════════════════════════════════════
 async function loadData() {
   try {
+    try {
+      const cb = '?v=' + new Date().getTime();
+      const resC = await fetch('ytd_churn_data.json' + cb);
+      window.YTD_CHURN_DATA = await resC.json();
+    } catch(e) { console.warn("No churn data found"); }
+
     // BCPE Standalone: use embeddedData injected at build time — no fetch needed
     if (typeof embeddedData !== 'undefined' && embeddedData) {
       initDashboard(embeddedData);
       return;
     }
     // Fallback: try fetching JSON (GPTCodex local server context)
-    const res = await fetch('onu_dashboard_data.json');
+    const cb = '?v=' + new Date().getTime();
+    const res = await fetch('onu_dashboard_data.json' + cb);
     if (!res.ok) throw new Error('not ready');
     const data = await res.json();
     initDashboard(data);
@@ -3020,7 +3038,7 @@ function exportToExcel() {
   
   // Sheet 3: Model Changes Detail
   const s3Data = [
-    ["Region", "AccessId", "OLT Name", "Slot/Port", "ONT ID", "From SN", "To SN", "From Model", "To Model"]
+    ["Region", "AccessNumber", "OLT Name", "Slot/Port", "ONT ID", "From SN", "To SN", "From Model", "To Model"]
   ];
   if (DATA.story2.raw_changes) {
     DATA.story2.raw_changes.forEach(c => {
@@ -3065,7 +3083,7 @@ function exportToExcel() {
     // Detail: Swap rows (SN + AccessId)
     if ((d.change_rows ?? []).length > 0) {
       const s4Det = [
-        ["AccessId", "OLT Name", "Old Serial (SN)", "New Serial (SN)", "From Model", "To Model"]
+        ["AccessNumber", "OLT Name", "Old Serial (SN)", "New Serial (SN)", "From Model", "To Model"]
       ];
       d.change_rows.forEach(r => {
         s4Det.push([r.AccessId||'', r.Device||'', r.Old_Serial||'', r.New_Serial||'', r.From_Model||'', r.To_Model||'']);
@@ -3078,7 +3096,7 @@ function exportToExcel() {
     // Detail: Truly New Installs (SN + AccessId + LOID)
     if ((d.new_install_rows ?? []).length > 0) {
       const s4New = [
-        ["#", "LOID", "AccessId", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]
+        ["#", "LOID", "AccessNumber", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]
       ];
       d.new_install_rows.forEach((r, i) => {
         s4New.push([
@@ -3152,7 +3170,7 @@ async function exportST244F() {
 
     // Sheet 2: ST-244F Swap Detail (SN + AccessId)
     const swapRows = [
-      ["#", "AccessId", "OLT Name (Device)", "Serial เดิม (SN_Old)", "Serial ใหม่ (SN_New)", "From Model", "To Model"]
+      ["#", "AccessNumber", "OLT Name (Device)", "Serial เดิม (SN_Old)", "Serial ใหม่ (SN_New)", "From Model", "To Model"]
     ];
     (d.change_rows ?? []).forEach((r, i) => {
       swapRows.push([
@@ -3193,7 +3211,7 @@ async function exportST244F() {
 
     // Sheet 5: ติดตั้งใหม่ (New Install ST-244F) — SN + AccessId + LOID
     const newInstRows = [
-      ["#", "LOID", "AccessId", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]
+      ["#", "LOID", "AccessNumber", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]
     ];
     (d.new_install_rows ?? []).forEach((r, i) => {
       newInstRows.push([
@@ -3230,7 +3248,7 @@ function exportNewInstalls() {
   if(!rows || rows.length === 0) { alert('ไม่มีข้อมูลติดตั้งใหม่'); return; }
   
   const wb = XLSX.utils.book_new();
-  const sData = [["#", "LOID", "AccessId", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]];
+  const sData = [["#", "LOID", "AccessNumber", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]];
   rows.forEach((r, i) => {
     sData.push([i + 1, r.LOID||'', r.AccessId||'', r.SN_New||'', r.Model||'', r.Device||'', r.PonPort||'', r.ONT_ID||'', r.Region||'']);
   });
