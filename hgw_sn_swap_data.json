@@ -1,0 +1,206 @@
+{
+    "hgw_sn_swap_count": 39632,
+    "top_changes": [
+        {
+            "from": "T626PROV2",
+            "to": "T626PROV2",
+            "count": 19132
+        },
+        {
+            "from": "T626PRO",
+            "to": "T626PRO",
+            "count": 5271
+        },
+        {
+            "from": "H662GR",
+            "to": "H662GR",
+            "count": 1799
+        },
+        {
+            "from": "ST-244F",
+            "to": "T626PROV2",
+            "count": 1058
+        },
+        {
+            "from": "GN542VF",
+            "to": "T625PRO",
+            "count": 797
+        }
+    ],
+    "by_region": {
+        "Unknown": {
+            "top_changes": [
+                {
+                    "from": "T626PROV2",
+                    "to": "T626PROV2",
+                    "count": 7100
+                },
+                {
+                    "from": "T626PRO",
+                    "to": "T626PRO",
+                    "count": 1630
+                },
+                {
+                    "from": "H662GR",
+                    "to": "H662GR",
+                    "count": 735
+                },
+                {
+                    "from": "ST-244F",
+                    "to": "T626PROV2",
+                    "count": 395
+                },
+                {
+                    "from": "GN542VF",
+                    "to": "T626PROV2",
+                    "count": 243
+                }
+            ]
+        },
+        "Central": {
+            "top_changes": [
+                {
+                    "from": "T626PROV2",
+                    "to": "T626PROV2",
+                    "count": 1542
+                },
+                {
+                    "from": "T626PRO",
+                    "to": "T626PRO",
+                    "count": 319
+                },
+                {
+                    "from": "H662GR",
+                    "to": "H662GR",
+                    "count": 162
+                },
+                {
+                    "from": "ST-244F",
+                    "to": "T626PROV2",
+                    "count": 67
+                },
+                {
+                    "from": "T623L",
+                    "to": "T626PROV2",
+                    "count": 55
+                }
+            ]
+        },
+        "BMA": {
+            "top_changes": [
+                {
+                    "from": "T626PROV2",
+                    "to": "T626PROV2",
+                    "count": 6174
+                },
+                {
+                    "from": "T626PRO",
+                    "to": "T626PRO",
+                    "count": 2538
+                },
+                {
+                    "from": "GN542VF",
+                    "to": "T625PRO",
+                    "count": 469
+                },
+                {
+                    "from": "ST-244F",
+                    "to": "T625PRO",
+                    "count": 453
+                },
+                {
+                    "from": "ST-244F",
+                    "to": "T626PROV2",
+                    "count": 332
+                }
+            ]
+        },
+        "South": {
+            "top_changes": [
+                {
+                    "from": "T626PROV2",
+                    "to": "T626PROV2",
+                    "count": 1179
+                },
+                {
+                    "from": "T626PRO",
+                    "to": "T626PRO",
+                    "count": 224
+                },
+                {
+                    "from": "ST-244F",
+                    "to": "T626PROV2",
+                    "count": 35
+                },
+                {
+                    "from": "GN542VF",
+                    "to": "T626PROV2",
+                    "count": 29
+                },
+                {
+                    "from": "T626PRO",
+                    "to": "T626PROV2",
+                    "count": 27
+                }
+            ]
+        },
+        "North": {
+            "top_changes": [
+                {
+                    "from": "T626PROV2",
+                    "to": "T626PROV2",
+                    "count": 1592
+                },
+                {
+                    "from": "H662GR",
+                    "to": "H662GR",
+                    "count": 820
+                },
+                {
+                    "from": "T626PRO",
+                    "to": "T626PRO",
+                    "count": 284
+                },
+                {
+                    "from": "ST-244F",
+                    "to": "T626PROV2",
+                    "count": 101
+                },
+                {
+                    "from": "H662GR",
+                    "to": "T626PROV2",
+                    "count": 72
+                }
+            ]
+        },
+        "Northeast": {
+            "top_changes": [
+                {
+                    "from": "T626PROV2",
+                    "to": "T626PROV2",
+                    "count": 1545
+                },
+                {
+                    "from": "T626PRO",
+                    "to": "T626PRO",
+                    "count": 276
+                },
+                {
+                    "from": "ST-244F",
+                    "to": "T626PROV2",
+                    "count": 128
+                },
+                {
+                    "from": "T625LM",
+                    "to": "T626PROV2",
+                    "count": 64
+                },
+                {
+                    "from": "T623L",
+                    "to": "T626PROV2",
+                    "count": 62
+                }
+            ]
+        }
+    }
+}

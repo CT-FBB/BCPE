@@ -1315,6 +1315,9 @@ body {
       <button class="story-tab" onclick="switchStory('story6',this)" id="tab-s6" style="background:none;border:1px solid transparent;">
         📦 Story 6 · HG8247W Trend
       </button>
+      <button class="story-tab" onclick="switchStory('story7',this)" id="tab-s7" style="background:none;border:1px solid transparent;">
+        📦 Story 7 · T626ProV2 Trend
+      </button>
     </div>
   </div>
 
@@ -1424,14 +1427,14 @@ body {
     <!-- KPI Row -->
     <div class="kpi-grid">
       <div class="kpi-card kpi-indigo">
-        <div class="kpi-label">AccessNumber เปรียบเทียบได้</div>
-        <div class="kpi-value" id="s2-compared">—</div>
-        <div class="kpi-sub">พบใน 2 ไฟล์พร้อมกัน</div>
+        <div class="kpi-label">Active Sub</div>
+        <div class="kpi-value" id="s2-active-sub">—</div>
+        <div class="kpi-sub" id="s2-active-sub-date">จากข้อมูลล่าสุด</div>
       </div>
       <div class="kpi-card kpi-rose">
-        <div class="kpi-label">AccessNumber ที่ Model เปลี่ยน</div>
+        <div class="kpi-label">จำนวนonu ที่ swap ไปทั้งหมด</div>
         <div class="kpi-value" id="s2-changed">—</div>
-        <div class="kpi-sub" id="s2-changed-pct">—% ของที่เปรียบเทียบได้</div>
+        <div class="kpi-sub" id="s2-changed-pct">เฉพาะ HGW จาก 15 July 26</div>
       </div>
       <div class="kpi-card kpi-amber">
         <div class="kpi-label">เปลี่ยน → Top change</div>
@@ -1518,6 +1521,10 @@ body {
   <div id="story6" class="story-section" style="padding: 0; margin: 0; background: transparent;">
     <iframe src="hg8247w_swap_dashboard.html?v=' + new Date().getTime()" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
   </div><!-- /story6 -->
+
+  <div id="story7" class="story-section" style="padding: 0; margin: 0; background: transparent;">
+    <iframe src="t626prov2_swap_dashboard.html?v=' + new Date().getTime()" style="width: 100%; height: 1800px; border: none; overflow: hidden; background: transparent; border-radius: 12px;"></iframe>
+  </div><!-- /story7 -->
 
 </div><!-- /container -->
 
@@ -2533,10 +2540,25 @@ function initDashboard(data) {
     fmt(topRcnt) + ' ราย (' + fmtPct(s1.by_region[topR]?.pct_of_total) + ')';
 
   // ── Story 2 KPIs ──
-  document.getElementById('s2-compared').textContent = fmt(s2.total_compared);
-  document.getElementById('s2-changed').textContent  = fmt(s2.total_changed);
-  document.getElementById('s2-changed-pct').textContent = fmtPct(s2.change_pct) + ' ของที่เปรียบเทียบได้';
-  if (s2.top_changes.length > 0) {
+  if (window.ACTIVE_SUB_MB_DATA && window.ACTIVE_SUB_MB_DATA.active_sub_count) {
+    document.getElementById('s2-active-sub').textContent = fmt(window.ACTIVE_SUB_MB_DATA.active_sub_count);
+    document.getElementById('s2-active-sub-date').textContent = "As of " + window.ACTIVE_SUB_MB_DATA.mb_latest_date + " (from MB)";
+  } else {
+    document.getElementById('s2-active-sub').textContent = "N/A";
+  }
+
+  if (window.HGW_SN_SWAP_DATA && window.HGW_SN_SWAP_DATA.hgw_sn_swap_count) {
+    document.getElementById('s2-changed').textContent  = fmt(window.HGW_SN_SWAP_DATA.hgw_sn_swap_count);
+    document.getElementById('s2-changed-pct').textContent = "เฉพาะ HGW จาก 15 July 26";
+  } else {
+    document.getElementById('s2-changed').textContent  = "N/A";
+    document.getElementById('s2-changed-pct').textContent = "เฉพาะ HGW จาก 15 July 26";
+  }
+  if (window.HGW_SN_SWAP_DATA && window.HGW_SN_SWAP_DATA.top_changes && window.HGW_SN_SWAP_DATA.top_changes.length > 0) {
+    const tc = window.HGW_SN_SWAP_DATA.top_changes[0];
+    document.getElementById('s2-top-change').textContent = tc.from + ' → ' + tc.to;
+    document.getElementById('s2-top-change-cnt').textContent = fmt(tc.count) + ' ราย';
+  } else if (s2.top_changes.length > 0) {
     const tc = s2.top_changes[0];
     document.getElementById('s2-top-change').textContent = tc.from + ' → ' + tc.to;
     document.getElementById('s2-top-change-cnt').textContent = fmt(tc.count) + ' ราย';
@@ -2899,12 +2921,17 @@ function buildChangeDonut(s2) {
 
 function buildGlobalFlowList(s2) {
   const el = document.getElementById('global-flow-list');
-  if (!s2.top_changes || s2.top_changes.length === 0) {
+  let topChanges = s2.top_changes;
+  if (window.HGW_SN_SWAP_DATA && window.HGW_SN_SWAP_DATA.top_changes) {
+    topChanges = window.HGW_SN_SWAP_DATA.top_changes;
+  }
+
+  if (!topChanges || topChanges.length === 0) {
     el.innerHTML = `<div style="color:var(--text-muted);text-align:center;padding:2rem;">ไม่พบการเปลี่ยน Model ที่มีนัยสำคัญ</div>`;
     return;
   }
-  const maxCount = s2.top_changes[0].count;
-  s2.top_changes.forEach(({from, to, count}) => {
+  const maxCount = topChanges[0].count;
+  topChanges.forEach(({from, to, count}) => {
     const barW = (count / maxCount * 100).toFixed(1);
     el.innerHTML += `
       <div class="flow-row">
@@ -2941,7 +2968,12 @@ function buildRegionFilterS2(s2) {
 function buildRegionFlowList(s2, region) {
   const el = document.getElementById('region-flow-list');
   el.innerHTML = '';
-  const changes = s2.by_region[region]?.top_changes || [];
+  
+  let changes = s2.by_region[region]?.top_changes || [];
+  if (window.HGW_SN_SWAP_DATA && window.HGW_SN_SWAP_DATA.by_region && window.HGW_SN_SWAP_DATA.by_region[region]) {
+    changes = window.HGW_SN_SWAP_DATA.by_region[region].top_changes || [];
+  }
+
   if (changes.length === 0) {
     el.innerHTML = `<div style="color:var(--text-muted);text-align:center;padding:1.5rem;">ไม่พบการเปลี่ยน Model ใน ${region}</div>`;
     return;
@@ -2975,6 +3007,18 @@ async function loadData() {
       const resC = await fetch('ytd_churn_data.json' + cb);
       window.YTD_CHURN_DATA = await resC.json();
     } catch(e) { console.warn("No churn data found"); }
+
+    try {
+      const cb = '?v=' + new Date().getTime();
+      const resA = await fetch('active_sub_mb_data.json' + cb);
+      window.ACTIVE_SUB_MB_DATA = await resA.json();
+    } catch(e) { console.warn("No active sub data found"); }
+
+    try {
+      const cb = '?v=' + new Date().getTime();
+      const resS = await fetch('hgw_sn_swap_data.json' + cb);
+      window.HGW_SN_SWAP_DATA = await resS.json();
+    } catch(e) { console.warn("No hgw sn swap data found"); }
 
     // BCPE Standalone: use embeddedData injected at build time — no fetch needed
     if (typeof embeddedData !== 'undefined' && embeddedData) {
