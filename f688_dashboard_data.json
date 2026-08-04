@@ -10,12 +10,12 @@
   "latest_date": "2026-08-04",
   "baseline_date": "2026-07-15",
   "by_region": {
-    "BMA": 55028,
-    "Central": 9812,
-    "North": 9440,
-    "Northeast": 12801,
-    "Other": 47634,
-    "South": 8614
+    "BMA": 54983,
+    "Other": 44437,
+    "Northeast": 12791,
+    "Central": 9792,
+    "North": 9427,
+    "South": 8603
   },
   "by_variant": {
     "F688": 143329

@@ -15,12 +15,12 @@
   "latest_date": "2026-08-04",
   "baseline_date": "2026-07-15",
   "by_region": {
-    "BMA": 62206,
-    "Central": 7889,
-    "North": 11132,
-    "Northeast": 7225,
-    "Other": 43270,
-    "South": 1619
+    "BMA": 62093,
+    "Other": 40327,
+    "North": 11109,
+    "Central": 7878,
+    "Northeast": 7206,
+    "South": 1622
   },
   "by_variant": {
     "HG8247W5": 8186,

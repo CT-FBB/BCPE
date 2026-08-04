@@ -9,12 +9,12 @@
   "latest_date": "2026-08-04",
   "baseline_date": "2026-07-15",
   "by_region": {
-    "BMA": 66022,
-    "Central": 14411,
-    "North": 16638,
-    "Northeast": 22026,
-    "Other": 84322,
-    "South": 10632
+    "Other": 73294,
+    "BMA": 66050,
+    "Northeast": 21987,
+    "North": 16603,
+    "Central": 14367,
+    "South": 10617
   },
   "by_variant": {
     "ST-244F": 182811,

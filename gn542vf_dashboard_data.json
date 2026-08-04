@@ -107,12 +107,12 @@
   "latest_date": "2026-08-04",
   "baseline_date": "2026-07-15",
   "by_region": {
-    "BMA": 151804,
-    "Central": 18490,
-    "North": 18121,
-    "Northeast": 32351,
-    "Other": 130039,
-    "South": 14902
+    "BMA": 151740,
+    "Other": 119698,
+    "Northeast": 32328,
+    "Central": 18459,
+    "North": 18079,
+    "South": 14857
   },
   "by_variant": {
     "GN542VF": 365707

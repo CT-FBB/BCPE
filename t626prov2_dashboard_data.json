@@ -20004,5 +20004,13 @@
   "total_t626prov2": 874221,
   "latest_date": "2026-08-04",
   "net_change": -3949,
-  "removed_t626prov2": 266787
+  "removed_t626prov2": 266787,
+  "by_region": {
+    "Other": 333809,
+    "BMA": 236879,
+    "Northeast": 103377,
+    "North": 75354,
+    "Central": 74730,
+    "South": 50072
+  }
 }
