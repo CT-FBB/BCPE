@@ -161,11 +161,11 @@ function downloadSwapCSV(filename) {
 
 async function load(){
   let d;
-  try{ const r=await fetch('f688_dashboard_data.json?v=202608021118'); d=await r.json(); }
+  try{ const r=await fetch('f688_dashboard_data.json?v=' + new Date().getTime()); d=await r.json(); }
   catch(e){ d=null; }
   
   let trendData = [];
-  try{ const tr=await fetch('f688_trend_data.json?v=202608021118'); trendData=await tr.json(); }
+  try{ const tr=await fetch('f688_trend_data.json?v=' + new Date().getTime()); trendData=await tr.json(); }
   catch(e){ console.log(e); }
 
   if(!d){ document.getElementById('root').innerHTML='<p style="padding:40px;color:#f87171">❌ ไม่พบ f688_dashboard_data.json</p>'; return; }
@@ -193,6 +193,7 @@ function renderDashboard(d){
   }
   const latDate = formatDateStr(d.latest_date         ?? '-');
   const basDate = formatDateStr(d.baseline_date       ?? '-');
+  const prevDate = formatDateStr(d.prev_date ?? '-');
   const byRegion= d.by_region           ?? {};
   const topOlt  = d.top_olt             ?? [];
   const byVar   = d.by_variant          ?? {};
@@ -300,7 +301,7 @@ function renderDashboard(d){
     <div class="kpi-card ${net>=0?'gr':'re'}"><div class="ki">📈</div>
       <div class="kl">การเปลี่ยนแปลงสุทธิ</div>
       <div class="kv ${net>=0?'gr':'re'}">${netSign}${fmt(net)}</div>
-      <div class="ks">${net>=0?'เพิ่มขึ้น':'ลดลง'} จากวันก่อน</div>
+      <div class="ks">${net>=0?'เพิ่มขึ้น':'ลดลง'} จากวันที่ ${prevDate}</div>
     </div>
     <div class="kpi-card cy">
       <div class="ki">🆕</div>
