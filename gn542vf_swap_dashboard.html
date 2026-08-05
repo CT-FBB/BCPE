@@ -146,9 +146,9 @@ function downloadSwapCSV(filename) {
       return;
   }
   const data = globalData.change_rows;
-  let csv = "\uFEFFAccessId,Serial_Old,Serial_New,Model_Old,Model_New\n";
+  let csv = "\uFEFFAccessNumber,Serial_Old,Serial_New,Model_Old,Model_New\n";
   data.forEach(r => { 
-      csv += (r.AccessId||'') + "," + (r.Old_Serial||'') + "," + (r.New_Serial||'') + "," + (r.From_Model||'') + "," + (r.To_Model||'') + "\n"; 
+      csv += (r.homepassID||'') + "," + (r.Old_Serial||'') + "," + (r.New_Serial||'') + "," + (r.From_Model||'') + "," + (r.To_Model||'') + "\n"; 
   });
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = window.URL.createObjectURL(blob);
@@ -242,7 +242,7 @@ function renderDashboard(d){
   const noSwap = chgFrom.length===0 && swapIn===0;
   const swapBox = noSwap
     ? `<div class="warn-box"><span style="font-size:1.2rem">⚠️</span>
-        <span>ในช่วงที่วิเคราะห์ (<strong>${basDate} → ${latDate}</strong>) ยังไม่พบการเปลี่ยน ONU จาก model อื่น → GN542VF ผ่าน AccessId เดิม<br>
+        <span>ในช่วงที่วิเคราะห์ (<strong>${basDate} → ${latDate}</strong>) ยังไม่พบการเปลี่ยน ONU จาก model อื่น → GN542VF ผ่าน AccessNumber เดิม<br>
         <span style="font-size:.82rem;opacity:.8">อาจเป็นเพราะช่วงเวลาสั้นเกินไป (1 วัน) หรือ GN542VF ส่วนใหญ่ถูกติดตั้งใหม่แทนการ swap</span></span></div>`
     : '';
 
@@ -258,7 +258,7 @@ function renderDashboard(d){
   // Change detail rows
   const detailRows = chgRows.slice(0,100).map(r=>`
     <tr>
-      <td style="font-size:.75rem;color:var(--muted)">${r.AccessId||''}</td>
+      <td style="font-size:.75rem;color:var(--muted)">${r.homepassID||''}</td>
       <td style="font-family:monospace;font-size:.76rem">${r.Device||''}</td>
       <td style="font-size:.76rem">${r.Old_Serial||'-'}</td>
       <td style="font-size:.76rem">${r.New_Serial||'-'}</td>
@@ -307,7 +307,7 @@ function renderDashboard(d){
       <div class="ki">🆕</div>
       <div class="kl">ติดตั้งใหม่ (New Device)</div>
       <div class="kv cy">${fmt(newInst)}</div>
-      <div class="ks">AccessId ใหม่ บน GN542VF</div>
+      <div class="ks">AccessNumber ใหม่ บน GN542VF</div>
       <button onclick="exportNewInstalls()" style="margin-top:8px;padding:4px 8px;background:rgba(6,182,212,.2);border:1px solid rgba(6,182,212,.5);color:#22d3ee;border-radius:4px;cursor:pointer;font-size:0.75rem;width:100%;">📥 Export เฉพาะชุดนี้</button>
     </div>
     <div class="kpi-card pu"><div class="ki">🔁</div>
@@ -375,7 +375,7 @@ function renderDashboard(d){
       ${chgRows.length>0?`
       <div class="scr">
         <table class="tbl">
-          <thead><tr><th>AccessId</th><th>OLT</th><th>Serial เดิม</th><th>Serial ใหม่</th><th>จาก</th><th>เป็น</th></tr></thead>
+          <thead><tr><th>AccessNumber</th><th>OLT</th><th>Serial เดิม</th><th>Serial ใหม่</th><th>จาก</th><th>เป็น</th></tr></thead>
           <tbody>${detailRows}</tbody>
         </table>
       </div>`
@@ -479,9 +479,9 @@ function exportNewInstalls() {
   if(!rows || rows.length === 0) { alert('ไม่มีข้อมูลติดตั้งใหม่'); return; }
   
   const wb = XLSX.utils.book_new();
-  const sData = [["#", "LOID", "AccessId", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]];
+  const sData = [["#", "LOID", "AccessNumber", "Serial (SN)", "CPE Model", "OLT Name", "PonPort", "ONT_ID", "Region"]];
   rows.forEach((r, i) => {
-    sData.push([i + 1, r.LOID||'', r.AccessId||'', r.SN_New||'', r.Model||'', r.Device||'', r.PonPort||'', r.ONT_ID||'', r.Region||'']);
+    sData.push([i + 1, r.LOID||'', r.homepassID||'', r.SN_New||'', r.Model||'', r.Device||'', r.PonPort||'', r.ONT_ID||'', r.Region||'']);
   });
   
   const ws = XLSX.utils.aoa_to_sheet(sData);
