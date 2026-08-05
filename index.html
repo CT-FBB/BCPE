@@ -5090,8 +5090,20 @@
             // Populate Type Filter Dropdown
             populateTypeFilter();
             
-            // Initial aggregation and render
-            onTypeFilterChange("ALL");
+            // Default to HGW and T723
+            const typeFilter = document.getElementById("typeFilter");
+            if (Array.from(typeFilter.options).some(o => o.value === "HGW")) {
+                typeFilter.value = "HGW";
+                onTypeFilterChange("HGW");
+            } else {
+                onTypeFilterChange("ALL");
+            }
+            
+            const modelSelector = document.getElementById("modelSelector");
+            if (Array.from(modelSelector.options).some(o => o.value === "T723")) {
+                modelSelector.value = "T723";
+                onModelSelect("T723");
+            }
         };
 
         function populateTypeFilter() {
