@@ -5363,7 +5363,7 @@
             msgEl.style.display = "none";
             canvasEl.style.display = "block";
 
-            const sortedVersions = modelData.Versions;
+            const sortedVersions = modelData.Versions.filter(v => v.SoftwareVersion !== "Unknown");
             const labels = [];
             const counts = [];
             let othersTotal = 0;
@@ -5459,7 +5459,7 @@
             msgEl.style.display = "none";
             canvasEl.style.display = "block";
 
-            const sortedVersions = modelData.Versions;
+            const sortedVersions = modelData.Versions.filter(v => v.SoftwareVersion !== "Unknown");
             const labels = [];
             const counts = [];
             let othersTotal = 0;
