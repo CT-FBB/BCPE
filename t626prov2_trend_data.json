@@ -118,5 +118,11 @@
     "t626prov2_total": 877742,
     "swap_in_from_base": 266806,
     "swap_out_from_base": 267234
+  },
+  {
+    "date": "2026-08-07",
+    "t626prov2_total": 880364,
+    "swap_in_from_base": 269622,
+    "swap_out_from_base": 267428
   }
 ]

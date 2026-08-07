@@ -1,0 +1,1436 @@
+{
+    "total_onus": 202,
+    "total_clients": 567,
+    "avg_clients_per_onu": 2.81,
+    "overall_avg_rssi": -54.8,
+    "overall_avg_rx": 627.2,
+    "overall_avg_tx": 653.1,
+    "rssi_distribution": {
+        "Excellent (>-50)": 61,
+        "Good (-50 to -60)": 77,
+        "Fair (-60 to -70)": 52,
+        "Poor (<-70)": 14
+    },
+    "client_count_distribution": {
+        "1-2": 127,
+        "3-5": 60,
+        "6-10": 15,
+        ">10": 2
+    },
+    "onu_details": {
+        "9611987269": {
+            "clients": 2,
+            "avg_rssi": -51.3,
+            "avg_snr": 30.0,
+            "avg_rx_rate": 249.7,
+            "avg_tx_rate": 941.3
+        },
+        "9608503622": {
+            "clients": 1,
+            "avg_rssi": -76.3,
+            "avg_snr": 13.4,
+            "avg_rx_rate": 113.0,
+            "avg_tx_rate": 117.0
+        },
+        "9607842853": {
+            "clients": 2,
+            "avg_rssi": -50.7,
+            "avg_snr": 39.4,
+            "avg_rx_rate": 1666.1,
+            "avg_tx_rate": 1352.8
+        },
+        "9609339501": {
+            "clients": 13,
+            "avg_rssi": -56.9,
+            "avg_snr": -12.4,
+            "avg_rx_rate": 360.5,
+            "avg_tx_rate": 504.6
+        },
+        "9611564008": {
+            "clients": 5,
+            "avg_rssi": -53.6,
+            "avg_snr": 35.4,
+            "avg_rx_rate": 1612.6,
+            "avg_tx_rate": 1029.2
+        },
+        "9611960391": {
+            "clients": 1,
+            "avg_rssi": -64.0,
+            "avg_snr": 24.5,
+            "avg_rx_rate": 325.0,
+            "avg_tx_rate": 323.2
+        },
+        "9604124656": {
+            "clients": 1,
+            "avg_rssi": -49.5,
+            "avg_snr": 39.0,
+            "avg_rx_rate": 866.0,
+            "avg_tx_rate": 780.0
+        },
+        "9608483196": {
+            "clients": 4,
+            "avg_rssi": -53.4,
+            "avg_snr": 36.0,
+            "avg_rx_rate": 996.5,
+            "avg_tx_rate": 783.0
+        },
+        "9612119881": {
+            "clients": 1,
+            "avg_rssi": -46.0,
+            "avg_snr": 44.0,
+            "avg_rx_rate": 1201.0,
+            "avg_tx_rate": 918.0
+        },
+        "9612268362": {
+            "clients": 4,
+            "avg_rssi": -42.9,
+            "avg_snr": 46.8,
+            "avg_rx_rate": 518.8,
+            "avg_tx_rate": 512.9
+        },
+        "9612509615": {
+            "clients": 1,
+            "avg_rssi": -56.7,
+            "avg_snr": 32.3,
+            "avg_rx_rate": 526.3,
+            "avg_tx_rate": 273.0
+        },
+        "9611857841": {
+            "clients": 1,
+            "avg_rssi": -49.0,
+            "avg_snr": 40.5,
+            "avg_rx_rate": 780.0,
+            "avg_tx_rate": 617.5
+        },
+        "9612137915": {
+            "clients": 2,
+            "avg_rssi": -49.0,
+            "avg_snr": 41.5,
+            "avg_rx_rate": 6.0,
+            "avg_tx_rate": 392.0
+        },
+        "9611411565": {
+            "clients": 4,
+            "avg_rssi": -61.8,
+            "avg_snr": 22.0,
+            "avg_rx_rate": 381.0,
+            "avg_tx_rate": 404.0
+        },
+        "9612208921": {
+            "clients": 1,
+            "avg_rssi": -62.0,
+            "avg_snr": 28.0,
+            "avg_rx_rate": 390.0,
+            "avg_tx_rate": 292.0
+        },
+        "9612148647": {
+            "clients": 1,
+            "avg_rssi": -45.7,
+            "avg_snr": 26.3,
+            "avg_rx_rate": 6.0,
+            "avg_tx_rate": 780.0
+        },
+        "9612288676": {
+            "clients": 1,
+            "avg_rssi": -68.0,
+            "avg_snr": 20.7,
+            "avg_rx_rate": 595.9,
+            "avg_tx_rate": 597.9
+        },
+        "9609130666": {
+            "clients": 3,
+            "avg_rssi": -48.6,
+            "avg_snr": 42.3,
+            "avg_rx_rate": 1068.7,
+            "avg_tx_rate": 972.0
+        },
+        "9612305919": {
+            "clients": 1,
+            "avg_rssi": -37.0,
+            "avg_snr": 51.9,
+            "avg_rx_rate": 960.0,
+            "avg_tx_rate": 1020.0
+        },
+        "9611958714": {
+            "clients": 3,
+            "avg_rssi": -56.6,
+            "avg_snr": 34.0,
+            "avg_rx_rate": 644.9,
+            "avg_tx_rate": 584.4
+        },
+        "9612013399": {
+            "clients": 6,
+            "avg_rssi": -65.3,
+            "avg_snr": 22.9,
+            "avg_rx_rate": 849.6,
+            "avg_tx_rate": 617.4
+        },
+        "9612119611": {
+            "clients": 2,
+            "avg_rssi": -26.8,
+            "avg_snr": 61.7,
+            "avg_rx_rate": 855.1,
+            "avg_tx_rate": 1922.1
+        },
+        "9612083070": {
+            "clients": 4,
+            "avg_rssi": -45.7,
+            "avg_snr": 43.9,
+            "avg_rx_rate": 856.4,
+            "avg_tx_rate": 882.5
+        },
+        "9612226785": {
+            "clients": 3,
+            "avg_rssi": -50.6,
+            "avg_snr": 36.4,
+            "avg_rx_rate": 664.1,
+            "avg_tx_rate": 702.0
+        },
+        "9611920415": {
+            "clients": 2,
+            "avg_rssi": -46.5,
+            "avg_snr": 42.3,
+            "avg_rx_rate": 1047.8,
+            "avg_tx_rate": 1236.0
+        },
+        "9609418950": {
+            "clients": 1,
+            "avg_rssi": -38.8,
+            "avg_snr": 51.2,
+            "avg_rx_rate": 531.6,
+            "avg_tx_rate": 867.9
+        },
+        "9608831944": {
+            "clients": 2,
+            "avg_rssi": -36.0,
+            "avg_snr": 51.7,
+            "avg_rx_rate": 522.0,
+            "avg_tx_rate": 765.0
+        },
+        "9612482840": {
+            "clients": 1,
+            "avg_rssi": -57.0,
+            "avg_snr": 26.0,
+            "avg_rx_rate": 134.4,
+            "avg_tx_rate": 799.4
+        },
+        "9611477868": {
+            "clients": 4,
+            "avg_rssi": -50.6,
+            "avg_snr": 35.8,
+            "avg_rx_rate": 562.0,
+            "avg_tx_rate": 871.3
+        },
+        "9612288675": {
+            "clients": 2,
+            "avg_rssi": -50.6,
+            "avg_snr": 39.2,
+            "avg_rx_rate": 802.5,
+            "avg_tx_rate": 668.4
+        },
+        "9608897256": {
+            "clients": 3,
+            "avg_rssi": -60.2,
+            "avg_snr": 29.2,
+            "avg_rx_rate": 914.0,
+            "avg_tx_rate": 912.0
+        },
+        "9608933607": {
+            "clients": 26,
+            "avg_rssi": -56.7,
+            "avg_snr": 29.5,
+            "avg_rx_rate": 379.3,
+            "avg_tx_rate": 382.0
+        },
+        "9612255398": {
+            "clients": 3,
+            "avg_rssi": -51.0,
+            "avg_snr": 37.0,
+            "avg_rx_rate": 866.3,
+            "avg_tx_rate": 866.0
+        },
+        "9612207216": {
+            "clients": 3,
+            "avg_rssi": -50.0,
+            "avg_snr": 39.0,
+            "avg_rx_rate": 776.8,
+            "avg_tx_rate": 887.8
+        },
+        "9612253039": {
+            "clients": 2,
+            "avg_rssi": -65.0,
+            "avg_snr": 24.8,
+            "avg_rx_rate": 230.4,
+            "avg_tx_rate": 216.6
+        },
+        "9611967246": {
+            "clients": 6,
+            "avg_rssi": -57.2,
+            "avg_snr": 32.2,
+            "avg_rx_rate": 650.7,
+            "avg_tx_rate": 654.5
+        },
+        "9608599831": {
+            "clients": 1,
+            "avg_rssi": -62.5,
+            "avg_snr": 29.5,
+            "avg_rx_rate": 720.0,
+            "avg_tx_rate": 666.0
+        },
+        "9608729809": {
+            "clients": 2,
+            "avg_rssi": -59.0,
+            "avg_snr": 24.0,
+            "avg_rx_rate": 457.5,
+            "avg_tx_rate": 538.0
+        },
+        "9612109180": {
+            "clients": 10,
+            "avg_rssi": -44.6,
+            "avg_snr": 43.7,
+            "avg_rx_rate": 358.4,
+            "avg_tx_rate": 574.9
+        },
+        "9611675992": {
+            "clients": 2,
+            "avg_rssi": -38.7,
+            "avg_snr": 50.3,
+            "avg_rx_rate": 662.3,
+            "avg_tx_rate": 926.7
+        },
+        "9612118352": {
+            "clients": 4,
+            "avg_rssi": -52.0,
+            "avg_snr": 34.6,
+            "avg_rx_rate": 1205.9,
+            "avg_tx_rate": 998.1
+        },
+        "9611540071": {
+            "clients": 2,
+            "avg_rssi": -53.3,
+            "avg_snr": 35.3,
+            "avg_rx_rate": 635.7,
+            "avg_tx_rate": 405.0
+        },
+        "9611933128": {
+            "clients": 1,
+            "avg_rssi": -29.0,
+            "avg_snr": 60.0,
+            "avg_rx_rate": 780.0,
+            "avg_tx_rate": 823.0
+        },
+        "9608666617": {
+            "clients": 2,
+            "avg_rssi": -63.0,
+            "avg_snr": 26.8,
+            "avg_rx_rate": 1222.5,
+            "avg_tx_rate": 891.2
+        },
+        "9609137153": {
+            "clients": 2,
+            "avg_rssi": -60.5,
+            "avg_snr": 28.5,
+            "avg_rx_rate": 723.5,
+            "avg_tx_rate": 980.0
+        },
+        "9612288029": {
+            "clients": 2,
+            "avg_rssi": -37.7,
+            "avg_snr": 49.3,
+            "avg_rx_rate": 590.5,
+            "avg_tx_rate": 656.9
+        },
+        "9608097198": {
+            "clients": 5,
+            "avg_rssi": -53.0,
+            "avg_snr": 36.4,
+            "avg_rx_rate": 1200.8,
+            "avg_tx_rate": 935.9
+        },
+        "9612034295": {
+            "clients": 2,
+            "avg_rssi": -39.0,
+            "avg_snr": 49.3,
+            "avg_rx_rate": 1201.0,
+            "avg_tx_rate": 1082.3
+        },
+        "9609064307": {
+            "clients": 2,
+            "avg_rssi": -45.3,
+            "avg_snr": 44.0,
+            "avg_rx_rate": 421.7,
+            "avg_tx_rate": 376.7
+        },
+        "9612272315": {
+            "clients": 1,
+            "avg_rssi": -41.0,
+            "avg_snr": 48.0,
+            "avg_rx_rate": 680.0,
+            "avg_tx_rate": 551.0
+        },
+        "9612121651": {
+            "clients": 4,
+            "avg_rssi": -53.1,
+            "avg_snr": 35.3,
+            "avg_rx_rate": 767.1,
+            "avg_tx_rate": 680.3
+        },
+        "9612156349": {
+            "clients": 2,
+            "avg_rssi": -58.2,
+            "avg_snr": 30.2,
+            "avg_rx_rate": 555.0,
+            "avg_tx_rate": 451.5
+        },
+        "9612449487": {
+            "clients": 6,
+            "avg_rssi": -58.3,
+            "avg_snr": 30.4,
+            "avg_rx_rate": 692.5,
+            "avg_tx_rate": 635.6
+        },
+        "9611993017": {
+            "clients": 2,
+            "avg_rssi": -58.0,
+            "avg_snr": 32.0,
+            "avg_rx_rate": 341.0,
+            "avg_tx_rate": 326.5
+        },
+        "9612177078": {
+            "clients": 1,
+            "avg_rssi": -50.0,
+            "avg_snr": 39.0,
+            "avg_rx_rate": 1201.0,
+            "avg_tx_rate": 1020.0
+        },
+        "9611984447": {
+            "clients": 1,
+            "avg_rssi": -68.0,
+            "avg_snr": 20.0,
+            "avg_rx_rate": 544.0,
+            "avg_tx_rate": 367.0
+        },
+        "9612256189": {
+            "clients": 5,
+            "avg_rssi": -57.1,
+            "avg_snr": 32.9,
+            "avg_rx_rate": 500.7,
+            "avg_tx_rate": 344.8
+        },
+        "9612151062": {
+            "clients": 2,
+            "avg_rssi": -59.9,
+            "avg_snr": 29.2,
+            "avg_rx_rate": 1248.9,
+            "avg_tx_rate": 1342.0
+        },
+        "9612384920": {
+            "clients": 1,
+            "avg_rssi": -57.0,
+            "avg_snr": 32.0,
+            "avg_rx_rate": 1441.0,
+            "avg_tx_rate": 735.0
+        },
+        "9600472482": {
+            "clients": 3,
+            "avg_rssi": -63.8,
+            "avg_snr": 29.4,
+            "avg_rx_rate": 570.2,
+            "avg_tx_rate": 656.3
+        },
+        "9608039201": {
+            "clients": 1,
+            "avg_rssi": -63.5,
+            "avg_snr": 26.0,
+            "avg_rx_rate": 426.0,
+            "avg_tx_rate": 605.0
+        },
+        "9612329035": {
+            "clients": 1,
+            "avg_rssi": -57.0,
+            "avg_snr": 21.0,
+            "avg_rx_rate": 576.0,
+            "avg_tx_rate": 720.0
+        },
+        "9612284321": {
+            "clients": 1,
+            "avg_rssi": -44.0,
+            "avg_snr": 44.0,
+            "avg_rx_rate": 390.0,
+            "avg_tx_rate": 433.0
+        },
+        "9611751760": {
+            "clients": 1,
+            "avg_rssi": -56.0,
+            "avg_snr": 26.0,
+            "avg_rx_rate": 780.0,
+            "avg_tx_rate": 585.0
+        },
+        "9608962644": {
+            "clients": 2,
+            "avg_rssi": -44.2,
+            "avg_snr": 43.2,
+            "avg_rx_rate": 1004.0,
+            "avg_tx_rate": 955.2
+        },
+        "9612313360": {
+            "clients": 2,
+            "avg_rssi": -36.9,
+            "avg_snr": 52.6,
+            "avg_rx_rate": 1338.5,
+            "avg_tx_rate": 1305.1
+        },
+        "9606492505": {
+            "clients": 3,
+            "avg_rssi": -57.5,
+            "avg_snr": 33.0,
+            "avg_rx_rate": 566.5,
+            "avg_tx_rate": 460.3
+        },
+        "9612074708": {
+            "clients": 1,
+            "avg_rssi": -67.3,
+            "avg_snr": 22.2,
+            "avg_rx_rate": 251.4,
+            "avg_tx_rate": 397.8
+        },
+        "9611908109": {
+            "clients": 2,
+            "avg_rssi": -58.2,
+            "avg_snr": 28.2,
+            "avg_rx_rate": 635.0,
+            "avg_tx_rate": 620.5
+        },
+        "9612122485": {
+            "clients": 5,
+            "avg_rssi": -62.6,
+            "avg_snr": 26.7,
+            "avg_rx_rate": 581.2,
+            "avg_tx_rate": 582.8
+        },
+        "9612060186": {
+            "clients": 3,
+            "avg_rssi": -66.8,
+            "avg_snr": 21.2,
+            "avg_rx_rate": 521.0,
+            "avg_tx_rate": 595.0
+        },
+        "9612159884": {
+            "clients": 1,
+            "avg_rssi": -50.0,
+            "avg_snr": 38.0,
+            "avg_rx_rate": 585.0,
+            "avg_tx_rate": 555.5
+        },
+        "9610905022": {
+            "clients": 1,
+            "avg_rssi": -63.5,
+            "avg_snr": 26.5,
+            "avg_rx_rate": 189.0,
+            "avg_tx_rate": 173.5
+        },
+        "9612204303": {
+            "clients": 2,
+            "avg_rssi": -41.5,
+            "avg_snr": 48.5,
+            "avg_rx_rate": 1681.0,
+            "avg_tx_rate": 959.0
+        },
+        "9604077731": {
+            "clients": 6,
+            "avg_rssi": -46.7,
+            "avg_snr": 43.2,
+            "avg_rx_rate": 728.4,
+            "avg_tx_rate": 592.9
+        },
+        "9607924736": {
+            "clients": 2,
+            "avg_rssi": -63.5,
+            "avg_snr": 22.5,
+            "avg_rx_rate": 373.5,
+            "avg_tx_rate": 543.0
+        },
+        "9611958763": {
+            "clients": 3,
+            "avg_rssi": -66.4,
+            "avg_snr": 19.2,
+            "avg_rx_rate": 338.9,
+            "avg_tx_rate": 635.3
+        },
+        "9612485998": {
+            "clients": 4,
+            "avg_rssi": -42.2,
+            "avg_snr": 46.6,
+            "avg_rx_rate": 383.6,
+            "avg_tx_rate": 774.9
+        },
+        "9608806194": {
+            "clients": 5,
+            "avg_rssi": -47.4,
+            "avg_snr": 39.8,
+            "avg_rx_rate": 1009.5,
+            "avg_tx_rate": 941.7
+        },
+        "9611739185": {
+            "clients": 4,
+            "avg_rssi": -53.2,
+            "avg_snr": 36.2,
+            "avg_rx_rate": 863.4,
+            "avg_tx_rate": 823.0
+        },
+        "9611979887": {
+            "clients": 1,
+            "avg_rssi": -57.5,
+            "avg_snr": 32.5,
+            "avg_rx_rate": 1734.5,
+            "avg_tx_rate": 2101.0
+        },
+        "9611765852": {
+            "clients": 4,
+            "avg_rssi": -67.3,
+            "avg_snr": 21.3,
+            "avg_rx_rate": 135.1,
+            "avg_tx_rate": 314.0
+        },
+        "9607664348": {
+            "clients": 8,
+            "avg_rssi": -53.6,
+            "avg_snr": 35.9,
+            "avg_rx_rate": 206.1,
+            "avg_tx_rate": 247.4
+        },
+        "9612320374": {
+            "clients": 1,
+            "avg_rssi": -58.0,
+            "avg_snr": 33.0,
+            "avg_rx_rate": 433.0,
+            "avg_tx_rate": 980.9
+        },
+        "9608508795": {
+            "clients": 1,
+            "avg_rssi": -48.0,
+            "avg_snr": 37.5,
+            "avg_rx_rate": 600.0,
+            "avg_tx_rate": 581.5
+        },
+        "9608922424": {
+            "clients": 3,
+            "avg_rssi": -49.7,
+            "avg_snr": 38.3,
+            "avg_rx_rate": 1016.7,
+            "avg_tx_rate": 1024.0
+        },
+        "9612148887": {
+            "clients": 2,
+            "avg_rssi": -48.7,
+            "avg_snr": 41.1,
+            "avg_rx_rate": 1111.7,
+            "avg_tx_rate": 1213.8
+        },
+        "9612016758": {
+            "clients": 1,
+            "avg_rssi": -41.0,
+            "avg_snr": 50.0,
+            "avg_rx_rate": 1201.0,
+            "avg_tx_rate": 1201.0
+        },
+        "9600407260": {
+            "clients": 1,
+            "avg_rssi": -47.0,
+            "avg_snr": 42.0,
+            "avg_rx_rate": 2214.5,
+            "avg_tx_rate": 2094.5
+        },
+        "9612213287": {
+            "clients": 5,
+            "avg_rssi": -53.3,
+            "avg_snr": 35.7,
+            "avg_rx_rate": 702.5,
+            "avg_tx_rate": 681.1
+        },
+        "9612274476": {
+            "clients": 3,
+            "avg_rssi": -39.0,
+            "avg_snr": 51.0,
+            "avg_rx_rate": 1525.0,
+            "avg_tx_rate": 1837.0
+        },
+        "9612451197": {
+            "clients": 2,
+            "avg_rssi": -59.0,
+            "avg_snr": 32.0,
+            "avg_rx_rate": 271.8,
+            "avg_tx_rate": 670.5
+        },
+        "9612080356": {
+            "clients": 1,
+            "avg_rssi": -55.0,
+            "avg_snr": 34.0,
+            "avg_rx_rate": 1441.0,
+            "avg_tx_rate": 1361.0
+        },
+        "9611819413": {
+            "clients": 3,
+            "avg_rssi": -47.0,
+            "avg_snr": 41.2,
+            "avg_rx_rate": 653.2,
+            "avg_tx_rate": 1615.7
+        },
+        "9611982130": {
+            "clients": 8,
+            "avg_rssi": -61.5,
+            "avg_snr": 27.1,
+            "avg_rx_rate": 612.0,
+            "avg_tx_rate": 728.0
+        },
+        "9611832033": {
+            "clients": 1,
+            "avg_rssi": -51.0,
+            "avg_snr": 38.0,
+            "avg_rx_rate": 480.0,
+            "avg_tx_rate": 453.0
+        },
+        "9611570677": {
+            "clients": 5,
+            "avg_rssi": -44.2,
+            "avg_snr": 45.2,
+            "avg_rx_rate": 1144.8,
+            "avg_tx_rate": 1042.1
+        },
+        "9612015960": {
+            "clients": 2,
+            "avg_rssi": -79.8,
+            "avg_snr": 11.2,
+            "avg_rx_rate": 125.2,
+            "avg_tx_rate": 236.5
+        },
+        "9612153358": {
+            "clients": 5,
+            "avg_rssi": -55.7,
+            "avg_snr": 34.0,
+            "avg_rx_rate": 1335.1,
+            "avg_tx_rate": 1031.1
+        },
+        "9612133530": {
+            "clients": 3,
+            "avg_rssi": -63.3,
+            "avg_snr": 26.1,
+            "avg_rx_rate": 432.9,
+            "avg_tx_rate": 300.5
+        },
+        "9609588878": {
+            "clients": 5,
+            "avg_rssi": -51.8,
+            "avg_snr": 38.4,
+            "avg_rx_rate": 839.6,
+            "avg_tx_rate": 879.0
+        },
+        "9612391578": {
+            "clients": 4,
+            "avg_rssi": -38.8,
+            "avg_snr": 51.0,
+            "avg_rx_rate": 365.1,
+            "avg_tx_rate": 1005.4
+        },
+        "9612162479": {
+            "clients": 1,
+            "avg_rssi": -47.7,
+            "avg_snr": 42.0,
+            "avg_rx_rate": 866.0,
+            "avg_tx_rate": 643.3
+        },
+        "9610677437": {
+            "clients": 1,
+            "avg_rssi": -61.0,
+            "avg_snr": 28.0,
+            "avg_rx_rate": 1098.5,
+            "avg_tx_rate": 670.0
+        },
+        "9612142425": {
+            "clients": 1,
+            "avg_rssi": -66.3,
+            "avg_snr": 23.7,
+            "avg_rx_rate": 176.8,
+            "avg_tx_rate": 117.0
+        },
+        "9609377880": {
+            "clients": 2,
+            "avg_rssi": -76.1,
+            "avg_snr": 13.7,
+            "avg_rx_rate": 441.1,
+            "avg_tx_rate": 206.1
+        },
+        "9611987480": {
+            "clients": 4,
+            "avg_rssi": -55.4,
+            "avg_snr": 34.5,
+            "avg_rx_rate": 562.5,
+            "avg_tx_rate": 497.8
+        },
+        "9612187716": {
+            "clients": 1,
+            "avg_rssi": -84.0,
+            "avg_snr": 4.5,
+            "avg_rx_rate": 117.0,
+            "avg_tx_rate": 175.0
+        },
+        "9609220643": {
+            "clients": 1,
+            "avg_rssi": -42.4,
+            "avg_snr": 46.5,
+            "avg_rx_rate": 1155.8,
+            "avg_tx_rate": 828.8
+        },
+        "9611846377": {
+            "clients": 1,
+            "avg_rssi": -53.0,
+            "avg_snr": 34.5,
+            "avg_rx_rate": 570.0,
+            "avg_tx_rate": 393.0
+        },
+        "9600186454": {
+            "clients": 1,
+            "avg_rssi": -49.0,
+            "avg_snr": 39.0,
+            "avg_rx_rate": 1769.0,
+            "avg_tx_rate": 1442.7
+        },
+        "9608985386": {
+            "clients": 2,
+            "avg_rssi": -44.4,
+            "avg_snr": 43.4,
+            "avg_rx_rate": 176.8,
+            "avg_tx_rate": 241.6
+        },
+        "9608598554": {
+            "clients": 3,
+            "avg_rssi": -54.7,
+            "avg_snr": 32.0,
+            "avg_rx_rate": 289.7,
+            "avg_tx_rate": 222.7
+        },
+        "9611305437": {
+            "clients": 4,
+            "avg_rssi": -51.8,
+            "avg_snr": 37.8,
+            "avg_rx_rate": 738.2,
+            "avg_tx_rate": 800.4
+        },
+        "9608459846": {
+            "clients": 2,
+            "avg_rssi": -47.5,
+            "avg_snr": 42.7,
+            "avg_rx_rate": 6.0,
+            "avg_tx_rate": 438.5
+        },
+        "9608854182": {
+            "clients": 5,
+            "avg_rssi": -50.8,
+            "avg_snr": 39.0,
+            "avg_rx_rate": 704.5,
+            "avg_tx_rate": 807.2
+        },
+        "9612137729": {
+            "clients": 2,
+            "avg_rssi": -53.8,
+            "avg_snr": 33.2,
+            "avg_rx_rate": 840.0,
+            "avg_tx_rate": 630.8
+        },
+        "NULL": {
+            "clients": 10,
+            "avg_rssi": -68.3,
+            "avg_snr": 21.2,
+            "avg_rx_rate": 432.7,
+            "avg_tx_rate": 371.1
+        },
+        "9612089274": {
+            "clients": 1,
+            "avg_rssi": -41.6,
+            "avg_snr": 47.3,
+            "avg_rx_rate": 433.0,
+            "avg_tx_rate": 455.3
+        },
+        "9612333569": {
+            "clients": 1,
+            "avg_rssi": -36.0,
+            "avg_snr": 53.0,
+            "avg_rx_rate": 8.0,
+            "avg_tx_rate": 367.0
+        },
+        "9612277324": {
+            "clients": 2,
+            "avg_rssi": -48.5,
+            "avg_snr": 40.5,
+            "avg_rx_rate": 832.8,
+            "avg_tx_rate": 867.8
+        },
+        "9611654387": {
+            "clients": 4,
+            "avg_rssi": -61.6,
+            "avg_snr": 28.4,
+            "avg_rx_rate": 988.0,
+            "avg_tx_rate": 877.9
+        },
+        "9600523979": {
+            "clients": 2,
+            "avg_rssi": -42.8,
+            "avg_snr": 46.2,
+            "avg_rx_rate": 913.0,
+            "avg_tx_rate": 462.5
+        },
+        "9612008906": {
+            "clients": 2,
+            "avg_rssi": -45.7,
+            "avg_snr": 38.0,
+            "avg_rx_rate": 775.7,
+            "avg_tx_rate": 1036.0
+        },
+        "9609267357": {
+            "clients": 1,
+            "avg_rssi": -78.6,
+            "avg_snr": 2.4,
+            "avg_rx_rate": 410.4,
+            "avg_tx_rate": 551.1
+        },
+        "9612076582": {
+            "clients": 4,
+            "avg_rssi": -69.2,
+            "avg_snr": 20.7,
+            "avg_rx_rate": 393.2,
+            "avg_tx_rate": 470.4
+        },
+        "9611780207": {
+            "clients": 7,
+            "avg_rssi": -55.2,
+            "avg_snr": 35.8,
+            "avg_rx_rate": 624.9,
+            "avg_tx_rate": 690.2
+        },
+        "9608586858": {
+            "clients": 1,
+            "avg_rssi": -58.0,
+            "avg_snr": 31.3,
+            "avg_rx_rate": 738.7,
+            "avg_tx_rate": 598.3
+        },
+        "9612221753": {
+            "clients": 6,
+            "avg_rssi": -70.1,
+            "avg_snr": 20.1,
+            "avg_rx_rate": 365.6,
+            "avg_tx_rate": 357.6
+        },
+        "9612102286": {
+            "clients": 2,
+            "avg_rssi": -54.8,
+            "avg_snr": 34.2,
+            "avg_rx_rate": 400.8,
+            "avg_tx_rate": 387.0
+        },
+        "9609314929": {
+            "clients": 3,
+            "avg_rssi": -61.0,
+            "avg_snr": 25.2,
+            "avg_rx_rate": 343.3,
+            "avg_tx_rate": 475.8
+        },
+        "9608131827": {
+            "clients": 3,
+            "avg_rssi": -45.7,
+            "avg_snr": 42.9,
+            "avg_rx_rate": 450.8,
+            "avg_tx_rate": 532.5
+        },
+        "9612167171": {
+            "clients": 2,
+            "avg_rssi": -36.0,
+            "avg_snr": 52.0,
+            "avg_rx_rate": 667.0,
+            "avg_tx_rate": 792.0
+        },
+        "9611758900": {
+            "clients": 1,
+            "avg_rssi": -69.5,
+            "avg_snr": 11.5,
+            "avg_rx_rate": 428.5,
+            "avg_tx_rate": 551.0
+        },
+        "9612440410": {
+            "clients": 2,
+            "avg_rssi": -52.0,
+            "avg_snr": 35.3,
+            "avg_rx_rate": 1248.7,
+            "avg_tx_rate": 1184.0
+        },
+        "9600061722": {
+            "clients": 1,
+            "avg_rssi": -54.0,
+            "avg_snr": 36.0,
+            "avg_rx_rate": 433.0,
+            "avg_tx_rate": 180.0
+        },
+        "9607600368": {
+            "clients": 2,
+            "avg_rssi": -36.7,
+            "avg_snr": 53.3,
+            "avg_rx_rate": 539.2,
+            "avg_tx_rate": 661.0
+        },
+        "9611610231": {
+            "clients": 1,
+            "avg_rssi": -65.5,
+            "avg_snr": 25.0,
+            "avg_rx_rate": 520.5,
+            "avg_tx_rate": 560.0
+        },
+        "9609029907": {
+            "clients": 1,
+            "avg_rssi": -52.0,
+            "avg_snr": 37.0,
+            "avg_rx_rate": 960.0,
+            "avg_tx_rate": 816.0
+        },
+        "9608530256": {
+            "clients": 1,
+            "avg_rssi": -37.5,
+            "avg_snr": 52.0,
+            "avg_rx_rate": 6.0,
+            "avg_tx_rate": 1885.0
+        },
+        "9611882708": {
+            "clients": 3,
+            "avg_rssi": -60.6,
+            "avg_snr": 28.4,
+            "avg_rx_rate": 502.2,
+            "avg_tx_rate": 351.2
+        },
+        "9612461992": {
+            "clients": 5,
+            "avg_rssi": -58.6,
+            "avg_snr": 29.6,
+            "avg_rx_rate": 722.9,
+            "avg_tx_rate": 580.7
+        },
+        "9612495627": {
+            "clients": 3,
+            "avg_rssi": -52.3,
+            "avg_snr": 34.2,
+            "avg_rx_rate": 249.1,
+            "avg_tx_rate": 311.2
+        },
+        "9612446147": {
+            "clients": 1,
+            "avg_rssi": -59.0,
+            "avg_snr": 30.3,
+            "avg_rx_rate": 693.3,
+            "avg_tx_rate": 559.3
+        },
+        "9612511765": {
+            "clients": 10,
+            "avg_rssi": -54.0,
+            "avg_snr": 32.3,
+            "avg_rx_rate": 671.7,
+            "avg_tx_rate": 664.6
+        },
+        "9604082661": {
+            "clients": 5,
+            "avg_rssi": -68.3,
+            "avg_snr": 21.2,
+            "avg_rx_rate": 414.9,
+            "avg_tx_rate": 372.6
+        },
+        "9607824473": {
+            "clients": 1,
+            "avg_rssi": -67.0,
+            "avg_snr": 23.0,
+            "avg_rx_rate": 612.3,
+            "avg_tx_rate": 530.7
+        },
+        "9609186816": {
+            "clients": 2,
+            "avg_rssi": -58.9,
+            "avg_snr": 29.8,
+            "avg_rx_rate": 788.4,
+            "avg_tx_rate": 645.9
+        },
+        "9607141548": {
+            "clients": 2,
+            "avg_rssi": -63.3,
+            "avg_snr": 26.1,
+            "avg_rx_rate": 994.5,
+            "avg_tx_rate": 697.1
+        },
+        "9604429773": {
+            "clients": 2,
+            "avg_rssi": -58.5,
+            "avg_snr": 30.0,
+            "avg_rx_rate": 974.5,
+            "avg_tx_rate": 1000.2
+        },
+        "9611773408": {
+            "clients": 3,
+            "avg_rssi": -67.0,
+            "avg_snr": 23.4,
+            "avg_rx_rate": 570.6,
+            "avg_tx_rate": 453.6
+        },
+        "9608017488": {
+            "clients": 1,
+            "avg_rssi": -85.0,
+            "avg_snr": 3.0,
+            "avg_rx_rate": 6.0,
+            "avg_tx_rate": 122.0
+        },
+        "9612102545": {
+            "clients": 1,
+            "avg_rssi": -61.0,
+            "avg_snr": 27.0,
+            "avg_rx_rate": 175.0,
+            "avg_tx_rate": 292.0
+        },
+        "9612326870": {
+            "clients": 2,
+            "avg_rssi": -62.8,
+            "avg_snr": 26.6,
+            "avg_rx_rate": 452.9,
+            "avg_tx_rate": 321.1
+        },
+        "9609392700": {
+            "clients": 1,
+            "avg_rssi": -52.0,
+            "avg_snr": 38.0,
+            "avg_rx_rate": 6.0,
+            "avg_tx_rate": 1361.0
+        },
+        "9612077632": {
+            "clients": 2,
+            "avg_rssi": -69.2,
+            "avg_snr": 19.8,
+            "avg_rx_rate": 542.4,
+            "avg_tx_rate": 514.0
+        },
+        "9611795242": {
+            "clients": 1,
+            "avg_rssi": -64.0,
+            "avg_snr": 25.0,
+            "avg_rx_rate": 816.0,
+            "avg_tx_rate": 735.0
+        },
+        "9611955608": {
+            "clients": 1,
+            "avg_rssi": -57.5,
+            "avg_snr": 32.0,
+            "avg_rx_rate": 392.0,
+            "avg_tx_rate": 351.0
+        },
+        "9612492581": {
+            "clients": 3,
+            "avg_rssi": -65.1,
+            "avg_snr": 24.9,
+            "avg_rx_rate": 542.1,
+            "avg_tx_rate": 781.2
+        },
+        "9612226288": {
+            "clients": 5,
+            "avg_rssi": -58.9,
+            "avg_snr": 27.9,
+            "avg_rx_rate": 955.8,
+            "avg_tx_rate": 868.0
+        },
+        "9607705313": {
+            "clients": 3,
+            "avg_rssi": -43.6,
+            "avg_snr": 42.0,
+            "avg_rx_rate": 1313.6,
+            "avg_tx_rate": 1275.2
+        },
+        "9609064140": {
+            "clients": 2,
+            "avg_rssi": -60.9,
+            "avg_snr": 27.5,
+            "avg_rx_rate": 316.4,
+            "avg_tx_rate": 303.1
+        },
+        "9612516511": {
+            "clients": 1,
+            "avg_rssi": -64.5,
+            "avg_snr": 25.0,
+            "avg_rx_rate": 72.0,
+            "avg_tx_rate": 65.0
+        },
+        "9607777838": {
+            "clients": 4,
+            "avg_rssi": -60.2,
+            "avg_snr": 29.8,
+            "avg_rx_rate": 584.2,
+            "avg_tx_rate": 475.5
+        },
+        "9600487179": {
+            "clients": 7,
+            "avg_rssi": -58.3,
+            "avg_snr": 31.7,
+            "avg_rx_rate": 780.2,
+            "avg_tx_rate": 650.0
+        },
+        "9612375958": {
+            "clients": 2,
+            "avg_rssi": -43.2,
+            "avg_snr": 45.6,
+            "avg_rx_rate": 637.8,
+            "avg_tx_rate": 684.6
+        },
+        "9612462064": {
+            "clients": 2,
+            "avg_rssi": -64.7,
+            "avg_snr": 24.5,
+            "avg_rx_rate": 506.3,
+            "avg_tx_rate": 402.8
+        },
+        "9612402756": {
+            "clients": 1,
+            "avg_rssi": -78.6,
+            "avg_snr": 11.2,
+            "avg_rx_rate": 316.0,
+            "avg_tx_rate": 258.6
+        },
+        "9612427348": {
+            "clients": 1,
+            "avg_rssi": -60.8,
+            "avg_snr": 27.8,
+            "avg_rx_rate": 1008.4,
+            "avg_tx_rate": 863.8
+        },
+        "9608967243": {
+            "clients": 2,
+            "avg_rssi": -46.8,
+            "avg_snr": 41.8,
+            "avg_rx_rate": 1016.8,
+            "avg_tx_rate": 822.2
+        },
+        "9608277514": {
+            "clients": 2,
+            "avg_rssi": -37.2,
+            "avg_snr": 53.2,
+            "avg_rx_rate": 803.5,
+            "avg_tx_rate": 614.2
+        },
+        "9612342001": {
+            "clients": 2,
+            "avg_rssi": -52.0,
+            "avg_snr": 37.0,
+            "avg_rx_rate": 1442.0,
+            "avg_tx_rate": 1193.6
+        },
+        "9608898620": {
+            "clients": 2,
+            "avg_rssi": -67.3,
+            "avg_snr": 24.0,
+            "avg_rx_rate": 46.7,
+            "avg_tx_rate": 622.0
+        },
+        "9612421653": {
+            "clients": 4,
+            "avg_rssi": -48.5,
+            "avg_snr": 39.0,
+            "avg_rx_rate": 345.0,
+            "avg_tx_rate": 710.0
+        },
+        "9612004109": {
+            "clients": 2,
+            "avg_rssi": -73.3,
+            "avg_snr": 16.1,
+            "avg_rx_rate": 231.0,
+            "avg_tx_rate": 126.7
+        },
+        "9612276083": {
+            "clients": 1,
+            "avg_rssi": -36.3,
+            "avg_snr": 55.1,
+            "avg_rx_rate": 1167.5,
+            "avg_tx_rate": 1031.4
+        },
+        "9612165831": {
+            "clients": 1,
+            "avg_rssi": -53.7,
+            "avg_snr": 33.0,
+            "avg_rx_rate": 1018.9,
+            "avg_tx_rate": 803.7
+        },
+        "9611771128": {
+            "clients": 3,
+            "avg_rssi": -60.7,
+            "avg_snr": 28.3,
+            "avg_rx_rate": 708.0,
+            "avg_tx_rate": 612.3
+        },
+        "9612054299": {
+            "clients": 1,
+            "avg_rssi": -51.0,
+            "avg_snr": 38.3,
+            "avg_rx_rate": 6.0,
+            "avg_tx_rate": 816.0
+        },
+        "9611989988": {
+            "clients": 1,
+            "avg_rssi": -64.0,
+            "avg_snr": 25.0,
+            "avg_rx_rate": 243.5,
+            "avg_tx_rate": 154.0
+        },
+        "9609024898": {
+            "clients": 1,
+            "avg_rssi": -68.3,
+            "avg_snr": 21.7,
+            "avg_rx_rate": 864.0,
+            "avg_tx_rate": 421.7
+        },
+        "9612096977": {
+            "clients": 4,
+            "avg_rssi": -51.9,
+            "avg_snr": 39.1,
+            "avg_rx_rate": 847.3,
+            "avg_tx_rate": 713.6
+        },
+        "9612213318": {
+            "clients": 1,
+            "avg_rssi": -83.0,
+            "avg_snr": 5.0,
+            "avg_rx_rate": 49.0,
+            "avg_tx_rate": 92.0
+        },
+        "9612281214": {
+            "clients": 3,
+            "avg_rssi": -56.7,
+            "avg_snr": 32.8,
+            "avg_rx_rate": 1293.0,
+            "avg_tx_rate": 1311.8
+        },
+        "9609292825": {
+            "clients": 1,
+            "avg_rssi": -36.5,
+            "avg_snr": 53.0,
+            "avg_rx_rate": 780.0,
+            "avg_tx_rate": 866.0
+        },
+        "9609180822": {
+            "clients": 4,
+            "avg_rssi": -54.2,
+            "avg_snr": 35.8,
+            "avg_rx_rate": 406.3,
+            "avg_tx_rate": 329.1
+        },
+        "9612087155": {
+            "clients": 3,
+            "avg_rssi": -39.8,
+            "avg_snr": 49.2,
+            "avg_rx_rate": 1389.3,
+            "avg_tx_rate": 1215.8
+        },
+        "9612238279": {
+            "clients": 1,
+            "avg_rssi": -84.0,
+            "avg_snr": 6.0,
+            "avg_rx_rate": 8.0,
+            "avg_tx_rate": 14.0
+        },
+        "9611268181": {
+            "clients": 2,
+            "avg_rssi": -40.0,
+            "avg_snr": 33.0,
+            "avg_rx_rate": 1106.5,
+            "avg_tx_rate": 849.0
+        },
+        "9607441412": {
+            "clients": 2,
+            "avg_rssi": -52.0,
+            "avg_snr": 36.5,
+            "avg_rx_rate": 1173.5,
+            "avg_tx_rate": 1129.8
+        },
+        "9605948885": {
+            "clients": 10,
+            "avg_rssi": -53.6,
+            "avg_snr": 38.4,
+            "avg_rx_rate": 166.0,
+            "avg_tx_rate": 367.1
+        },
+        "9611932023": {
+            "clients": 6,
+            "avg_rssi": -54.5,
+            "avg_snr": 35.2,
+            "avg_rx_rate": 1074.4,
+            "avg_tx_rate": 844.9
+        },
+        "9612120550": {
+            "clients": 1,
+            "avg_rssi": -85.0,
+            "avg_snr": 5.0,
+            "avg_rx_rate": 152.5,
+            "avg_tx_rate": 36.0
+        },
+        "9607943210": {
+            "clients": 2,
+            "avg_rssi": -63.0,
+            "avg_snr": 27.0,
+            "avg_rx_rate": 358.0,
+            "avg_tx_rate": 426.0
+        },
+        "9612394097": {
+            "clients": 2,
+            "avg_rssi": -83.0,
+            "avg_snr": 7.6,
+            "avg_rx_rate": 115.8,
+            "avg_tx_rate": 111.2
+        },
+        "9608119766": {
+            "clients": 2,
+            "avg_rssi": -69.5,
+            "avg_snr": 20.5,
+            "avg_rx_rate": 684.0,
+            "avg_tx_rate": 943.5
+        },
+        "9600244925": {
+            "clients": 5,
+            "avg_rssi": -52.2,
+            "avg_snr": 36.2,
+            "avg_rx_rate": 491.6,
+            "avg_tx_rate": 584.1
+        },
+        "9612453383": {
+            "clients": 1,
+            "avg_rssi": -51.1,
+            "avg_snr": 38.6,
+            "avg_rx_rate": 412.9,
+            "avg_tx_rate": 445.4
+        },
+        "9612073134": {
+            "clients": 2,
+            "avg_rssi": -39.7,
+            "avg_snr": 49.3,
+            "avg_rx_rate": 1270.6,
+            "avg_tx_rate": 1001.3
+        },
+        "9609240282": {
+            "clients": 1,
+            "avg_rssi": -48.0,
+            "avg_snr": 41.0,
+            "avg_rx_rate": 720.0,
+            "avg_tx_rate": 864.0
+        },
+        "9609278794": {
+            "clients": 5,
+            "avg_rssi": -56.8,
+            "avg_snr": 33.0,
+            "avg_rx_rate": 885.3,
+            "avg_tx_rate": 803.6
+        },
+        "9607778391": {
+            "clients": 8,
+            "avg_rssi": -70.5,
+            "avg_snr": 19.9,
+            "avg_rx_rate": 577.4,
+            "avg_tx_rate": 568.6
+        }
+    }
+}
