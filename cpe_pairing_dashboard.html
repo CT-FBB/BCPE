@@ -582,6 +582,45 @@
             padding: 30px !important;
             font-style: italic;
         }
+    
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1e293b;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+            z-index: 10000;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 50px;
+            left: 0;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: #94a3b8;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            height: auto;
+            border-radius: 0;
+            border: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .dropdown-content a:hover {
+            background-color: rgba(255,255,255,0.05);
+            color: #f8fafc;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
     </style>
 </head>
 <body>
@@ -592,7 +631,15 @@
         <div class="topnav-links">
             <a href="index.html">Device (ACS)</a>
             <a href="onu_model_dashboard.html" id="nav-onumodel">ONU (QRUN)</a>
-            <a href="cpe_pairing_dashboard.html" class="active" id="nav-cpepairing">CPE Pairing (ACS)</a>
+            <a href="cpe_pairing_dashboard.html" id="nav-cpepairing" class="active">CPE Pairing (ACS)</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn" id="nav-deviceperform">Device Perform ▾</a>
+                <div class="dropdown-content">
+                    <a href="v163_wifi_dashboard.html">Wi-Fi (V163)</a>
+                    <a href="t625pro_wifi_dashboard.html">Wi-Fi (T625Pro)</a>
+                    <a href="t7281_wifi_dashboard.html">Wi-Fi (T7281)</a>
+                </div>
+            </div>
         </div>
         <div class="topnav-right"></div>
     </nav>

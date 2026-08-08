@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V163 Wi-Fi Expert Analysis Dashboard</title>
+    <title>T625Pro Wi-Fi Expert Analysis Dashboard</title>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Tailwind CSS -->
@@ -182,15 +182,15 @@
         <!-- Header -->
         <div class="flex items-center justify-between mb-8">
             <div>
-                <h1 class="text-3xl font-bold tracking-tight text-white">V163 Wi-Fi Expert Analysis</h1>
-                <p class="text-slate-400 mt-2">Preliminary Dashboard generated from V163_data JSONL Snapshots</p>
+                <h1 class="text-3xl font-bold tracking-tight text-white">T625Pro Wi-Fi Expert Analysis</h1>
+                <p class="text-slate-400 mt-2">Preliminary Dashboard generated from T625Pro_data JSONL Snapshots</p>
             </div>
         </div>
 
         <!-- KPI Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div class="card border-t-4 border-sky-500">
-                <h3 class="text-slate-400 text-sm font-medium">Total ONUs (V163)</h3>
+                <h3 class="text-slate-400 text-sm font-medium">Total ONUs (T625Pro)</h3>
                 <p id="kpiTotalOnus" class="text-4xl font-bold mt-2 text-sky-400">-</p>
             </div>
             <div class="card border-t-4 border-indigo-500">
@@ -283,10 +283,10 @@
 
         async function loadData() {
             try {
-                const sumRes = await fetch('v163_wifi_data.json');
+                const sumRes = await fetch('t625pro_wifi_data.json');
                 summaryData = await sumRes.json();
                 
-                const expRes = await fetch('v163_expert_data.json');
+                const expRes = await fetch('t625pro_expert_data.json');
                 expertData = await expRes.json();
 
                 // Update KPIs
