@@ -124,5 +124,23 @@
     "t626prov2_total": 880364,
     "swap_in_from_base": 269622,
     "swap_out_from_base": 267428
+  },
+  {
+    "date": "2026-08-08",
+    "t626prov2_total": 881741,
+    "swap_in_from_base": 271639,
+    "swap_out_from_base": 268068
+  },
+  {
+    "date": "2026-08-09",
+    "t626prov2_total": 883641,
+    "swap_in_from_base": 273736,
+    "swap_out_from_base": 268265
+  },
+  {
+    "date": "2026-08-10",
+    "t626prov2_total": 885470,
+    "swap_in_from_base": 275751,
+    "swap_out_from_base": 268451
   }
 ]
