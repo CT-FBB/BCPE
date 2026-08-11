@@ -1,7 +1,7 @@
 {
-  "total_hg8247w": 129935,
+  "total_hg8247w": 129858,
   "total_hg8247w_base": 132353,
-  "net_change": -61,
+  "net_change": -77,
   "new_installs": 0,
   "data_correction": 35129,
   "swap_from_other": 172,
@@ -27,16 +27,16 @@
       "count": 6
     }
   ],
-  "removed_hg8247w": 43190,
-  "latest_date": "2026-08-10",
+  "removed_hg8247w": 43274,
+  "latest_date": "2026-08-11",
   "baseline_date": "2026-07-15",
   "by_region": {
-    "BMA": 61961,
-    "Other": 40213,
-    "North": 11084,
-    "Central": 7860,
-    "Northeast": 7197,
-    "South": 1620
+    "BMA": 61927,
+    "Other": 40184,
+    "North": 11080,
+    "Central": 7855,
+    "Northeast": 7193,
+    "South": 1619
   },
   "by_variant": {
     "HG8247W5": 8186,
@@ -125,916 +125,6 @@
     }
   ],
   "change_rows": [
-    {
-      "AccessId": "2203960097",
-      "homepassID": "9609244483",
-      "New_Serial": "48575443688FAAA2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003994922",
-      "homepassID": "9607793510",
-      "New_Serial": "485754438DA32DA0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2107126626",
-      "homepassID": "9609529028",
-      "New_Serial": "48575443E5D6929F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2210789023",
-      "homepassID": "9609793027",
-      "New_Serial": "485754434224889F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005462649",
-      "homepassID": "9608218316",
-      "New_Serial": "485754430AB5ECA2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2402082400",
-      "homepassID": "9611251255",
-      "New_Serial": "48575443ACA518A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009040495",
-      "homepassID": "9607218005",
-      "New_Serial": "48575443686C4BA2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "880234634",
-      "homepassID": "9602346340",
-      "New_Serial": "48575443BAB6F5A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1906575501",
-      "homepassID": "9606924529",
-      "New_Serial": "485754430A7C8BA2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003068256",
-      "homepassID": "9607847247",
-      "New_Serial": "485754439558C5A0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2006636184",
-      "homepassID": "9608369898",
-      "New_Serial": "4857544329D96FA4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2103749529",
-      "homepassID": "9609262203",
-      "New_Serial": "48575443F13B53A4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2007825270",
-      "homepassID": "9608529933",
-      "New_Serial": "4857544394D3C9A0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2210775386",
-      "homepassID": "9610536310",
-      "New_Serial": "48575443E5BF6F9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005374151",
-      "homepassID": "9608127456",
-      "New_Serial": "485754430A8D4FA2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2007759595",
-      "homepassID": "9608474667",
-      "New_Serial": "48575443E5E2FB9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1907667647",
-      "homepassID": "9606268342",
-      "New_Serial": "48575443A51B8EA3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005356528",
-      "homepassID": "9608114912",
-      "New_Serial": "485754430A9688A2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2208568365",
-      "homepassID": "9604307223",
-      "New_Serial": "48575443FC8E049F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2012411185",
-      "homepassID": "9608978079",
-      "New_Serial": "48575443BA9603A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2101528382",
-      "homepassID": "9609074553",
-      "New_Serial": "48575443A5490DA3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005438694",
-      "homepassID": "9608179186",
-      "New_Serial": "485754430BB411A1",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2010264939",
-      "homepassID": "9608872758",
-      "New_Serial": "485754430BCD48A1",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2401028198",
-      "homepassID": "9610745474",
-      "New_Serial": "48575443421CB39F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2309753689",
-      "homepassID": "9605486470",
-      "New_Serial": "48575443F134B4A4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2011340054",
-      "homepassID": "9600372475",
-      "New_Serial": "48575443BA8839A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2002819273",
-      "homepassID": "9606770676",
-      "New_Serial": "48575443E5D2ED9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003099864",
-      "homepassID": "9607886167",
-      "New_Serial": "4857544394FA47A0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003966977",
-      "homepassID": "9607769478",
-      "New_Serial": "48575443957E55A0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2103736469",
-      "homepassID": "9609251115",
-      "New_Serial": "485754432554F8A4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003092143",
-      "homepassID": "9607869955",
-      "New_Serial": "4857544394E37CA0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005479263",
-      "homepassID": "9608191429",
-      "New_Serial": "485754430A61FCA2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2309762939",
-      "homepassID": "9609761974",
-      "New_Serial": "48575443FD1A3C9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2104828854",
-      "homepassID": "9609320927",
-      "New_Serial": "48575443F14CE2A4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2006687754",
-      "homepassID": "9608414224",
-      "New_Serial": "48575443139C5CA4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2103782808",
-      "homepassID": "9607896909",
-      "New_Serial": "48575443C38F48A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2004279908",
-      "homepassID": "9608045692",
-      "New_Serial": "485754430B972DA1",
-      "Old_Serial": "9901174125136",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "IGD",
-      "Type": "Swap In",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2001608086",
-      "homepassID": "9607462710",
-      "New_Serial": "48575443E64DC89F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2110428358",
-      "homepassID": "9609765780",
-      "New_Serial": "48575443AC9CD9A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1909999525",
-      "homepassID": "9607248020",
-      "New_Serial": "485754430AB9C9A2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2002932262",
-      "homepassID": "9607740776",
-      "New_Serial": "48575443FC88ED9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2001777609",
-      "homepassID": "9607607185",
-      "New_Serial": "48575443E63B079F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2010276984",
-      "homepassID": "9608883955",
-      "New_Serial": "48575443A5443CA3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003076686",
-      "homepassID": "9607849259",
-      "New_Serial": "48575443E63DA09F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2010202642",
-      "homepassID": "9607378695",
-      "New_Serial": "48575443A537B0A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005425356",
-      "homepassID": "9605964370",
-      "New_Serial": "485754430A63A3A2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2012395160",
-      "homepassID": "9600466214",
-      "New_Serial": "48575443C38FEDA3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2103719642",
-      "homepassID": "9609237365",
-      "New_Serial": "48575443F133DFA4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009137935",
-      "homepassID": "9607305010",
-      "New_Serial": "48575443A527C5A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2006561125",
-      "homepassID": "9608303609",
-      "New_Serial": "485754430A5167A2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003991395",
-      "homepassID": "9607779153",
-      "New_Serial": "48575443E5B2499F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2210740607",
-      "homepassID": "9610510518",
-      "New_Serial": "48575443256FC9A4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2006659684",
-      "homepassID": "9608390258",
-      "New_Serial": "485754438A516A9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2307552615",
-      "homepassID": "9609534193",
-      "New_Serial": "48575443689FC5A2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005418211",
-      "homepassID": "9608173654",
-      "New_Serial": "48575443FC68C49F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2101546689",
-      "homepassID": "9609089585",
-      "New_Serial": "485754430E2356A4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2310797629",
-      "homepassID": "9611104163",
-      "New_Serial": "48575443BA9FA4A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2101565759",
-      "homepassID": "9609105623",
-      "New_Serial": "4857544325613AA4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2104836740",
-      "homepassID": "9609328042",
-      "New_Serial": "485754430A9E31A2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2011357044",
-      "homepassID": "9608943198",
-      "New_Serial": "48575443BA9DE6A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2210756929",
-      "homepassID": "9604575034",
-      "New_Serial": "48575443BAA4DBA3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2010167466",
-      "homepassID": "9608800351",
-      "New_Serial": "48575443A51ED4A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2006612571",
-      "homepassID": "9608348730",
-      "New_Serial": "48575443E5E13F9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2002822964",
-      "homepassID": "9607646610",
-      "New_Serial": "48575443E7657BA0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2203000754",
-      "homepassID": "9610149413",
-      "New_Serial": "48575443BABC7FA3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2104861120",
-      "homepassID": "9608058026",
-      "New_Serial": "485754436321EBA5",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2001751976",
-      "homepassID": "9606741580",
-      "New_Serial": "48575443FC71E89F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2001671711",
-      "homepassID": "9607494422",
-      "New_Serial": "48575443E619F39F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005326325",
-      "homepassID": "9608090972",
-      "New_Serial": "485754430A49EDA2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2004216183",
-      "homepassID": "9607992648",
-      "New_Serial": "48575443FD1C019F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2304332470",
-      "homepassID": "9600056351",
-      "New_Serial": "485754430A90DEA1",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005456613",
-      "homepassID": "9608213020",
-      "New_Serial": "485754430A34B2A2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2102660830",
-      "homepassID": "9609186395",
-      "New_Serial": "4857544329DC2BA4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003125262",
-      "homepassID": "9607828371",
-      "New_Serial": "485754430A989FA2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2312922102",
-      "homepassID": "9611166829",
-      "New_Serial": "48575443166A70A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1905533084",
-      "homepassID": "9606894013",
-      "New_Serial": "48575443C38CBFA3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2210849547",
-      "homepassID": "9610585635",
-      "New_Serial": "485754435392BC9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2004271974",
-      "homepassID": "9608032556",
-      "New_Serial": "485754430A83DDA1",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2004162631",
-      "homepassID": "9607941290",
-      "New_Serial": "48575443E76843A0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2110497112",
-      "homepassID": "9604581729",
-      "New_Serial": "48575443BA9289A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003051346",
-      "homepassID": "9607843396",
-      "New_Serial": "4857544395797AA0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005505024",
-      "homepassID": "9608255233",
-      "New_Serial": "485754430BB862A1",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1906633237",
-      "homepassID": "9606950590",
-      "New_Serial": "485754436889B9A2",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003129026",
-      "homepassID": "9607909625",
-      "New_Serial": "48575443E75DD7A0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2004179507",
-      "homepassID": "9607956573",
-      "New_Serial": "48575443E7476FA0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2104812564",
-      "homepassID": "9609310021",
-      "New_Serial": "48575443F1358EA4",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009138510",
-      "homepassID": "9608778508",
-      "New_Serial": "4857544316887CA3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1908818659",
-      "homepassID": "9607093747",
-      "New_Serial": "48575443C83299A3",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2004148844",
-      "homepassID": "9607928701",
-      "New_Serial": "48575443954497A0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2105968826",
-      "homepassID": "9609412451",
-      "New_Serial": "48575443E64F4E9F",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003049947",
-      "homepassID": "9607835536",
-      "New_Serial": "4857544395097BA0",
-      "Old_Serial": "",
-      "To_Model": "HG8247W5-6T",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
     {
       "AccessId": "2004285521",
       "homepassID": "9608051769",
@@ -20124,8 +19214,918 @@
       "From_Model": "HG8247W5-6T",
       "Type": "Disconnect/Remove",
       "Date": "2026-08-09"
+    },
+    {
+      "AccessId": "2004140738",
+      "homepassID": "9607921049",
+      "New_Serial": "T3TH1701BEF0",
+      "Old_Serial": "48575443E7544BA0",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2105906941",
+      "homepassID": "9608125632",
+      "New_Serial": "T3THB413C9BC",
+      "Old_Serial": "48575443A566FEA3",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005328726",
+      "homepassID": "9608092844",
+      "New_Serial": "T3TH1703BF80",
+      "Old_Serial": "485754430AACA9A1",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2101539581",
+      "homepassID": "9609081622",
+      "New_Serial": "48575443C832D7A3",
+      "Old_Serial": "",
+      "To_Model": "HG8247W5-6T",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2310777294",
+      "homepassID": "9611094927",
+      "New_Serial": "T3TH17046FE0",
+      "Old_Serial": "4857544329ECC6A4",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2012483642",
+      "homepassID": "9609041606",
+      "New_Serial": "T3THB40F2984",
+      "Old_Serial": "4857544329EF37A4",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1810837977",
+      "homepassID": "9606482861",
+      "New_Serial": "T3TH170331E0",
+      "Old_Serial": "485754432241B19F",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2104811596",
+      "homepassID": "9600159082",
+      "New_Serial": "T3THB63669E0",
+      "Old_Serial": "48575443F12E0EA4",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2112716092",
+      "homepassID": "9609044423",
+      "New_Serial": "T3THB635C470",
+      "Old_Serial": "485754430F756DA4",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2011336534",
+      "homepassID": "9608928273",
+      "New_Serial": "48575443A52C23A3",
+      "Old_Serial": "",
+      "To_Model": "HG8247W5-6T",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2404258803",
+      "homepassID": "9610899997",
+      "New_Serial": "T3THB62538A8",
+      "Old_Serial": "485754434223D19F",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2002866756",
+      "homepassID": "9607684393",
+      "New_Serial": "T3THB62BFB78",
+      "Old_Serial": "48575443E5CED09F",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004174561",
+      "homepassID": "9607937043",
+      "New_Serial": "SKYW5D319BA8",
+      "Old_Serial": "485754430A6EDCA1",
+      "To_Model": "GN542VF",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2009132140",
+      "homepassID": "9608773449",
+      "New_Serial": "T3THB411F8A4",
+      "Old_Serial": "4857544316864FA3",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1609449355",
+      "homepassID": "9604492028",
+      "New_Serial": "T3TH17046F50",
+      "Old_Serial": "485754430A7E1FA1",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1808613164",
+      "homepassID": "9606341208",
+      "New_Serial": "T3THB6378928",
+      "Old_Serial": "485754430BCB8BA1",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2009106739",
+      "homepassID": "9608743750",
+      "New_Serial": "HWTC03CB3FA7",
+      "Old_Serial": "4857544316770BA3",
+      "To_Model": "T623L",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2001723926",
+      "homepassID": "9607562100",
+      "New_Serial": "HWTCBEF3C6A8",
+      "Old_Serial": "48575443E627389F",
+      "To_Model": "T623L",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1807517903",
+      "homepassID": "9606242180",
+      "New_Serial": "T3TH17059C90",
+      "Old_Serial": "485754430A7150A1",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2001728462",
+      "homepassID": "9607553320",
+      "New_Serial": "HWTC0C6CD3AB",
+      "Old_Serial": "48575443E64FFC9F",
+      "To_Model": "T623L",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2104831023",
+      "homepassID": "9600168084",
+      "New_Serial": "T3THB6272D80",
+      "Old_Serial": "48575443F13B99A4",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1810797925",
+      "homepassID": "9606447809",
+      "New_Serial": "T3TH170642B0",
+      "Old_Serial": "485754430AA939A1",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005408767",
+      "homepassID": "9608157992",
+      "New_Serial": "HWTC90F7C1AD",
+      "Old_Serial": "4857544309DDFAA2",
+      "To_Model": "T623L",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1603079678",
+      "homepassID": "9604078983",
+      "New_Serial": "T3THA392C2FA",
+      "Old_Serial": "48575443538DC29F",
+      "To_Model": "T627Pro",
+      "From_Model": "HG8247W5",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004143242",
+      "homepassID": "9607923777",
+      "New_Serial": "T3TH17069860",
+      "Old_Serial": "48575443E5BDE39F",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004243275",
+      "homepassID": "9608016809",
+      "New_Serial": "ZTEGD36B7691",
+      "Old_Serial": "48575443FD20619F",
+      "To_Model": "F6600P",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2210748723",
+      "homepassID": "9604419535",
+      "New_Serial": "T3THB40FFED4",
+      "Old_Serial": "485754430AA1F1A2",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1901088097",
+      "homepassID": "9606688295",
+      "New_Serial": "T3TH170598D0",
+      "Old_Serial": "48575443E639799F",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2201785859",
+      "homepassID": "9604701429",
+      "New_Serial": "T3THB6248C30",
+      "Old_Serial": "48575443AE078AA3",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005346485",
+      "homepassID": "9608101096",
+      "New_Serial": "T3THB63827A0",
+      "Old_Serial": "4857544309F34AA2",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005446729",
+      "homepassID": "9608203481",
+      "New_Serial": "HWTC0391B7A7",
+      "Old_Serial": "485754430A6AD3A2",
+      "To_Model": "T623L",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2003111626",
+      "homepassID": "9607896608",
+      "New_Serial": "T3THB632EB98",
+      "Old_Serial": "48575443E5C7429F",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005343859",
+      "homepassID": "9608098902",
+      "New_Serial": "T3THB40F6034",
+      "Old_Serial": "4857544309F2D6A2",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "880278605",
+      "homepassID": "9602786050",
+      "New_Serial": "T3THB62F2080",
+      "Old_Serial": "48575443E647299F",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2201824612",
+      "homepassID": "9610048713",
+      "New_Serial": "HWTC3C12E1A8",
+      "Old_Serial": "48575443AC94C4A3",
+      "To_Model": "T623L",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1906587544",
+      "homepassID": "9606932823",
+      "New_Serial": "T3TH1701D1E0",
+      "Old_Serial": "48575443E5B4A19F",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2001776328",
+      "homepassID": "9607605891",
+      "New_Serial": "T3THB6248650",
+      "Old_Serial": "48575443FC7FC09F",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1603083062",
+      "homepassID": "9604083059",
+      "New_Serial": "48575443C38150A3",
+      "Old_Serial": "",
+      "To_Model": "HG8247W5-6T",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2102669837",
+      "homepassID": "9607739550",
+      "New_Serial": "T3THA3931FFA",
+      "Old_Serial": "485754432569ADA4",
+      "To_Model": "T627Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2402114372",
+      "homepassID": "9611265746",
+      "New_Serial": "48575443ADF105A3",
+      "Old_Serial": "",
+      "To_Model": "HG8247W5-6T",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1912449936",
+      "homepassID": "9600462180",
+      "New_Serial": "T3THB62E47E8",
+      "Old_Serial": "48575443E5E3959F",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2011338235",
+      "homepassID": "9608930025",
+      "New_Serial": "T3THB6238C60",
+      "Old_Serial": "485754432559A4A4",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005369052",
+      "homepassID": "9608128517",
+      "New_Serial": "T3THB40D7C6C",
+      "Old_Serial": "485754430BA831A1",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2404227092",
+      "homepassID": "9611303741",
+      "New_Serial": "T3TH17040970",
+      "Old_Serial": "48575443224BA89F",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2104887367",
+      "homepassID": "9609358611",
+      "New_Serial": "T3THB4126ABC",
+      "Old_Serial": "485754436328AEA5",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004217709",
+      "homepassID": "9607990584",
+      "New_Serial": "T3TH17021790",
+      "Old_Serial": "485754430B8C1AA1",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1804299746",
+      "homepassID": "9605907715",
+      "New_Serial": "T3TH1703F6A0",
+      "Old_Serial": "485754430A555FA2",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1902169465",
+      "homepassID": "9606754784",
+      "New_Serial": "T3THB421FA4C",
+      "Old_Serial": "485754430BC3D2A1",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004152136",
+      "homepassID": "9607886417",
+      "New_Serial": "48575443E658549F",
+      "Old_Serial": "",
+      "To_Model": "HG8247W5-6T",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1903302094",
+      "homepassID": "9605853759",
+      "New_Serial": "T3THB412C3C4",
+      "Old_Serial": "48575443E5DCDC9F",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2008931362",
+      "homepassID": "9608615420",
+      "New_Serial": "FHTTC1DD3785",
+      "Old_Serial": "48575443E764F2A0",
+      "To_Model": "HG6145F4",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2003136671",
+      "homepassID": "9607917595",
+      "New_Serial": "T3THB4147FDC",
+      "Old_Serial": "48575443E76F6DA0",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2008917042",
+      "homepassID": "9607123052",
+      "New_Serial": "T3THB62EA920",
+      "Old_Serial": "485754430A3E4DA2",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1703083813",
+      "homepassID": "9605112434",
+      "New_Serial": "T3THB411A4D4",
+      "Old_Serial": "48575443AE001CA3",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004165888",
+      "homepassID": "9607919951",
+      "New_Serial": "T3THB632F9A8",
+      "Old_Serial": "48575443955503A0",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1904401793",
+      "homepassID": "9600172042",
+      "New_Serial": "T3TH17049720",
+      "Old_Serial": "48575443E74B55A0",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005439643",
+      "homepassID": "9608171377",
+      "New_Serial": "485754430A57CCA2",
+      "Old_Serial": "",
+      "To_Model": "HG8247W5-6T",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1609433696",
+      "homepassID": "9604477135",
+      "New_Serial": "T3TH1705BC20",
+      "Old_Serial": "48575443FC6DEE9F",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1905523761",
+      "homepassID": "9606117891",
+      "New_Serial": "T3TH65660FD2",
+      "Old_Serial": "48575443E61A4B9F",
+      "To_Model": "T626Pro",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2205234572",
+      "homepassID": "9604036101",
+      "New_Serial": "T3THB6289370",
+      "Old_Serial": "485754430A96E4A2",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005376524",
+      "homepassID": "9608135220",
+      "New_Serial": "48575443A2953CA0",
+      "Old_Serial": "",
+      "To_Model": "HG8247W5-6T",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1906615493",
+      "homepassID": "9606948388",
+      "New_Serial": "T3TH170474F0",
+      "Old_Serial": "4857544342176C9F",
+      "To_Model": "T625Pro",
+      "From_Model": "HG8247W5",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1908901621",
+      "homepassID": "9607158935",
+      "New_Serial": "T3THB62EC4E0",
+      "Old_Serial": "48575443A535D8A3",
+      "To_Model": "T626ProV2",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2103740890",
+      "homepassID": "9609255770",
+      "New_Serial": "",
+      "Old_Serial": "48575443685C7FA2",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2101554127",
+      "homepassID": "9609095720",
+      "New_Serial": "",
+      "Old_Serial": "485754430F7D98A4",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2402081915",
+      "homepassID": "9610780162",
+      "New_Serial": "",
+      "Old_Serial": "48575443ADEFB6A3",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2405321854",
+      "homepassID": "9604020013",
+      "New_Serial": "",
+      "Old_Serial": "48575443256CA5A4",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004278235",
+      "homepassID": "9600201679",
+      "New_Serial": "",
+      "Old_Serial": "48575443E74A64A0",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2011373225",
+      "homepassID": "9608955502",
+      "New_Serial": "",
+      "Old_Serial": "48575443ACAC36A3",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2101560831",
+      "homepassID": "9609101161",
+      "New_Serial": "",
+      "Old_Serial": "4857544394E696A0",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1703046862",
+      "homepassID": "9605075806",
+      "New_Serial": "",
+      "Old_Serial": "485754430A3D37A2",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004192956",
+      "homepassID": "9607969867",
+      "New_Serial": "",
+      "Old_Serial": "48575443950870A0",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1906613644",
+      "homepassID": "9606950372",
+      "New_Serial": "",
+      "Old_Serial": "48575443E7521BA0",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2312938568",
+      "homepassID": "9611175013",
+      "New_Serial": "",
+      "Old_Serial": "48575443631412A5",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2401064325",
+      "homepassID": "9610766484",
+      "New_Serial": "",
+      "Old_Serial": "485754430A97EDA2",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2209631231",
+      "homepassID": "9609658621",
+      "New_Serial": "",
+      "Old_Serial": "48575443FC5E8D9F",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2003092362",
+      "homepassID": "9607879129",
+      "New_Serial": "",
+      "Old_Serial": "48575443FD33E69F",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2010196976",
+      "homepassID": "9608818343",
+      "New_Serial": "",
+      "Old_Serial": "48575443A55F4AA3",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2003975223",
+      "homepassID": "9607776109",
+      "New_Serial": "",
+      "Old_Serial": "48575443FD20119F",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2005386242",
+      "homepassID": "9608144003",
+      "New_Serial": "",
+      "Old_Serial": "485754430A9715A2",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1912561824",
+      "homepassID": "9600509359",
+      "New_Serial": "",
+      "Old_Serial": "485754430ABC8AA2",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2311894125",
+      "homepassID": "9610640971",
+      "New_Serial": "",
+      "Old_Serial": "485754430B9039A1",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1704159097",
+      "homepassID": "9605185424",
+      "New_Serial": "",
+      "Old_Serial": "48575443420C579F",
+      "To_Model": "",
+      "From_Model": "HG8247W5",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2004186379",
+      "homepassID": "9607959072",
+      "New_Serial": "",
+      "Old_Serial": "48575443E74B1FA0",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2111600940",
+      "homepassID": "9609899175",
+      "New_Serial": "",
+      "Old_Serial": "485754439548C6A0",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2310823075",
+      "homepassID": "9611117723",
+      "New_Serial": "",
+      "Old_Serial": "48575443ACA533A3",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2012426331",
+      "homepassID": "9608994289",
+      "New_Serial": "",
+      "Old_Serial": "48575443A53D36A3",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2006561128",
+      "homepassID": "9608303559",
+      "New_Serial": "",
+      "Old_Serial": "485754430ABBE8A2",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2302177237",
+      "homepassID": "9610781063",
+      "New_Serial": "",
+      "Old_Serial": "48575443ACAE1CA3",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2010283448",
+      "homepassID": "9608875107",
+      "New_Serial": "",
+      "Old_Serial": "48575443686492A2",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2102629707",
+      "homepassID": "9609157458",
+      "New_Serial": "",
+      "Old_Serial": "485754430E2B8AA4",
+      "To_Model": "",
+      "From_Model": "HG8247W5-6T",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-11"
     }
   ],
   "new_install_rows": [],
-  "prev_date": "2026-08-09"
+  "prev_date": "2026-08-10"
 }
