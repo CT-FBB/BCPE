@@ -1,7 +1,7 @@
 {
-  "total_f688": 139721,
+  "total_f688": 139618,
   "total_f688_base": 143911,
-  "net_change": -63,
+  "net_change": -42,
   "new_installs": 0,
   "data_correction": 38112,
   "swap_from_other": 148,
@@ -27,16 +27,16 @@
       "count": 6
     }
   ],
-  "removed_f688": 45877,
-  "latest_date": "2026-08-11",
+  "removed_f688": 46002,
+  "latest_date": "2026-08-13",
   "baseline_date": "2026-07-15",
   "by_region": {
-    "BMA": 54862,
-    "Other": 44329,
-    "Northeast": 12766,
-    "Central": 9769,
-    "North": 9414,
-    "South": 8581
+    "BMA": 54813,
+    "Other": 44311,
+    "Northeast": 12756,
+    "Central": 9760,
+    "North": 9405,
+    "South": 8573
   },
   "by_variant": {
     "F688": 143329
@@ -124,666 +124,6 @@
     }
   ],
   "change_rows": [
-    {
-      "AccessId": "2104875573",
-      "homepassID": "9608074798",
-      "New_Serial": "ZTEGC8F02688",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2105901363",
-      "homepassID": "9609369349",
-      "New_Serial": "ZTEGC8F02690",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2010223818",
-      "homepassID": "9608842314",
-      "New_Serial": "ZTEGC8E25C3D",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1907704374",
-      "homepassID": "9607011318",
-      "New_Serial": "ZTEGC8BB6CA3",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2008973568",
-      "homepassID": "9608617036",
-      "New_Serial": "ZTEGC8DA48E7",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009143542",
-      "homepassID": "9608782521",
-      "New_Serial": "ZTEGC8E266CD",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1908866719",
-      "homepassID": "9606413492",
-      "New_Serial": "ZTEGC8B72802",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2210762882",
-      "homepassID": "9610527676",
-      "New_Serial": "ZTEGC8CB91B4",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2106062715",
-      "homepassID": "9609477662",
-      "New_Serial": "ZTEGC8F03499",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2008999002",
-      "homepassID": "9607181757",
-      "New_Serial": "ZTEGC8DBBA1B",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2006578355",
-      "homepassID": "9608315532",
-      "New_Serial": "ZTEGC8C9C99C",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2105951596",
-      "homepassID": "9608197283",
-      "New_Serial": "ZTEGC8EFBCC1",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2011314195",
-      "homepassID": "9600324505",
-      "New_Serial": "ZTEGC8EBB26B",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2001717010",
-      "homepassID": "9607551941",
-      "New_Serial": "ZTEGC8BB5E13",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2004313101",
-      "homepassID": "9600218337",
-      "New_Serial": "ZTEGC8D67784",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2210792251",
-      "homepassID": "9610544509",
-      "New_Serial": "ZTEGC8DBDB2F",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003029804",
-      "homepassID": "9606866810",
-      "New_Serial": "ZTEGC8C6CBF4",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009094445",
-      "homepassID": "9608741342",
-      "New_Serial": "ZTEGC8DD8A0E",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1912587888",
-      "homepassID": "9607446553",
-      "New_Serial": "ZTEGC8BA4D8F",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2002830959",
-      "homepassID": "9607653563",
-      "New_Serial": "ZTEGC8BEB406",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009113491",
-      "homepassID": "9608757578",
-      "New_Serial": "ZTEGC8DBD9A9",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2101514822",
-      "homepassID": "9609063323",
-      "New_Serial": "ZTEGC8EB4EFE",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2104888429",
-      "homepassID": "9609359777",
-      "New_Serial": "ZTEGC8EF76E3",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1912453196",
-      "homepassID": "9600465522",
-      "New_Serial": "ZTEGC8EB5EF5",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2211870325",
-      "homepassID": "9610583509",
-      "New_Serial": "ZTEGC8BCCA59",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2105939687",
-      "homepassID": "9608165567",
-      "New_Serial": "ZTEGC8EE4D4A",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2006520899",
-      "homepassID": "9608268754",
-      "New_Serial": "ZTEGC8D17A14",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2103788655",
-      "homepassID": "9607915785",
-      "New_Serial": "ZTEGC8BEC1F6",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2007714750",
-      "homepassID": "9606291285",
-      "New_Serial": "ZTEGC8D67CD9",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009105691",
-      "homepassID": "9608747500",
-      "New_Serial": "ZTEGC8D61132",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1907685677",
-      "homepassID": "9606991787",
-      "New_Serial": "ZTEGC8BB743E",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2001776444",
-      "homepassID": "9607605947",
-      "New_Serial": "ZTEGC8BCB04D",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2104878281",
-      "homepassID": "9609354399",
-      "New_Serial": "ZTEGC8EB0250",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009047831",
-      "homepassID": "9608691014",
-      "New_Serial": "ZTEGC8DBC9F1",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2102628732",
-      "homepassID": "9607681551",
-      "New_Serial": "ZTEGC8BE96A6",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2105998188",
-      "homepassID": "9609432723",
-      "New_Serial": "ZTEGC8EE5BC0",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2202886948",
-      "homepassID": "9609189926",
-      "New_Serial": "ZTEGC8DE0578",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2104852365",
-      "homepassID": "9609336031",
-      "New_Serial": "ZTEGC8B724AB",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2003005431",
-      "homepassID": "9607802439",
-      "New_Serial": "ZTEGC8C59699",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2407507751",
-      "homepassID": "9611485537",
-      "New_Serial": "ZTEGC8D606C4",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2209628258",
-      "homepassID": "9605401321",
-      "New_Serial": "ZTEGC8DDB1B7",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2011361016",
-      "homepassID": "9600402239",
-      "New_Serial": "ZTEGC8E275A8",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1910137475",
-      "homepassID": "9607357486",
-      "New_Serial": "ZTEGC8B63613",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2007699178",
-      "homepassID": "9606996732",
-      "New_Serial": "ZTEGC8D67DAD",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2010166516",
-      "homepassID": "9608796050",
-      "New_Serial": "ZTEGC8DDAC59",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2111606417",
-      "homepassID": "9604432095",
-      "New_Serial": "ZTEGC8C73173",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2105953821",
-      "homepassID": "9608201142",
-      "New_Serial": "ZTEGC8F043C3",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1909920837",
-      "homepassID": "9607180490",
-      "New_Serial": "ZTEGC8B3A415",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2010174586",
-      "homepassID": "9608802420",
-      "New_Serial": "ZTEGC8E26CDF",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2008892728",
-      "homepassID": "9608584866",
-      "New_Serial": "ZTEGC8DA5853",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2104811175",
-      "homepassID": "9607960597",
-      "New_Serial": "ZTEGC8B5E2BE",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2401993522",
-      "homepassID": "9611203811",
-      "New_Serial": "ZTEGC8EE4F4F",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1911350837",
-      "homepassID": "9600337731",
-      "New_Serial": "ZTEGC8BE949E",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2208554172",
-      "homepassID": "9604187660",
-      "New_Serial": "ZTEGC8BCE02D",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009075338",
-      "homepassID": "9608726229",
-      "New_Serial": "ZTEGC8DC8CF1",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2101517948",
-      "homepassID": "9607531219",
-      "New_Serial": "ZTEGC8EB70E8",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1911364365",
-      "homepassID": "9600377715",
-      "New_Serial": "ZTEGC8BEB094",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2105914853",
-      "homepassID": "9609376980",
-      "New_Serial": "ZTEGC8F026B2",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2211865912",
-      "homepassID": "9610595577",
-      "New_Serial": "ZTEGC8DBC681",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2201835865",
-      "homepassID": "9610056684",
-      "New_Serial": "ZTEGC8D84311",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2009030274",
-      "homepassID": "9608691965",
-      "New_Serial": "ZTEGC8D847E5",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2101598535",
-      "homepassID": "9609132829",
-      "New_Serial": "ZTEGC8EB9BB2",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2007738286",
-      "homepassID": "9608456656",
-      "New_Serial": "ZTEGC8D67A6D",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2103746294",
-      "homepassID": "9609259786",
-      "New_Serial": "ZTEGC8BF19D1",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "2005337338",
-      "homepassID": "9608092990",
-      "New_Serial": "ZTEGC8C9361F",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
-    {
-      "AccessId": "1909943558",
-      "homepassID": "9607200103",
-      "New_Serial": "ZTEGC8B3B131",
-      "Old_Serial": "",
-      "To_Model": "F688",
-      "From_Model": "",
-      "Type": "New Install",
-      "Date": "2026-07-27"
-    },
     {
       "AccessId": "2010227755",
       "homepassID": "9607407502",
@@ -20123,8 +19463,668 @@
       "From_Model": "F688",
       "Type": "Disconnect/Remove",
       "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1906563650",
+      "homepassID": "9606171962",
+      "New_Serial": "T3TH17003DD0",
+      "Old_Serial": "ZTEGC8DE016A",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2201748801",
+      "homepassID": "9604874060",
+      "New_Serial": "T3TH1704ACC0",
+      "Old_Serial": "ZTEGC8B73CD7",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2103731629",
+      "homepassID": "9609245753",
+      "New_Serial": "ZTEGC8EBAAB9",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2006562352",
+      "homepassID": "9608304779",
+      "New_Serial": "T3TH1704FEF0",
+      "Old_Serial": "ZTEGC8BE8E1C",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2010265795",
+      "homepassID": "9608862010",
+      "New_Serial": "T3THB4116424",
+      "Old_Serial": "ZTEGC8DD8C20",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2001603908",
+      "homepassID": "9605746208",
+      "New_Serial": "T3THB40D73A4",
+      "Old_Serial": "ZTEGC8BA55C1",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2006681687",
+      "homepassID": "9608403262",
+      "New_Serial": "T3THB4106274",
+      "Old_Serial": "ZTEGC8D17E50",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1909027662",
+      "homepassID": "9606434031",
+      "New_Serial": "T3THA3938CAA",
+      "Old_Serial": "ZTEGC8B7D518",
+      "To_Model": "T627Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1903268311",
+      "homepassID": "9606832273",
+      "New_Serial": "ZTEGC8D17328",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1605165128",
+      "homepassID": "9604179657",
+      "New_Serial": "T3TH1704BF60",
+      "Old_Serial": "ZTEGC8D8E932",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2301101327",
+      "homepassID": "9610734261",
+      "New_Serial": "ZTEGC8EE4CF8",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1611705965",
+      "homepassID": "9604757688",
+      "New_Serial": "T3TH17065130",
+      "Old_Serial": "ZTEGC8C6CD13",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2005371530",
+      "homepassID": "9608130901",
+      "New_Serial": "T3THA391F84A",
+      "Old_Serial": "ZTEGC8C930F7",
+      "To_Model": "T627Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2109308887",
+      "homepassID": "9609664930",
+      "New_Serial": "T3TH17028E70",
+      "Old_Serial": "ZTEGC8DE0E72",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1612847210",
+      "homepassID": "9604896934",
+      "New_Serial": "ZTEGC8D83B56",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2009105599",
+      "homepassID": "9607274499",
+      "New_Serial": "T3TH170488D0",
+      "Old_Serial": "ZTEGC8DB890B",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2008927199",
+      "homepassID": "9608612464",
+      "New_Serial": "T3THB62C0378",
+      "Old_Serial": "ZTEGC8DA4935",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2003098907",
+      "homepassID": "9607885331",
+      "New_Serial": "ZTEGC8C923D5",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1902181468",
+      "homepassID": "9606752853",
+      "New_Serial": "T3TH17053A40",
+      "Old_Serial": "ZTEGC8DDA923",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2101570758",
+      "homepassID": "9609110172",
+      "New_Serial": "ZTEGC8EB8CAD",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1611610010",
+      "homepassID": "9604658909",
+      "New_Serial": "T3TH17050090",
+      "Old_Serial": "ZTEGC8EB59AB",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1806461396",
+      "homepassID": "9606179436",
+      "New_Serial": "ZTEGC8EB0D8B",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2005388316",
+      "homepassID": "9608114661",
+      "New_Serial": "T3TH17C20BB2",
+      "Old_Serial": "ZTEGC8D18C22",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2004215927",
+      "homepassID": "9607992290",
+      "New_Serial": "T3THB624CAD0",
+      "Old_Serial": "ZTEGC8C914C6",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2101497175",
+      "homepassID": "9609048498",
+      "New_Serial": "T3THB6304138",
+      "Old_Serial": "ZTEGC8EB624D",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2001608855",
+      "homepassID": "9607463821",
+      "New_Serial": "T3TH1704AC90",
+      "Old_Serial": "ZTEGC8BCAB6A",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2004285279",
+      "homepassID": "9608053952",
+      "New_Serial": "T3TH17061910",
+      "Old_Serial": "ZTEGC8BABB7C",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1607282281",
+      "homepassID": "9604312744",
+      "New_Serial": "T3TH17056C50",
+      "Old_Serial": "ZTEGC8BEE1D4",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2001613546",
+      "homepassID": "9607467647",
+      "New_Serial": "ZTEGC8BAB6C0",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1906575539",
+      "homepassID": "9606924546",
+      "New_Serial": "T3TH1704C560",
+      "Old_Serial": "ZTEGC8C592A1",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2006588389",
+      "homepassID": "9608328189",
+      "New_Serial": "T3TH17034850",
+      "Old_Serial": "ZTEGC8EB10AA",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2009127854",
+      "homepassID": "9605536094",
+      "New_Serial": "T3THB63762A0",
+      "Old_Serial": "ZTEGC8E268C5",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2302231533",
+      "homepassID": "9610813432",
+      "New_Serial": "T3TH1702F620",
+      "Old_Serial": "ZTEGC8C92FA1",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1807605291",
+      "homepassID": "9606333494",
+      "New_Serial": "T3TH659092F2",
+      "Old_Serial": "ZTEGC8B72C8D",
+      "To_Model": "T626Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2105952254",
+      "homepassID": "9609401868",
+      "New_Serial": "T3TH656E27A2",
+      "Old_Serial": "ZTEGC8EF714A",
+      "To_Model": "T626Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2104880976",
+      "homepassID": "9608051540",
+      "New_Serial": "T3THB626CD70",
+      "Old_Serial": "ZTEGC8EB7A1D",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2405343860",
+      "homepassID": "9611388942",
+      "New_Serial": "T3TH656546E2",
+      "Old_Serial": "ZTEGC8DDA7B9",
+      "To_Model": "T626Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1804330535",
+      "homepassID": "9605940692",
+      "New_Serial": "T3THB6379500",
+      "Old_Serial": "ZTEGC8B7DD05",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2007762861",
+      "homepassID": "9608477011",
+      "New_Serial": "T3TH17033EA0",
+      "Old_Serial": "ZTEGC8D7A8C5",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2003078687",
+      "homepassID": "9607868197",
+      "New_Serial": "T3THB62E8600",
+      "Old_Serial": "ZTEGC8C6D094",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2112722791",
+      "homepassID": "9609988036",
+      "New_Serial": "T3TH17020CC0",
+      "Old_Serial": "ZTEGC8BCC14D",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2003032431",
+      "homepassID": "9607820574",
+      "New_Serial": "T3TH1705B150",
+      "Old_Serial": "ZTEGC8BEC5E8",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1709412113",
+      "homepassID": "9605431955",
+      "New_Serial": "ZTEGC8C59BD4",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2009081700",
+      "homepassID": "9608731554",
+      "New_Serial": "T3THB627A6B8",
+      "Old_Serial": "ZTEGC8DA3CA4",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1609447638",
+      "homepassID": "9604493072",
+      "New_Serial": "ZTEGC8BB74A4",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1810873260",
+      "homepassID": "9605596710",
+      "New_Serial": "T3TH17058D00",
+      "Old_Serial": "ZTEGC8BA329C",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2004262634",
+      "homepassID": "9608033658",
+      "New_Serial": "T3THB628C230",
+      "Old_Serial": "ZTEGC8C9C71E",
+      "To_Model": "T626ProV2",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2006664222",
+      "homepassID": "9608394216",
+      "New_Serial": "ZTEGC8D6901C",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1605143674",
+      "homepassID": "9604154572",
+      "New_Serial": "ZTEGC8BCDDBB",
+      "Old_Serial": "",
+      "To_Model": "F688",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1709416202",
+      "homepassID": "9605419476",
+      "New_Serial": "T3TH1705E340",
+      "Old_Serial": "ZTEGC8BCAC3A",
+      "To_Model": "T625Pro",
+      "From_Model": "F688",
+      "Type": "Swap Out",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2307564641",
+      "homepassID": "9611002764",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BEBBB8",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1804312630",
+      "homepassID": "9605921185",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8B72757",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2005506507",
+      "homepassID": "9608256769",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EB6283",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2009069794",
+      "homepassID": "9608721911",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8DBB4D3",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2001643938",
+      "homepassID": "9607493753",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BCADE5",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2401998141",
+      "homepassID": "9611206946",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EF68E0",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2210760519",
+      "homepassID": "9610526868",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8F01B49",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2105929232",
+      "homepassID": "9609377765",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EE5DE6",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2001674118",
+      "homepassID": "9607519581",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8BCD514",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2210764499",
+      "homepassID": "9610529130",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8B64694",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2105928478",
+      "homepassID": "9609386928",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8F02008",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2006514837",
+      "homepassID": "9608256165",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8D201C5",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2008974782",
+      "homepassID": "9608644220",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8DD9C01",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2101585880",
+      "homepassID": "9609122237",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8EB782E",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2009067947",
+      "homepassID": "9607248172",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8DBB615",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "1702970834",
+      "homepassID": "9604991232",
+      "New_Serial": "",
+      "Old_Serial": "ZTEGC8C9BEF6",
+      "To_Model": "",
+      "From_Model": "F688",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-13"
     }
   ],
   "new_install_rows": [],
-  "prev_date": "2026-08-10"
+  "prev_date": "2026-08-12"
 }
