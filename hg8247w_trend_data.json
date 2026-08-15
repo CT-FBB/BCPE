@@ -166,5 +166,11 @@
     "hg8247w_total": 129682,
     "swap_in_from_base": 35829,
     "swap_out_from_base": 43463
+  },
+  {
+    "date": "2026-08-15",
+    "hg8247w_total": 129585,
+    "swap_in_from_base": 35834,
+    "swap_out_from_base": 43565
   }
 ]

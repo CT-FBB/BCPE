@@ -219,8 +219,8 @@ function pct(a,b){ return b?((a/b)*100).toFixed(1)+'%':'-'; }
 
 function renderDashboard(d){
   window.ST244F_DATA = d;
-  const total   = d.total_st244f_latest ?? d.total_st244f ?? 204212;
-  const base    = d.total_st244f_base   ?? 204248;
+  const total   = d.total_st244f_latest ?? d.total_st244f ?? 0;
+  const base    = d.total_st244f_base   ?? 0;
   const net     = d.net_change          ?? (total-base);
   const newInst = d.new_installs        ?? 0;
   const dataCorrect = d.data_correction ?? 0;
@@ -352,11 +352,6 @@ function renderDashboard(d){
             <a href='#' onclick="downloadSwapCSV(\'swap_in_st244f.csv\'); return false;" style='font-size:0.75rem; text-decoration:underline; color:#fff; opacity:0.8;'>📥 Download CSV</a>
         </div>
         <div class="ks">โผล่ขึ้นมาแทน Serial เดิม</div>
-      </div>
-      <div class="kpi-card gy">
-        <div class="kl">Data Correction</div>
-        <div class="kv gy" style="color: #9ca3af;">${fmt(dataCorrect)}</div>
-        <div class="ks">LOID เก่า (ก่อนปี 25)</div>
       </div>
       <div class="kpi-card re"><div class="ki">❌</div>
       <div class="kl">ถอด ST-244F ออก</div>

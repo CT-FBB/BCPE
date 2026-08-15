@@ -1,0 +1,603 @@
+{
+  "change_rows": [
+    {
+      "AccessId": "2209657065",
+      "homepassID": "9609688665",
+      "New_Serial": "48575443CCC2FEB5",
+      "Old_Serial": "T3TH5333F22B",
+      "To_Model": "V261a-20",
+      "From_Model": "T723",
+      "Type": "Swap Out",
+      "Date": "2026-07-19"
+    },
+    {
+      "AccessId": "2305425804",
+      "homepassID": "9605928808",
+      "New_Serial": "T3TH53A3F68B",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-07-19"
+    },
+    {
+      "AccessId": "2406466576",
+      "homepassID": "9611458908",
+      "New_Serial": "HWTC65A3F64B",
+      "Old_Serial": "T3TH65702A6A",
+      "To_Model": "T723",
+      "From_Model": "T626Pro",
+      "Type": "Swap In",
+      "Date": "2026-07-22"
+    },
+    {
+      "AccessId": "2501015134",
+      "homepassID": "9600546544",
+      "New_Serial": "T3TH53A3F58B",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-07-22"
+    },
+    {
+      "AccessId": "2209731405",
+      "homepassID": "9604498314",
+      "New_Serial": "",
+      "Old_Serial": "T3TH530013CB",
+      "To_Model": "",
+      "From_Model": "T723",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-07-23"
+    },
+    {
+      "AccessId": "2501015134",
+      "homepassID": "9600546544",
+      "New_Serial": "",
+      "Old_Serial": "T3TH53A3F58B",
+      "To_Model": "",
+      "From_Model": "T723",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-07-23"
+    },
+    {
+      "AccessId": "2209657065",
+      "homepassID": "9609688665",
+      "New_Serial": "T3TH5333F22B",
+      "Old_Serial": "48575443CCC2FEB5",
+      "To_Model": "T723",
+      "From_Model": "V261a-20",
+      "Type": "Swap In",
+      "Date": "2026-07-24"
+    },
+    {
+      "AccessId": "2204154772",
+      "homepassID": "9603062780",
+      "New_Serial": "",
+      "Old_Serial": "T3TH53A3F31B",
+      "To_Model": "",
+      "From_Model": "T723",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-07-25"
+    },
+    {
+      "AccessId": "2201826984",
+      "homepassID": "9609138613",
+      "New_Serial": "",
+      "Old_Serial": "T3TH53A3F48B",
+      "To_Model": "",
+      "From_Model": "T723",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-07-26"
+    },
+    {
+      "AccessId": "2201826984",
+      "homepassID": "9609138613",
+      "New_Serial": "T3TH53A3F48B",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-07-27"
+    },
+    {
+      "AccessId": "2204154772",
+      "homepassID": "9603062780",
+      "New_Serial": "T3TH53A3F31B",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-07-27"
+    },
+    {
+      "AccessId": "2008905693",
+      "homepassID": "9608595000",
+      "New_Serial": "HWTC65A3F30B",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-07-28"
+    },
+    {
+      "AccessId": "1704143163",
+      "homepassID": "9605170043",
+      "New_Serial": "HWTC65A3F39B",
+      "Old_Serial": "T3TH01010420",
+      "To_Model": "T723",
+      "From_Model": "T628",
+      "Type": "Swap In",
+      "Date": "2026-07-28"
+    },
+    {
+      "AccessId": "2504232711",
+      "homepassID": "9611779368",
+      "New_Serial": "HWTC65A3F37B",
+      "Old_Serial": "T3THA36FA9DA",
+      "To_Model": "T723",
+      "From_Model": "T626ProV2",
+      "Type": "Swap In",
+      "Date": "2026-08-01"
+    },
+    {
+      "AccessId": "2303292657",
+      "homepassID": "9605782703",
+      "New_Serial": "",
+      "Old_Serial": "HWTC65A3F67B",
+      "To_Model": "",
+      "From_Model": "T723",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-01"
+    },
+    {
+      "AccessId": "2305425804",
+      "homepassID": "9605928808",
+      "New_Serial": "",
+      "Old_Serial": "T3TH53A3F69B",
+      "To_Model": "",
+      "From_Model": "T723",
+      "Type": "Disconnect/Remove",
+      "Date": "2026-08-01"
+    },
+    {
+      "AccessId": "1607259302",
+      "homepassID": "9604286715",
+      "New_Serial": "HWTC65A3F57B",
+      "Old_Serial": "T3TH1947DB7A",
+      "To_Model": "T723",
+      "From_Model": "T7281",
+      "Type": "Swap In",
+      "Date": "2026-08-04"
+    },
+    {
+      "AccessId": "2608605407",
+      "homepassID": "9612541831",
+      "New_Serial": "T3TH53001530",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-07"
+    },
+    {
+      "AccessId": "2608603911",
+      "homepassID": "9612539669",
+      "New_Serial": "T3TH5300144F",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-07"
+    },
+    {
+      "AccessId": "2607533710",
+      "homepassID": "9612469938",
+      "New_Serial": "T3TH5333F15B",
+      "Old_Serial": "T3TH17795CC2",
+      "To_Model": "T723",
+      "From_Model": "T625Pro",
+      "Type": "Swap In",
+      "Date": "2026-08-08"
+    },
+    {
+      "AccessId": "2608612418",
+      "homepassID": "9607104386",
+      "New_Serial": "T3TH53001650",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-08"
+    },
+    {
+      "AccessId": "1608367907",
+      "homepassID": "9604407220",
+      "New_Serial": "T3TH65A3F49B",
+      "Old_Serial": "T3TH654325A2",
+      "To_Model": "T723",
+      "From_Model": "T626ProV2",
+      "Type": "Swap In",
+      "Date": "2026-08-09"
+    },
+    {
+      "AccessId": "2608607892",
+      "homepassID": "9612544180",
+      "New_Serial": "T3TH53001418",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-09"
+    },
+    {
+      "AccessId": "2608608553",
+      "homepassID": "9612545124",
+      "New_Serial": "T3TH53001461",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-10"
+    },
+    {
+      "AccessId": "2608619286",
+      "homepassID": "9609596363",
+      "New_Serial": "T3TH530014DA",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-10"
+    },
+    {
+      "AccessId": "1612739990",
+      "homepassID": "9604792354",
+      "New_Serial": "HWTC65A3F33B",
+      "Old_Serial": "T3TH6586024A",
+      "To_Model": "T723",
+      "From_Model": "T626ProV2",
+      "Type": "Swap In",
+      "Date": "2026-08-10"
+    },
+    {
+      "AccessId": "2608617556",
+      "homepassID": "9612553866",
+      "New_Serial": "T3TH53001474",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "1807580279",
+      "homepassID": "9605335589",
+      "New_Serial": "T3TH5333F1AB",
+      "Old_Serial": "T3TH1947E1FA",
+      "To_Model": "T723",
+      "From_Model": "T7281",
+      "Type": "Swap In",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2608605619",
+      "homepassID": "9607061375",
+      "New_Serial": "T3TH53001403",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2608614964",
+      "homepassID": "9612551255",
+      "New_Serial": "T3TH530014B3",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2209657065",
+      "homepassID": "9609688665",
+      "New_Serial": "48575443CCC2FEB5",
+      "Old_Serial": "HWTC65A3F52B",
+      "To_Model": "V261a-20",
+      "From_Model": "T723",
+      "Type": "Swap Out",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2608609480",
+      "homepassID": "9611543792",
+      "New_Serial": "T3TH530015C9",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-11"
+    },
+    {
+      "AccessId": "2608624298",
+      "homepassID": "9612548740",
+      "New_Serial": "T3TH530014FC",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-12"
+    },
+    {
+      "AccessId": "2608620400",
+      "homepassID": "9612556514",
+      "New_Serial": "T3TH53001410",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-12"
+    },
+    {
+      "AccessId": "2608613224",
+      "homepassID": "9612548850",
+      "New_Serial": "T3TH530013E9",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-12"
+    },
+    {
+      "AccessId": "2608621650",
+      "homepassID": "9611928835",
+      "New_Serial": "T3TH530013E2",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-12"
+    },
+    {
+      "AccessId": "2608625557",
+      "homepassID": "9612560771",
+      "New_Serial": "T3TH5300154E",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2608624954",
+      "homepassID": "9612560063",
+      "New_Serial": "T3TH530014BA",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2608628924",
+      "homepassID": "9612561114",
+      "New_Serial": "T3TH530013E4",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2608627459",
+      "homepassID": "9612557080",
+      "New_Serial": "T3TH530014C0",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2608617275",
+      "homepassID": "9612553405",
+      "New_Serial": "T3TH53001596",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-13"
+    },
+    {
+      "AccessId": "2608625636",
+      "homepassID": "9612560900",
+      "New_Serial": "T3TH530014B2",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-14"
+    },
+    {
+      "AccessId": "2608607597",
+      "homepassID": "9612543759",
+      "New_Serial": "T3TH530014EB",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-14"
+    },
+    {
+      "AccessId": "2608627758",
+      "homepassID": "9612562735",
+      "New_Serial": "T3TH53001621",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-14"
+    },
+    {
+      "AccessId": "2608627817",
+      "homepassID": "9612562810",
+      "New_Serial": "T3TH53001434",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-14"
+    },
+    {
+      "AccessId": "2608623504",
+      "homepassID": "9612559394",
+      "New_Serial": "T3TH530015A2",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-14"
+    },
+    {
+      "AccessId": "2608626819",
+      "homepassID": "9612562564",
+      "New_Serial": "T3TH53001664",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-14"
+    },
+    {
+      "AccessId": "2608626614",
+      "homepassID": "9612562225",
+      "New_Serial": "T3TH53001521",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-15"
+    },
+    {
+      "AccessId": "2608626580",
+      "homepassID": "9612562166",
+      "New_Serial": "T3TH5300150F",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-15"
+    },
+    {
+      "AccessId": "2608626638",
+      "homepassID": "9612562267",
+      "New_Serial": "T3TH53001517",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-15"
+    },
+    {
+      "AccessId": "2608629304",
+      "homepassID": "9612564774",
+      "New_Serial": "T3TH5300162B",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-15"
+    },
+    {
+      "AccessId": "2608631945",
+      "homepassID": "9612567406",
+      "New_Serial": "T3TH530015A3",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-15"
+    },
+    {
+      "AccessId": "2608631027",
+      "homepassID": "9612566081",
+      "New_Serial": "T3TH53001486",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-15"
+    },
+    {
+      "AccessId": "2608614613",
+      "homepassID": "9612550725",
+      "New_Serial": "T3TH530014F0",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-15"
+    },
+    {
+      "AccessId": "2606484543",
+      "homepassID": "9612420782",
+      "New_Serial": "T3TH53001534",
+      "Old_Serial": "T3TH1948E69A",
+      "To_Model": "T723",
+      "From_Model": "T7281",
+      "Type": "Swap In",
+      "Date": "2026-08-15"
+    },
+    {
+      "AccessId": "2608629284",
+      "homepassID": "9612564788",
+      "New_Serial": "T3TH53001470",
+      "Old_Serial": "",
+      "To_Model": "T723",
+      "From_Model": "",
+      "Type": "New Install",
+      "Date": "2026-08-15"
+    }
+  ],
+  "total_t723": 48,
+  "latest_date": "2026-08-15",
+  "baseline_date": "2026-07-15",
+  "net_change": 9,
+  "prev_date": "2026-08-14",
+  "removed_t723": 8,
+  "new_installs": 33,
+  "swap_from_other": 10,
+  "change_from_models": [
+    {
+      "model": "T626ProV2",
+      "count": 3
+    },
+    {
+      "model": "T7281",
+      "count": 3
+    },
+    {
+      "model": "T626Pro",
+      "count": 1
+    },
+    {
+      "model": "V261a-20",
+      "count": 1
+    },
+    {
+      "model": "T628",
+      "count": 1
+    }
+  ],
+  "by_region": {
+    "Other": 36,
+    "BMA": 12,
+    "Central": 0,
+    "North": 0,
+    "Northeast": 0,
+    "South": 0
+  },
+  "total_t723_base": 8
+}

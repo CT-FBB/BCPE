@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>F688 ONU Swap & Deployment Dashboard</title>
+<title>T723 ONU Swap & Deployment Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -200,14 +200,14 @@ function downloadSwapCSV(filename) {
 
 async function load(){
   let d;
-  try{ const r=await fetch('f688_dashboard_data.json?v=' + new Date().getTime()); d=await r.json(); }
+  try{ const r=await fetch('t723_dashboard_data.json?v=' + new Date().getTime()); d=await r.json(); }
   catch(e){ d=null; }
   
   let trendData = [];
-  try{ const tr=await fetch('f688_trend_data.json?v=' + new Date().getTime()); trendData=await tr.json(); }
+  try{ const tr=await fetch('t723_trend_data.json?v=' + new Date().getTime()); trendData=await tr.json(); }
   catch(e){ console.log(e); }
 
-  if(!d){ document.getElementById('root').innerHTML='<p style="padding:40px;color:#f87171">❌ ไม่พบ f688_dashboard_data.json</p>'; return; }
+  if(!d){ document.getElementById('root').innerHTML='<p style="padding:40px;color:#f87171">❌ ไม่พบ t723_dashboard_data.json</p>'; return; }
   
   d.trend_advanced = trendData;
   globalData = d;
@@ -218,14 +218,14 @@ function fmt(n,d=0){ return n==null?'-':Number(n).toLocaleString('en-US',{minimu
 function pct(a,b){ return b?((a/b)*100).toFixed(1)+'%':'-'; }
 
 function renderDashboard(d){
-  window.F688_DATA = d;
-  const total   = d.total_f688_latest ?? d.total_f688 ?? 0;
-  const base    = d.total_f688_base   ?? 0;
+  window.T723_DATA = d;
+  const total   = d.total_t723_latest ?? d.total_t723 ?? 0;
+  const base    = d.total_t723_base   ?? 0;
   const net     = d.net_change          ?? (total-base);
   const newInst = d.new_installs        ?? 0;
   const dataCorrect = d.data_correction ?? 0;
   const swapIn  = d.swap_from_other     ?? 0;
-  const removed = d.removed_f688      ?? 0;
+  const removed = d.removed_t723      ?? 0;
   function formatDateStr(dStr) {
     if (!dStr || dStr.length !== 8) return dStr;
     return `${dStr.substring(6,8)}-${dStr.substring(4,6)}-${dStr.substring(2,4)}`;
@@ -281,15 +281,15 @@ function renderDashboard(d){
   const noSwap = chgFrom.length===0 && swapIn===0;
   const swapBox = noSwap
     ? `<div class="warn-box"><span style="font-size:1.2rem">⚠️</span>
-        <span>ในช่วงที่วิเคราะห์ (<strong>${basDate} → ${latDate}</strong>) ยังไม่พบการเปลี่ยน ONU จาก model อื่น → F688 ผ่าน AccessNumber เดิม<br>
-        <span style="font-size:.82rem;opacity:.8">อาจเป็นเพราะช่วงเวลาสั้นเกินไป (1 วัน) หรือ F688 ส่วนใหญ่ถูกติดตั้งใหม่แทนการ swap</span></span></div>`
+        <span>ในช่วงที่วิเคราะห์ (<strong>${basDate} → ${latDate}</strong>) ยังไม่พบการเปลี่ยน ONU จาก model อื่น → T723 ผ่าน AccessNumber เดิม<br>
+        <span style="font-size:.82rem;opacity:.8">อาจเป็นเพราะช่วงเวลาสั้นเกินไป (1 วัน) หรือ T723 ส่วนใหญ่ถูกติดตั้งใหม่แทนการ swap</span></span></div>`
     : '';
 
   const flowHTML = chgFrom.length>0 ? chgFrom.map(r=>`
     <div class="flow-row">
       <div class="flow-from"><span class="pill p-gy">${r.from_model}</span></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-to">F688</div>
+      <div class="flow-to">T723</div>
       <div class="flow-count">${fmt(r.count)}</div>
     </div>`).join('')
     : `<div style="color:var(--muted);font-size:.85rem;text-align:center;padding:20px 0">ไม่พบการ swap ในช่วงที่วิเคราะห์</div>`;
@@ -302,7 +302,7 @@ function renderDashboard(d){
       <td style="font-size:.76rem">${r.Old_Serial||'-'}</td>
       <td style="font-size:.76rem">${r.New_Serial||'-'}</td>
       <td><span class="pill p-gy" style="font-size:.72rem">${r.From_Model||'-'}</span></td>
-      <td><span class="pill p-or" style="font-size:.72rem">${r.To_Model||'F688'}</span></td>
+      <td><span class="pill p-or" style="font-size:.72rem">${r.To_Model||'T723'}</span></td>
     </tr>`).join('');
 
   // net indicator
@@ -314,8 +314,8 @@ function renderDashboard(d){
   <div class="header">
     <div class="header-top">
       <div>
-        <h1>📦 F688 ONU Deployment</h1>
-        <div class="sub">ติดตามการใช้งาน และการเปลี่ยน ONU เป็นรุ่น F688 บนโครงข่าย XGS-PON ทั่วประเทศ</div>
+        <h1>📦 T723 ONU Deployment</h1>
+        <div class="sub">ติดตามการใช้งาน และการเปลี่ยน ONU เป็นรุ่น T723 บนโครงข่าย XGS-PON ทั่วประเทศ</div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <span class="tag">📅 ล่าสุด: ${latDate}</span>
@@ -328,12 +328,12 @@ function renderDashboard(d){
   <!-- KPIs -->
   <div class="kpi">
     <div class="kpi-card gr"><div class="ki">📦</div>
-      <div class="kl">F688 ทั้งหมด (ล่าสุด)</div>
+      <div class="kl">T723 ทั้งหมด (ล่าสุด)</div>
       <div class="kv gr">${fmt(total)}</div>
       <div class="ks">เครื่อง บนเครือข่าย</div>
     </div>
     <div class="kpi-card bl"><div class="ki">📊</div>
-      <div class="kl">วันก่อนหน้า (Baseline)</div>
+      <div class="kl">วันที่ 15 July (Baseline)</div>
       <div class="kv bl">${fmt(base)}</div>
       <div class="ks">เครื่อง ณ ${basDate}</div>
     </div>
@@ -346,19 +346,19 @@ function renderDashboard(d){
       <div class="ki">🆕</div>
       <div class="kl">ติดตั้งใหม่ (New Device)</div>
       <div class="kv cy">${fmt(newInst)}</div>
-      <div class="ks">AccessNumber ใหม่ บน F688</div>
+      <div class="ks">AccessNumber ใหม่ บน T723</div>
       <button onclick="exportNewInstalls()" style="margin-top:8px;padding:4px 8px;background:rgba(6,182,212,.2);border:1px solid rgba(6,182,212,.5);color:#22d3ee;border-radius:4px;cursor:pointer;font-size:0.75rem;width:100%;">📥 Export เฉพาะชุดนี้</button>
     </div>
     <div class="kpi-card pu"><div class="ki">🔁</div>
         <div class="kl">Swap เข้าจากรุ่นอื่น</div>
         <div class="kv pu">
             ${fmt(swapIn)}<br>
-            <a href='#' onclick="downloadSwapCSV(\'swap_in_f688.csv\'); return false;" style='font-size:0.75rem; text-decoration:underline; color:#fff; opacity:0.8;'>📥 Download CSV</a>
+            <a href='#' onclick="downloadSwapCSV(\'swap_in_t723.csv\'); return false;" style='font-size:0.75rem; text-decoration:underline; color:#fff; opacity:0.8;'>📥 Download CSV</a>
         </div>
         <div class="ks">โผล่ขึ้นมาแทน Serial เดิม</div>
       </div>
       <div class="kpi-card re"><div class="ki">❌</div>
-      <div class="kl">ถอด F688 ออก</div>
+      <div class="kl">ถอด T723 ออก</div>
       <div class="kv re">${fmt(removed)}</div>
       <div class="ks">เปลี่ยนไป model อื่น</div>
     </div>
@@ -366,8 +366,8 @@ function renderDashboard(d){
 
   <!-- Variant pills -->
   <div class="card" style="margin-bottom:18px">
-    <h3><span class="dot" style="background:#f97316"></span> รุ่นย่อย F688 ที่พบบนเครือข่าย</h3>
-    <div>${varHTML||'<span style="color:var(--muted)">F688, F688V2</span>'}</div>
+    <h3><span class="dot" style="background:#f97316"></span> รุ่นย่อย T723 ที่พบบนเครือข่าย</h3>
+    <div>${varHTML||'<span style="color:var(--muted)">T723, T723V2</span>'}</div>
   </div>
 
   <!-- Swap notice -->
@@ -376,11 +376,11 @@ function renderDashboard(d){
   <!-- Row 1: Region + Donut -->
   <div class="g2">
     <div class="card">
-      <h3><span class="dot" style="background:#f97316"></span> F688 แยกตามภูมิภาค</h3>
+      <h3><span class="dot" style="background:#f97316"></span> T723 แยกตามภูมิภาค</h3>
       ${regionHTML}
     </div>
     <div class="card">
-      <h3><span class="dot" style="background:#3b82f6"></span> สัดส่วน F688 ต่อ OLT Vendor</h3>
+      <h3><span class="dot" style="background:#3b82f6"></span> สัดส่วน T723 ต่อ OLT Vendor</h3>
       <div class="donut-wrap">
         <canvas id="donutChart"></canvas>
         <div class="donut-center">
@@ -394,14 +394,14 @@ function renderDashboard(d){
   <!-- Trend chart (if data) -->
   ${trendAdv.length>1?`
   <div class="card">
-    <h3><span class="dot" style="background:#10b981"></span> แนวโน้ม F688 รวม และ Swap OUT สะสม (เทียบ 20/05)</h3>
+    <h3><span class="dot" style="background:#10b981"></span> แนวโน้ม T723 รวม และ Swap OUT สะสม (เทียบ 20/05)</h3>
     <div class="ch tall"><canvas id="trendChart"></canvas></div>
   </div>`:''}
 
   <!-- Row 3: Swap flow + Detail -->
   <div class="g2">
     <div class="card">
-      <h3><span class="dot" style="background:#f97316"></span> 🔄 Swap จาก Model ใด → F688</h3>
+      <h3><span class="dot" style="background:#f97316"></span> 🔄 Swap จาก Model ใด → T723</h3>
       ${flowHTML}
     </div>
     <div class="card">
@@ -422,7 +422,7 @@ function renderDashboard(d){
   </div>
 
   <div class="footer">
-    F688 ONU Deployment Dashboard · เปรียบเทียบ ${basDate} → ${latDate} · ข้อมูลจาก CPE Daily & F688.xlsx
+    T723 ONU Deployment Dashboard · เปรียบเทียบ ${basDate} → ${latDate} · ข้อมูลจาก CPE Daily & T723.xlsx
   </div>`;
 
   // ── Charts ─────────────────────────────────────────────────
@@ -472,8 +472,8 @@ function renderDashboard(d){
         labels:trendAdv.map(r=>r.date),
         datasets:[
           {
-            label:'F688 Total',
-            data:trendAdv.map(r=>r.f688_total),
+            label:'T723 Total',
+            data:trendAdv.map(r=>r.t723_total),
             borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',
             borderWidth:2.5,pointRadius:5,pointBackgroundColor:'#10b981',
             fill:true,tension:.4, yAxisID: 'y'
@@ -509,7 +509,7 @@ function renderDashboard(d){
 }
 
 function exportNewInstalls() {
-  const rows = window.F688_DATA?.new_install_rows;
+  const rows = window.T723_DATA?.new_install_rows;
   if(!rows || rows.length === 0) { alert('ไม่มีข้อมูลติดตั้งใหม่'); return; }
   
   const wb = XLSX.utils.book_new();
@@ -520,9 +520,9 @@ function exportNewInstalls() {
   
   const ws = XLSX.utils.aoa_to_sheet(sData);
   ws['!cols'] = [{wch:5},{wch:12},{wch:16},{wch:20},{wch:15},{wch:20},{wch:15},{wch:15},{wch:10}];
-  XLSX.utils.book_append_sheet(wb, ws, "F688 ติดตั้งใหม่");
+  XLSX.utils.book_append_sheet(wb, ws, "T723 ติดตั้งใหม่");
   
-  XLSX.writeFile(wb, "F688_NewInstalls_" + new Date().toISOString().slice(0,10) + ".xlsx");
+  XLSX.writeFile(wb, "T723_NewInstalls_" + new Date().toISOString().slice(0,10) + ".xlsx");
 }
 
 load();
