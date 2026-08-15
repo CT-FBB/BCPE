@@ -287,7 +287,7 @@ function renderDashboard(d){
 
   const flowHTML = chgFrom.length>0 ? chgFrom.map(r=>`
     <div class="flow-row">
-      <div class="flow-from"><span class="pill p-gy">${r.from_model}</span></div>
+      <div class="flow-from"><span class="pill p-gy">${r.model}</span></div>
       <div class="flow-arrow">→</div>
       <div class="flow-to">T626PROV2</div>
       <div class="flow-count">${fmt(r.count)}</div>
@@ -330,12 +330,12 @@ function renderDashboard(d){
     <div class="kpi-card gr"><div class="ki">📦</div>
       <div class="kl">T626PROV2 ทั้งหมด (ล่าสุด)</div>
       <div class="kv gr">${fmt(total)}</div>
-      <div class="ks">เครื่อง บนเครือข่าย</div>
+      <div class="ks">วงจร ทั้งโครงข่าย</div>
     </div>
     <div class="kpi-card bl"><div class="ki">📊</div>
       <div class="kl">วันที่ 15 July (Baseline)</div>
       <div class="kv bl">${fmt(base)}</div>
-      <div class="ks">เครื่อง ณ ${basDate}</div>
+      <div class="ks">วงจร ณ ${basDate}</div>
     </div>
     <div class="kpi-card ${net>=0?'gr':'re'}"><div class="ki">📈</div>
       <div class="kl">การเปลี่ยนแปลงสุทธิ</div>
