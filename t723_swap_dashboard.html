@@ -89,9 +89,9 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 
 /* ── Table ── */
 .tbl{width:100%;border-collapse:collapse;font-size:.83rem;}
-.tbl th{background:var(--card2);color:var(--muted);font-weight:600;font-size:.72rem;
-         text-transform:uppercase;letter-spacing:.05em;padding:9px 12px;text-align:left;}
-.tbl td{padding:9px 12px;border-top:1px solid var(--border);vertical-align:middle;}
+.tbl th{background:var(--card2);color:var(--muted);font-weight:600;font-size:.70rem;
+         text-transform:uppercase;letter-spacing:.05em;padding:8px 10px;text-align:left;white-space:nowrap;}
+.tbl td{padding:7px 10px;border-top:1px solid var(--border);vertical-align:middle;white-space:nowrap;}
 .tbl tr:hover td{background:rgba(255,255,255,.025);}
 .scr{overflow-x:auto;max-height:340px;overflow-y:auto;}
 .scr::-webkit-scrollbar{width:4px;height:4px;}
@@ -185,9 +185,9 @@ function downloadSwapCSV(filename) {
       return;
   }
   const data = globalData.change_rows;
-  let csv = "\uFEFFAccessNumber,Serial_Old,Serial_New,Model_Old,Model_New\n";
+  let csv = "\uFEFFAccessNumber,Type,OLT,Serial_Old,Serial_New,Model_Old,Model_New\n";
   data.forEach(r => { 
-      csv += (r.homepassID||'') + "," + (r.Old_Serial||'') + "," + (r.New_Serial||'') + "," + (r.From_Model||'') + "," + (r.To_Model||'') + "\n"; 
+      csv += (r.homepassID||'') + "," + (r.Type||'') + "," + (r.Device||'') + "," + (r.Old_Serial||'') + "," + (r.New_Serial||'') + "," + (r.From_Model||'') + "," + (r.To_Model||'') + "\n"; 
   });
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = window.URL.createObjectURL(blob);
@@ -294,15 +294,21 @@ function renderDashboard(d){
     </div>`).join('')
     : `<div style="color:var(--muted);font-size:.85rem;text-align:center;padding:20px 0">ไม่พบการ swap ในช่วงที่วิเคราะห์</div>`;
 
+  const typePill = {
+    'New Install': '<span class="pill p-cy" style="font-size:.65rem;padding:2px 6px;white-space:nowrap">New Install</span>',
+    'Swap In':     '<span class="pill p-pu" style="font-size:.65rem;padding:2px 6px;white-space:nowrap">Swap In</span>',
+    'Swap Out':    '<span class="pill p-re" style="font-size:.65rem;padding:2px 6px;white-space:nowrap">Swap Out</span>'
+  };
+
   // Change detail rows
   const detailRows = chgRows.slice(0,100).map(r=>`
     <tr>
-      <td style="font-size:.75rem;color:var(--muted)">${r.homepassID||''}</td>
-      <td style="font-family:monospace;font-size:.76rem">${r.Device||''}</td>
-      <td style="font-size:.76rem">${r.Old_Serial||'-'}</td>
-      <td style="font-size:.76rem">${r.New_Serial||'-'}</td>
-      <td><span class="pill p-gy" style="font-size:.72rem">${r.From_Model||'-'}</span></td>
-      <td><span class="pill p-or" style="font-size:.72rem">${r.To_Model||'T723'}</span></td>
+      <td style="font-size:.72rem;color:var(--muted);white-space:nowrap">${r.homepassID||''}</td>
+      <td style="white-space:nowrap">${typePill[r.Type] || `<span class="pill p-gy" style="font-size:.65rem;padding:2px 6px;white-space:nowrap">${r.Type||'-'}</span>`}</td>
+      <td style="font-size:.72rem;white-space:nowrap">${r.Old_Serial||'-'}</td>
+      <td style="font-size:.72rem;white-space:nowrap">${r.New_Serial||'-'}</td>
+      <td style="white-space:nowrap"><span class="pill p-gy" style="font-size:.65rem;padding:2px 6px;white-space:nowrap">${r.From_Model||'-'}</span></td>
+      <td style="white-space:nowrap"><span class="pill p-or" style="font-size:.65rem;padding:2px 6px;white-space:nowrap">${r.To_Model||'T723'}</span></td>
     </tr>`).join('');
 
   // net indicator
@@ -409,7 +415,7 @@ function renderDashboard(d){
       ${chgRows.length>0?`
       <div class="scr">
         <table class="tbl">
-          <thead><tr><th>AccessNumber</th><th>OLT</th><th>Serial เดิม</th><th>Serial ใหม่</th><th>จาก</th><th>เป็น</th></tr></thead>
+          <thead><tr><th>AccessNumber</th><th>Type</th><th>Serial เดิม</th><th>Serial ใหม่</th><th>จาก</th><th>เป็น</th></tr></thead>
           <tbody>${detailRows}</tbody>
         </table>
       </div>`
