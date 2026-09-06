@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T7281 Wi-Fi Expert Analysis Dashboard</title>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Inter', sans-serif;
+            padding-top: 80px !important;
+            margin: 0 !important;
+        }
+        /* ── Top Navigation Bar CSS ── */
+        .topnav {
+            height: 60px;
+            background: rgba(13, 18, 34, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: 250px 1fr 250px;
+            align-items: center;
+            padding: 0 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+        }
+        .topnav-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            color: #f8fafc;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-self: start;
+        }
+        .topnav-logo span {
+            background: linear-gradient(135deg, #06b6d4, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .topnav-links {
+            display: flex;
+            gap: 8px;
+            height: 100%;
+            align-items: center;
+            justify-self: center;
+        }
+        .topnav-links a {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .topnav-links a:hover {
+            color: #f8fafc;
+            background: rgba(255,255,255,0.03);
+        }
+        .topnav-links a.active {
+            color: #f8fafc;
+            background: rgba(6, 182, 212, 0.15);
+            font-weight: 600;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+        .card {
+            background-color: #1e293b; 
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #334155; }
+        th { background-color: #0f172a; color: #94a3b8; font-weight: 600; cursor: pointer; user-select: none; }
+        th:hover { color: #f8fafc; }
+        th .sort-icon { margin-left: 5px; font-size: 0.8rem; }
+        tr.clickable-row { cursor: pointer; transition: background-color 0.2s; }
+        tr.clickable-row:hover { background-color: #334155; }
+        
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; z-index: 50; 
+            left: 0; top: 0; width: 100%; height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background-color: #0f172a;
+            margin: 5% auto; 
+            padding: 2rem; 
+            border: 1px solid #334155;
+            width: 90%; 
+            max-width: 1200px;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .close {
+            color: #94a3b8; float: right; font-size: 28px; font-weight: bold; cursor: pointer;
+        }
+        .close:hover { color: #f8fafc; }
+    
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1e293b;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+            z-index: 10000;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 50px;
+            left: 0;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: #94a3b8;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            height: auto;
+            border-radius: 0;
+            border: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .dropdown-content a:hover {
+            background-color: rgba(255,255,255,0.05);
+            color: #f8fafc;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+    </style>
+</head>
+<body class="p-6">
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="topnav">
+        <div class="topnav-logo">📦 <span>BCPE Monitor</span></div>
+        <div class="topnav-links">
+            <a href="index.html">Device (ACS)</a>
+            <a href="onu_model_dashboard.html" id="nav-onumodel">ONU (QRUN)</a>
+            <a href="cpe_pairing_dashboard.html" id="nav-cpepairing">CPE Pairing (ACS)</a>
+            <a href="ftth_fttb_trend_dashboard.html" id="nav-mbtrend">FTTH/FTTB Trend (MB)</a>
+        </div>
+        <div class="topnav-right"></div>
+    </nav>
+
+
+    <div class="max-w-7xl mx-auto space-y-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold tracking-tight text-white">T7281 Wi-Fi Expert Analysis</h1>
+                <p class="text-slate-400 mt-2">Preliminary Dashboard generated from T7281_data JSONL Snapshots</p>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="card border-t-4 border-sky-500">
+                <h3 class="text-slate-400 text-sm font-medium">Total ONUs (T7281)</h3>
+                <p id="kpiTotalOnus" class="text-4xl font-bold mt-2 text-sky-400">-</p>
+            </div>
+            <div class="card border-t-4 border-indigo-500">
+                <h3 class="text-slate-400 text-sm font-medium">Total Unique Wi-Fi Clients</h3>
+                <p id="kpiTotalClients" class="text-4xl font-bold mt-2 text-indigo-400">-</p>
+            </div>
+            <div class="card border-t-4 border-emerald-500">
+                <h3 class="text-slate-400 text-sm font-medium">Avg Clients per ONU</h3>
+                <p id="kpiAvgClients" class="text-4xl font-bold mt-2 text-emerald-400">-</p>
+            </div>
+            <div class="card border-t-4 border-amber-500">
+                <h3 class="text-slate-400 text-sm font-medium">Overall Avg RSSI</h3>
+                <p id="kpiAvgRssi" class="text-4xl font-bold mt-2 text-amber-400">- <span class="text-sm font-normal text-slate-400">dBm</span></p>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="card">
+                <h3 class="text-lg font-semibold mb-4">Client Count Distribution</h3>
+                <div class="relative h-64">
+                    <canvas id="clientChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="text-lg font-semibold mb-4">RSSI Signal Quality Distribution</h3>
+                <div class="relative h-64">
+                    <canvas id="rssiChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="card overflow-hidden">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                <div>
+                    <h3 class="text-lg font-semibold mb-1">ONU Detail List</h3>
+                    <p class="text-sm text-slate-400">Click on any AccessNumber to drill down into Wi-Fi Client Diagnostics</p>
+                </div>
+                <div class="w-full md:w-72">
+                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search AccessNumber..." 
+                        class="w-full bg-slate-800 text-white border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-sky-500">
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('access')">AccessNumber <span id="icon-access" class="sort-icon"></span></th>
+                            <th onclick="sortTable('clients')">Total Clients <span id="icon-clients" class="sort-icon"></span></th>
+                            <th onclick="sortTable('rssi')">Avg RSSI (dBm) <span id="icon-rssi" class="sort-icon"></span></th>
+                            <th onclick="sortTable('snr')">Avg SNR (dB) <span id="icon-snr" class="sort-icon"></span></th>
+                            <th onclick="sortTable('rx')">Avg RxRate (Mbps) <span id="icon-rx" class="sort-icon"></span></th>
+                            <th onclick="sortTable('tx')">Avg TxRate (Mbps) <span id="icon-tx" class="sort-icon"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody" class="text-slate-300">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="expertModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 class="text-2xl font-bold text-white mb-2">Expert Analysis & Diagnostics</h2>
+            <p id="modalSubtitle" class="text-sky-400 font-mono mb-6"></p>
+            
+            <div id="modalContentContainer" class="grid grid-cols-1 gap-6">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        
+        let expertData = {};
+        let summaryData = {};
+        let tableData = [];
+        
+        let sortCol = 'access';
+        let sortDesc = false;
+        
+        let modalCharts = [];
+
+        async function loadData() {
+            try {
+                const sumRes = await fetch('t7281_wifi_data.json');
+                summaryData = await sumRes.json();
+                
+                const expRes = await fetch('t7281_expert_data.json');
+                expertData = await expRes.json();
+
+                // Update KPIs
+                document.getElementById('kpiTotalOnus').innerText = summaryData.total_onus.toLocaleString();
+                document.getElementById('kpiTotalClients').innerText = summaryData.total_clients.toLocaleString();
+                document.getElementById('kpiAvgClients').innerText = summaryData.avg_clients_per_onu;
+                document.getElementById('kpiAvgRssi').innerHTML = `${summaryData.overall_avg_rssi} <span class="text-sm font-normal text-slate-400">dBm</span>`;
+
+                // Render Charts
+                renderCharts();
+
+                // Build array for sorting
+                tableData = Object.entries(summaryData.onu_details).map(([accessNum, stats]) => ({
+                    access: accessNum,
+                    clients: stats.clients,
+                    rssi: stats.avg_rssi,
+                    snr: stats.avg_snr,
+                    rx: stats.avg_rx_rate,
+                    tx: stats.avg_tx_rate
+                }));
+
+                populateTable();
+            } catch (error) {
+                console.error("Failed to load data", error);
+            }
+        }
+
+        function renderCharts() {
+            // Client Chart
+            const clientLabels = Object.keys(summaryData.client_count_distribution);
+            const clientDataVals = Object.values(summaryData.client_count_distribution);
+            new Chart(document.getElementById('clientChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: clientLabels,
+                    datasets: [{
+                        label: 'Number of ONUs',
+                        data: clientDataVals,
+                        backgroundColor: 'rgba(99, 102, 241, 0.8)',
+                        borderColor: 'rgba(99, 102, 241, 1)',
+                        borderWidth: 1, borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: '#334155' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // RSSI Chart
+            const rssiLabels = Object.keys(summaryData.rssi_distribution);
+            const rssiDataVals = Object.values(summaryData.rssi_distribution);
+            new Chart(document.getElementById('rssiChart').getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: rssiLabels,
+                    datasets: [{
+                        data: rssiDataVals,
+                        backgroundColor: ['#34d399', '#38bdf8', '#fbbf24', '#f87171'],
+                        borderWidth: 0, hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, cutout: '65%',
+                    plugins: { legend: { position: 'right' } }
+                }
+            });
+        }
+
+        function sortTable(column) {
+            if (sortCol === column) {
+                sortDesc = !sortDesc;
+            } else {
+                sortCol = column;
+                sortDesc = false; // default asc
+            }
+            populateTable();
+        }
+
+        let searchTerm = '';
+        function filterTable() {
+            searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            populateTable();
+        }
+
+        function populateTable() {
+            // Reset icons
+            document.querySelectorAll('.sort-icon').forEach(el => el.innerHTML = '');
+            const iconEl = document.getElementById(`icon-${sortCol}`);
+            if (iconEl) {
+                iconEl.innerHTML = sortDesc ? '▼' : '▲';
+            }
+
+            // Sort
+            tableData.sort((a, b) => {
+                let valA = a[sortCol];
+                let valB = b[sortCol];
+                
+                if (typeof valA === 'string') {
+                    return sortDesc ? valB.localeCompare(valA) : valA.localeCompare(valB);
+                } else {
+                    return sortDesc ? (valB - valA) : (valA - valB);
+                }
+            });
+
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = '';
+            
+            tableData.forEach(row => {
+                if (searchTerm && !row.access.toLowerCase().includes(searchTerm)) return;
+
+                const tr = document.createElement('tr');
+                tr.className = 'clickable-row';
+                tr.onclick = () => openModal(row.access);
+                
+                let rssiColor = 'text-slate-300';
+                if (row.rssi > -50) rssiColor = 'text-emerald-400';
+                else if (row.rssi > -60) rssiColor = 'text-sky-400';
+                else if (row.rssi > -70) rssiColor = 'text-amber-400';
+                else rssiColor = 'text-red-400';
+
+                tr.innerHTML = `
+                    <td class="font-mono text-sky-300 font-medium">${row.access}</td>
+                    <td>${row.clients}</td>
+                    <td class="${rssiColor} font-medium">${row.rssi}</td>
+                    <td>${row.snr}</td>
+                    <td>${row.rx}</td>
+                    <td>${row.tx}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openModal(accessNum) {
+            document.getElementById('expertModal').style.display = "block";
+            document.getElementById('modalSubtitle').innerText = `AccessNumber: ${accessNum}`;
+            
+            const container = document.getElementById('modalContentContainer');
+            container.innerHTML = '';
+            
+            modalCharts.forEach(c => c.destroy());
+            modalCharts = [];
+
+            const expertInfo = expertData[accessNum];
+            if (!expertInfo) {
+                container.innerHTML = '<p class="text-slate-400">No expert data available for this ONU.</p>';
+                return;
+            }
+            
+            const globalTimes = expertInfo.global_times;
+            const router = expertInfo.router;
+
+            // Render Router Health Card
+            if (router) {
+                const hostnamesList = router.hostnames.length > 0 ? router.hostnames.join(', ') : 'None detected';
+                const routerHtml = `
+                    <div class="card bg-slate-800 border-l-4 border-indigo-500 mb-4 shadow-lg shadow-indigo-900/20">
+                        <h3 class="text-xl font-bold text-white mb-2">Router & Optical Health</h3>
+                        <p class="text-sm text-slate-400 mb-4">
+                            <strong class="text-slate-200">Known Hostnames:</strong> ${hostnamesList}
+                        </p>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <!-- CPU & Memory -->
+                            <div class="bg-slate-900 p-3 rounded border border-slate-700">
+                                <h4 class="text-xs text-slate-400 font-medium mb-2 uppercase tracking-wider">CPU & Memory Usage (%)</h4>
+                                <div class="relative h-40">
+                                    <canvas id="chart_router_cpu"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Optical -->
+                            <div class="bg-slate-900 p-3 rounded border border-slate-700">
+                                <h4 class="text-xs text-slate-400 font-medium mb-2 uppercase tracking-wider">GPON Optical Power (dBm)</h4>
+                                <div class="relative h-40">
+                                    <canvas id="chart_router_optical"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="border-slate-700 my-4" />
+                `;
+                const routerDiv = document.createElement('div');
+                routerDiv.innerHTML = routerHtml;
+                container.appendChild(routerDiv);
+
+                // Chart CPU
+                if (router.cpu.some(v => v !== null) || router.mem.some(v => v !== null)) {
+                    const ctxCpu = document.getElementById('chart_router_cpu').getContext('2d');
+                    modalCharts.push(new Chart(ctxCpu, {
+                        type: 'line',
+                        data: {
+                            labels: globalTimes,
+                            datasets: [
+                                { label: 'CPU Usage %', data: router.cpu, borderColor: '#f43f5e', backgroundColor: 'rgba(244, 63, 94, 0.1)', fill: true, tension: 0.3, spanGaps: false },
+                                { label: 'Memory Usage %', data: router.mem, borderColor: '#a855f7', fill: false, tension: 0.3, spanGaps: false }
+                            ]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            interaction: { mode: 'index', intersect: false },
+                            scales: { x: { display: false }, y: { beginAtZero: true, suggestedMax: 100, grid: { color: '#334155' } } }
+                        }
+                    }));
+                }
+
+                // Chart Optical
+                if (router.rx_power.some(v => v !== null) || router.tx_power.some(v => v !== null)) {
+                    const ctxOpt = document.getElementById('chart_router_optical').getContext('2d');
+                    modalCharts.push(new Chart(ctxOpt, {
+                        type: 'line',
+                        data: {
+                            labels: globalTimes,
+                            datasets: [
+                                { label: 'RX Power', data: router.rx_power, borderColor: '#10b981', fill: false, tension: 0.2, spanGaps: false },
+                                { label: 'TX Power', data: router.tx_power, borderColor: '#fbbf24', borderDash: [5,5], fill: false, tension: 0.2, spanGaps: false }
+                            ]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            interaction: { mode: 'index', intersect: false },
+                            scales: { x: { display: false }, y: { grid: { color: '#334155' } } }
+                        }
+                    }));
+                }
+            }
+
+            // Render Clients
+            if (expertInfo.clients) {
+                const clientsTitle = document.createElement('h3');
+                clientsTitle.className = "text-xl font-bold text-white mb-2 mt-4";
+                clientsTitle.innerText = "Wi-Fi Client Diagnostics";
+                container.appendChild(clientsTitle);
+
+                let clientIndex = 0;
+                for (const [mac, metrics] of Object.entries(expertInfo.clients)) {
+                    clientIndex++;
+                    
+                    let healthColor = "text-emerald-400";
+                    let badgeClass = "bg-emerald-900/50 text-emerald-400 border-emerald-800";
+                    
+                    if (metrics.health === "Good") { healthColor = "text-sky-400"; badgeClass = "bg-sky-900/50 text-sky-400 border-sky-800"; }
+                    if (metrics.health === "Warning") { healthColor = "text-amber-400"; badgeClass = "bg-amber-900/50 text-amber-400 border-amber-800"; }
+                    if (metrics.health === "Critical") { healthColor = "text-red-400"; badgeClass = "bg-red-900/50 text-red-400 border-red-800"; }
+
+                    const cardHtml = `
+                        <div class="card bg-slate-800 border border-slate-700">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-mono text-white flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                    Client MAC: ${mac}
+                                </h3>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${badgeClass}">
+                                    ${metrics.health} (Avg RSSI: ${metrics.avg_rssi} dBm)
+                                </span>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <!-- RSSI Chart -->
+                                <div class="bg-slate-900 p-3 rounded border border-slate-800">
+                                    <h4 class="text-xs text-slate-400 font-medium mb-2 uppercase tracking-wider">RSSI & SNR History</h4>
+                                    <div class="relative h-40">
+                                        <canvas id="chart_rssi_${clientIndex}"></canvas>
+                                    </div>
+                                </div>
+                                
+                                <!-- Rate Chart -->
+                                <div class="bg-slate-900 p-3 rounded border border-slate-800">
+                                    <h4 class="text-xs text-slate-400 font-medium mb-2 uppercase tracking-wider">Tx/Rx Rate History (Mbps)</h4>
+                                    <div class="relative h-40">
+                                        <canvas id="chart_rate_${clientIndex}"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    const div = document.createElement('div');
+                    div.innerHTML = cardHtml;
+                    container.appendChild(div);
+
+                    // Render RSSI Chart
+                    const ctxRssi = document.getElementById(`chart_rssi_${clientIndex}`).getContext('2d');
+                    modalCharts.push(new Chart(ctxRssi, {
+                        type: 'line',
+                        data: {
+                            labels: globalTimes,
+                            datasets: [
+                                { label: 'RSSI', data: metrics.rssi, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.1)', fill: true, tension: 0.3, yAxisID: 'y', spanGaps: false },
+                                { label: 'SNR', data: metrics.snr, borderColor: '#fbbf24', borderDash: [5, 5], fill: false, tension: 0.3, yAxisID: 'y1', spanGaps: false }
+                            ]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            interaction: { mode: 'index', intersect: false },
+                            scales: {
+                                x: { grid: { display: false } },
+                                y: { type: 'linear', display: true, position: 'left', grid: { color: '#334155' } },
+                                y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false } }
+                            }
+                        }
+                    }));
+
+                    // Render Rate Chart
+                    const ctxRate = document.getElementById(`chart_rate_${clientIndex}`).getContext('2d');
+                    modalCharts.push(new Chart(ctxRate, {
+                        type: 'line',
+                        data: {
+                            labels: globalTimes,
+                            datasets: [
+                                { label: 'TxRate', data: metrics.tx, borderColor: '#a78bfa', backgroundColor: 'rgba(167, 139, 250, 0.1)', fill: true, tension: 0.3, spanGaps: false },
+                                { label: 'RxRate', data: metrics.rx, borderColor: '#34d399', borderDash: [5, 5], fill: false, tension: 0.3, spanGaps: false }
+                            ]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            interaction: { mode: 'index', intersect: false },
+                            scales: {
+                                x: { grid: { display: false } },
+                                y: { beginAtZero: true, grid: { color: '#334155' } }
+                            }
+                        }
+                    }));
+                }
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('expertModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('expertModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>

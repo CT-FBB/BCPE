@@ -59,8 +59,10 @@
         html.in-iframe nav.topnav { display: none !important; }
 
         .dashboard-container {
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
 
         /* ── TOP NAV BAR ── */
@@ -632,14 +634,7 @@
             <a href="index.html">Device (ACS)</a>
             <a href="onu_model_dashboard.html" id="nav-onumodel">ONU (QRUN)</a>
             <a href="cpe_pairing_dashboard.html" id="nav-cpepairing" class="active">CPE Pairing (ACS)</a>
-            <div class="dropdown">
-                <a href="#" class="dropbtn" id="nav-deviceperform">Device Perform ▾</a>
-                <div class="dropdown-content">
-                    <a href="v163_wifi_dashboard.html">Wi-Fi (V163)</a>
-                    <a href="t625pro_wifi_dashboard.html">Wi-Fi (T625Pro)</a>
-                    <a href="t7281_wifi_dashboard.html">Wi-Fi (T7281)</a>
-                </div>
-            </div>
+            <a href="ftth_fttb_trend_dashboard.html" id="nav-mbtrend">FTTH/FTTB Trend (MB)</a>
         </div>
         <div class="topnav-right"></div>
     </nav>

@@ -46,12 +46,121 @@
             color: var(--text-main);
             font-family: var(--font-main);
             min-height: 100vh;
-            padding: 24px 32px 60px;
+            margin: 0 !important;
+            padding: 80px 2rem 60px 2rem !important;
+            overflow-x: hidden !important;
         }
 
         .container {
-            max-width: 1440px;
-            margin: 0 auto;
+            max-width: 100% !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* ── Top Navigation Bar CSS ── */
+        .topnav {
+            height: 60px !important;
+            background: rgba(13, 18, 34, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: grid !important;
+            grid-template-columns: auto 1fr auto !important;
+            align-items: center;
+            padding: 0 2rem;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 9999 !important;
+        }
+        .topnav-logo {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: #f8fafc;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-self: start;
+        }
+        .topnav-logo span {
+            background: linear-gradient(135deg, #06b6d4, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .topnav-links {
+            display: flex;
+            gap: 8px;
+            height: 100%;
+            align-items: center;
+            justify-self: center;
+        }
+        .topnav-right {
+            justify-self: end;
+            display: flex;
+            align-items: center;
+        }
+        .topnav-links a {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .topnav-links a:hover {
+            color: #f8fafc;
+            background: rgba(255,255,255,0.03);
+        }
+        .topnav-links a.active {
+            color: #f8fafc;
+            background: rgba(6, 182, 212, 0.15);
+            font-weight: 600;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1e293b;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+            z-index: 10000;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            top: 50px;
+            left: 0;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: #94a3b8;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            height: auto;
+            border-radius: 0;
+            border: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .dropdown-content a:hover {
+            background-color: rgba(255,255,255,0.05);
+            color: #f8fafc;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
 
         /* ── Header ── */
@@ -436,8 +545,19 @@
 </head>
 <body>
 
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="topnav">
+        <div class="topnav-logo">📦 <span>BCPE Monitor</span></div>
+        <div class="topnav-links">
+            <a href="index.html">Device (ACS)</a>
+            <a href="onu_model_dashboard.html" id="nav-onumodel">ONU (QRUN)</a>
+            <a href="cpe_pairing_dashboard.html" id="nav-cpepairing">CPE Pairing (ACS)</a>
+            <a href="ftth_fttb_trend_dashboard.html" id="nav-mbtrend" class="active">FTTH/FTTB Trend (MB)</a>
+        </div>
+        <div class="topnav-right"></div>
+    </nav>
+
 <div class="container">
-    <a href="index.html" class="nav-back">⬅ กลับไปหน้า Main Dashboard</a>
 
     <!-- Header -->
     <div class="header">
