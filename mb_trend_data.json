@@ -1,20 +1,20 @@
 {
   "kpi": {
-    "latest_date": "2026-09-07",
+    "latest_date": "2026-09-14",
     "baseline_date": "2025-12-29",
-    "latest_total": 3413738,
+    "latest_total": 3414065,
     "baseline_total": 3321991,
-    "net_growth_total": 91747,
-    "pct_growth_total": 2.76,
-    "latest_ftth": 3380260,
+    "net_growth_total": 92074,
+    "pct_growth_total": 2.77,
+    "latest_ftth": 3380659,
     "baseline_ftth": 3284469,
-    "net_growth_ftth": 95791,
-    "pct_growth_ftth": 2.92,
-    "latest_fttb": 33478,
+    "net_growth_ftth": 96190,
+    "pct_growth_ftth": 2.93,
+    "latest_fttb": 33406,
     "baseline_fttb": 37522,
-    "net_growth_fttb": -4044,
-    "pct_growth_fttb": -10.78,
-    "total_checkpoints": 19
+    "net_growth_fttb": -4116,
+    "pct_growth_fttb": -10.97,
+    "total_checkpoints": 20
   },
   "timeline": [
     {
@@ -509,6 +509,32 @@
         "FIBERHOME_1G_500": 299929,
         "FIBERHOME_1G_200": 191778,
         "FIBERHOME_1G_1G": 90510
+      }
+    },
+    {
+      "date": "2026-09-14",
+      "total_active": 3414065,
+      "ftth": 3380659,
+      "fttb": 33406,
+      "fttb_estimated": false,
+      "delta_total": 327,
+      "delta_ftth": 399,
+      "delta_fttb": -72,
+      "by_region": {
+        "BMA": 1507562,
+        "Central": 556090,
+        "North": 418208,
+        "Northeast": 676206,
+        "South": 296716,
+        "Other": 1730
+      },
+      "top_speeds": {
+        "FIBERHOME_500_500": 1415619,
+        "FIBERHOME_200_200": 665571,
+        "FIBERHOME_300_300": 636159,
+        "FIBERHOME_1G_500": 298683,
+        "FIBERHOME_1G_200": 190376,
+        "FIBERHOME_1G_1G": 90365
       }
     }
   ]
