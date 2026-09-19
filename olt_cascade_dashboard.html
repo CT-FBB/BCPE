@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายงานผู้บริหาร: แดชบอร์ดวิเคราะห์โครงสร้างพ่วงต่อ OLT Cascade (Uplink to OLT)</title>
+    <!-- Google Fonts: Inter (English) & Prompt (Thai) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+    /* Prevent layout shift from scrollbar appear/disappear */
+    html { scrollbar-gutter: stable; overflow-y: scroll; }
+
+        :root {
+            --bg-dark: #070a13;
+            --bg-panel: #0d1222;
+            --bg-card: rgba(18, 25, 47, 0.7);
+            --bg-card-hover: rgba(25, 35, 66, 0.85);
+            --border-color: rgba(255, 255, 255, 0.06);
+            
+            --color-primary: #00f2fe;     /* Cyan */
+            --color-secondary: #7f00ff;   /* Violet */
+            --color-accent: #3b82f6;      /* Blue */
+            --color-success: #10b981;     /* Emerald Green */
+            --color-warning: #f59e0b;     /* Amber */
+            --color-danger: #ef4444;      /* Red */
+            
+            --text-main: #f3f4f6;
+            --text-muted: #a1a1aa;
+            --text-dim: #71717a;
+            
+            --glow-primary: 0 0 20px rgba(0, 242, 254, 0.35);
+            --glow-success: 0 0 15px rgba(16, 185, 129, 0.3);
+            
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Prompt', 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(0, 242, 254, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(127, 0, 255, 0.04) 0%, transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        padding: 20px 24px 2rem 24px !important;
+    }
+
+        .dashboard-container {
+            max-width: 100% !important;
+            margin: 0 auto;
+        }
+
+        /* Global Navigation Bar Styles */
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        /* Header Styling */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-info h1 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .header-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .btn-export {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(127, 0, 255, 0.2));
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-export:hover {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: var(--glow-primary);
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: transparent;
+        }
+
+        .kpi-total::before { background: var(--color-accent); }
+        .kpi-10g::before { background: var(--color-primary); }
+        .kpi-1g::before { background: var(--color-warning); }
+        .kpi-top-vendor::before { background: var(--color-secondary); }
+        .kpi-hops-1::before { background: var(--color-success); }
+        .kpi-hops-2plus::before { background: var(--color-danger); }
+        .kpi-links-design::before { background: var(--color-success); }
+        .kpi-links-single::before { background: var(--color-warning); }
+
+        .kpi-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .kpi-value {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .kpi-desc {
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        /* Charts section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .chart-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+
+        .chart-card h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 320px;
+            width: 100%;
+        }
+
+        /* Tables section */
+        .table-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .table-card h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .badge-10g {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--color-primary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+        }
+
+        .badge-1g {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--color-warning);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 11px;
+        }
+    
+    /* ── Global Nav Styles ── */
+    .global-nav {
+        position: fixed; top: 0; left: 0; right: 0; height: 70px;
+        background-color: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);
+        display: flex; align-items: center; padding: 0 3rem; z-index: 1000;
+        box-sizing: border-box;
+    }
+    .nav-logo { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-right: 3rem; display: flex; align-items: center; gap: 0.75rem; font-family: 'Outfit', sans-serif; }
+    .nav-logo span { color: #38bdf8; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: #94a3b8; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; font-family: 'Inter', system-ui, sans-serif; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+
+
+@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } } .blink { animation: blink 1s infinite; }
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+/* Tab Navigation Styles */
+.tab-navigation {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+.tab-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+}
+.tab-btn.active {
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(127, 0, 255, 0.15));
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
+    font-weight: 600;
+}
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100% !important;
+    height: 60px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: #0d1222 !important;
+    z-index: 10000 !important;
+  }
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+        /* === AUTO-HIDE SIDEBAR & FULL SCREEN PAGE LAYOUT === */
+        html { scrollbar-gutter: stable !important; overflow-y: scroll !important; }
+        body { 
+            margin: 0 !important;
+            padding: 20px 24px 2rem 24px !important;
+            overflow-x: hidden !important;
+            transition: padding 0.3s ease;
+        }
+
+        /* Full Width Container across all dashboards */
+        .container, .dashboard-container, .dashboard-wrapper, .main-content, .content, .main, #app, .app-container, .wrapper, .max-w-7xl {
+            max-width: 100% !important;
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Ensure cards, charts, and tables expand properly to 100% width */
+        .dashboard-main, .kpi-grid, .stats-grid, .charts-container, .table-container, .grid-container, .card, .panel, .glass-panel {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Sidebar Toggle Floating Button */
+        .sidebar-toggle-btn {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 10000;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            color: #f8fafc;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(6, 182, 212, 0.2);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-toggle-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: #06b6d4;
+            transform: scale(1.05);
+            box-shadow: 0 6px 24px rgba(6, 182, 212, 0.35);
+        }
+        .sidebar-toggle-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: #22d3ee;
+            transition: transform 0.25s ease;
+        }
+
+        /* Sidebar Overlay Backdrop */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 3, 15, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 10001;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Auto-Hide Slide-over Sidebar Drawer */
+        .sidebar {
+            width: 270px !important;
+            background: rgba(11, 15, 29, 0.96) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-right: 1px solid rgba(6, 182, 212, 0.2) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            position: fixed !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            z-index: 10002 !important;
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease !important;
+            box-shadow: none !important;
+        }
+        .sidebar.open {
+            transform: translateX(0) !important;
+            box-shadow: 10px 0 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.15) !important;
+        }
+
+        .sidebar-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 16px 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: #f8fafc;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 !important;
+            border-bottom: none !important;
+        }
+        .sidebar-logo span {
+            background: linear-gradient(135deg, #06b6d4, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sidebar-close-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+        .sidebar-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #ef4444;
+        }
+
+        .sidebar-links {
+            flex-grow: 1;
+            padding: 14px 0;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-links::-webkit-scrollbar { width: 4px; }
+        .sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+        .sidebar-links a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            box-sizing: border-box;
+        }
+        .sidebar-links a:hover {
+            color: #f8fafc;
+            background: rgba(255,255,255,0.04);
+            border-left-color: rgba(6, 182, 212, 0.4);
+        }
+        .sidebar-links a.active {
+            color: #f8fafc;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.18) 0%, transparent 100%);
+            border-left-color: #06b6d4;
+            font-weight: 600;
+        }
+        .sidebar-links a.sub-link {
+            padding: 7px 20px 7px 36px;
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+        .sidebar-links a.sub-link:hover {
+            color: #22d3ee;
+            background: rgba(6, 182, 212, 0.06);
+        }
+        .sidebar-links a.sub-link.active {
+            color: #22d3ee;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.12) 0%, transparent 100%);
+            border-left-color: rgba(6, 182, 212, 0.5);
+        }
+
+        /* Adjust headers to give breathing room from floating button */
+        .header, .dashboard-header, .exec-header, .page-header, .header-section {
+            padding-left: 48px !important;
+        }
+        @media (max-width: 768px) {
+            .header, .dashboard-header, .exec-header, .page-header, .header-section {
+                padding-left: 44px !important;
+            }
+        }
+</style>
+</head>
+<body>
+
+
+<!-- FLOATING SIDEBAR TOGGLE BUTTON -->
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle Navigation Menu" title="เมนูนำทาง (คลิกเพื่อเปิด/ปิด)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+</button>
+
+<!-- BACKDROP OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- SLIDE-OVER SIDEBAR -->
+<nav class="sidebar" id="mainSidebar">
+    <div class="sidebar-header-row">
+        <div class="sidebar-logo">⚡ <span>FBE-PMS-Monitor</span></div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar" title="ปิดเมนู">&times;</button>
+    </div>
+    <div class="sidebar-links">
+        <a href="index.html" id="nav-main">OLT temperature</a>
+        <a href="mismatch_dashboard.html" id="nav-mismatch">XGS mismatch</a>
+        <a href="olt_executive_dashboard.html" id="nav-executive">XGS-PON</a>
+        <a href="olt_cascade_dashboard.html" id="nav-cascade" class="active">Cascade</a>
+        <a href="olt_l2_distance_dashboard.html" id="nav-l2distance">L2 Distance</a>
+        <a href="dw_distance_dashboard.html" id="nav-dw-distance" class="sub-link">&#128300; DW Distance</a>
+        <a href="scab_l2_dashboard.html" id="nav-scab-l2" class="sub-link">&#128300; SCAB L2 Topo</a>
+        <a href="l1_rehome_dashboard.html" id="nav-l1rehome">L1 Rehome</a>
+        <a href="traffic_dashboard.html" id="nav-uplinktraffic">Uplink Traffic</a>
+        <a href="optical_dashboard.html" id="nav-optical">Optical</a>
+        <a href="pon_traffic_dashboard.html" id="nav-pontraffic">PON Traffic</a>
+        <a href="inventory_movement_dashboard.html" id="nav-inventory">Inventory</a>
+        <a href="tvs_edfa_dashboard.html" id="nav-edfa">EDFA</a>
+        <a href="swap_olt_dashboard.html" id="nav-swap">SwapOLT</a>
+        <a href="uplink_instability_dashboard.html" id="nav-instability">Flapping</a>
+        <a href="uplink_instability_trend_dashboard.html" id="nav-instability-trend" class="sub-link">&#128300; Flapping Trends</a>
+        <a href="simplex_dashboard.html" id="nav-simplex">Simplex</a>
+        <a href="single_board_dashboard.html" id="nav-control-board">Control card</a>
+        <a href="xgs_upgrade_dashboard.html" id="nav-xgs-upgrade">HiSpeedPack</a>
+        <a href="xgs_readiness_dashboard.html" id="nav-xgs-readiness" class="sub-link">&#128300; XGS Readiness</a>
+        <a href="pon_sfp_audit_dashboard.html" id="nav-pon-sfp">PON SFP Audit</a>
+        <a href="olt_onu_dashboard.html" id="nav-olt-onu">OLT-ONU</a>
+        <a href="radius_health_dashboard.html" id="nav-radius">Radius</a>
+    </div>
+    </nav>
+
+
+
+
+    <!-- Sticky Global Navigation Bar -->
+    
+
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-info">
+                <h1>รายงานวิเคราะห์โครงสร้างพ่วงต่อ OLT Cascade (Uplink to OLT)</h1>
+                <p>การวิเคราะห์ความสามารถของ OLT ที่มีสายเชื่อมโยง Uplink ไปพ่วงต่อกับ OLT ด้วยกันเอง แทนระบบ CPE IP RAN ปกติ</p>
+                <div style="margin-top: 8px;"><span style="background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); color: #a5b4fc; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-family: 'Outfit', sans-serif; font-weight: 600; letter-spacing: 0.04em;">📅 AS OF 31/08/26</span></div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+<button class="btn-export" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2)); border-color: var(--color-success); color: var(--color-success);" onclick="window.open('olt_cascade_report.xlsx', '_blank')">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 4px; vertical-align: middle;"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M15.8,20H14L12,16.6L10,20H8.2L11.1,15.5L8.2,11H10L12,14.4L14,11H15.8L12.9,15.5L15.8,20M13,9V3.5L18.5,9H13Z" /></svg>
+                    ดาวน์โหลด Excel (Full)
+                </button>
+            </div>
+        </header>
+
+        <!-- Tab Selector -->
+        <div class="tab-navigation" style="margin-top: 15px; margin-bottom: 25px;">
+            <button class="tab-btn active" id="btn-nationwide" onclick="switchView('nationwide')">Nationwide</button>
+            <button class="tab-btn" id="btn-bma-eec" onclick="switchView('bma_eec')">BMA & EEC Focus</button>
+        </div>
+
+        <!-- KPI Grid -->
+        <section class="kpi-grid">
+            <div class="kpi-card kpi-total">
+                <div class="kpi-title">🔗 OLT Cascade ทั้งหมด</div>
+                <div class="kpi-value" id="kpi-total-val">163 เครื่อง</div>
+                <div class="kpi-desc" id="kpi-total-desc">อัปเดตจากไฟล์ล่าสุด</div>
+            </div>
+            <div class="kpi-card kpi-10g">
+                <div class="kpi-title">⚡ ลิงก์พ่วงความเร็ว 10G</div>
+                <div class="kpi-value" id="kpi-10g-val">134 ลิงก์</div>
+                <div class="kpi-desc" id="kpi-10g-desc">82.2% รองรับการขยายตัวความเร็วพอร์ต FTTx</div>
+            </div>
+            <div class="kpi-card kpi-1g">
+                <div class="kpi-title">🐢 ลิงก์พ่วงความเร็ว 1G</div>
+                <div class="kpi-value" id="kpi-1g-val">29 ลิงก์</div>
+                <div class="kpi-desc" id="kpi-1g-desc">17.8% อัตราส่วนสายพ่วงแบบดั้งเดิม</div>
+            </div>
+            <div class="kpi-card kpi-top-vendor">
+                <div class="kpi-title">🏢 แบรนด์ Cascade หลัก</div>
+                <div class="kpi-value" id="kpi-top-vendor-val">Fiberhome</div>
+                <div class="kpi-desc" id="kpi-top-vendor-desc">63 เครื่อง (เป็นตัวลูกที่มีการพ่วงต่อสูงสุด)</div>
+            </div>
+        </section>
+
+        <!-- KPI Grid 2: Hop Count & Link Count Validation -->
+        <section class="kpi-grid" style="margin-top: 16px;">
+            <div class="kpi-card kpi-hops-1">
+                <div class="kpi-title">📍 Cascade 1 Hop</div>
+                <div class="kpi-value" id="kpi-hops-1-val">159 เครื่อง</div>
+                <div class="kpi-desc" id="kpi-hops-1-desc">ต่อตรงเข้าแม่ OLT ตัวหลัก</div>
+            </div>
+            <div class="kpi-card kpi-hops-2plus">
+                <div class="kpi-title">⚠️ Cascade >= 2 Hops</div>
+                <div class="kpi-value" id="kpi-hops-2plus-val">4 เครื่อง</div>
+                <div class="kpi-desc" id="kpi-hops-2plus-desc">ต่อผ่าน OLT ตัวลูกอื่น (มีความเสี่ยงสูง)</div>
+            </div>
+            <div class="kpi-card kpi-links-design">
+                <div class="kpi-title">✅ ตรงตามแบบ (2 ลิงก์)</div>
+                <div class="kpi-value" id="kpi-links-design-val">63 เครื่อง</div>
+                <div class="kpi-desc" id="kpi-links-design-desc">มีลิงก์สำรองตรงตามเกณฑ์มาตรฐาน</div>
+            </div>
+            <div class="kpi-card kpi-links-single">
+                <div class="kpi-title">🚨 ผิดแบบ/ไม่มีสำรอง (1 ลิงก์)</div>
+                <div class="kpi-value" id="kpi-links-single-val">18 เครื่อง</div>
+                <div class="kpi-desc" id="kpi-links-single-desc">พบความเสี่ยงลิงก์เดี่ยวไม่มีสำรอง</div>
+            </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h2>จำนวน OLT Cascade แยกตามแบรนด์ผู้ผลิต</h2>
+                <p style="font-size: 11px; color: var(--text-dim); margin-top: -12px; margin-bottom: 12px;">📊 คลิกที่แต่ละแท่งเพื่อเจาะลึกดูสัดส่วนความเร็วรายยี่ห้อ (Doughnut Chart ขวามือจะอัปเดตตาม)</p>
+                <div class="chart-container">
+                    <canvas id="vendorChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h2 id="speedChartTitle">สัดส่วนความเร็วลิงก์ Cascade ทั้งหมด</h2>
+                <p id="speedChartSub" style="font-size: 11px; color: var(--text-dim); margin-top: -12px; margin-bottom: 12px;">💡 คลิกที่แท่งกราฟด้านซ้ายเพื่อดูสัดส่วน หรือคลิกนอกแท่งเพื่อรีเซ็ต</p>
+                <div class="chart-container">
+                    <canvas id="speedChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Card -->
+        <div class="table-card">
+            <h2>ตัวอย่างเส้นทางการต่อพ่วง Cascade OLT ยอดนิยม (Top Cascade Path Analysis)</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ชื่อ OLT ปลายทาง (ตัวลูก)</th>
+                            <th>แบรนด์ OLT (ตัวลูก)</th>
+                            <th>รุ่น OLT (ตัวลูก)</th>
+                            <th>ชื่อ OLT ต้นทางคู่พ่วง (ตัวแม่ / DstSite)</th>
+                            <th>แบรนด์ (ตัวแม่)</th>
+                            <th>รุ่น (ตัวแม่)</th>
+                            <th>ความเร็ว Uplink (Cascade Link)</th>
+                            <th>จำนวน Hop</th>
+                            <th>จำนวน Link</th>
+                        </tr>
+                    </thead>
+                                        <tbody>
+                        <tr><td>AYT11002GO0</td><td>Huawei</td><td>MA5608T</td><td>AYT01032GO0</td><td>Fiberhome</td><td>AN5516-04</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">2 Links (OK)</span></td></tr>
+                        <tr><td>BKK05020GO0</td><td>Fiberhome</td><td>AN5516-04</td><td>BKK05012GO0</td><td>Fiberhome</td><td>AN6000-2</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                        <tr><td>BKK05021GO0</td><td>Fiberhome</td><td>AN5516-04</td><td>BKK05014GO0</td><td>Fiberhome</td><td>AN5516-04</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                        <tr><td>BKK06017GO0</td><td>Fiberhome</td><td>AN5516-04</td><td>BKK06013GO0</td><td>Fiberhome</td><td>AN5516-04</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                        <tr><td>BKK06019GO0</td><td>Fiberhome</td><td>AN5516-04</td><td>BKK06011GO0</td><td>Fiberhome</td><td>AN5516-04</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                        <tr><td>BKK06024GO0</td><td>Fiberhome</td><td>AN5516-04</td><td>BKK06010GO0</td><td>Fiberhome</td><td>AN5516-04</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                        <tr><td>BKK06025GO0</td><td>Fiberhome</td><td>AN5516-04</td><td>BKK06023GO0</td><td>Huawei</td><td>MA5800-X2</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                        <tr><td>BKK06026GO0</td><td>Fiberhome</td><td>AN5516-04</td><td>BKK06012GO0</td><td>Fiberhome</td><td>AN5516-04</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                        <tr><td>BKK06027GO0</td><td>Fiberhome</td><td>AN5516-04</td><td>BKK06007GO0</td><td>Fiberhome</td><td>AN5516-04</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                        <tr><td>BKK15007GO0</td><td>Huawei</td><td>MA5800-X2</td><td>BKK15006GO0</td><td>Huawei</td><td>MA5800-X2</td><td><span class="badge-10g">10 Gbps</span></td><td><span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span></td><td><span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">4 Link (Warning)</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Topology Infographic Card -->
+        <div class="table-card" style="margin-top: 30px; text-align: center;">
+            <h2>แผนภาพสถาปัตยกรรมโครงข่าย OLT Cascade (3 Scenarios)</h2>
+            <p style="font-size: 13px; color: var(--text-dim); margin-top: -10px; margin-bottom: 20px;">💡 แผนภาพแสดงเส้นทางอัปลิงก์จากอุปกรณ์ตัวลูกปลายทาง (Access Side) ไปหาอุปกรณ์เราเตอร์และตัวแม่ต้นทาง (Core/CPE Side)</p>
+            <div style="background: rgba(13, 18, 34, 0.4); padding: 20px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.05); display: inline-block; max-width: 800px; width: 100%; box-sizing: border-box; box-shadow: inset 0 0 20px rgba(0,0,0,0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+                <img src="olt_cascade_3scenarios_fixed.png" alt="OLT Network Cascade Scenarios Diagram" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); display: block; margin: 0 auto;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cascadeRawData = {"asOfDate": "31/08/26", "records": [{"Device": "AYT11002GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "AYT01032GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "BKK05020GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK05012GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK05021GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK05014GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK06024GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK06010GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK06025GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK06023GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK15007GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK15006GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK20009GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK20005GO0", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK20012GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK20010GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK21020GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK21019GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK21022GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK21013GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK21026GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "BKK21023GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK23014GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK23007GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK27006GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK27003GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK28006GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK31004GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK29016GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK29011GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK30012GO1", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK30012GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK32015GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK32008GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK32020GO1", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK32020GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK32021GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK32019GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK32033GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK32018GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK33008GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK33009GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK33014GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK33011GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK33015GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK33006GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK34007GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK34009GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK34011GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK34010GO0", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK34013GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK06009GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK34016GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK34004GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK38008GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK38003GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK38014GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK38006GO1", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK39036GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK39032GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK39038GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK39006GO1", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK39040GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK39037GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK40017GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK40014GO0", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK44004GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK44011GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK44020GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK44007GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK46023GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK10016GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK47012GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK47008GO0", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK47017GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK47004GO0", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK47020GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "BKK47009GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "BKK47021GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK47016GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "BKK47024GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "BKK47019GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR01054GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR01056GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CBR01057GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CBR01053GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR01058GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CBR01055GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR01061GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR01059GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR01064GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR01063GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CBR01076GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR01072G00", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR01081GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CBR01074GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR04079GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04061GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CBR04081GO1", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04081GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CBR04082GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04060GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CBR04083GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04075GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 5, "IsBmaEec": true}, {"Device": "CBR04084GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04078GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR04086GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04085GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR04087G00", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04080G00", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CBR04088GO1", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CBR04088GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR04091GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CBR04090GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR04092GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CBR04095GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR04093GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CBR04089GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR04098G00", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04094G00", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CBR04099GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR04097GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR07029G00", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR07029G00", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 2, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CBR09037GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CBR09036GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CBR09039GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CBR09032GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CCS01041GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CCS01040GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "CCS01042GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CCS01002GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "CMI01032GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "CMI01032GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "CMI16008GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "CMI16003G00", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "CNT01001GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "CNT01023GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "CNT04001GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "CNT01025GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "CNT04002GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "CNT01024GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "CRI14005GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "CRI14002G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "CRI15014GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "CRI15002G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": false}, {"Device": "KCN05006G00", "Vendor": "Raisecom", "Model": "ISCOM5508", "DstSite": "KCN06016GO0", "DstVendor": "ZTE", "DstModel": "C320", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 5, "IsBmaEec": false}, {"Device": "LPG01038G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG01034G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG01040G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG01041G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG01044GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG01044GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG02009G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG02012G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "LPG02010G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG02007G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "LPG02011G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG02004G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG03003G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "LPG03010G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG04002G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG04004G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG05017G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG05008G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG06007G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG06005G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "LPG06008G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG07010G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG07014G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG07006G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG08018G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG08008G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG10016G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG10017G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG13013G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "LPG13011G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "LPG13014G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "LPG13015G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "NAN07023GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "NAN07023GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "NAN09008GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "NAN09008GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "NAN14009GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "NAN14009GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "NKN03008G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "NKN03009G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "NRT06007G00", "Vendor": "Raisecom", "Model": "ISCOM5508", "DstSite": "NRT07003G00", "DstVendor": "Raisecom", "DstModel": "ISCOM5508", "MaxSpeedDescr": "1 Gbps", "Hops": 3, "LinkCount": 5, "IsBmaEec": false}, {"Device": "NRT07003G00", "Vendor": "Raisecom", "Model": "ISCOM5508", "DstSite": "NRT06007G00", "DstVendor": "Raisecom", "DstModel": "ISCOM5508", "MaxSpeedDescr": "10 Gbps", "Hops": 3, "LinkCount": 5, "IsBmaEec": false}, {"Device": "NTB01016GO1", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "NTB01016GO0", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "NTB01033GO0", "Vendor": "ZTE", "Model": "C620", "DstSite": "NTB02002GO1", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 8, "IsBmaEec": true}, {"Device": "NTB02009GO1", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "NTB02009GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "NTB06031GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "NTB06025GO0", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "PBR04020G00", "Vendor": "Raisecom", "Model": "ISCOM5508", "DstSite": "PBR04034GO0", "DstVendor": "Fiberhome", "DstModel": "AN6000-2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 5, "IsBmaEec": false}, {"Device": "PCB05019G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "PCB10023G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PCR02026G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PCR02017G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PCT01021G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PCT02007G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "PCT01022GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PCT01022GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PCT03009G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "PCT03007G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PCT04009G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "PCT05004G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PCT05009G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PCT11003G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "PCT05010G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PCT05006G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "PCT05011GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PCT05011GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PCT08008G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PCT05007G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "PCT12004G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "PCT12002G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PCT12007G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PCT12003G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PHE01013G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PHE01015G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PHE01016G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "PHE01011G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "PHE01022GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PHE01022GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PHE01023GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PHE01023GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PHE03016G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "PHE03018G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PHE04010GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PHE04010GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PHE04011GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PHE04011GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PTT03013GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "PTT03012GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "PTT03016GO1", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "PTT03016GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "PYO04006G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "PYO04003G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "PYO08008G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "PYO08001G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "PYO09003G00", "Vendor": "Dasan", "Model": "V5808", "DstSite": "PYO05005G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "RCB07016G00", "Vendor": "Raisecom", "Model": "ISCOM5508", "DstSite": "RCB01040GO0", "DstVendor": "ZTE", "DstModel": "C320", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 5, "IsBmaEec": false}, {"Device": "SBR03002GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "SBR01017GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "SKA10019G00", "Vendor": "Raisecom", "Model": "ISCOM5508", "DstSite": "SKA10016G00", "DstVendor": "Fiberhome", "DstModel": "AN6001-GF16", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 5, "IsBmaEec": false}, {"Device": "SKO02009G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "SKO02001G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "SKO03010G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "SKO03006G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "SKO04007G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "SKO09006G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "SKO06014G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "SKO06012G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "SKO06015G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "SKO08002G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 1, "IsBmaEec": false}, {"Device": "SKO08011G00", "Vendor": "Dasan", "Model": "V5804", "DstSite": "SKO08006G00", "DstVendor": "Dasan", "DstModel": "V5808", "MaxSpeedDescr": "1 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "SKT01018G01", "Vendor": "Dasan", "Model": "V5804", "DstSite": "SKT01018G00", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "SMP01040GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "SMP01038GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "SMP01045GO1", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "SMP01045GO0", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": true}, {"Device": "SMP01061GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "SMP01041GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "SMP03039GO0", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "SMP03026GO0", "DstVendor": "Fiberhome", "DstModel": "AN5516-04", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "SMP05011GO0", "Vendor": "Fiberhome", "Model": "AN5516-04", "DstSite": "SMP05008GO1", "DstVendor": "Huawei", "DstModel": "MA5800-X2", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": true}, {"Device": "SPB10001G00", "Vendor": "Raisecom", "Model": "ISCOM5508", "DstSite": "SPB10004GO0", "DstVendor": "ZTE", "DstModel": "C320", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 5, "IsBmaEec": false}, {"Device": "SRB11010GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "SRB11013G00", "DstVendor": "GCOM", "DstModel": "GL5610-08P(V2)", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "SRB11028GO0", "Vendor": "Huawei", "Model": "MA5608T", "DstSite": "SRB11022G00", "DstVendor": "GCOM", "DstModel": "GL5610-08P(V2)", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 2, "IsBmaEec": false}, {"Device": "TRT01018GO1", "Vendor": "Dasan", "Model": "V5804", "DstSite": "TRT01018GO0", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 1, "LinkCount": 4, "IsBmaEec": false}, {"Device": "TRT01018GO2", "Vendor": "Huawei", "Model": "MA5800-X2", "DstSite": "TRT01018GO1", "DstVendor": "Dasan", "DstModel": "V5804", "MaxSpeedDescr": "10 Gbps", "Hops": 2, "LinkCount": 2, "IsBmaEec": false}]};
+        let vendorChartInstance = null;
+        let speedChartInstance = null;
+
+        function switchView(view) {
+            document.getElementById('btn-nationwide').classList.toggle('active', view === 'nationwide');
+            document.getElementById('btn-bma-eec').classList.toggle('active', view === 'bma_eec');
+
+            const records = view === 'nationwide' 
+                ? cascadeRawData.records 
+                : cascadeRawData.records.filter(r => r.IsBmaEec);
+
+            // Update AS OF Date
+            const dateSpan = document.querySelector('.header-info span');
+            if (dateSpan) {
+                dateSpan.textContent = `📅 AS OF ${cascadeRawData.asOfDate}`;
+            }
+
+            // Calculate KPIs
+            const totalCascade = records.length;
+            
+            let count_10g = 0;
+            let count_1g = 0;
+            let count_hops_1 = 0;
+            let count_hops_2plus = 0;
+            let count_links_design = 0;
+            let count_links_single = 0;
+
+            const vendorCounts = {};
+
+            records.forEach(r => {
+                // Speed
+                if (String(r.MaxSpeedDescr).includes('10')) {
+                    count_10g++;
+                } else {
+                    count_1g++;
+                }
+                // Hops
+                if (r.Hops === 1) {
+                    count_hops_1++;
+                } else {
+                    count_hops_2plus++;
+                }
+                // Links
+                if (r.LinkCount === 2) {
+                    count_links_design++;
+                } else {
+                    count_links_single++;
+                }
+                // Vendor Count
+                const v = stdVendor(r.Vendor);
+                vendorCounts[v] = (vendorCounts[v] || 0) + 1;
+            });
+
+            const pct_10g = totalCascade > 0 ? ((count_10g / totalCascade) * 100).toFixed(1) : '0.0';
+            const pct_1g = totalCascade > 0 ? ((count_1g / totalCascade) * 100).toFixed(1) : '0.0';
+
+            // Find top vendor
+            let topVendor = 'N/A';
+            let topVendorCount = 0;
+            for (const [v, c] of Object.entries(vendorCounts)) {
+                if (c > topVendorCount) {
+                    topVendorCount = c;
+                    topVendor = v;
+                }
+            }
+
+            // 1. Update KPI Values
+            document.getElementById('kpi-total-val').textContent = `${totalCascade.toLocaleString()} เครื่อง`;
+            document.getElementById('kpi-total-desc').textContent = view === 'nationwide' ? 'อัปเดตจากไฟล์ล่าสุด' : 'พื้นที่ BMA & EEC Focus';
+            
+            document.getElementById('kpi-10g-val').textContent = `${count_10g.toLocaleString()} ลิงก์`;
+            document.getElementById('kpi-10g-desc').textContent = `${pct_10g}% รองรับการขยายตัวความเร็วพอร์ต FTTx`;
+            
+            document.getElementById('kpi-1g-val').textContent = `${count_1g.toLocaleString()} ลิงก์`;
+            document.getElementById('kpi-1g-desc').textContent = `${pct_1g}% อัตราส่วนสายพ่วงแบบดั้งเดิม`;
+
+            document.getElementById('kpi-top-vendor-val').textContent = topVendor;
+            document.getElementById('kpi-top-vendor-desc').textContent = `${topVendorCount.toLocaleString()} เครื่อง (เป็นตัวลูกที่มีการพ่วงต่อสูงสุด)`;
+
+            document.getElementById('kpi-hops-1-val').textContent = `${count_hops_1.toLocaleString()} เครื่อง`;
+            document.getElementById('kpi-hops-2plus-val').textContent = `${count_hops_2plus.toLocaleString()} เครื่อง`;
+            document.getElementById('kpi-links-design-val').textContent = `${count_links_design.toLocaleString()} เครื่อง`;
+            document.getElementById('kpi-links-single-val').textContent = `${count_links_single.toLocaleString()} เครื่อง`;
+
+            // 2. Update Table Rows (Top 10 records)
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+            const top10 = records.slice(0, 10);
+            top10.forEach(r => {
+                const spdBadge = String(r.MaxSpeedDescr).includes('10') 
+                    ? '<span class="badge-10g">10 Gbps</span>' 
+                    : '<span class="badge-1g">1 Gbps</span>';
+                
+                const hopsBadge = r.Hops === 1 
+                    ? '<span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">1 Hop</span>' 
+                    : `<span class="badge-1g" style="background: rgba(239, 68, 68, 0.15); color: var(--color-danger);">${r.Hops} Hops</span>`;
+                
+                const linkBadge = r.LinkCount === 2 
+                    ? '<span class="badge-10g" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success);">2 Links (OK)</span>' 
+                    : `<span class="badge-1g" style="background: rgba(245, 158, 11, 0.15); color: var(--color-warning);">${r.LinkCount} Link (Warning)</span>`;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${r.Device}</td>
+                    <td>${r.Vendor}</td>
+                    <td>${r.Model}</td>
+                    <td>${r.DstSite}</td>
+                    <td>${r.DstVendor}</td>
+                    <td>${r.DstModel}</td>
+                    <td>${spdBadge}</td>
+                    <td>${hopsBadge}</td>
+                    <td>${linkBadge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // 3. Build dataMap for dynamic speed updates
+            const sortedVendors = Object.entries(vendorCounts)
+                .sort((a, b) => b[1] - a[1])
+                .map(x => x[0]);
+
+            const dataMap = {
+                'ALL': { '10G': count_10g, '1G': count_1g, title: 'สัดส่วนความเร็วลิงก์ Cascade ทั้งหมด' }
+            };
+
+            sortedVendors.forEach(v => {
+                let v_10g = 0;
+                let v_1g = 0;
+                records.forEach(r => {
+                    if (stdVendor(r.Vendor) === v) {
+                        if (String(r.MaxSpeedDescr).includes('10')) {
+                            v_10g++;
+                        } else {
+                            v_1g++;
+                        }
+                    }
+                });
+                dataMap[v] = { '10G': v_10g, '1G': v_1g, title: `สัดส่วนความเร็วลิงก์ Cascade (${v})` };
+            });
+
+            const vendorData = sortedVendors.map(v => vendorCounts[v]);
+
+            // 4. Update Charts
+            updateCharts(sortedVendors, vendorData, dataMap, count_10g, count_1g);
+        }
+
+        function stdVendor(v) {
+            v = String(v).toUpperCase();
+            if (v.includes('FIBERHOME')) return 'Fiberhome';
+            if (v.includes('HUAWEI')) return 'Huawei';
+            if (v.includes('DASAN')) return 'Dasan';
+            if (v.includes('ZTE')) return 'ZTE';
+            if (v.includes('RAISECOM')) return 'Raisecom';
+            if (v.includes('GCOM')) return 'GCOM';
+            if (v.includes('NOKIA')) return 'Nokia';
+            return 'Other';
+        }
+
+        function updateCharts(vendorLabels, vendorData, dataMap, count_10g, count_1g) {
+            Chart.defaults.color = '#8892b0';
+            Chart.defaults.font.family = 'Prompt, Inter, sans-serif';
+
+            if (vendorChartInstance) {
+                vendorChartInstance.destroy();
+            }
+
+            const vCtx = document.getElementById('vendorChart').getContext('2d');
+            vendorChartInstance = new Chart(vCtx, {
+                type: 'bar',
+                data: {
+                    labels: vendorLabels,
+                    datasets: [{
+                        label: 'จำนวน OLT Cascade (เครื่อง)',
+                        data: vendorData,
+                        backgroundColor: [
+                            'rgba(0, 242, 254, 0.65)',
+                            'rgba(59, 130, 246, 0.65)',
+                            'rgba(127, 0, 255, 0.65)',
+                            'rgba(245, 158, 11, 0.65)',
+                            'rgba(239, 68, 68, 0.65)',
+                            'rgba(16, 185, 129, 0.65)',
+                            'rgba(236, 72, 153, 0.65)'
+                        ].slice(0, vendorLabels.length),
+                        borderColor: [
+                            '#00f2fe',
+                            '#3b82f6',
+                            '#7f00ff',
+                            '#f59e0b',
+                            '#ef4444',
+                            '#10b981',
+                            '#ec4899'
+                        ].slice(0, vendorLabels.length),
+                        borderWidth: 1.5,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { precision: 0 }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    },
+                    onClick: (event, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const idx = activeElements[0].index;
+                            const label = vendorChartInstance.data.labels[idx];
+                            updateSpeedChart(label);
+                        } else {
+                            updateSpeedChart('ALL');
+                        }
+                    }
+                }
+            });
+
+            if (speedChartInstance) {
+                speedChartInstance.destroy();
+            }
+
+            const sCtx = document.getElementById('speedChart').getContext('2d');
+            speedChartInstance = new Chart(sCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['10 Gbps', '1 Gbps'],
+                    datasets: [{
+                        data: [count_10g, count_1g],
+                        backgroundColor: [
+                            'rgba(0, 242, 254, 0.7)',
+                            'rgba(245, 158, 11, 0.6)'
+                        ],
+                        borderColor: [
+                            '#00f2fe',
+                            '#f59e0b'
+                        ],
+                        borderWidth: 1.5,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 16,
+                                font: { size: 12 }
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            window.updateSpeedChart = function(vendor) {
+                const selected = dataMap[vendor] || dataMap['ALL'];
+                speedChartInstance.data.datasets[0].data = [selected['10G'], selected['1G']];
+                speedChartInstance.update();
+                document.getElementById('speedChartTitle').textContent = selected.title;
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            switchView('nationwide');
+        });
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+        
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+        
+
+        
+        
+
+        
+
+        
+
+
+
+        
+
+
+        
+
+        
+
+        // --- AUTO-HIDE SIDEBAR CONTROLLER ---
+        (function initSidebarToggle() {
+            const toggleBtn = document.getElementById('sidebarToggleBtn');
+            const closeBtn = document.getElementById('sidebarCloseBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+            const sidebar = document.getElementById('mainSidebar');
+
+            if (!sidebar) return;
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                if (overlay) overlay.classList.add('active');
+                document.body.style.overflowY = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
+                document.body.style.overflowY = '';
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (sidebar.classList.contains('open')) {
+                        closeSidebar();
+                    } else {
+                        openSidebar();
+                    }
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeSidebar();
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    closeSidebar();
+                });
+            }
+
+            // Close when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+        })();
+        // --- END AUTO-HIDE SIDEBAR CONTROLLER ---
+
+</script>
+</body>
+</html>

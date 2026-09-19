@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Uplink Flapping Trend Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Prevent layout shift from scrollbar appear/disappear */
+    html { scrollbar-gutter: stable; overflow-y: scroll; }
+
+    :root {
+      --bg-color: #070a13;
+      --card-bg: rgba(13, 18, 34, 0.7);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-danger: #ef4444;
+      --accent-warn: #f59e0b;
+      --accent-info: #3b82f6;
+      --accent-success: #10b981;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+    body {
+      background: var(--bg-color);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(99, 102, 241, 0.03) 0%, transparent 50%);
+        padding: 20px 24px 2rem 24px !important;
+        overflow-x: hidden;
+    }
+    h1, h2, h3 {
+      font-family: 'Outfit', sans-serif;
+    }
+    body {
+        padding-top: 20px !important;
+        
+    }
+
+    /* Missing Dashboard Layout Styles */
+    .header {
+      margin-bottom: 2rem;
+    }
+    .header h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #f8fafc, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    .tab-btn.active {
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+      border-color: #3b82f6;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+
+@media (max-width: 1024px) {
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+    .chart-container {
+      position: relative;
+      height: 320px;
+      width: 100%;
+    }
+    .month-selector-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      margin-top: 1rem;
+    }
+    .month-selector-container h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .select-box {
+      background: #111c2e;
+      border: 1px solid var(--card-border);
+      color: var(--text-primary);
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .select-box:focus {
+      border-color: #3b82f6;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-title {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    .kpi-value {
+      font-size: 2.4rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+    }
+    .table-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+    .table-header-row h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .search-input {
+      background: #111c2e;
+      border: 1px solid var(--card-border);
+      border-radius: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+      width: 260px;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: #3b82f6;
+    }
+    .export-btn {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .export-btn:hover {
+      opacity: 0.9;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+    th {
+      color: var(--text-secondary);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+    td {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: inline-block;
+    }
+    .badge-down {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .badge-up {
+      background: rgba(16, 185, 129, 0.15);
+      color: #a7f3d0;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    
+    .sidebar-logo {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.25rem;
+        color: #f8fafc;
+        font-weight: 800;
+        padding: 24px 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .sidebar-logo span {
+        background: linear-gradient(135deg, #06b6d4, #6366f1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+
+
+
+
+@media (max-width: 768px) {
+    body {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        padding-top: 70px !important;
+        margin-left: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .sidebar-logo {
+        display: none !important;
+    }
+    .sidebar-links {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        padding: 0 !important;
+        width: 100% !important;
+        scrollbar-width: none !important;
+    }
+    
+    .sidebar-links a {
+        display: inline-flex !important;
+        flex-shrink: 0 !important;
+        padding: 18px 14px !important;
+        font-size: 0.78rem !important;
+        border-left: none !important;
+        border-bottom: 3px solid transparent !important;
+        white-space: nowrap !important;
+    }
+    .sidebar-links a.active {
+        border-bottom-color: #06b6d4 !important;
+        background: rgba(6,182,212,0.12) !important;
+        border-left-color: transparent !important;
+    }
+    .sidebar-links a.sub-link {
+        display: none !important;
+    }
+}
+
+
+
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+
+
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100% !important;
+    height: 60px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: #0d1222 !important;
+    z-index: 10000 !important;
+  }
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+        /* === AUTO-HIDE SIDEBAR & FULL SCREEN PAGE LAYOUT === */
+        html { scrollbar-gutter: stable !important; overflow-y: scroll !important; }
+        body { 
+            margin: 0 !important;
+            padding: 20px 24px 2rem 24px !important;
+            overflow-x: hidden !important;
+            transition: padding 0.3s ease;
+        }
+
+        /* Full Width Container across all dashboards */
+        .container, .dashboard-container, .dashboard-wrapper, .main-content, .content, .main, #app, .app-container, .wrapper, .max-w-7xl {
+            max-width: 100% !important;
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Ensure cards, charts, and tables expand properly to 100% width */
+        .dashboard-main, .kpi-grid, .stats-grid, .charts-container, .table-container, .grid-container, .card, .panel, .glass-panel {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Sidebar Toggle Floating Button */
+        .sidebar-toggle-btn {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 10000;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            color: #f8fafc;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(6, 182, 212, 0.2);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-toggle-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: #06b6d4;
+            transform: scale(1.05);
+            box-shadow: 0 6px 24px rgba(6, 182, 212, 0.35);
+        }
+        .sidebar-toggle-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: #22d3ee;
+            transition: transform 0.25s ease;
+        }
+
+        /* Sidebar Overlay Backdrop */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 3, 15, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 10001;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Auto-Hide Slide-over Sidebar Drawer */
+        .sidebar {
+            width: 270px !important;
+            background: rgba(11, 15, 29, 0.96) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-right: 1px solid rgba(6, 182, 212, 0.2) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            position: fixed !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            z-index: 10002 !important;
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease !important;
+            box-shadow: none !important;
+        }
+        .sidebar.open {
+            transform: translateX(0) !important;
+            box-shadow: 10px 0 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.15) !important;
+        }
+
+        .sidebar-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 16px 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: #f8fafc;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 !important;
+            border-bottom: none !important;
+        }
+        .sidebar-logo span {
+            background: linear-gradient(135deg, #06b6d4, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sidebar-close-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+        .sidebar-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #ef4444;
+        }
+
+        .sidebar-links {
+            flex-grow: 1;
+            padding: 14px 0;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-links::-webkit-scrollbar { width: 4px; }
+        .sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+        .sidebar-links a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            box-sizing: border-box;
+        }
+        .sidebar-links a:hover {
+            color: #f8fafc;
+            background: rgba(255,255,255,0.04);
+            border-left-color: rgba(6, 182, 212, 0.4);
+        }
+        .sidebar-links a.active {
+            color: #f8fafc;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.18) 0%, transparent 100%);
+            border-left-color: #06b6d4;
+            font-weight: 600;
+        }
+        .sidebar-links a.sub-link {
+            padding: 7px 20px 7px 36px;
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+        .sidebar-links a.sub-link:hover {
+            color: #22d3ee;
+            background: rgba(6, 182, 212, 0.06);
+        }
+        .sidebar-links a.sub-link.active {
+            color: #22d3ee;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.12) 0%, transparent 100%);
+            border-left-color: rgba(6, 182, 212, 0.5);
+        }
+
+        /* Adjust headers to give breathing room from floating button */
+        .header, .dashboard-header, .exec-header, .page-header, .header-section {
+            padding-left: 48px !important;
+        }
+        @media (max-width: 768px) {
+            .header, .dashboard-header, .exec-header, .page-header, .header-section {
+                padding-left: 44px !important;
+            }
+        }
+</style>
+</head>
+<body>
+
+<!-- FLOATING SIDEBAR TOGGLE BUTTON -->
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle Navigation Menu" title="เมนูนำทาง (คลิกเพื่อเปิด/ปิด)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+</button>
+
+<!-- BACKDROP OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- SLIDE-OVER SIDEBAR -->
+<nav class="sidebar" id="mainSidebar">
+    <div class="sidebar-header-row">
+        <div class="sidebar-logo">⚡ <span>FBE-PMS-Monitor</span></div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar" title="ปิดเมนู">&times;</button>
+    </div>
+    <div class="sidebar-links">
+        <a href="index.html" id="nav-main">OLT temperature</a>
+        <a href="mismatch_dashboard.html" id="nav-mismatch">XGS mismatch</a>
+        <a href="olt_executive_dashboard.html" id="nav-executive">XGS-PON</a>
+        <a href="olt_cascade_dashboard.html" id="nav-cascade">Cascade</a>
+        <a href="olt_l2_distance_dashboard.html" id="nav-l2distance">L2 Distance</a>
+        <a href="dw_distance_dashboard.html" id="nav-dw-distance" class="sub-link">&#128300; DW Distance</a>
+        <a href="scab_l2_dashboard.html" id="nav-scab-l2" class="sub-link">&#128300; SCAB L2 Topo</a>
+        <a href="l1_rehome_dashboard.html" id="nav-l1rehome">L1 Rehome</a>
+        <a href="traffic_dashboard.html" id="nav-uplinktraffic">Uplink Traffic</a>
+        <a href="optical_dashboard.html" id="nav-optical">Optical</a>
+        <a href="pon_traffic_dashboard.html" id="nav-pontraffic">PON Traffic</a>
+        <a href="inventory_movement_dashboard.html" id="nav-inventory">Inventory</a>
+        <a href="tvs_edfa_dashboard.html" id="nav-edfa">EDFA</a>
+        <a href="swap_olt_dashboard.html" id="nav-swap">SwapOLT</a>
+        <a href="uplink_instability_dashboard.html" id="nav-instability">Flapping</a>
+        <a href="uplink_instability_trend_dashboard.html" id="nav-instability-trend" class="sub-link active">&#128300; Flapping Trends</a>
+        <a href="simplex_dashboard.html" id="nav-simplex">Simplex</a>
+        <a href="single_board_dashboard.html" id="nav-control-board">Control card</a>
+        <a href="xgs_upgrade_dashboard.html" id="nav-xgs-upgrade">HiSpeedPack</a>
+        <a href="xgs_readiness_dashboard.html" id="nav-xgs-readiness" class="sub-link">&#128300; XGS Readiness</a>
+        <a href="pon_sfp_audit_dashboard.html" id="nav-pon-sfp">PON SFP Audit</a>
+        <a href="olt_onu_dashboard.html" id="nav-olt-onu">OLT-ONU</a>
+        <a href="radius_health_dashboard.html" id="nav-radius">Radius</a>
+    </div>
+    </nav>
+
+<div class="header">
+  <div>
+    <h1>Uplink Flapping Trend Dashboard</h1>
+            <div style="margin-top: 8px;"><span style="background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); color: #a5b4fc; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-family: 'Outfit', sans-serif; font-weight: 600; letter-spacing: 0.04em;">📅 AS OF 15/08/2026</span></div>
+    <div style="margin-top: 8px;"><span style="background: rgba(59, 130, 246, 0.18); border: 1px solid rgba(59, 130, 246, 0.35); color: #93c5fd; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-family: 'Outfit', sans-serif; font-weight: 600; letter-spacing: 0.04em;">📊 MONTHLY TRENDS (JAN - AUG 2026)</span></div>
+    <p>Historical trend analysis of flapping ports, total flaps, and auto-stabilized ports.</p>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" id="tab-uplink" onclick="switchCategory('uplink')">OLT Uplink Ports (1G / 10G / 25G)</button>
+  <button class="tab-btn" id="tab-edfa" onclick="switchCategory('edfa')">EDFA Management Ports (100M)</button>
+</div>
+
+<div class="grid-3">
+  <div class="card chart-card" style="grid-column: span 2;">
+    <div class="chart-container">
+      <canvas id="trendChart"></canvas>
+    </div>
+  </div>
+  <div class="card chart-card">
+    <div class="chart-container">
+      <canvas id="stableChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="month-selector-container">
+  <h2 id="monthly-detail-title">Monthly Detailed Analysis</h2>
+  <select class="select-box" id="monthSelect" onchange="loadMonthDetails()"></select>
+</div>
+
+<div class="kpi-grid">
+  <div class="card">
+    <div class="kpi-title">Total Unstable Ports</div>
+    <div class="kpi-value" id="kpi-unstable" style="color: var(--accent-danger);">0</div>
+  </div>
+  <div class="card">
+    <div class="kpi-title">Total Flapping Events</div>
+    <div class="kpi-value" id="kpi-flaps" style="color: var(--accent-warn);">0</div>
+  </div>
+  <div class="card">
+    <div class="kpi-title">Max Flaps on Single Port</div>
+    <div class="kpi-value" id="kpi-max-flaps" style="color: var(--accent-info);">0</div>
+  </div>
+  <div class="card">
+    <div class="kpi-title">Stable Ports (>=15 Days)</div>
+    <div class="kpi-value" id="kpi-stable" style="color: var(--accent-success);">0</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-header-row">
+    <h3>Top 10 Most Unstable Ports</h3>
+    <div style="display: flex; gap: 1rem;">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search devices, ports..." onkeyup="filterTable()">
+      <button class="export-btn" onclick="exportCSV()">📥 Export CSV</button>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Device</th>
+        <th>Vendor</th>
+        <th>Interface</th>
+        <th>Speed</th>
+        <th>Flap Count</th>
+        <th>Last Flap Date</th>
+        <th>Polling Query</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+</div>
+
+<script>
+  // --- EMBEDDED DATA START ---
+  let trendData = {"months": ["January", "February", "March", "April", "May", "June", "July", "August"], "uplink": {"unstable_trend": [204, 258, 271, 161, 354, 259, 331, 130], "flaps_trend": [475, 581, 619, 407, 837, 589, 758, 283], "stable_trend": [197, 246, 254, 150, 327, 190, 295, 0], "max_flaps_trend": [9, 11, 14, 18, 15, 11, 11, 6], "monthly_details": {"January": {"total_unstable": 204, "total_flaps": 475, "max_flaps": 9, "most_unstable": "NKP06002G00 (ten-gigabitethernet1/6)", "stable_ports": 197, "top_10": [{"device": "NKP06002G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/6", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 9, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "BKN03014GO0", "vendor": "Fiberhome", "ifname": "XFP 10/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER/EW", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-05-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-01", "ref_dt": "2026-07-02", "days_since_last": 62}, {"device": "LPG04005GO0", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "10 Gbps", "moduleclass": "en10GBASELR", "dsttype": "", "dstsite": "LPG6783", "dstport": "GigabitEthernet0/3/0", "count": 7, "last": "2026-02-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-01", "ref_dt": "2026-07-02", "days_since_last": 151}, {"device": "CCS06008GO0", "vendor": "Fiberhome", "ifname": "SFP+ 4/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER/EW", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-01-25", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-25", "ref_dt": "2026-07-02", "days_since_last": 158}, {"device": "CCS04034GO0", "vendor": "Fiberhome", "ifname": "SFP+ 4/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER/EW", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-01-27", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-27", "ref_dt": "2026-07-02", "days_since_last": 156}, {"device": "CTB01005G00", "vendor": "Dasan", "ifname": "port13-XE-FX", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-05-08", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-08", "ref_dt": "2026-07-02", "days_since_last": 55}, {"device": "AYT01032GO0", "vendor": "Fiberhome", "ifname": "XFP 10/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER/EW", "dsttype": "", "dstsite": "DN-AYT1308-1_AYAAYA2100M", "dstport": "xgei-0/1/1/20", "count": 6, "last": "2026-05-10", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-10", "ref_dt": "2026-07-02", "days_since_last": 53}, {"device": "BKK28004GO0", "vendor": "Fiberhome", "ifname": "XFP 9/2", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-LR/LW", "dsttype": "", "dstsite": "", "dstport": "", "count": 5, "last": "2026-01-22", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-01-22", "ref_dt": "2026-07-02", "days_since_last": 161}, {"device": "NTB02006GO0", "vendor": "Fiberhome", "ifname": "XFP 10/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-LR/LW", "dsttype": "", "dstsite": "AN-BGT08-2_BKK19001S01", "dstport": "GigabitEthernet8/0/5", "count": 4, "last": "2026-01-29", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-29", "ref_dt": "2026-07-02", "days_since_last": 154}, {"device": "CBR04089GO0", "vendor": "Fiberhome", "ifname": "XFP 10/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ZR/ZW", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-06-05", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-05", "ref_dt": "2026-07-02", "days_since_last": 27}]}, "February": {"total_unstable": 258, "total_flaps": 581, "max_flaps": 11, "most_unstable": "NKP06002G00 (ten-gigabitethernet1/6)", "stable_ports": 246, "top_10": [{"device": "NKP06002G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/6", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 11, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "CBR03005G00", "vendor": "Dasan", "ifname": "port14-XE-FX", "ifspeed": "1 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "CPE-CBR6715", "dstport": "xgei-1/1/0/14", "count": 8, "last": "2026-06-10", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-10", "ref_dt": "2026-07-02", "days_since_last": 22}, {"device": "SKA10016G00", "vendor": "Fiberhome", "ifname": "SFP 19/4", "ifspeed": "1 Gbps", "moduleclass": "1000BASE-EX", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-02-18", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-18", "ref_dt": "2026-07-02", "days_since_last": 134}, {"device": "BKK17033GO0", "vendor": "Huawei", "ifname": "ethernet0/4/0", "ifspeed": "10 Gbps", "moduleclass": "en10GBASELR", "dsttype": "AN", "dstsite": "AN-HAM04-2_BKK34AGNS05", "dstport": "GigabitEthernet2/1/21", "count": 5, "last": "2026-02-19", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-19", "ref_dt": "2026-07-02", "days_since_last": 133}, {"device": "SRB11027G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "1 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 5, "last": "2026-06-23", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-23", "ref_dt": "2026-07-02", "days_since_last": 9}, {"device": "SKO05014G00", "vendor": "Dasan", "ifname": "port14-XE-FX", "ifspeed": "1 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 5, "last": "2026-04-27", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-04-27", "ref_dt": "2026-07-02", "days_since_last": 66}, {"device": "BKK17032GO0", "vendor": "Huawei", "ifname": "ethernet0/4/0", "ifspeed": "10 Gbps", "moduleclass": "en10GBASEER", "dsttype": "AN", "dstsite": "AN-HAM04-2_BKK34AGNS05", "dstport": "GigabitEthernet2/1/20", "count": 5, "last": "2026-02-19", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-19", "ref_dt": "2026-07-02", "days_since_last": 133}, {"device": "CBR07083GO0", "vendor": "Huawei", "ifname": "ethernet0/3/0", "ifspeed": "10 Gbps", "moduleclass": "en10GBASEER", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-05-06", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-06", "ref_dt": "2026-07-02", "days_since_last": 57}, {"device": "CBR07072GO0", "vendor": "Huawei", "ifname": "ethernet0/3/0", "ifspeed": "10 Gbps", "moduleclass": "en10GBASELR", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-02-27", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-27", "ref_dt": "2026-07-02", "days_since_last": 125}, {"device": "CNT01025GO0", "vendor": "Fiberhome", "ifname": "XFP 9/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ZR/ZW", "dsttype": "", "dstsite": "DN1-CNT1902", "dstport": "GigabitEthernet0/3/0", "count": 4, "last": "2026-02-27", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-27", "ref_dt": "2026-07-02", "days_since_last": 125}]}, "March": {"total_unstable": 271, "total_flaps": 619, "max_flaps": 14, "most_unstable": "NKP06002G00 (ten-gigabitethernet1/6)", "stable_ports": 254, "top_10": [{"device": "NKP06002G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/6", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 14, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "PTL01017GO0", "vendor": "ZTE", "ifname": "xgei-1/4/4", "ifspeed": "1 Gbps", "moduleclass": "1000BASE_LX", "dsttype": "", "dstsite": "", "dstport": "", "count": 10, "last": "2026-03-31", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-31", "ref_dt": "2026-07-02", "days_since_last": 93}, {"device": "CMI06012G00", "vendor": "Fiberhome", "ifname": "SFP28 19/2", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-LR/LW", "dsttype": "CPE", "dstsite": "CPE-CMI1622", "dstport": "GigabitEthernet0/5/0", "count": 9, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "CMI01001G01", "vendor": "Huawei", "ifname": "ethernet0/4/0", "ifspeed": "10 Gbps", "moduleclass": "en10GBASELR", "dsttype": "", "dstsite": "PN-CMI1000-2_CMICMI5410W", "dstport": "GigabitEthernet16/0/18", "count": 8, "last": "2026-03-27", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-27", "ref_dt": "2026-07-02", "days_since_last": 97}, {"device": "CYP03011GO0", "vendor": "Fiberhome", "ifname": "XFP 10/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ZR/ZW", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-03-22", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-22", "ref_dt": "2026-07-02", "days_since_last": 102}, {"device": "RYG03022GO0", "vendor": "Huawei", "ifname": "ethernet0/2/0", "ifspeed": "1 Gbps", "moduleclass": "en1000BASELX", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-03-07", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-07", "ref_dt": "2026-07-02", "days_since_last": 117}, {"device": "BKK21013GO0", "vendor": "Fiberhome", "ifname": "SFP+ 3/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-LR/LW", "dsttype": "", "dstsite": "AN-EKC08-2_BKK21001S01", "dstport": "GigabitEthernet2/0/9", "count": 4, "last": "2026-03-12", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-12", "ref_dt": "2026-07-02", "days_since_last": 112}, {"device": "BKK39060GO0", "vendor": "Huawei", "ifname": "ethernet0/3/0", "ifspeed": "10 Gbps", "moduleclass": "en10GBASELR", "dsttype": "", "dstsite": "AN-SKW09-1_BKK33001S00", "dstport": "GigabitEthernet7/1/5", "count": 4, "last": "2026-03-27", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-27", "ref_dt": "2026-07-02", "days_since_last": 97}, {"device": "PCB02012GO0", "vendor": "Fiberhome", "ifname": "SFP+ 4/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ZR/ZW", "dsttype": "", "dstsite": "PCT0800100W_PCT1125", "dstport": "GigabitEthernet1/0/2", "count": 4, "last": "2026-05-28", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-28", "ref_dt": "2026-07-02", "days_since_last": 35}, {"device": "SKT08001GO0", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "10 Gbps", "moduleclass": "en10GBASEER", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-03-18", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-18", "ref_dt": "2026-07-02", "days_since_last": 106}]}, "April": {"total_unstable": 161, "total_flaps": 407, "max_flaps": 18, "most_unstable": "CMI06012G00 (SFP28 19/2)", "stable_ports": 150, "top_10": [{"device": "CMI06012G00", "vendor": "Fiberhome", "ifname": "SFP28 19/2", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-LR/LW", "dsttype": "CPE", "dstsite": "CPE-CMI1622", "dstport": "GigabitEthernet0/5/0", "count": 18, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "NKP06002G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/6", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 13, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "ANC03005G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/6", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-05-07", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-07", "ref_dt": "2026-07-02", "days_since_last": 56}, {"device": "UBR19009G00", "vendor": "GCOM", "ifname": "e1/2", "ifspeed": "1 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-05-30", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-05-30", "ref_dt": "2026-07-02", "days_since_last": 33}, {"device": "MHR01006G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/5", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 7, "last": "2026-07-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-01", "ref_dt": "2026-07-02", "days_since_last": 1}, {"device": "UBR09020GO0", "vendor": "Fiberhome", "ifname": "SFP+ 4/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ZR/ZW", "dsttype": "", "dstsite": "", "dstport": "", "count": 5, "last": "2026-04-08", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-04-08", "ref_dt": "2026-07-02", "days_since_last": 85}, {"device": "PHE01011G00", "vendor": "Dasan", "ifname": "port16-XE-FX", "ifspeed": "1 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "PHE01016G00", "dstport": "eth13", "count": 4, "last": "2026-04-25", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-04-25", "ref_dt": "2026-07-02", "days_since_last": 68}, {"device": "BKN05003GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "10 Gbps", "moduleclass": "invalid", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-06-08", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-08", "ref_dt": "2026-07-02", "days_since_last": 24}, {"device": "KKN01060GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "10 Gbps", "moduleclass": "en10GBASEER", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-05-18", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-18", "ref_dt": "2026-07-02", "days_since_last": 45}, {"device": "LPN01013G00", "vendor": "Dasan", "ifname": "port14-XE-FX", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "CPE-LPN6736", "dstport": "GigabitEthernet0/5/0", "count": 4, "last": "2026-05-05", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-05", "ref_dt": "2026-07-02", "days_since_last": 58}]}, "May": {"total_unstable": 354, "total_flaps": 837, "max_flaps": 15, "most_unstable": "NKP06002G00 (ten-gigabitethernet1/6)", "stable_ports": 327, "top_10": [{"device": "NKP06002G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/6", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 15, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "CMI06012G00", "vendor": "Fiberhome", "ifname": "SFP28 19/2", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-LR/LW", "dsttype": "CPE", "dstsite": "CPE-CMI1622", "dstport": "GigabitEthernet0/5/0", "count": 14, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "BKK05015GO0", "vendor": "ZTE", "ifname": "xgei-1/4/4", "ifspeed": "1 Gbps", "moduleclass": "1000BASE_LX", "dsttype": "", "dstsite": "", "dstport": "", "count": 12, "last": "2026-06-29", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-29", "ref_dt": "2026-07-02", "days_since_last": 3}, {"device": "PTT07007GO0", "vendor": "ZTE", "ifname": "xgei_1/4/2", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER", "dsttype": "", "dstsite": "", "dstport": "", "count": 7, "last": "2026-05-24", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-24", "ref_dt": "2026-07-02", "days_since_last": 39}, {"device": "MHR01006G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/5", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 7, "last": "2026-07-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-01", "ref_dt": "2026-07-02", "days_since_last": 1}, {"device": "PCB02012GO0", "vendor": "Fiberhome", "ifname": "SFP+ 4/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ZR/ZW", "dsttype": "", "dstsite": "PCT0800100W_PCT1125", "dstport": "GigabitEthernet1/0/2", "count": 6, "last": "2026-05-28", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-28", "ref_dt": "2026-07-02", "days_since_last": 35}, {"device": "PTT05018GO0", "vendor": "Fiberhome", "ifname": "SFP28 19/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER/EW", "dsttype": "AN", "dstsite": "AN-PTT19-1_PTT05002S00", "dstport": "GigabitEthernet2/1/6", "count": 5, "last": "2026-05-28", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-28", "ref_dt": "2026-07-02", "days_since_last": 35}, {"device": "CBR02001GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "10 Gbps", "moduleclass": "invalid", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-05-22", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-22", "ref_dt": "2026-07-02", "days_since_last": 41}, {"device": "LPG13011G00", "vendor": "Dasan", "ifname": "port12-XE-FX", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "LPG13013G00", "dstport": "eth10", "count": 4, "last": "2026-05-31", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-31", "ref_dt": "2026-07-02", "days_since_last": 32}, {"device": "NKW01055GO0", "vendor": "Fiberhome", "ifname": "XFP 9/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ZR/ZW", "dsttype": "", "dstsite": "PN-NKW1239-1_NSNNSN0501M", "dstport": "GigabitEthernet2/1/13", "count": 4, "last": "2026-06-15", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-15", "ref_dt": "2026-07-02", "days_since_last": 17}]}, "June": {"total_unstable": 259, "total_flaps": 589, "max_flaps": 11, "most_unstable": "CMI06012G00 (SFP28 19/2)", "stable_ports": 190, "top_10": [{"device": "CMI06012G00", "vendor": "Fiberhome", "ifname": "SFP28 19/2", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-LR/LW", "dsttype": "CPE", "dstsite": "CPE-CMI1622", "dstport": "GigabitEthernet0/5/0", "count": 11, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "SMP03021GO1", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "10 Gbps", "moduleclass": "en10GBASEER", "dsttype": "", "dstsite": "AN-BPL08-2_SMP06AGNS05", "dstport": "GigabitEthernet2/0/13", "count": 10, "last": "2026-06-23", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-23", "ref_dt": "2026-07-02", "days_since_last": 9}, {"device": "BKK05015GO0", "vendor": "ZTE", "ifname": "xgei-1/4/4", "ifspeed": "1 Gbps", "moduleclass": "1000BASE_LX", "dsttype": "", "dstsite": "", "dstport": "", "count": 9, "last": "2026-06-29", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-29", "ref_dt": "2026-07-02", "days_since_last": 3}, {"device": "NKP06002G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/6", "ifspeed": "10 Gbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "UDT03001GO0", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "10 Gbps", "moduleclass": "en10GBASEER", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-06-15", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-15", "ref_dt": "2026-07-02", "days_since_last": 17}, {"device": "RCB05016GO0", "vendor": "ZTE", "ifname": "xgei_1/3/2", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER", "dsttype": "", "dstsite": "DN-RCB0007-1_RBR0500100W", "dstport": "xgei-0/3/1/17(xgei_1/3/2)", "count": 4, "last": "2026-06-08", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-08", "ref_dt": "2026-07-02", "days_since_last": 24}, {"device": "SRT01003GO0", "vendor": "ZTE", "ifname": "xgei_1/4/2", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER", "dsttype": "", "dstsite": "DN-SRT1022-1_SNISNI2201M", "dstport": "GigabitEthernet8/1/4(xgei_1/4/2)", "count": 4, "last": "2026-06-16", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-16", "ref_dt": "2026-07-02", "days_since_last": 16}, {"device": "CBR04099GO0", "vendor": "Huawei", "ifname": "ethernet0/4/0", "ifspeed": "10 Gbps", "moduleclass": "en10GBASELR", "dsttype": "", "dstsite": "CBR04097GO0", "dstport": "ethernet0/4/1", "count": 4, "last": "2026-06-23", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-23", "ref_dt": "2026-07-02", "days_since_last": 9}, {"device": "PTT02045GO0", "vendor": "Fiberhome", "ifname": "SFP+ 4/1", "ifspeed": "10 Gbps", "moduleclass": "10GBASE-ER/EW", "dsttype": "", "dstsite": "AN-RST02-2_PTT02001S01", "dstport": "GigabitEthernet2/1/15", "count": 4, "last": "2026-06-10", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-10", "ref_dt": "2026-07-02", "days_since_last": 22}, {"device": "CCS08001GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "10 Gbps", "moduleclass": "en10GBASEER", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-06-15", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-15", "ref_dt": "2026-07-02", "days_since_last": 17}]}, "July": {"total_unstable": 331, "total_flaps": 758, "max_flaps": 11, "most_unstable": "LBR01019G00 (e1/4)", "stable_ports": 295, "top_10": [{"device": "LBR01019G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "1 Gbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 11, "last": "2026-08-08", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 39.0, "last_dt": "2026-08-08", "ref_dt": "2026-08-15", "days_since_last": 7}, {"device": "TAK03006G00", "vendor": "Dasan", "ifname": "port13-XE-FX", "ifspeed": "10 Gbps", "ModuleClass": "", "DstType": "", "DstSite": "CPE-TAK1616", "DstPort": "GigabitEthernet0/2/4", "count": 9, "last": "2026-07-22", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -2.753, "In Err": 0.0, "last_dt": "2026-07-22", "ref_dt": "2026-08-15", "days_since_last": 24}, {"device": "PCR09001G00", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "10 Gbps", "ModuleClass": "en10GBASEER", "DstType": "", "DstSite": "", "DstPort": "", "count": 8, "last": "2026-08-11", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -17.864, "In Err": 0.0, "last_dt": "2026-08-11", "ref_dt": "2026-08-15", "days_since_last": 4}, {"device": "MHR01006G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/5", "ifspeed": "10 Gbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 6, "last": "2026-08-10", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": "", "In Err": 0.0, "last_dt": "2026-08-10", "ref_dt": "2026-08-15", "days_since_last": 5}, {"device": "NKI02005G00", "vendor": "GCOM", "ifname": "e2/1", "ifspeed": "10 Gbps", "ModuleClass": "", "DstType": "CPE", "DstSite": "10.167.70.185", "DstPort": "", "count": 6, "last": "2026-08-15", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 6048.0, "last_dt": "2026-08-15", "ref_dt": "2026-08-15", "days_since_last": 0}, {"device": "BKK39039GO1", "vendor": "ZTE", "ifname": "xgei-1/4/4", "ifspeed": "1 Gbps", "ModuleClass": "1000BASE_LX", "DstType": "", "DstSite": "", "DstPort": "", "count": 6, "last": "2026-07-17", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": "", "In Err": 66896.0, "last_dt": "2026-07-17", "ref_dt": "2026-08-15", "days_since_last": 29}, {"device": "CBR01059GO0", "vendor": "Fiberhome", "ifname": "XFP 10/1", "ifspeed": "10 Gbps", "ModuleClass": "10GBASE-ZR/ZW", "DstType": "", "DstSite": "", "DstPort": "", "count": 5, "last": "2026-07-18", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -19.06, "In Err": 0.0, "last_dt": "2026-07-18", "ref_dt": "2026-08-15", "days_since_last": 28}, {"device": "ATG02007GO0", "vendor": "Fiberhome", "ifname": "SFP+ 3/1", "ifspeed": "10 Gbps", "ModuleClass": "10GBASE-ER/EW", "DstType": "", "DstSite": "CPE-ATG8505", "DstPort": "xgei-1/4/0/4", "count": 4, "last": "2026-07-07", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -9.886, "In Err": 0.0, "last_dt": "2026-07-07", "ref_dt": "2026-08-15", "days_since_last": 39}, {"device": "KKN01060GO0", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "10 Gbps", "ModuleClass": "en10GBASELR", "DstType": "", "DstSite": "", "DstPort": "", "count": 4, "last": "2026-07-14", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -12.775, "In Err": 99.0, "last_dt": "2026-07-14", "ref_dt": "2026-08-15", "days_since_last": 32}, {"device": "KPP03002GO0", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "10 Gbps", "ModuleClass": "en10GBASEER", "DstType": "", "DstSite": "DN-KPP1804-1_KPP01200S01", "DstPort": "GigabitEthernet2/0/5", "count": 4, "last": "2026-07-20", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -15.55, "In Err": 0.0, "last_dt": "2026-07-20", "ref_dt": "2026-08-15", "days_since_last": 26}]}, "August": {"total_unstable": 130, "total_flaps": 283, "max_flaps": 6, "most_unstable": "LBR01019G00 (e1/4)", "stable_ports": 0, "top_10": [{"device": "LBR01019G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "1 Gbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 6, "last": "2026-08-08", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 39.0, "last_dt": "2026-08-08", "ref_dt": "2026-08-15", "days_since_last": 7}, {"device": "UDT01008GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "10 Gbps", "ModuleClass": "en10GBASEER", "DstType": "", "DstSite": "", "DstPort": "", "count": 5, "last": "2026-08-15", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -33.774, "In Err": 69880.0, "last_dt": "2026-08-15", "ref_dt": "2026-08-15", "days_since_last": 0}, {"device": "PTT01032GO0", "vendor": "Fiberhome", "ifname": "SFP+ 3/1", "ifspeed": "10 Gbps", "ModuleClass": "10GBASE-LR/LW", "DstType": "AN", "DstSite": "10.85.158.2", "DstPort": "", "count": 4, "last": "2026-08-14", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -20.574, "In Err": 5.0, "last_dt": "2026-08-14", "ref_dt": "2026-08-15", "days_since_last": 1}, {"device": "PTT01032GO1", "vendor": "Fiberhome", "ifname": "SFP+ 3/1", "ifspeed": "10 Gbps", "ModuleClass": "10GBASE-ER/EW", "DstType": "", "DstSite": "AN-PTT06-1_PTT05001S00", "DstPort": "GigabitEthernet7/1/16", "count": 4, "last": "2026-08-14", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -8.298, "In Err": 0.0, "last_dt": "2026-08-14", "ref_dt": "2026-08-15", "days_since_last": 1}, {"device": "LBR04025G00", "vendor": "GCOM", "ifname": "e2/1", "ifspeed": "10 Gbps", "ModuleClass": "", "DstType": "", "DstSite": "CPE-LBR6025", "DstPort": "xgei-1/7/0/4", "count": 4, "last": "2026-08-10", "lastseen": "2026-08-14", "IfOper": "up", "Rx Pwr": "", "In Err": 195656.0, "last_dt": "2026-08-10", "ref_dt": "2026-08-14", "days_since_last": 4}, {"device": "PCR09001G00", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "10 Gbps", "ModuleClass": "en10GBASEER", "DstType": "", "DstSite": "", "DstPort": "", "count": 4, "last": "2026-08-11", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -17.864, "In Err": 0.0, "last_dt": "2026-08-11", "ref_dt": "2026-08-15", "days_since_last": 4}, {"device": "MHR01006G00", "vendor": "Raisecom", "ifname": "ten-gigabitethernet1/5", "ifspeed": "10 Gbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 4, "last": "2026-08-10", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": "", "In Err": 0.0, "last_dt": "2026-08-10", "ref_dt": "2026-08-15", "days_since_last": 5}, {"device": "KPP01034GO0", "vendor": "Huawei", "ifname": "ethernet0/4/0", "ifspeed": "10 Gbps", "ModuleClass": "en10GBASEER", "DstType": "", "DstSite": "PN-KPP1144-1_KPTKPT0101M", "DstPort": "GigabitEthernet8/0/6", "count": 3, "last": "2026-08-13", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -23.956, "In Err": 0.0, "last_dt": "2026-08-13", "ref_dt": "2026-08-15", "days_since_last": 2}, {"device": "NKS11002GO0", "vendor": "Fiberhome", "ifname": "SFP+ 4/1", "ifspeed": "10 Gbps", "ModuleClass": "10GBASE-ZR/ZW", "DstType": "", "DstSite": "DN-NKS0020_NKS11200S00", "DstPort": "GigabitEthernet8/1/7", "count": 3, "last": "2026-08-06", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": -16.453, "In Err": 6.0, "last_dt": "2026-08-06", "ref_dt": "2026-08-15", "days_since_last": 9}, {"device": "PTT01004GO0", "vendor": "ZTE", "ifname": "xgei_1/4/2", "ifspeed": "10 Gbps", "ModuleClass": "10GBASE-ER", "DstType": "", "DstSite": "", "DstPort": "", "count": 3, "last": "2026-08-14", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": -9.144, "In Err": 0.0, "last_dt": "2026-08-14", "ref_dt": "2026-08-15", "days_since_last": 1}]}}}, "edfa": {"unstable_trend": [15, 21, 32, 32, 35, 26, 26, 17], "flaps_trend": [37, 73, 108, 118, 136, 83, 95, 64], "stable_trend": [13, 19, 30, 27, 29, 11, 20, 0], "max_flaps_trend": [7, 12, 13, 15, 22, 11, 13, 8], "monthly_details": {"January": {"total_unstable": 15, "total_flaps": 37, "max_flaps": 7, "most_unstable": "NKR01083GO0 (ethernet0/2/0)", "stable_ports": 13, "top_10": [{"device": "NKR01083GO0", "vendor": "Huawei", "ifname": "ethernet0/2/0", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 7, "last": "2026-02-24", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-24", "ref_dt": "2026-07-02", "days_since_last": 128}, {"device": "AYT10002G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-05-24", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-24", "ref_dt": "2026-07-02", "days_since_last": 39}, {"device": "BKK44033GO0", "vendor": "Huawei", "ifname": "ethernet0/4/3", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-01-30", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-30", "ref_dt": "2026-07-02", "days_since_last": 153}, {"device": "BKK08010GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-01-20", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-20", "ref_dt": "2026-07-02", "days_since_last": 163}, {"device": "BKK08010GO0", "vendor": "Huawei", "ifname": "ethernet0/4/3", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-01-20", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-20", "ref_dt": "2026-07-02", "days_since_last": 163}, {"device": "BKK33025GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-01-28", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-28", "ref_dt": "2026-07-02", "days_since_last": 155}, {"device": "BKK33025GO0", "vendor": "Huawei", "ifname": "ethernet0/4/3", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-01-28", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-28", "ref_dt": "2026-07-02", "days_since_last": 155}, {"device": "CBR01022G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-05-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-01", "ref_dt": "2026-07-02", "days_since_last": 62}, {"device": "CBR04099GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-03-21", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-21", "ref_dt": "2026-07-02", "days_since_last": 103}, {"device": "CCS04004GO0", "vendor": "Huawei", "ifname": "ethernet0/2/0", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-01-22", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-01-22", "ref_dt": "2026-07-02", "days_since_last": 161}]}, "February": {"total_unstable": 21, "total_flaps": 73, "max_flaps": 12, "most_unstable": "AYT10002G00 (e1/4)", "stable_ports": 19, "top_10": [{"device": "AYT10002G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 12, "last": "2026-05-24", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-24", "ref_dt": "2026-07-02", "days_since_last": 39}, {"device": "CBR01043G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 12, "last": "2026-06-29", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-29", "ref_dt": "2026-07-02", "days_since_last": 3}, {"device": "BKK45007G00", "vendor": "ZTE", "ifname": "gei_1/3/3", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-02-22", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-22", "ref_dt": "2026-07-02", "days_since_last": 130}, {"device": "CBR01022G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 5, "last": "2026-05-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-01", "ref_dt": "2026-07-02", "days_since_last": 62}, {"device": "UDT02005G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-06-11", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-11", "ref_dt": "2026-07-02", "days_since_last": 21}, {"device": "BKK17032GO0", "vendor": "Huawei", "ifname": "ethernet0/3/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-02-05", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-05", "ref_dt": "2026-07-02", "days_since_last": 147}, {"device": "CMI18007G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-06-15", "lastseen": "2026-06-23", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-15", "ref_dt": "2026-06-23", "days_since_last": 8}, {"device": "RYG01073GO0", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-02-23", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-23", "ref_dt": "2026-07-02", "days_since_last": 129}, {"device": "PSN02011G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-02-06", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-06", "ref_dt": "2026-07-02", "days_since_last": 146}, {"device": "NKW10014G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-02-15", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-02-15", "ref_dt": "2026-07-02", "days_since_last": 137}]}, "March": {"total_unstable": 32, "total_flaps": 108, "max_flaps": 13, "most_unstable": "AYT10002G00 (e1/4)", "stable_ports": 30, "top_10": [{"device": "AYT10002G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 13, "last": "2026-05-24", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-24", "ref_dt": "2026-07-02", "days_since_last": 39}, {"device": "UDT02005G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 9, "last": "2026-06-11", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-11", "ref_dt": "2026-07-02", "days_since_last": 21}, {"device": "CBR01043G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 9, "last": "2026-06-29", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-29", "ref_dt": "2026-07-02", "days_since_last": 3}, {"device": "CBR01025G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-03-30", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-30", "ref_dt": "2026-07-02", "days_since_last": 94}, {"device": "CBR01022G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-05-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-01", "ref_dt": "2026-07-02", "days_since_last": 62}, {"device": "CMI18007G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-06-15", "lastseen": "2026-06-23", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-15", "ref_dt": "2026-06-23", "days_since_last": 8}, {"device": "NKR19003G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-05-03", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-03", "ref_dt": "2026-07-02", "days_since_last": 60}, {"device": "KKN03001GO0", "vendor": "Huawei", "ifname": "ethernet0/2/0", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-03-31", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-31", "ref_dt": "2026-07-02", "days_since_last": 93}, {"device": "PTT04004GO0", "vendor": "Fiberhome", "ifname": "SFP+ 19/5", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-03-12", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-12", "ref_dt": "2026-07-02", "days_since_last": 112}, {"device": "PTT04004GO0", "vendor": "Fiberhome", "ifname": "SFP+ 19/6", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-03-12", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-03-12", "ref_dt": "2026-07-02", "days_since_last": 112}]}, "April": {"total_unstable": 32, "total_flaps": 118, "max_flaps": 15, "most_unstable": "CBR01043G00 (ethernet0/2/2)", "stable_ports": 27, "top_10": [{"device": "CBR01043G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 15, "last": "2026-06-29", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-29", "ref_dt": "2026-07-02", "days_since_last": 3}, {"device": "CMI18007G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 12, "last": "2026-06-15", "lastseen": "2026-06-23", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-15", "ref_dt": "2026-06-23", "days_since_last": 8}, {"device": "AYT10002G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 11, "last": "2026-05-24", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-24", "ref_dt": "2026-07-02", "days_since_last": 39}, {"device": "NAN02007G00", "vendor": "Dasan", "ifname": "port5-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-06-03", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-03", "ref_dt": "2026-07-02", "days_since_last": 29}, {"device": "UDT02005G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-06-11", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-11", "ref_dt": "2026-07-02", "days_since_last": 21}, {"device": "CPN02008G00", "vendor": "Raisecom", "ifname": "gigabitethernet1/1", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 7, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "NKR01072G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-04-15", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-04-15", "ref_dt": "2026-07-02", "days_since_last": 78}, {"device": "NKR19003G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-05-03", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-03", "ref_dt": "2026-07-02", "days_since_last": 60}, {"device": "CBR01022G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-05-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-01", "ref_dt": "2026-07-02", "days_since_last": 62}, {"device": "NKR08025G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-04-17", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-04-17", "ref_dt": "2026-07-02", "days_since_last": 76}]}, "May": {"total_unstable": 35, "total_flaps": 136, "max_flaps": 22, "most_unstable": "CPN02008G00 (gigabitethernet1/1)", "stable_ports": 29, "top_10": [{"device": "CPN02008G00", "vendor": "Raisecom", "ifname": "gigabitethernet1/1", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 22, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "AYT10002G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 13, "last": "2026-05-24", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-24", "ref_dt": "2026-07-02", "days_since_last": 39}, {"device": "CBR01043G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 12, "last": "2026-06-29", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-29", "ref_dt": "2026-07-02", "days_since_last": 3}, {"device": "NAN02007G00", "vendor": "Dasan", "ifname": "port5-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 7, "last": "2026-06-03", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-03", "ref_dt": "2026-07-02", "days_since_last": 29}, {"device": "LPN08001G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 7, "last": "2026-05-31", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-31", "ref_dt": "2026-07-02", "days_since_last": 32}, {"device": "NKR21014G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-06-01", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-01", "ref_dt": "2026-07-02", "days_since_last": 31}, {"device": "CMI18007G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-06-15", "lastseen": "2026-06-23", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-15", "ref_dt": "2026-06-23", "days_since_last": 8}, {"device": "UBR01048GO0", "vendor": "Fiberhome", "ifname": "SFP+ 3/3", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-06-16", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-16", "ref_dt": "2026-07-02", "days_since_last": 16}, {"device": "BKK25010G00", "vendor": "ZTE", "ifname": "gei_1/3/3", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-05-25", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-25", "ref_dt": "2026-07-02", "days_since_last": 38}, {"device": "CRI15002G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-05-29", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-05-29", "ref_dt": "2026-07-02", "days_since_last": 34}]}, "June": {"total_unstable": 26, "total_flaps": 83, "max_flaps": 11, "most_unstable": "KKN25002G00 (e1/4)", "stable_ports": 11, "top_10": [{"device": "KKN25002G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 11, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "UBR01048GO0", "vendor": "Fiberhome", "ifname": "SFP+ 3/3", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 9, "last": "2026-06-16", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-16", "ref_dt": "2026-07-02", "days_since_last": 16}, {"device": "CPN02008G00", "vendor": "Raisecom", "ifname": "gigabitethernet1/1", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 8, "last": "2026-07-02", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-07-02", "ref_dt": "2026-07-02", "days_since_last": 0}, {"device": "CBR01043G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "moduleclass": "en1000BASET", "dsttype": "", "dstsite": "", "dstport": "", "count": 6, "last": "2026-06-29", "lastseen": "2026-07-02", "ifoper": "down", "rxpwr": "", "inerr": "", "last_dt": "2026-06-29", "ref_dt": "2026-07-02", "days_since_last": 3}, {"device": "BKK38016E01", "vendor": "ZTE", "ifname": "gei_1/3/3", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-07-01", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-07-01", "ref_dt": "2026-07-02", "days_since_last": 1}, {"device": "CMI18007G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 4, "last": "2026-06-15", "lastseen": "2026-06-23", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-15", "ref_dt": "2026-06-23", "days_since_last": 8}, {"device": "NAN02007G00", "vendor": "Dasan", "ifname": "port5-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 3, "last": "2026-06-03", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-03", "ref_dt": "2026-07-02", "days_since_last": 29}, {"device": "PYO01022E01", "vendor": "ZTE", "ifname": "gei_1/3/3", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-06-14", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-14", "ref_dt": "2026-07-02", "days_since_last": 18}, {"device": "TRT02001G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-06-13", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-13", "ref_dt": "2026-07-02", "days_since_last": 19}, {"device": "TAK05004G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "moduleclass": "", "dsttype": "", "dstsite": "", "dstport": "", "count": 2, "last": "2026-06-04", "lastseen": "2026-07-02", "ifoper": "up", "rxpwr": "", "inerr": "", "last_dt": "2026-06-04", "ref_dt": "2026-07-02", "days_since_last": 28}]}, "July": {"total_unstable": 26, "total_flaps": 95, "max_flaps": 13, "most_unstable": "KKN25002G00 (e1/4)", "stable_ports": 20, "top_10": [{"device": "KKN25002G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 13, "last": "2026-08-14", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 31.0, "last_dt": "2026-08-14", "ref_dt": "2026-08-15", "days_since_last": 1}, {"device": "CPN02008G00", "vendor": "Raisecom", "ifname": "gigabitethernet1/1", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 11, "last": "2026-08-10", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": "", "In Err": 30.0, "last_dt": "2026-08-10", "ref_dt": "2026-08-15", "days_since_last": 5}, {"device": "CRI01024G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 10, "last": "2026-08-15", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": "", "In Err": 414.0, "last_dt": "2026-08-15", "ref_dt": "2026-08-15", "days_since_last": 0}, {"device": "CBR01043G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "ModuleClass": "en1000BASET", "DstType": "", "DstSite": "", "DstPort": "", "count": 8, "last": "2026-08-14", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 0.0, "last_dt": "2026-08-14", "ref_dt": "2026-08-15", "days_since_last": 1}, {"device": "NAN02007G00", "vendor": "Dasan", "ifname": "port5-TX-10/100/1000", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 5, "last": "2026-07-16", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 0.0, "last_dt": "2026-07-16", "ref_dt": "2026-08-15", "days_since_last": 30}, {"device": "MHR06018GO0", "vendor": "Fiberhome", "ifname": "SFP+ 3/3", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 4, "last": "2026-07-22", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": 0.0, "In Err": 0.0, "last_dt": "2026-07-22", "ref_dt": "2026-08-15", "days_since_last": 24}, {"device": "CCS03002G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 4, "last": "2026-07-21", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 0.0, "last_dt": "2026-07-21", "ref_dt": "2026-08-15", "days_since_last": 25}, {"device": "CMI06008GO0", "vendor": "Fiberhome", "ifname": "SFP+ 19/5", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 3, "last": "2026-07-09", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": 0.0, "In Err": 0.0, "last_dt": "2026-07-09", "ref_dt": "2026-08-15", "days_since_last": 37}, {"device": "PCB05011G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 3, "last": "2026-07-19", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 0.0, "last_dt": "2026-07-19", "ref_dt": "2026-08-15", "days_since_last": 27}, {"device": "BKK06011GO0", "vendor": "Fiberhome", "ifname": "SFP+ 19/5", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 2, "last": "2026-08-09", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": 0.0, "In Err": 0.0, "last_dt": "2026-08-09", "ref_dt": "2026-08-15", "days_since_last": 6}]}, "August": {"total_unstable": 17, "total_flaps": 64, "max_flaps": 8, "most_unstable": "CRI01024G00 (port9-TX-10/100/1000)", "stable_ports": 0, "top_10": [{"device": "CRI01024G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 8, "last": "2026-08-15", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": "", "In Err": 414.0, "last_dt": "2026-08-15", "ref_dt": "2026-08-15", "days_since_last": 0}, {"device": "KKN25002G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 8, "last": "2026-08-14", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 31.0, "last_dt": "2026-08-14", "ref_dt": "2026-08-15", "days_since_last": 1}, {"device": "CBR01043G00", "vendor": "Huawei", "ifname": "ethernet0/2/2", "ifspeed": "100 Mbps", "ModuleClass": "en1000BASET", "DstType": "", "DstSite": "", "DstPort": "", "count": 7, "last": "2026-08-14", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 0.0, "last_dt": "2026-08-14", "ref_dt": "2026-08-15", "days_since_last": 1}, {"device": "CPN02008G00", "vendor": "Raisecom", "ifname": "gigabitethernet1/1", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 6, "last": "2026-08-10", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": "", "In Err": 30.0, "last_dt": "2026-08-10", "ref_dt": "2026-08-15", "days_since_last": 5}, {"device": "UDT05003G00", "vendor": "GCOM", "ifname": "e1/4", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 5, "last": "2026-08-15", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 1.0, "last_dt": "2026-08-15", "ref_dt": "2026-08-15", "days_since_last": 0}, {"device": "CMI14013G00", "vendor": "Fiberhome", "ifname": "SFP+ 19/5", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 4, "last": "2026-08-15", "lastseen": "2026-08-15", "IfOper": "down", "Rx Pwr": 0.0, "In Err": 16.0, "last_dt": "2026-08-15", "ref_dt": "2026-08-15", "days_since_last": 0}, {"device": "PCR06005G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 4, "last": "2026-08-09", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 0.0, "last_dt": "2026-08-09", "ref_dt": "2026-08-15", "days_since_last": 6}, {"device": "BKK39042GO0", "vendor": "Fiberhome", "ifname": "SFP+ 3/3", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 3, "last": "2026-08-13", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": 0.0, "In Err": 0.0, "last_dt": "2026-08-13", "ref_dt": "2026-08-15", "days_since_last": 2}, {"device": "BKK06011GO0", "vendor": "Fiberhome", "ifname": "SFP+ 19/5", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 3, "last": "2026-08-09", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": 0.0, "In Err": 0.0, "last_dt": "2026-08-09", "ref_dt": "2026-08-15", "days_since_last": 6}, {"device": "PCB10023G00", "vendor": "Dasan", "ifname": "port9-TX-10/100/1000", "ifspeed": "100 Mbps", "ModuleClass": "", "DstType": "", "DstSite": "", "DstPort": "", "count": 2, "last": "2026-08-03", "lastseen": "2026-08-15", "IfOper": "up", "Rx Pwr": "", "In Err": 40283.0, "last_dt": "2026-08-03", "ref_dt": "2026-08-15", "days_since_last": 12}]}}}};
+  // --- EMBEDDED DATA END ---
+
+  let currentCategory = 'uplink';
+  let chart1 = null;
+  let chart2 = null;
+
+  function init() {
+    try {
+      if (!trendData || !trendData.months) {
+        document.body.innerHTML = `<div style="padding:3rem; text-align:center; font-family:sans-serif; color:var(--text-secondary);">
+          <h2>No embedded data found</h2>
+          <p style="margin-top:1rem;">Please run python3 generate_instability_trend_json.py first.</p>
+        </div>`;
+        return;
+      }
+
+      // Populate month selector
+      const select = document.getElementById('monthSelect');
+      select.innerHTML = '';
+      trendData.months.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.innerText = m;
+        select.appendChild(opt);
+      });
+      // Select last month by default
+      select.value = trendData.months[trendData.months.length - 1];
+
+      updateCharts();
+      loadMonthDetails();
+    } catch (err) {
+      console.error(err);
+      const errorDiv = document.createElement('div');
+      errorDiv.style.cssText = 'padding:3rem; text-align:center; font-family:sans-serif; color:#ef4444;';
+      errorDiv.innerHTML = `<h2>Dashboard Load Error</h2><p style="margin-top:1rem;">${err.message}</p><pre style="margin-top:1rem; text-align:left; display:inline-block; background:rgba(0,0,0,0.5); padding:1rem; border-radius:5px; color:#fff;">${err.stack}</pre>`;
+      document.body.appendChild(errorDiv);
+    }
+  }
+
+  function switchCategory(cat) {
+    currentCategory = cat;
+    document.getElementById('tab-uplink').classList.toggle('active', cat === 'uplink');
+    document.getElementById('tab-edfa').classList.toggle('active', cat === 'edfa');
+    
+    updateCharts();
+    loadMonthDetails();
+  }
+
+  function updateCharts() {
+    const months = trendData.months;
+    const catData = trendData[currentCategory];
+
+    // Trend chart (unstable + flaps)
+    const ctx1 = document.getElementById('trendChart').getContext('2d');
+    if (chart1) chart1.destroy();
+    chart1 = new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          {
+            label: 'Unstable Ports',
+            data: catData.unstable_trend,
+            borderColor: '#ef4444',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            borderWidth: 3,
+            tension: 0.3,
+            yAxisID: 'y'
+          },
+          {
+            label: 'Total Flaps',
+            data: catData.flaps_trend,
+            borderColor: '#f59e0b',
+            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+            borderWidth: 3,
+            tension: 0.3,
+            yAxisID: 'y1'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: '#f8fafc', font: { family: 'Outfit', size: 12 } } },
+          title: { display: true, text: 'Instability & Flaps Trend', color: '#f8fafc', font: { family: 'Outfit', size: 16 } }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+          y: { 
+            position: 'left',
+            grid: { color: 'rgba(255,255,255,0.05)' }, 
+            ticks: { color: '#94a3b8' },
+            title: { display: true, text: 'Ports count', color: '#ef4444' }
+          },
+          y1: {
+            position: 'right',
+            grid: { drawOnChartArea: false },
+            ticks: { color: '#94a3b8' },
+            title: { display: true, text: 'Flap count', color: '#f59e0b' }
+          }
+        }
+      }
+    });
+
+    // Stable chart (stable ports bar)
+    const ctx2 = document.getElementById('stableChart').getContext('2d');
+    if (chart2) chart2.destroy();
+    chart2 = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: months,
+        datasets: [{
+          label: 'Recovered & Stable Ports (>=15 Days)',
+          data: catData.stable_trend,
+          backgroundColor: 'rgba(16, 185, 129, 0.3)',
+          borderColor: '#10b981',
+          borderWidth: 2,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          title: { display: true, text: 'Stable & Recovered Ports Trend', color: '#f8fafc', font: { family: 'Outfit', size: 16 } }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }
+        }
+      }
+    });
+  }
+
+  function loadMonthDetails() {
+    const month = document.getElementById('monthSelect').value;
+    const details = trendData[currentCategory].monthly_details[month];
+
+    document.getElementById('monthly-detail-title').innerText = `${month} Detailed Analysis`;
+    document.getElementById('kpi-unstable').innerText = details.total_unstable.toLocaleString();
+    document.getElementById('kpi-flaps').innerText = details.total_flaps.toLocaleString();
+    document.getElementById('kpi-max-flaps').innerText = details.max_flaps.toLocaleString();
+    document.getElementById('kpi-stable').innerText = details.stable_ports.toLocaleString();
+
+    // Load table
+    const tbody = document.getElementById('table-body');
+    tbody.innerHTML = '';
+    
+    if (!details.top_10 || details.top_10.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-secondary);">No records found for this month</td></tr>`;
+      return;
+    }
+
+    details.top_10.forEach(row => {
+      const tr = document.createElement('tr');
+      const stateBadge = row.ifoper === 'down' ? '<span class="badge badge-down">Down</span>' : '<span class="badge badge-up">Up</span>';
+      tr.innerHTML = `
+        <td style="font-weight:600;">${row.device}</td>
+        <td>${row.vendor}</td>
+        <td>${row.ifname}</td>
+        <td>${row.ifspeed}</td>
+        <td style="font-weight:bold; color:var(--accent-danger);">${row.count}</td>
+        <td>${row.last}</td>
+        <td>${row.lastseen}</td>
+        <td>${stateBadge}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function filterTable() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const rows = document.getElementById('table-body').getElementsByTagName('tr');
+    for(let row of rows) {
+      row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
+    }
+  }
+
+  function exportCSV() {
+    const month = document.getElementById('monthSelect').value;
+    const details = trendData[currentCategory].monthly_details[month];
+    if (!details || !details.top_10) return;
+
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Device,Vendor,Interface,Speed,Flap Count,Last Flap Date,Polling Query,State\n";
+
+    details.top_10.forEach(row => {
+      const line = [
+        row.device,
+        row.vendor,
+        row.ifname,
+        row.ifspeed,
+        row.count,
+        row.last,
+        row.lastseen,
+        row.ifoper
+      ].map(v => `"${v}"`).join(",");
+      csvContent += line + "\n";
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `Uplink_Flapping_${currentCategory}_${month}_Top10.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  window.onload = init;
+</script>
+
+<script>
+function checkLocalEnv() {
+    const btn = document.getElementById('runCheckBtn');
+    if (btn) {
+        const isLocal = window.location.hostname === 'localhost'
+                     || window.location.hostname === '127.0.0.1';
+        btn.style.display = isLocal ? 'inline-block' : 'none';
+    }
+}
+async function triggerRunCheck() {
+    const btn = document.getElementById('runCheckBtn');
+    if (!btn) return;
+    const orig = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Processing...';
+    try {
+        const resp = await fetch('http://127.0.0.1:5050/api/run-check/nav-instability-trend', {method:'POST'});
+        const data = await resp.json();
+        if (resp.ok) { alert(data.message); window.location.reload(); }
+        else { alert('Error: ' + (data.message || 'Unknown')); }
+    } catch(e) {
+        alert('ไม่สามารถเชื่อมต่อ API Server\n(รัน python3 /Users/bbae/GPTCodex/scrip/api_server.py ก่อน)');
+    } finally {
+        btn.disabled = false; btn.innerHTML = orig;
+    }
+}
+window.addEventListener('error', function(e) {
+    const errorDiv = document.createElement('div');
+    errorDiv.style.cssText = 'position:fixed; bottom:10px; right:10px; background:#ef4444; color:#fff; padding:15px; border-radius:8px; font-family:sans-serif; z-index:9999; max-width:400px; box-shadow:0 4px 6px rgba(0,0,0,0.3);';
+    errorDiv.innerHTML = '<strong>JS Error:</strong> ' + e.message + '<br><small>Line: ' + e.lineno + ', Col: ' + e.colno + '</small>';
+    document.body.appendChild(errorDiv);
+});
+setTimeout(checkLocalEnv, 300);
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        // --- AUTO-HIDE SIDEBAR CONTROLLER ---
+        (function initSidebarToggle() {
+            const toggleBtn = document.getElementById('sidebarToggleBtn');
+            const closeBtn = document.getElementById('sidebarCloseBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+            const sidebar = document.getElementById('mainSidebar');
+
+            if (!sidebar) return;
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                if (overlay) overlay.classList.add('active');
+                document.body.style.overflowY = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
+                document.body.style.overflowY = '';
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (sidebar.classList.contains('open')) {
+                        closeSidebar();
+                    } else {
+                        openSidebar();
+                    }
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeSidebar();
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    closeSidebar();
+                });
+            }
+
+            // Close when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+        })();
+        // --- END AUTO-HIDE SIDEBAR CONTROLLER ---
+
+</script>
+</body>
+</html>

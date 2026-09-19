@@ -1,0 +1,3587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLT Traffic Monitor Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-yellow: #eab308;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+        }
+        body {
+            font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 24px 2rem 24px;
+        }
+        
+        /* SIDEBAR STYLES */
+        
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            color: #f8fafc;
+            font-weight: 800;
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .sidebar-logo span {
+            background: linear-gradient(135deg, #06b6d4, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sidebar-links {
+            flex-grow: 1; padding: 20px 0; overflow-y: auto; scrollbar-width: thin;
+        }
+        .sidebar-links::-webkit-scrollbar { width: 4px; }
+        .sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+        .sidebar-links a {
+            display: flex; align-items: center; padding: 12px 24px;
+            color: #94a3b8; text-decoration: none; font-size: 0.95rem; font-weight: 500;
+            transition: all 0.2s ease; border-left: 3px solid transparent; box-sizing: border-box;
+        }
+        .sidebar-links a:hover {
+            color: #f8fafc; background: rgba(255,255,255,0.03); border-left-color: rgba(6, 182, 212, 0.3);
+        }
+        .sidebar-links a.active {
+            color: #f8fafc; background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+            border-left-color: #06b6d4; font-weight: 600;
+        }
+        
+        .container { max-width: 100% !important; margin: 0 auto; padding: 2rem; }
+        .header { margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: flex-end; }
+        .header h1 { font-size: 1.8rem; margin: 0 0 0.5rem 0; }
+        .header p { color: var(--text-muted); margin: 0; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-title { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; display:flex; align-items:center; gap:0.5rem;}
+        .stat-value { font-size: 2.2rem; font-weight: 700; }
+        
+        .text-red { color: var(--accent-red); }
+        .text-orange { color: var(--accent-orange); }
+        .text-yellow { color: var(--accent-yellow); }
+        .text-green { color: var(--accent-green); }
+        .text-blue { color: var(--accent-blue); }
+        
+        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .chart-card { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); min-height: 400px; }
+        .chart-card h3 { margin: 0 0 1rem 0; font-size: 1.1rem; color: #fff; }
+        .canvas-wrapper { position: relative; height: 350px; width: 100%; }
+        
+        .table-section { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem; }
+        .table-scroll-container { overflow-x: auto; height: 500px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        th { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; position: sticky; top: 0; background: var(--card-bg); z-index: 10;}
+        .badge { padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+        .badge-critical { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+        .badge-high { background: rgba(245, 158, 11, 0.2); color: var(--accent-orange); }
+        .badge-mod { background: rgba(234, 179, 8, 0.2); color: var(--accent-yellow); }
+        .table-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .table-header-row h3 { margin: 0; font-size: 1.1rem; color: #fff; }
+        .btn-export { background: linear-gradient(135deg, #059669, #10b981); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease; }
+        .btn-export:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+    
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100% !important;
+    height: 60px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: #0d1222 !important;
+    z-index: 10000 !important;
+  }
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+</style>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+        /* === AUTO-HIDE SIDEBAR & FULL SCREEN PAGE LAYOUT === */
+        html { scrollbar-gutter: stable !important; overflow-y: scroll !important; }
+        body { 
+            margin: 0 !important;
+            padding: 20px 24px 2rem 24px !important;
+            overflow-x: hidden !important;
+            transition: padding 0.3s ease;
+        }
+
+        /* Full Width Container across all dashboards */
+        .container, .dashboard-container, .dashboard-wrapper, .main-content, .content, .main, #app, .app-container, .wrapper, .max-w-7xl {
+            max-width: 100% !important;
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Ensure cards, charts, and tables expand properly to 100% width */
+        .dashboard-main, .kpi-grid, .stats-grid, .charts-container, .table-container, .grid-container, .card, .panel, .glass-panel {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Sidebar Toggle Floating Button */
+        .sidebar-toggle-btn {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 10000;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            color: #f8fafc;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(6, 182, 212, 0.2);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-toggle-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: #06b6d4;
+            transform: scale(1.05);
+            box-shadow: 0 6px 24px rgba(6, 182, 212, 0.35);
+        }
+        .sidebar-toggle-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: #22d3ee;
+            transition: transform 0.25s ease;
+        }
+
+        /* Sidebar Overlay Backdrop */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 3, 15, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 10001;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Auto-Hide Slide-over Sidebar Drawer */
+        .sidebar {
+            width: 270px !important;
+            background: rgba(11, 15, 29, 0.96) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-right: 1px solid rgba(6, 182, 212, 0.2) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            position: fixed !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            z-index: 10002 !important;
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease !important;
+            box-shadow: none !important;
+        }
+        .sidebar.open {
+            transform: translateX(0) !important;
+            box-shadow: 10px 0 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.15) !important;
+        }
+
+        .sidebar-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 16px 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: #f8fafc;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 !important;
+            border-bottom: none !important;
+        }
+        .sidebar-logo span {
+            background: linear-gradient(135deg, #06b6d4, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sidebar-close-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+        .sidebar-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #ef4444;
+        }
+
+        .sidebar-links {
+            flex-grow: 1;
+            padding: 14px 0;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-links::-webkit-scrollbar { width: 4px; }
+        .sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+        .sidebar-links a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            box-sizing: border-box;
+        }
+        .sidebar-links a:hover {
+            color: #f8fafc;
+            background: rgba(255,255,255,0.04);
+            border-left-color: rgba(6, 182, 212, 0.4);
+        }
+        .sidebar-links a.active {
+            color: #f8fafc;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.18) 0%, transparent 100%);
+            border-left-color: #06b6d4;
+            font-weight: 600;
+        }
+        .sidebar-links a.sub-link {
+            padding: 7px 20px 7px 36px;
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+        .sidebar-links a.sub-link:hover {
+            color: #22d3ee;
+            background: rgba(6, 182, 212, 0.06);
+        }
+        .sidebar-links a.sub-link.active {
+            color: #22d3ee;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.12) 0%, transparent 100%);
+            border-left-color: rgba(6, 182, 212, 0.5);
+        }
+
+        /* Adjust headers to give breathing room from floating button */
+        .header, .dashboard-header, .exec-header, .page-header, .header-section {
+            padding-left: 48px !important;
+        }
+        @media (max-width: 768px) {
+            .header, .dashboard-header, .exec-header, .page-header, .header-section {
+                padding-left: 44px !important;
+            }
+        }
+</style>
+</head>
+<body>
+    <!-- FLOATING SIDEBAR TOGGLE BUTTON -->
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle Navigation Menu" title="เมนูนำทาง (คลิกเพื่อเปิด/ปิด)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+</button>
+
+<!-- BACKDROP OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- SLIDE-OVER SIDEBAR -->
+<nav class="sidebar" id="mainSidebar">
+    <div class="sidebar-header-row">
+        <div class="sidebar-logo">⚡ <span>FBE-PMS-Monitor</span></div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar" title="ปิดเมนู">&times;</button>
+    </div>
+    <div class="sidebar-links">
+        <a href="index.html" id="nav-main">OLT temperature</a>
+        <a href="mismatch_dashboard.html" id="nav-mismatch">XGS mismatch</a>
+        <a href="olt_executive_dashboard.html" id="nav-executive">XGS-PON</a>
+        <a href="olt_cascade_dashboard.html" id="nav-cascade">Cascade</a>
+        <a href="olt_l2_distance_dashboard.html" id="nav-l2distance">L2 Distance</a>
+        <a href="dw_distance_dashboard.html" id="nav-dw-distance" class="sub-link">&#128300; DW Distance</a>
+        <a href="scab_l2_dashboard.html" id="nav-scab-l2" class="sub-link">&#128300; SCAB L2 Topo</a>
+        <a href="l1_rehome_dashboard.html" id="nav-l1rehome">L1 Rehome</a>
+        <a href="traffic_dashboard.html" id="nav-uplinktraffic" class="active">Uplink Traffic</a>
+        <a href="optical_dashboard.html" id="nav-optical">Optical</a>
+        <a href="pon_traffic_dashboard.html" id="nav-pontraffic">PON Traffic</a>
+        <a href="inventory_movement_dashboard.html" id="nav-inventory">Inventory</a>
+        <a href="tvs_edfa_dashboard.html" id="nav-edfa">EDFA</a>
+        <a href="swap_olt_dashboard.html" id="nav-swap">SwapOLT</a>
+        <a href="uplink_instability_dashboard.html" id="nav-instability">Flapping</a>
+        <a href="uplink_instability_trend_dashboard.html" id="nav-instability-trend" class="sub-link">&#128300; Flapping Trends</a>
+        <a href="simplex_dashboard.html" id="nav-simplex">Simplex</a>
+        <a href="single_board_dashboard.html" id="nav-control-board">Control card</a>
+        <a href="xgs_upgrade_dashboard.html" id="nav-xgs-upgrade">HiSpeedPack</a>
+        <a href="xgs_readiness_dashboard.html" id="nav-xgs-readiness" class="sub-link">&#128300; XGS Readiness</a>
+        <a href="pon_sfp_audit_dashboard.html" id="nav-pon-sfp">PON SFP Audit</a>
+        <a href="olt_onu_dashboard.html" id="nav-olt-onu">OLT-ONU</a>
+        <a href="radius_health_dashboard.html" id="nav-radius">Radius</a>
+    </div>
+    </nav>
+
+    <div class="container">
+        <div class="header" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>🚦 OLT Uplink Traffic Monitor <span style="font-size: 1.1rem; color: #fbbf24; font-weight: bold; margin-left: 10px;">(AS OF 03/08/26)</span></h1>
+            <div style="margin-top: 8px;"><span style="background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); color: #a5b4fc; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-family: 'Outfit', sans-serif; font-weight: 600; letter-spacing: 0.04em;">📅 AS OF 23/08/2026</span></div>
+                <p>รายงานตรวจสอบ Bandwidth Utilization ของ OLT แยกตาม Region (4 ระดับความเสี่ยง)</p>
+            </div>
+</div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">Total OLTs</div>
+                <div class="stat-value text-blue" id="statTotal">0</div>
+            </div>
+            <div class="stat-card" style="border-top: 4px solid var(--accent-red);">
+                <div class="stat-title">🔴 Critical (>80%)</div>
+                <div class="stat-value text-red" id="statCrit">0</div>
+            </div>
+            <div class="stat-card" style="border-top: 4px solid var(--accent-orange);">
+                <div class="stat-title">🟧 High (70-80%)</div>
+                <div class="stat-value text-orange" id="statHigh">0</div>
+            </div>
+            <div class="stat-card" style="border-top: 4px solid var(--accent-yellow);">
+                <div class="stat-title">🟨 Mod (50-70%)</div>
+                <div class="stat-value text-yellow" id="statMod">0</div>
+            </div>
+            <div class="stat-card" style="border-top: 4px solid var(--accent-green);">
+                <div class="stat-title">✅ Healthy (<50%)</div>
+                <div class="stat-value text-green" id="statHealth">0</div>
+            </div>
+        </div>
+
+        <div class="header" style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin: 0;">⚠️ Single Active Uplink (Incl. MA5603T) by Vendor</h2>
+            <a href="single_uplink_olt_report.xlsx" download class="btn-export">📥 Export Excel</a>
+        </div>
+        <div class="stats-grid" id="vendorGrid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 2rem;">
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3>Regional Traffic Overview (Total OLTs)</h3>
+                <div class="canvas-wrapper"><canvas id="regionTotalChart"></canvas></div>
+            </div>
+            <div class="chart-card">
+                <h3>Utilization Alerts by Region (>= 50%)</h3>
+                <div class="canvas-wrapper"><canvas id="regionAlertChart"></canvas></div>
+            </div>
+        </div>
+        
+        <div class="charts-container" style="grid-template-columns: 1fr;">
+            <div class="chart-card">
+                <h3>Proportion of Utilization by Region (Stacked)</h3>
+                <div class="canvas-wrapper" style="height: 500px;"><canvas id="regionStackedChart"></canvas></div>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <div class="table-header-row">
+                <h3>⚠️ OLT Alerts (Utilization >= 50%)</h3>
+                <button class="btn-export" onclick="exportCSV()">📥 Export CSV</button>
+            </div>
+            <div class="table-scroll-container">
+                <table id="anomalyTable">
+                    <thead>
+                        <tr>
+                            <th>Device Name</th>
+                            <th>Region</th>
+                            <th>Model OLT</th>
+                            <th>Port Description</th>
+                            <th>Model Uplink</th>
+                            <th>Max Utilization</th>
+                            <th>Speed</th>
+                            <th>In Rate (Mbps)</th>
+                            <th>Out Rate (Mbps)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const dashboardData = {
+  "total_devices": 12887,
+  "total_critical": 3,
+  "total_high": 6,
+  "total_mod": 121,
+  "total_healthy": 12757,
+  "region_stats": {
+    "BMA": {
+      "critical": 0,
+      "high": 1,
+      "mod": 98,
+      "healthy": 1946,
+      "total": 2045
+    },
+    "Central": {
+      "critical": 2,
+      "high": 1,
+      "mod": 7,
+      "healthy": 1504,
+      "total": 1514
+    },
+    "East": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 1223,
+      "total": 1223
+    },
+    "Lower Nea": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 3,
+      "total": 3
+    },
+    "Lower North": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 3,
+      "total": 3
+    },
+    "Lower Northeast": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 16,
+      "total": 16
+    },
+    "Lower South": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 15,
+      "total": 15
+    },
+    "North": {
+      "critical": 1,
+      "high": 4,
+      "mod": 2,
+      "healthy": 2123,
+      "total": 2130
+    },
+    "Northeast": {
+      "critical": 0,
+      "high": 0,
+      "mod": 8,
+      "healthy": 3899,
+      "total": 3907
+    },
+    "South": {
+      "critical": 0,
+      "high": 0,
+      "mod": 4,
+      "healthy": 1253,
+      "total": 1257
+    },
+    "Unknown": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 9,
+      "total": 9
+    },
+    "Upper Nea": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 4,
+      "total": 4
+    },
+    "Upper North": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 21,
+      "total": 21
+    },
+    "Upper Northeast": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 15,
+      "total": 15
+    },
+    "Upper South": {
+      "critical": 0,
+      "high": 0,
+      "mod": 0,
+      "healthy": 33,
+      "total": 33
+    },
+    "West": {
+      "critical": 0,
+      "high": 0,
+      "mod": 2,
+      "healthy": 690,
+      "total": 692
+    }
+  },
+  "anomalies": [
+    {
+      "device": "PCB03008GO0",
+      "region": "Central",
+      "olt_model": "MA5801-FL16",
+      "uplink_model": "Huawei ATN 950B",
+      "utilization": 96.4,
+      "severity": "Critical",
+      "ifDescr": "0/2/0",
+      "speed": "10G",
+      "in_rate": 9640.0,
+      "out_rate": 2176.26
+    },
+    {
+      "device": "PCB07009GO0",
+      "region": "Central",
+      "olt_model": "MA5801-FL16",
+      "uplink_model": "Huawei ATN 950D",
+      "utilization": 96.38,
+      "severity": "Critical",
+      "ifDescr": "0/2/0",
+      "speed": "10G",
+      "in_rate": 9638.34,
+      "out_rate": 630.77
+    },
+    {
+      "device": "UTR03004GO0",
+      "region": "North",
+      "olt_model": "MA5801-FL16",
+      "uplink_model": "Huawei ATN 950D",
+      "utilization": 96.3,
+      "severity": "Critical",
+      "ifDescr": "0/2/0",
+      "speed": "10G",
+      "in_rate": 9629.87,
+      "out_rate": 687.17
+    },
+    {
+      "device": "PSN09009GO0",
+      "region": "North",
+      "olt_model": "MA5801-FL16",
+      "uplink_model": "Huawei ATN 950B",
+      "utilization": 79.62,
+      "severity": "High",
+      "ifDescr": "0/2/0",
+      "speed": "10G",
+      "in_rate": 7961.56,
+      "out_rate": 1513.11
+    },
+    {
+      "device": "PSN05007GO0",
+      "region": "North",
+      "olt_model": "MA5801-FL16",
+      "uplink_model": "Huawei ATN 950B",
+      "utilization": 79.42,
+      "severity": "High",
+      "ifDescr": "0/2/0",
+      "speed": "10G",
+      "in_rate": 7942.14,
+      "out_rate": 905.12
+    },
+    {
+      "device": "PSN01003G00",
+      "region": "North",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8",
+      "utilization": 71.9,
+      "severity": "High",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 7189.84,
+      "out_rate": 664.62
+    },
+    {
+      "device": "LPG01001G00",
+      "region": "North",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 71.64,
+      "severity": "High",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 7164.07,
+      "out_rate": 757.64
+    },
+    {
+      "device": "SMP01002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 71.29,
+      "severity": "High",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 7128.78,
+      "out_rate": 635.03
+    },
+    {
+      "device": "SRB01017GO0",
+      "region": "Central",
+      "olt_model": "MA5801-FL16",
+      "uplink_model": "ZTE ZXCTN 6180H-A",
+      "utilization": 70.7,
+      "severity": "High",
+      "ifDescr": "0/2/0",
+      "speed": "10G",
+      "in_rate": 7070.37,
+      "out_rate": 770.77
+    },
+    {
+      "device": "BKK27002G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 69.74,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 6973.64,
+      "out_rate": 696.44
+    },
+    {
+      "device": "SMP05005G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 68.77,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 6876.65,
+      "out_rate": 1000.58
+    },
+    {
+      "device": "SMK01001G01",
+      "region": "Central",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 68.23,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 6823.34,
+      "out_rate": 664.27
+    },
+    {
+      "device": "UTR01001G00",
+      "region": "North",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 68.17,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 6817.33,
+      "out_rate": 726.21
+    },
+    {
+      "device": "BKK42002G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 68.01,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 6800.58,
+      "out_rate": 806.58
+    },
+    {
+      "device": "BKK27001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 67.95,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 6794.88,
+      "out_rate": 652.03
+    },
+    {
+      "device": "BKK29001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 67.68,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 6767.77,
+      "out_rate": 876.61
+    },
+    {
+      "device": "BKK15002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 66.73,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 6673.23,
+      "out_rate": 890.96
+    },
+    {
+      "device": "BKK47001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 66.44,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 6644.27,
+      "out_rate": 668.99
+    },
+    {
+      "device": "NTB01006G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 66.43,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 6643.22,
+      "out_rate": 739.4
+    },
+    {
+      "device": "BKK35002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 65.83,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 6583.38,
+      "out_rate": 772.95
+    },
+    {
+      "device": "PTN01001G00",
+      "region": "South",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8",
+      "utilization": 65.44,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 6544.02,
+      "out_rate": 655.11
+    },
+    {
+      "device": "BKK15006GO0",
+      "region": "BMA",
+      "olt_model": "MA5800-X2",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 65.36,
+      "severity": "Moderate",
+      "ifDescr": "0/3/0",
+      "speed": "10G",
+      "in_rate": 6536.02,
+      "out_rate": 671.48
+    },
+    {
+      "device": "BKK26AGNG03",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X16A",
+      "utilization": 65.08,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 6507.72,
+      "out_rate": 1064.26
+    },
+    {
+      "device": "BKK49002G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 64.98,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 6497.85,
+      "out_rate": 594.83
+    },
+    {
+      "device": "BKK35002G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 64.89,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 6489.34,
+      "out_rate": 887.76
+    },
+    {
+      "device": "NTB03AGNG00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 64.85,
+      "severity": "Moderate",
+      "ifDescr": "1/10/2",
+      "speed": "10G",
+      "in_rate": 6485.26,
+      "out_rate": 639.51
+    },
+    {
+      "device": "BKK43AGNG00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 64.43,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 6442.51,
+      "out_rate": 700.56
+    },
+    {
+      "device": "NTB01003G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 64.27,
+      "severity": "Moderate",
+      "ifDescr": "0/10/2",
+      "speed": "10G",
+      "in_rate": 6427.44,
+      "out_rate": 644.23
+    },
+    {
+      "device": "SMP01007G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 64.16,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 6415.92,
+      "out_rate": 706.26
+    },
+    {
+      "device": "NKS01001G00",
+      "region": "South",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 64.04,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 6403.9,
+      "out_rate": 761.3
+    },
+    {
+      "device": "NTB04002G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 63.81,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 6381.05,
+      "out_rate": 866.49
+    },
+    {
+      "device": "BKK11003G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 63.77,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 6377.41,
+      "out_rate": 722.99
+    },
+    {
+      "device": "SRN16002G00",
+      "region": "Northeast",
+      "olt_model": "GL5610-08P(V2)",
+      "uplink_model": "ZTE ZXCTN 6120H-SC",
+      "utilization": 63.71,
+      "severity": "Moderate",
+      "ifDescr": "1/2",
+      "speed": "1G",
+      "in_rate": 637.08,
+      "out_rate": 66.92
+    },
+    {
+      "device": "SMP02001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 63.55,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 6354.74,
+      "out_rate": 528.45
+    },
+    {
+      "device": "BKK23007GO0",
+      "region": "BMA",
+      "olt_model": "AN5516-04",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 63.37,
+      "severity": "Moderate",
+      "ifDescr": "10/1",
+      "speed": "10G",
+      "in_rate": 6336.7,
+      "out_rate": 469.29
+    },
+    {
+      "device": "NTB01004G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 63.05,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 6304.66,
+      "out_rate": 596.22
+    },
+    {
+      "device": "BKK30AGNG00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X16A",
+      "utilization": 62.99,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 6298.91,
+      "out_rate": 977.19
+    },
+    {
+      "device": "PTT06AGNG00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 62.61,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 6261.21,
+      "out_rate": 755.09
+    },
+    {
+      "device": "MHR05002GO0",
+      "region": "Northeast",
+      "olt_model": "C320",
+      "uplink_model": "ZTE ZXCTN 6120H-SC",
+      "utilization": 62.58,
+      "severity": "Moderate",
+      "ifDescr": "1/3/2",
+      "speed": "1G",
+      "in_rate": 625.81,
+      "out_rate": 42.46
+    },
+    {
+      "device": "NTB03001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 62.44,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 6244.17,
+      "out_rate": 632.22
+    },
+    {
+      "device": "SMP05008GO1",
+      "region": "BMA",
+      "olt_model": "MA5800-X2",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 62.31,
+      "severity": "Moderate",
+      "ifDescr": "0/4/0",
+      "speed": "10G",
+      "in_rate": 6231.31,
+      "out_rate": 605.92
+    },
+    {
+      "device": "PTT03003G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 62.19,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 6218.9,
+      "out_rate": 904.63
+    },
+    {
+      "device": "BKK02001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 62.09,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 6208.88,
+      "out_rate": 568.41
+    },
+    {
+      "device": "BKK32001G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 62.06,
+      "severity": "Moderate",
+      "ifDescr": "0/9/1",
+      "speed": "10G",
+      "in_rate": 6205.82,
+      "out_rate": 1047.74
+    },
+    {
+      "device": "BKK32001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 61.79,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 6179.08,
+      "out_rate": 1094.93
+    },
+    {
+      "device": "BKK44007GO0",
+      "region": "BMA",
+      "olt_model": "AN6000-2",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 61.59,
+      "severity": "Moderate",
+      "ifDescr": "3/1",
+      "speed": "10G",
+      "in_rate": 6158.82,
+      "out_rate": 580.54
+    },
+    {
+      "device": "SMP04002G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 61.56,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 6155.73,
+      "out_rate": 639.18
+    },
+    {
+      "device": "BKK46001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 60.73,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 6072.85,
+      "out_rate": 696.68
+    },
+    {
+      "device": "PTT03001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 60.72,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 6072.22,
+      "out_rate": 708.74
+    },
+    {
+      "device": "BKK48001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 60.66,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 6065.77,
+      "out_rate": 515.3
+    },
+    {
+      "device": "NTB04001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.88,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 5987.72,
+      "out_rate": 843.87
+    },
+    {
+      "device": "NTB03AGNG01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.8,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 5979.56,
+      "out_rate": 611.19
+    },
+    {
+      "device": "BKK42001G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.78,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 5977.88,
+      "out_rate": 832.87
+    },
+    {
+      "device": "NTB01006G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.7,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 5969.83,
+      "out_rate": 594.99
+    },
+    {
+      "device": "BKK32002G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.69,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 5968.95,
+      "out_rate": 1194.92
+    },
+    {
+      "device": "NTB04003G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.51,
+      "severity": "Moderate",
+      "ifDescr": "1/10/2",
+      "speed": "10G",
+      "in_rate": 5951.14,
+      "out_rate": 602.26
+    },
+    {
+      "device": "BKK42002G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.22,
+      "severity": "Moderate",
+      "ifDescr": "1/10/2",
+      "speed": "10G",
+      "in_rate": 5922.21,
+      "out_rate": 483.75
+    },
+    {
+      "device": "BKK20010GO0",
+      "region": "BMA",
+      "olt_model": "MA5800-X2",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.09,
+      "severity": "Moderate",
+      "ifDescr": "0/4/0",
+      "speed": "10G",
+      "in_rate": 5908.9,
+      "out_rate": 579.34
+    },
+    {
+      "device": "BKK49002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.06,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5905.55,
+      "out_rate": 699.9
+    },
+    {
+      "device": "BKK40003G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.02,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5902.31,
+      "out_rate": 494.06
+    },
+    {
+      "device": "PTT06002G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 59.01,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 5901.15,
+      "out_rate": 519.93
+    },
+    {
+      "device": "SMP03001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 58.89,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5888.76,
+      "out_rate": 616.48
+    },
+    {
+      "device": "SMK02002G01",
+      "region": "Central",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 58.86,
+      "severity": "Moderate",
+      "ifDescr": "0/9/1",
+      "speed": "10G",
+      "in_rate": 5885.67,
+      "out_rate": 549.11
+    },
+    {
+      "device": "BKK24001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 58.38,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5838.42,
+      "out_rate": 577.19
+    },
+    {
+      "device": "BKK35002G02",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 58.35,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5835.48,
+      "out_rate": 649.16
+    },
+    {
+      "device": "NTB04004G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 58.25,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 5824.81,
+      "out_rate": 628.47
+    },
+    {
+      "device": "NTB06AGNG01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 58.0,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 5800.38,
+      "out_rate": 915.03
+    },
+    {
+      "device": "BKK11003G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 57.93,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 5792.71,
+      "out_rate": 529.75
+    },
+    {
+      "device": "BKK23002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 57.9,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5790.46,
+      "out_rate": 539.07
+    },
+    {
+      "device": "BKK40002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 57.63,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5763.41,
+      "out_rate": 658.5
+    },
+    {
+      "device": "MHR01002GO0",
+      "region": "Northeast",
+      "olt_model": "MA5608T",
+      "uplink_model": "Nokia 7750 SR",
+      "utilization": 57.6,
+      "severity": "Moderate",
+      "ifDescr": "Huawei-MA5600-V800R018-ETHERNET",
+      "speed": "1G",
+      "in_rate": 576.03,
+      "out_rate": 51.24
+    },
+    {
+      "device": "BKK23001G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 57.59,
+      "severity": "Moderate",
+      "ifDescr": "0/9/1",
+      "speed": "10G",
+      "in_rate": 5759.36,
+      "out_rate": 646.0
+    },
+    {
+      "device": "SMP03001G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 57.4,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 5739.87,
+      "out_rate": 542.02
+    },
+    {
+      "device": "BKK20001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 57.36,
+      "severity": "Moderate",
+      "ifDescr": "0/10/2",
+      "speed": "10G",
+      "in_rate": 5735.54,
+      "out_rate": 528.87
+    },
+    {
+      "device": "BKK23001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 57.36,
+      "severity": "Moderate",
+      "ifDescr": "0/9/1",
+      "speed": "10G",
+      "in_rate": 5736.48,
+      "out_rate": 537.45
+    },
+    {
+      "device": "NTB06002G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 56.93,
+      "severity": "Moderate",
+      "ifDescr": "1/10/2",
+      "speed": "10G",
+      "in_rate": 5693.06,
+      "out_rate": 698.81
+    },
+    {
+      "device": "BKK10001G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 56.79,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 5678.62,
+      "out_rate": 690.67
+    },
+    {
+      "device": "BKK24001G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 56.72,
+      "severity": "Moderate",
+      "ifDescr": "0/9/1",
+      "speed": "10G",
+      "in_rate": 5671.95,
+      "out_rate": 797.98
+    },
+    {
+      "device": "BKK19001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 56.47,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5646.72,
+      "out_rate": 525.9
+    },
+    {
+      "device": "NTB06001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 56.42,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 5642.43,
+      "out_rate": 608.84
+    },
+    {
+      "device": "SMP01AGNG00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X16A",
+      "utilization": 56.38,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5637.65,
+      "out_rate": 595.93
+    },
+    {
+      "device": "BKK11001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 56.26,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 5626.22,
+      "out_rate": 604.8
+    },
+    {
+      "device": "BKK04001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 55.86,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5586.09,
+      "out_rate": 1051.59
+    },
+    {
+      "device": "BKK35001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 55.6,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5560.39,
+      "out_rate": 532.87
+    },
+    {
+      "device": "BKK19002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 55.57,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5556.62,
+      "out_rate": 598.55
+    },
+    {
+      "device": "SMP03026GO0",
+      "region": "BMA",
+      "olt_model": "AN5516-04",
+      "uplink_model": "Huawei CX600-X16A",
+      "utilization": 55.55,
+      "severity": "Moderate",
+      "ifDescr": "10/1",
+      "speed": "10G",
+      "in_rate": 5555.2,
+      "out_rate": 409.22
+    },
+    {
+      "device": "BKK03001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 55.54,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 5553.55,
+      "out_rate": 462.55
+    },
+    {
+      "device": "BKK41002G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 55.47,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 5546.55,
+      "out_rate": 553.53
+    },
+    {
+      "device": "KKNKKN1VGW0",
+      "region": "Northeast",
+      "olt_model": "MA5603T",
+      "uplink_model": "Nokia 7750 SR",
+      "utilization": 54.97,
+      "severity": "Moderate",
+      "ifDescr": "Huawei-MA5600-V800R011-ETHERNET",
+      "speed": "1G",
+      "in_rate": 549.66,
+      "out_rate": 47.23
+    },
+    {
+      "device": "PTT01001G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 54.89,
+      "severity": "Moderate",
+      "ifDescr": "1/10/2",
+      "speed": "10G",
+      "in_rate": 5489.37,
+      "out_rate": 560.17
+    },
+    {
+      "device": "NTB01016GO0",
+      "region": "BMA",
+      "olt_model": "AN6001-GF16",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 54.74,
+      "severity": "Moderate",
+      "ifDescr": "19/2",
+      "speed": "10G",
+      "in_rate": 5473.98,
+      "out_rate": 522.4
+    },
+    {
+      "device": "NTB03001G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 54.69,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 5469.21,
+      "out_rate": 559.7
+    },
+    {
+      "device": "BKK48001G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 54.68,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5467.97,
+      "out_rate": 594.66
+    },
+    {
+      "device": "BKK37002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 54.28,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5427.85,
+      "out_rate": 738.97
+    },
+    {
+      "device": "SMK02002G00",
+      "region": "Central",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 54.22,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5422.16,
+      "out_rate": 507.65
+    },
+    {
+      "device": "BKK22001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 54.12,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5412.18,
+      "out_rate": 742.9
+    },
+    {
+      "device": "PCB07013GO0",
+      "region": "Central",
+      "olt_model": "MA5801-FL16",
+      "uplink_model": "Huawei ATN 950D",
+      "utilization": 54.09,
+      "severity": "Moderate",
+      "ifDescr": "0/2/0",
+      "speed": "10G",
+      "in_rate": 5408.64,
+      "out_rate": 424.87
+    },
+    {
+      "device": "NKT06001G00",
+      "region": "Central",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 53.91,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5391.04,
+      "out_rate": 607.88
+    },
+    {
+      "device": "SRN09002G00",
+      "region": "Northeast",
+      "olt_model": "C610",
+      "uplink_model": "ZTE ZXCTN 6120H-SC",
+      "utilization": 53.78,
+      "severity": "Moderate",
+      "ifDescr": "1/1/0",
+      "speed": "1G",
+      "in_rate": 537.82,
+      "out_rate": 47.56
+    },
+    {
+      "device": "BKK04001G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 53.74,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 5374.34,
+      "out_rate": 1144.0
+    },
+    {
+      "device": "BKK19002G01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 53.43,
+      "severity": "Moderate",
+      "ifDescr": "0/9/1",
+      "speed": "10G",
+      "in_rate": 5342.66,
+      "out_rate": 535.85
+    },
+    {
+      "device": "SRT01001G00",
+      "region": "South",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 53.33,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 5333.36,
+      "out_rate": 529.82
+    },
+    {
+      "device": "SMP02002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 53.27,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5326.97,
+      "out_rate": 499.7
+    },
+    {
+      "device": "BKK32002G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 53.25,
+      "severity": "Moderate",
+      "ifDescr": "0/9/0",
+      "speed": "10G",
+      "in_rate": 5325.42,
+      "out_rate": 514.6
+    },
+    {
+      "device": "BKK26AGNG01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X16A",
+      "utilization": 53.1,
+      "severity": "Moderate",
+      "ifDescr": "0/9/1",
+      "speed": "10G",
+      "in_rate": 5309.73,
+      "out_rate": 638.2
+    },
+    {
+      "device": "SMP01AGNG01",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X16A",
+      "utilization": 52.89,
+      "severity": "Moderate",
+      "ifDescr": "0/9/1",
+      "speed": "10G",
+      "in_rate": 5289.41,
+      "out_rate": 563.91
+    },
+    {
+      "device": "NTB04006G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 52.86,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 5285.66,
+      "out_rate": 543.92
+    },
+    {
+      "device": "RCB07001G00",
+      "region": "West",
+      "olt_model": "C300",
+      "uplink_model": "ZTE ZXCTN 9000-8EA",
+      "utilization": 52.83,
+      "severity": "Moderate",
+      "ifDescr": "1/10/2",
+      "speed": "10G",
+      "in_rate": 5283.38,
+      "out_rate": 480.36
+    },
+    {
+      "device": "BRR16002G00",
+      "region": "Northeast",
+      "olt_model": "GL5610-08P(V2)",
+      "uplink_model": "ZTE ZXCTN 6120H-SC",
+      "utilization": 52.65,
+      "severity": "Moderate",
+      "ifDescr": "1/2",
+      "speed": "1G",
+      "in_rate": 526.48,
+      "out_rate": 42.29
+    },
+    {
+      "device": "NTB06003G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 52.35,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 5235.4,
+      "out_rate": 509.6
+    },
+    {
+      "device": "SRB11024GO0",
+      "region": "Central",
+      "olt_model": "MA5801-FL16",
+      "uplink_model": "ZTE ZXCTN 9000-8EA",
+      "utilization": 52.26,
+      "severity": "Moderate",
+      "ifDescr": "0/2/0",
+      "speed": "10G",
+      "in_rate": 5225.89,
+      "out_rate": 361.71
+    },
+    {
+      "device": "BKK15001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 52.25,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5224.77,
+      "out_rate": 417.41
+    },
+    {
+      "device": "TAK06001G00",
+      "region": "West",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 52.18,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5217.52,
+      "out_rate": 360.27
+    },
+    {
+      "device": "NTB03002G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 52.15,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 5215.01,
+      "out_rate": 509.62
+    },
+    {
+      "device": "NKR21035GO0",
+      "region": "Northeast",
+      "olt_model": "C320",
+      "uplink_model": "ZTE ZXCTN 9000-8EA",
+      "utilization": 51.85,
+      "severity": "Moderate",
+      "ifDescr": "1/3/2",
+      "speed": "1G",
+      "in_rate": 518.49,
+      "out_rate": 78.5
+    },
+    {
+      "device": "SRN04007G00",
+      "region": "Northeast",
+      "olt_model": "GL5610-08P(V2)",
+      "uplink_model": "ZTE ZXCTN 6120H-SC",
+      "utilization": 51.77,
+      "severity": "Moderate",
+      "ifDescr": "1/2",
+      "speed": "1G",
+      "in_rate": 517.74,
+      "out_rate": 35.54
+    },
+    {
+      "device": "NTB04002G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 51.71,
+      "severity": "Moderate",
+      "ifDescr": "1/10/2",
+      "speed": "10G",
+      "in_rate": 5170.94,
+      "out_rate": 511.62
+    },
+    {
+      "device": "NTB01017GO0",
+      "region": "BMA",
+      "olt_model": "AN6000-2",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 51.3,
+      "severity": "Moderate",
+      "ifDescr": "3/1",
+      "speed": "10G",
+      "in_rate": 5130.37,
+      "out_rate": 569.12
+    },
+    {
+      "device": "BKK49004GO0",
+      "region": "BMA",
+      "olt_model": "MA5800-X2",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 51.0,
+      "severity": "Moderate",
+      "ifDescr": "0/3/0",
+      "speed": "10G",
+      "in_rate": 5099.62,
+      "out_rate": 478.38
+    },
+    {
+      "device": "BKK37002G02",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 50.82,
+      "severity": "Moderate",
+      "ifDescr": "0/10/1",
+      "speed": "10G",
+      "in_rate": 5082.23,
+      "out_rate": 773.81
+    },
+    {
+      "device": "BKK41001G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 50.72,
+      "severity": "Moderate",
+      "ifDescr": "1/11/2",
+      "speed": "10G",
+      "in_rate": 5072.4,
+      "out_rate": 767.07
+    },
+    {
+      "device": "KBI01002G00",
+      "region": "South",
+      "olt_model": "C300",
+      "uplink_model": "Huawei ATN 950B",
+      "utilization": 50.72,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 5072.26,
+      "out_rate": 518.3
+    },
+    {
+      "device": "BKK44001G00",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 50.58,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5057.75,
+      "out_rate": 644.31
+    },
+    {
+      "device": "BKK05002G00",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 50.54,
+      "severity": "Moderate",
+      "ifDescr": "1/11/1",
+      "speed": "10G",
+      "in_rate": 5054.24,
+      "out_rate": 609.47
+    },
+    {
+      "device": "NTB01005G01",
+      "region": "BMA",
+      "olt_model": "C300",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 50.46,
+      "severity": "Moderate",
+      "ifDescr": "1/10/1",
+      "speed": "10G",
+      "in_rate": 5045.67,
+      "out_rate": 548.3
+    },
+    {
+      "device": "BKK21023GO0",
+      "region": "BMA",
+      "olt_model": "MA5800-X2",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 50.45,
+      "severity": "Moderate",
+      "ifDescr": "0/3/0",
+      "speed": "10G",
+      "in_rate": 5044.71,
+      "out_rate": 497.25
+    },
+    {
+      "device": "SRB02028GO0",
+      "region": "Central",
+      "olt_model": "MA5608T",
+      "uplink_model": "ZTE ZXCTN 6180H-A",
+      "utilization": 50.39,
+      "severity": "Moderate",
+      "ifDescr": "Huawei-MA5600-V800R018-ETHERNET",
+      "speed": "1G",
+      "in_rate": 503.88,
+      "out_rate": 45.53
+    },
+    {
+      "device": "BKK20005GO0",
+      "region": "BMA",
+      "olt_model": "AN5516-04",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 50.33,
+      "severity": "Moderate",
+      "ifDescr": "10/1",
+      "speed": "10G",
+      "in_rate": 5032.79,
+      "out_rate": 619.71
+    },
+    {
+      "device": "PSN01005G00",
+      "region": "North",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X16A",
+      "utilization": 50.32,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5032.35,
+      "out_rate": 788.11
+    },
+    {
+      "device": "BKK33002G02",
+      "region": "BMA",
+      "olt_model": "MA5800-X17",
+      "uplink_model": "Huawei CX600-X8A",
+      "utilization": 50.22,
+      "severity": "Moderate",
+      "ifDescr": "0/10/0",
+      "speed": "10G",
+      "in_rate": 5021.69,
+      "out_rate": 616.89
+    }
+  ],
+  "single_uplink_vendors": {
+    "GCOM": 150,
+    "Raisecom": 196,
+    "Dasan": 69,
+    "Huawei": 137,
+    "Fiberhome": 11,
+    "ZTE": 14
+  }
+};
+
+        function exportCSV() {
+            if (!dashboardData.anomalies || dashboardData.anomalies.length === 0) {
+                alert('No data to export!');
+                return;
+            }
+            let rows = "Device Name,Region,Model OLT,Port Description,Model Uplink,Max Utilization (%),Severity,Speed,In Rate (Mbps),Out Rate (Mbps)\n";
+            dashboardData.anomalies.forEach(a => {
+                let dev  = '"' + (a.device  || '').replace(/"/g, '""') + '"';
+                let reg  = '"' + (a.region  || '').replace(/"/g, '""') + '"';
+                let olt  = '"' + (a.olt_model || '').replace(/"/g, '""') + '"';
+                let desc = '"' + (a.ifDescr  || '').replace(/"/g, '""') + '"';
+                let upm  = '"' + (a.uplink_model || '').replace(/"/g, '""') + '"';
+                let util = a.utilization || 0;
+                let sev  = '"' + (a.severity || '').replace(/"/g, '""') + '"';
+                let spd  = '"' + (a.speed || '').replace(/"/g, '""') + '"';
+                let inR  = a.in_rate  || 0;
+                let outR = a.out_rate || 0;
+                rows += dev + ',' + reg + ',' + olt + ',' + desc + ',' + upm + ',' + util + ',' + sev + ',' + spd + ',' + inR + ',' + outR + '\n';
+            });
+            const blob = new Blob(['\uFEFF' + rows], { type: 'text/csv;charset=utf-8' });
+            const url  = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href  = url;
+            link.download = 'OLT_Traffic_Alerts_' + dashboardData.anomalies.length + '_devices.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function initDashboard() {
+            if (!dashboardData) return;
+
+            // Stats
+            document.getElementById('statTotal').textContent = dashboardData.total_devices.toLocaleString();
+            document.getElementById('statCrit').textContent = dashboardData.total_critical.toLocaleString();
+            document.getElementById('statHigh').textContent = dashboardData.total_high.toLocaleString();
+            document.getElementById('statMod').textContent = dashboardData.total_mod.toLocaleString();
+            document.getElementById('statHealth').textContent = dashboardData.total_healthy.toLocaleString();
+
+            // Populate Single Uplink Vendor Cards
+            const vendorGrid = document.getElementById('vendorGrid');
+            if (vendorGrid && dashboardData.single_uplink_vendors) {
+                let totalSingle = 0;
+                Object.entries(dashboardData.single_uplink_vendors).forEach(([vendor, count]) => {
+                    totalSingle += count;
+                    vendorGrid.innerHTML += `
+                        <div class="stat-card" style="border-top: 4px solid var(--accent-blue); padding: 1rem;">
+                            <div class="stat-title" style="font-size: 0.75rem;">${vendor}</div>
+                            <div class="stat-value text-blue" style="font-size: 1.5rem;">${count}</div>
+                        </div>
+                    `;
+                });
+                if (totalSingle > 0) {
+                    vendorGrid.innerHTML = `
+                        <div class="stat-card" style="border-top: 4px solid var(--accent-red); padding: 1rem;">
+                            <div class="stat-title" style="font-size: 0.75rem;">🚨 TOTAL</div>
+                            <div class="stat-value text-red" style="font-size: 1.5rem;">${totalSingle}</div>
+                        </div>
+                    ` + vendorGrid.innerHTML;
+                } else {
+                    vendorGrid.innerHTML = '<div style="color: var(--text-muted); padding: 1rem;">No single uplink OLTs found.</div>';
+                }
+            }
+
+            // Filter regions to only those with alerts (>=50% utilization)
+            const alertRegionsBase = Object.keys(dashboardData.region_stats)
+                .filter(r => (dashboardData.region_stats[r].critical + dashboardData.region_stats[r].high + dashboardData.region_stats[r].mod) > 0);
+            
+            // Sort by Total OLTs descending for Chart 1 and Chart 3
+            const totalRegions = [...alertRegionsBase].sort((a, b) => dashboardData.region_stats[b].total - dashboardData.region_stats[a].total);
+            const totalData = totalRegions.map(r => dashboardData.region_stats[r].total);
+            const critData = totalRegions.map(r => dashboardData.region_stats[r].critical);
+            const highData = totalRegions.map(r => dashboardData.region_stats[r].high);
+            const modData = totalRegions.map(r => dashboardData.region_stats[r].mod);
+            const healthData = totalRegions.map(r => dashboardData.region_stats[r].healthy);
+
+            // Chart 1: Total Devices
+            new Chart(document.getElementById('regionTotalChart'), {
+                type: 'bar',
+                data: {
+                    labels: totalRegions,
+                    datasets: [{
+                        label: 'Total OLTs',
+                        data: totalData,
+                        backgroundColor: 'rgba(59, 130, 246, 0.85)',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8', maxRotation: 45, minRotation: 45 } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Sort by Total Alerts descending for Chart 2
+            const alertRegions = [...alertRegionsBase].sort((a, b) => {
+                const sumA = dashboardData.region_stats[a].critical + dashboardData.region_stats[a].high + dashboardData.region_stats[a].mod;
+                const sumB = dashboardData.region_stats[b].critical + dashboardData.region_stats[b].high + dashboardData.region_stats[b].mod;
+                return sumB - sumA;
+            });
+            const aCrit = alertRegions.map(r => dashboardData.region_stats[r].critical);
+            const aHigh = alertRegions.map(r => dashboardData.region_stats[r].high);
+            const aMod = alertRegions.map(r => dashboardData.region_stats[r].mod);
+            
+            new Chart(document.getElementById('regionAlertChart'), {
+                type: 'bar',
+                data: {
+                    labels: alertRegions,
+                    datasets: [
+                        { label: '🔴 Critical (>80%)', data: aCrit, backgroundColor: 'rgba(239, 68, 68, 0.85)', borderRadius: 2 },
+                        { label: '🟧 High (70-80%)', data: aHigh, backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 2 },
+                        { label: '🟨 Mod (50-70%)', data: aMod, backgroundColor: 'rgba(234, 179, 8, 0.85)', borderRadius: 2 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true, grid: { display: false }, ticks: { color: '#94a3b8' } },
+                        y: { stacked: true, beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8', stepSize: 1 } }
+                    },
+                    plugins: { legend: { labels: { color: '#f8fafc' } } }
+                }
+            });
+            
+            // Chart 3: Stacked Bar (All)
+            new Chart(document.getElementById('regionStackedChart'), {
+                type: 'bar',
+                data: {
+                    labels: totalRegions,
+                    datasets: [
+                        { label: '🔴 Critical (>80%)', data: critData, backgroundColor: 'rgba(239, 68, 68, 0.85)' },
+                        { label: '🟧 High (70-80%)', data: highData, backgroundColor: 'rgba(245, 158, 11, 0.85)' },
+                        { label: '🟨 Mod (50-70%)', data: modData, backgroundColor: 'rgba(234, 179, 8, 0.85)' },
+                        { label: '✅ Healthy (<50%)', data: healthData, backgroundColor: 'rgba(16, 185, 129, 0.85)' }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                        y: { stacked: true, grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    },
+                    plugins: { legend: { labels: { color: '#f8fafc' } } }
+                }
+            });
+
+            // Populate Table
+            const tbody = document.querySelector('#anomalyTable tbody');
+            if (dashboardData.anomalies.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:var(--text-muted);">No alerts found</td></tr>';
+            } else {
+                dashboardData.anomalies.forEach(a => {
+                    let badgeClass = 'badge-mod';
+                    if (a.severity === 'Critical') badgeClass = 'badge-critical';
+                    else if (a.severity === 'High') badgeClass = 'badge-high';
+                    
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-family:monospace; font-weight: bold; color: var(--text-main);">${a.device}</td>
+                        <td>${a.region}</td>
+                        <td style="color: var(--text-muted); font-size: 0.85rem;">${a.olt_model}</td>
+                        <td style="color: var(--accent-blue); font-size: 0.9rem;">${a.ifDescr}</td>
+                        <td style="color: var(--text-muted); font-size: 0.85rem;">${a.uplink_model}</td>
+                        <td><span class="badge ${badgeClass}">${a.utilization}%</span></td>
+                        <td style="color: var(--text-muted); font-size: 0.85rem; font-weight: bold;">${a.speed}</td>
+                        <td style="color: var(--accent-green);">${a.in_rate}</td>
+                        <td style="color: var(--accent-orange);">${a.out_rate}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        }
+
+        
+        
+        
+
+        
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initDashboard();
+            
+        });
+    
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+        
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+        
+
+        
+        
+
+        
+
+        
+
+
+
+        
+
+
+        
+
+        
+
+        // --- AUTO-HIDE SIDEBAR CONTROLLER ---
+        (function initSidebarToggle() {
+            const toggleBtn = document.getElementById('sidebarToggleBtn');
+            const closeBtn = document.getElementById('sidebarCloseBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+            const sidebar = document.getElementById('mainSidebar');
+
+            if (!sidebar) return;
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                if (overlay) overlay.classList.add('active');
+                document.body.style.overflowY = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
+                document.body.style.overflowY = '';
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (sidebar.classList.contains('open')) {
+                        closeSidebar();
+                    } else {
+                        openSidebar();
+                    }
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeSidebar();
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    closeSidebar();
+                });
+            }
+
+            // Close when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+        })();
+        // --- END AUTO-HIDE SIDEBAR CONTROLLER ---
+
+</script>
+</body>
+</html>

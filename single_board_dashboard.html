@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLT Single Control Board Risk Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+    /* Prevent layout shift from scrollbar appear/disappear */
+    html { scrollbar-gutter: stable; overflow-y: scroll; }
+
+        :root {
+            --bg-color: #030712;
+            --card-bg: rgba(17, 24, 39, 0.6);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-red: #ef4444;
+            --accent-cyan: #06b6d4;
+            --accent-yellow: #f59e0b;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: radial-gradient(circle at top right, #111827, #030712);
+            color: var(--text-main);
+            margin: 0;
+            min-height: 100vh;
+        padding: 20px 24px 2rem 24px !important;
+        overflow-x: hidden;
+    }
+        .header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            margin: 0 0 0.5rem 0;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f87171, #fb7185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header p {
+            margin: 0.25rem 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--accent-blue);
+            opacity: 0.8;
+        }
+        .stat-card.vulnerable::before { background: var(--accent-red); }
+        .stat-card.no-redundancy::before { background: var(--accent-yellow); }
+        .stat-card.total-impact::before { background: var(--accent-purple); }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(239, 68, 68, 0.3);
+            box-shadow: 0 10px 40px rgba(239, 68, 68, 0.15);
+        }
+        .stat-card h3 {
+            margin: 0 0 0.75rem 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-card .value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .stat-card .sub-value {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .chart-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 320px;
+        }
+        .chart-card h3 {
+            font-family: 'Outfit', sans-serif;
+            margin: 0 0 1.25rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: center;
+            letter-spacing: 0.25px;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 220px;
+            width: 100%;
+        }
+        
+        /* Filters Row */
+        .filters-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .filter-group label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .filter-group input, .filter-group select {
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .filter-group input:focus, .filter-group select:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Tables and sections styling */
+        .table-section {
+            margin-bottom: 2.5rem;
+        }
+        .table-title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .table-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .table-title .bar {
+            width: 4px;
+            height: 24px;
+            border-radius: 2px;
+        }
+        .table-title.s1 .bar { background: var(--accent-red); }
+        .table-title.s2 .bar { background: var(--accent-yellow); }
+        .table-title h2 {
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .table-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+        .custom-table th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .custom-table td {
+            padding: 0.95rem 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        .custom-table tr:hover {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .empty-row {
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .badge-10g {
+            background: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            display: inline-block;
+        }
+        .badge-1g {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            display: inline-block;
+        }
+
+        .btn-export {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+        }
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+        }
+
+        
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+
+
+.sidebar-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    color: #f8fafc;
+    font-weight: 800;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.sidebar-logo span {
+    background: linear-gradient(135deg, #06b6d4, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-links {
+    flex-grow: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+.sidebar-links::-webkit-scrollbar { width: 4px; }
+.sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    box-sizing: border-box;
+}
+.sidebar-links a:hover {
+    color: #f8fafc;
+    background: rgba(255,255,255,0.03);
+    border-left-color: rgba(6, 182, 212, 0.3);
+}
+.sidebar-links a.active {
+    color: #f8fafc;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, transparent 100%);
+    border-left-color: #06b6d4;
+    font-weight: 600;
+}
+.sidebar-links a.sub-link {
+    padding: 8px 24px 8px 40px;
+    font-size: 0.82rem;
+    color: #64748b;
+    border-left: 3px solid transparent;
+    position: relative;
+}
+.sidebar-links a.sub-link::before {
+    content: '\2514';
+    position: absolute;
+    left: 24px;
+    color: rgba(6,182,212,0.35);
+    font-size: 0.8rem;
+}
+.sidebar-links a.sub-link:hover {
+    color: #22d3ee;
+    background: rgba(6,182,212,0.06);
+    border-left-color: rgba(6,182,212,0.2);
+}
+.sidebar-links a.sub-link.active {
+    color: #22d3ee;
+    background: linear-gradient(90deg, rgba(6,182,212,0.1) 0%, transparent 100%);
+    border-left-color: rgba(6,182,212,0.5);
+    font-weight: 600;
+}
+
+/* Responsive Styles for Mobile and Tablets */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100% !important;
+    height: 60px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    background: #0d1222 !important;
+    z-index: 10000 !important;
+  }
+  .sidebar-logo {
+    display: none !important;
+  }
+  .sidebar-links {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    scrollbar-width: none !important;
+  }
+  .sidebar-links::-webkit-scrollbar { display: none !important; }
+  .sidebar-links a {
+    padding: 18px 16px !important;
+    font-size: 0.82rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid transparent !important;
+    display: inline-block !important;
+  }
+  .sidebar-links a.active {
+    border-bottom-color: #06b6d4 !important;
+    background: rgba(6, 182, 212, 0.1) !important;
+    border-left-color: transparent !important;
+  }
+  .sidebar-links a.sub-link {
+    display: none !important;
+  }
+  body {
+    margin-left: 0 !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-top: 80px !important;
+    margin: 0 !important;
+  }
+  .main-content, .content, .container, .main {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .grid, .grid-2, .grid-3, .stats-container, .charts-grid, .dashboard-grid, .layout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .card, .panel, .chart-card {
+    padding: 14px !important;
+  }
+  .table-responsive, .table-container, table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+        /* === AUTO-HIDE SIDEBAR & FULL SCREEN PAGE LAYOUT === */
+        html { scrollbar-gutter: stable !important; overflow-y: scroll !important; }
+        body { 
+            margin: 0 !important;
+            padding: 20px 24px 2rem 24px !important;
+            overflow-x: hidden !important;
+            transition: padding 0.3s ease;
+        }
+
+        /* Full Width Container across all dashboards */
+        .container, .dashboard-container, .dashboard-wrapper, .main-content, .content, .main, #app, .app-container, .wrapper, .max-w-7xl {
+            max-width: 100% !important;
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Ensure cards, charts, and tables expand properly to 100% width */
+        .dashboard-main, .kpi-grid, .stats-grid, .charts-container, .table-container, .grid-container, .card, .panel, .glass-panel {
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Sidebar Toggle Floating Button */
+        .sidebar-toggle-btn {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 10000;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(6, 182, 212, 0.35);
+            color: #f8fafc;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(6, 182, 212, 0.2);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-toggle-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: #06b6d4;
+            transform: scale(1.05);
+            box-shadow: 0 6px 24px rgba(6, 182, 212, 0.35);
+        }
+        .sidebar-toggle-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: #22d3ee;
+            transition: transform 0.25s ease;
+        }
+
+        /* Sidebar Overlay Backdrop */
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 3, 15, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 10001;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Auto-Hide Slide-over Sidebar Drawer */
+        .sidebar {
+            width: 270px !important;
+            background: rgba(11, 15, 29, 0.96) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-right: 1px solid rgba(6, 182, 212, 0.2) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            position: fixed !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            z-index: 10002 !important;
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease !important;
+            box-shadow: none !important;
+        }
+        .sidebar.open {
+            transform: translateX(0) !important;
+            box-shadow: 10px 0 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.15) !important;
+        }
+
+        .sidebar-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 16px 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .sidebar-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: #f8fafc;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 !important;
+            border-bottom: none !important;
+        }
+        .sidebar-logo span {
+            background: linear-gradient(135deg, #06b6d4, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sidebar-close-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+        .sidebar-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #ef4444;
+        }
+
+        .sidebar-links {
+            flex-grow: 1;
+            padding: 14px 0;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+        .sidebar-links::-webkit-scrollbar { width: 4px; }
+        .sidebar-links::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+        .sidebar-links a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            box-sizing: border-box;
+        }
+        .sidebar-links a:hover {
+            color: #f8fafc;
+            background: rgba(255,255,255,0.04);
+            border-left-color: rgba(6, 182, 212, 0.4);
+        }
+        .sidebar-links a.active {
+            color: #f8fafc;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.18) 0%, transparent 100%);
+            border-left-color: #06b6d4;
+            font-weight: 600;
+        }
+        .sidebar-links a.sub-link {
+            padding: 7px 20px 7px 36px;
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+        .sidebar-links a.sub-link:hover {
+            color: #22d3ee;
+            background: rgba(6, 182, 212, 0.06);
+        }
+        .sidebar-links a.sub-link.active {
+            color: #22d3ee;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.12) 0%, transparent 100%);
+            border-left-color: rgba(6, 182, 212, 0.5);
+        }
+
+        /* Adjust headers to give breathing room from floating button */
+        .header, .dashboard-header, .exec-header, .page-header, .header-section {
+            padding-left: 48px !important;
+        }
+        @media (max-width: 768px) {
+            .header, .dashboard-header, .exec-header, .page-header, .header-section {
+                padding-left: 44px !important;
+            }
+        }
+</style>
+</head>
+<body>
+
+<!-- FLOATING SIDEBAR TOGGLE BUTTON -->
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle Navigation Menu" title="เมนูนำทาง (คลิกเพื่อเปิด/ปิด)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+</button>
+
+<!-- BACKDROP OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- SLIDE-OVER SIDEBAR -->
+<nav class="sidebar" id="mainSidebar">
+    <div class="sidebar-header-row">
+        <div class="sidebar-logo">⚡ <span>FBE-PMS-Monitor</span></div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar" title="ปิดเมนู">&times;</button>
+    </div>
+    <div class="sidebar-links">
+        <a href="index.html" id="nav-main">OLT temperature</a>
+        <a href="mismatch_dashboard.html" id="nav-mismatch">XGS mismatch</a>
+        <a href="olt_executive_dashboard.html" id="nav-executive">XGS-PON</a>
+        <a href="olt_cascade_dashboard.html" id="nav-cascade">Cascade</a>
+        <a href="olt_l2_distance_dashboard.html" id="nav-l2distance">L2 Distance</a>
+        <a href="dw_distance_dashboard.html" id="nav-dw-distance" class="sub-link">&#128300; DW Distance</a>
+        <a href="scab_l2_dashboard.html" id="nav-scab-l2" class="sub-link">&#128300; SCAB L2 Topo</a>
+        <a href="l1_rehome_dashboard.html" id="nav-l1rehome">L1 Rehome</a>
+        <a href="traffic_dashboard.html" id="nav-uplinktraffic">Uplink Traffic</a>
+        <a href="optical_dashboard.html" id="nav-optical">Optical</a>
+        <a href="pon_traffic_dashboard.html" id="nav-pontraffic">PON Traffic</a>
+        <a href="inventory_movement_dashboard.html" id="nav-inventory">Inventory</a>
+        <a href="tvs_edfa_dashboard.html" id="nav-edfa">EDFA</a>
+        <a href="swap_olt_dashboard.html" id="nav-swap">SwapOLT</a>
+        <a href="uplink_instability_dashboard.html" id="nav-instability">Flapping</a>
+        <a href="uplink_instability_trend_dashboard.html" id="nav-instability-trend" class="sub-link">&#128300; Flapping Trends</a>
+        <a href="simplex_dashboard.html" id="nav-simplex">Simplex</a>
+        <a href="single_board_dashboard.html" id="nav-control-board" class="active">Control card</a>
+        <a href="xgs_upgrade_dashboard.html" id="nav-xgs-upgrade">HiSpeedPack</a>
+        <a href="xgs_readiness_dashboard.html" id="nav-xgs-readiness" class="sub-link">&#128300; XGS Readiness</a>
+        <a href="pon_sfp_audit_dashboard.html" id="nav-pon-sfp">PON SFP Audit</a>
+        <a href="olt_onu_dashboard.html" id="nav-olt-onu">OLT-ONU</a>
+        <a href="radius_health_dashboard.html" id="nav-radius">Radius</a>
+    </div>
+    </nav>
+
+<div class="header">
+    <h1>🛡️ OLT Single Control Board Risk Segmentation</h1>
+            <div style="margin-top: 8px;"><span style="background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); color: #a5b4fc; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-family: 'Outfit', sans-serif; font-weight: 600; letter-spacing: 0.04em;">📅 AS OF 23/08/26</span></div>
+    <p>วิเคราะห์ความเสี่ยงด้านความซ้ำซ้อนของการ์ดควบคุม (Redundancy Risk) ของตู้ OLT ทั่วประเทศ (เฉพาะรุ่นที่รองรับการ์ดควบคุมแบบคู่ - Dual Control Cards)</p>
+    <p style="font-size: 0.9rem; color: #10b981;">* Status: ประมวลผลจากจำนวนการ์ดควบคุมและลักษณะสาย Uplink</p>
+
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card vulnerable">
+        <h3>Section 1: VULNERABLE</h3>
+        <div class="value" id="count-s1" style="color: var(--accent-red);">-</div>
+        <div class="sub-value">Single Board + Single Uplink</div>
+    </div>
+    <div class="stat-card no-redundancy">
+        <h3>Section 2: LACK OF REDUNDANCY</h3>
+        <div class="value" id="count-s2" style="color: var(--accent-yellow);">-</div>
+        <div class="sub-value">Single Board + 2+ Uplinks</div>
+    </div>
+    <div class="stat-card total-impact">
+        <h3>TOTAL IMPACTED DEVICES</h3>
+        <div class="value" id="count-total" style="color: var(--accent-purple);">-</div>
+        <div class="sub-value">จำนวนตู้ที่มีการ์ดควบคุมใบเดียว</div>
+    </div>
+</div>
+
+<div class="charts-container">
+    <div class="chart-card">
+        <h3>Risk Distribution (สัดส่วนความเสี่ยง)</h3>
+        <div class="chart-wrapper">
+            <canvas id="riskPieChart"></canvas>
+        </div>
+    </div>
+    <div class="chart-card">
+        <h3>Vendor Share in Impacted OLTs</h3>
+        <div class="chart-wrapper">
+            <canvas id="vendorPieChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="filters-card">
+    <div class="filters-grid">
+        <div class="filter-group">
+            <label>Search IP / Name</label>
+            <input type="text" id="searchInput" placeholder="IP Address or Name...">
+        </div>
+        <div class="filter-group">
+            <label>Model</label>
+            <select id="modelFilter">
+                <option value="">All Models</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Vendor</label>
+            <select id="vendorFilter">
+                <option value="">All Vendors</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Speed</label>
+            <select id="speedFilter">
+                <option value="">All Speeds</option>
+                <option value="1G">1 Gbps Only</option>
+                <option value="10G">10 Gbps Only</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Uplink Ports</label>
+            <select id="portFilter">
+                <option value="">All Counts</option>
+                <option value="1">1 Port Only</option>
+                <option value="2">2+ Ports</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="table-section">
+    <div class="table-title-bar">
+        <div class="table-title s1">
+            <div class="bar"></div>
+            <h2>Section 1: Single Control Board + Single Uplink (เสี่ยงสูงมาก)</h2>
+        </div>
+        <button class="btn-export" onclick="exportToExcel('table-s1', 'Single_Board_Single_Uplink_Report.xlsx')">
+            📥 Export Section 1 (Excel)
+        </button>
+    </div>
+    <div class="table-card">
+        <table class="custom-table" id="table-s1">
+            <thead>
+                <tr>
+                    <th>Device Name</th>
+                    <th>IP Address</th>
+                    <th>Vendor</th>
+                    <th>Model</th>
+                    <th>Uplink Speed</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-s1"></tbody>
+        </table>
+        <div id="empty-s1" class="empty-row" style="display: none;">No devices found in Section 1.</div>
+    </div>
+</div>
+
+<div class="table-section">
+    <div class="table-title-bar">
+        <div class="table-title s2">
+            <div class="bar"></div>
+            <h2>Section 2: Single Control Board + Multiple Uplinks (เสี่ยงระดับกลาง)</h2>
+        </div>
+        <button class="btn-export" onclick="exportToExcel('table-s2', 'Single_Board_Multiple_Uplinks_Report.xlsx')">
+            📥 Export Section 2 (Excel)
+        </button>
+    </div>
+    <div class="table-card">
+        <table class="custom-table" id="table-s2">
+            <thead>
+                <tr>
+                    <th>Device Name</th>
+                    <th>IP Address</th>
+                    <th>Vendor</th>
+                    <th>Model</th>
+                    <th>Ports</th>
+                    <th>Speeds</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-s2"></tbody>
+        </table>
+        <div id="empty-s2" class="empty-row" style="display: none;">No devices found in Section 2.</div>
+    </div>
+</div>
+
+<script>
+    let allData = [];
+    let riskChart = null;
+    let vendorChart = null;
+
+    const asOfDate = '23/08/26';
+    const rawData = [{"Device Name": "LRILRI1DVW0", "Device IP": "10.238.173.63", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PCR07007GO0", "Device IP": "10.238.197.28", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN09004GO0", "Device IP": "10.238.204.27", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "MHR05002GO0", "Device IP": "10.239.175.13", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SRN01024GO0", "Device IP": "10.239.215.35", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BKN04003GO0", "Device IP": "10.238.204.38", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST04012GO0", "Device IP": "10.239.224.41", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LBR07005GO0", "Device IP": "10.238.173.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI11002GO0", "Device IP": "10.238.172.38", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP10012GO0", "Device IP": "10.239.158.38", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PTRRBR1AGW0", "Device IP": "10.238.199.67", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT11018GO0", "Device IP": "10.238.220.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKP07003GO0", "Device IP": "10.238.179.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "MSTTAK1FBW0", "Device IP": "10.238.216.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "AYT03011GO0", "Device IP": "10.238.151.45", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RYG07002GO0", "Device IP": "10.238.201.36", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN03010GO0", "Device IP": "10.238.168.46", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB11011GO0", "Device IP": "10.238.191.121", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SSK10007GO0", "Device IP": "10.239.209.20", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR11003GO0", "Device IP": "10.239.182.111", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP02007GO0", "Device IP": "10.239.158.55", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "AYT11026GO0", "Device IP": "10.238.151.41", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RSTTPT08VW0", "Device IP": "10.238.126.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CYP05011GO0", "Device IP": "10.239.158.31", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN06006GO0", "Device IP": "10.238.204.37", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RYG01033GO0", "Device IP": "10.238.201.43", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CMICMI3FVW0", "Device IP": "10.238.160.84", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KPP07006GO0", "Device IP": "10.238.166.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP06008GO0", "Device IP": "10.239.158.28", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "EKCCBK2LBW0", "Device IP": "10.238.58.73", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PCB05008GO0", "Device IP": "10.238.191.60", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI04018GO0", "Device IP": "10.238.172.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TRT03001GO0", "Device IP": "10.238.218.21", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKNKKN1XVW0", "Device IP": "10.238.168.86", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PNA05010GO0", "Device IP": "10.239.188.40", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RYG03020GO0", "Device IP": "10.238.201.32", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR02003GO0", "Device IP": "10.238.219.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PKTPKT2RVW0", "Device IP": "10.238.196.85", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "TRT03007GO0", "Device IP": "10.238.218.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP03007GO0", "Device IP": "10.239.158.37", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PSN03004GO0", "Device IP": "10.238.194.34", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "ASDDBK4XBW1", "Device IP": "10.238.1.108", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "SRN05009GO0", "Device IP": "10.239.215.39", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR22004GO0", "Device IP": "10.238.228.47", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NRT07005GO0", "Device IP": "10.239.184.6", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR04010GO0", "Device IP": "10.239.182.52", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKT02005GO0", "Device IP": "10.238.212.32", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR29004GO0", "Device IP": "10.239.182.119", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LBR11008GO0", "Device IP": "10.238.173.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR17014GO0", "Device IP": "10.239.182.146", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UTHAYA1IGW0", "Device IP": "10.238.151.76", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP10016GO0", "Device IP": "10.239.158.40", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RSTTPT3PBW0", "Device IP": "10.238.126.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CTB08001GO0", "Device IP": "10.238.159.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR33001GO0", "Device IP": "10.238.219.26", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SRN03015GO0", "Device IP": "10.239.215.38", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "DKHNMA1BVW0", "Device IP": "10.238.228.130", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "UBR10004GO0", "Device IP": "10.238.219.36", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CNT06010GO0", "Device IP": "10.238.157.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CBR03003GO0", "Device IP": "10.238.163.58", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR09004GO0", "Device IP": "10.239.182.110", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN09009GO0", "Device IP": "10.238.168.34", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR07020GO0", "Device IP": "10.239.155.46", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KTUPKT2CBW0", "Device IP": "10.238.196.87", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKI02001GO0", "Device IP": "10.238.220.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TLGPKT1IVW0", "Device IP": "10.238.196.82", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR25014GO0", "Device IP": "10.239.228.130", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR16016G00", "Device IP": "10.239.182.134", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PSN02007GO0", "Device IP": "10.238.194.40", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP10015GO0", "Device IP": "10.238.158.26", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS08014GO0", "Device IP": "10.238.156.34", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST03008GO0", "Device IP": "10.239.224.25", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CTB09003GO0", "Device IP": "10.238.159.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR08017GO0", "Device IP": "10.238.197.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN12009GO0", "Device IP": "10.238.204.34", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN09005GO0", "Device IP": "10.238.204.28", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TRT07006GO0", "Device IP": "10.238.218.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CBR02026GO0", "Device IP": "10.238.163.53", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "MDHMDH1KVW0", "Device IP": "10.238.176.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "TRT07004GO0", "Device IP": "10.238.218.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN17002GO0", "Device IP": "10.238.204.24", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BNAABK4SBW0", "Device IP": "10.238.35.71", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BRR18003GO0", "Device IP": "10.239.155.44", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NRAKKN1AVW0", "Device IP": "10.238.168.74", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "SSICMI1KVW0", "Device IP": "10.238.160.78", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "UDT19020GO0", "Device IP": "10.238.220.37", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN10006GO0", "Device IP": "10.238.168.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST08004GO0", "Device IP": "10.239.152.21", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI02002GO0", "Device IP": "10.238.172.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST02004GO0", "Device IP": "10.239.224.43", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LBR01041GO0", "Device IP": "10.238.151.42", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP10020GO0", "Device IP": "10.239.158.49", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "AYT08006GO0", "Device IP": "10.238.153.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST04010GO0", "Device IP": "10.239.224.30", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PYO08007GO0", "Device IP": "10.238.190.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PSN03003GO0", "Device IP": "10.238.194.36", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI03014GO0", "Device IP": "10.238.172.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CBICBI2IVW0", "Device IP": "10.238.163.211", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KLS06005GO0", "Device IP": "10.238.165.17", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KBI01007GO0", "Device IP": "10.239.169.27", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TLGPKT1CVW0", "Device IP": "10.238.196.79", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PCB10021GO0", "Device IP": "10.238.191.113", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SRN05015GO0", "Device IP": "10.239.215.34", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BBTTNT21VW1", "Device IP": "10.238.11.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "UBR09003GO0", "Device IP": "10.238.219.35", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR02018GO0", "Device IP": "10.238.197.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PKNPKN1BBW0", "Device IP": "10.238.225.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "UBR07007GO0", "Device IP": "10.238.219.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PKTPKT2PVW0", "Device IP": "10.238.196.77", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR10016GO0", "Device IP": "10.238.182.39", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR18020GO0", "Device IP": "10.239.228.127", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR22001GO0", "Device IP": "10.238.219.32", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SNKSNK1BVW0", "Device IP": "10.238.204.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKP02006GO0", "Device IP": "10.238.179.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKI01010GO0", "Device IP": "10.238.185.24", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR08014GO0", "Device IP": "10.238.197.21", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR01018GO0", "Device IP": "10.238.197.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR04005GO0", "Device IP": "10.238.219.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS12002GO0", "Device IP": "10.238.165.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP04014GO0", "Device IP": "10.239.158.35", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS01006GO0", "Device IP": "10.238.165.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BPLLSP3QVW0", "Device IP": "10.238.41.64", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PDARYG1CGW0", "Device IP": "10.238.163.105", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KLS01020GO0", "Device IP": "10.238.165.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BBTTNT01VW1", "Device IP": "10.238.8.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CBR10003GO0", "Device IP": "10.238.163.54", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CTB07003GO0", "Device IP": "10.238.159.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST03004GO0", "Device IP": "10.239.224.20", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP01025GO0", "Device IP": "10.239.158.27", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR20004GO0", "Device IP": "10.239.155.48", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KOSSNI2LBW0", "Device IP": "10.238.214.88", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CTB07010GO0", "Device IP": "10.238.159.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SPBSPB1GVW0", "Device IP": "10.238.213.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CBICBI2VVW0", "Device IP": "10.238.163.83", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "UBR04010GO0", "Device IP": "10.238.219.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CTB05006GO0", "Device IP": "10.238.159.28", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST03003GO0", "Device IP": "10.239.224.19", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB04023GO0", "Device IP": "10.238.191.117", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TAK08003GO0", "Device IP": "10.238.216.35", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT01023GO0", "Device IP": "10.238.220.17", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR04006GO0", "Device IP": "10.238.224.12", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN05003GO0", "Device IP": "10.238.204.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR08008GO0", "Device IP": "10.239.155.45", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKP05007GO0", "Device IP": "10.238.179.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST03012GO0", "Device IP": "10.239.224.31", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RYG07003GO0", "Device IP": "10.238.201.39", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB09106GO0", "Device IP": "10.238.191.120", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KPP01002GO0", "Device IP": "10.238.166.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI11001GO0", "Device IP": "10.238.172.27", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR04015GO0", "Device IP": "10.239.182.140", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BKN01004GO0", "Device IP": "10.238.154.17", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "ASDDBK4XBW3", "Device IP": "10.238.1.122", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "YST05006GO0", "Device IP": "10.239.224.44", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP05005GO0", "Device IP": "10.239.158.33", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI05019GO0", "Device IP": "10.238.172.34", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR10003GO0", "Device IP": "10.238.219.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS13002GO0", "Device IP": "10.238.165.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UTT03007GO0", "Device IP": "10.238.221.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR05013GO0", "Device IP": "10.238.152.15", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI02003GO0", "Device IP": "10.238.172.14", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR25015GO0", "Device IP": "10.239.228.128", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT10003GO0", "Device IP": "10.238.165.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TLGPKT1LVW0", "Device IP": "10.238.196.80", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NBL06002GO0", "Device IP": "10.238.172.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TRGTRG1CVW0", "Device IP": "10.238.217.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKW05008GO0", "Device IP": "10.238.180.32", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST04009GO0", "Device IP": "10.239.224.49", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS06012GO0", "Device IP": "10.238.156.28", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KTUPKT02GP0", "Device IP": "10.238.196.8", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BRMBRM1BVW0", "Device IP": "10.238.155.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BRR07014GO0", "Device IP": "10.239.155.37", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB10009GO0", "Device IP": "10.238.191.118", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PNA03003GO0", "Device IP": "10.239.188.25", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT19017GO0", "Device IP": "10.238.220.32", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP15004GO0", "Device IP": "10.239.158.48", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS08018GO0", "Device IP": "10.238.197.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR23008GO0", "Device IP": "10.239.182.132", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NBL02008GO0", "Device IP": "10.238.186.17", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "AYT06019GO0", "Device IP": "10.238.151.44", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS01007GO0", "Device IP": "10.238.165.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP14005GO0", "Device IP": "10.239.158.29", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BBTTNT1JBW0", "Device IP": "10.238.7.63", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "TRTTRT1BVW0", "Device IP": "10.238.218.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "UBR02002GO0", "Device IP": "10.238.219.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKMMBK1BBW1", "Device IP": "10.238.115.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CYP10014GO0", "Device IP": "10.239.158.39", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "APTSKE1DVW0", "Device IP": "10.238.203.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "ONTTBK3LBW2", "Device IP": "10.238.92.99", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CYP03005GO0", "Device IP": "10.238.158.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LBR10009GO0", "Device IP": "10.238.173.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB04006GO0", "Device IP": "10.238.191.36", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR07017GO0", "Device IP": "10.238.155.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST08009GO0", "Device IP": "10.239.152.20", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PBIPBI1BVW0", "Device IP": "10.238.192.64", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "UDT01024GO0", "Device IP": "10.238.220.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP09006GO0", "Device IP": "10.239.158.25", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CTB07009GO0", "Device IP": "10.238.159.27", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN02003GO0", "Device IP": "10.238.204.26", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN07012GO0", "Device IP": "10.238.168.35", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SPRRNP1DVW0", "Device IP": "10.238.178.71", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKN04009GO0", "Device IP": "10.238.177.14", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKO01006GO0", "Device IP": "10.238.203.6", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN16004GO0", "Device IP": "10.238.204.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SRISRI1DVW0", "Device IP": "10.238.207.65", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR17010GO0", "Device IP": "10.239.182.113", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP05016GO0", "Device IP": "10.239.158.47", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST03007GO0", "Device IP": "10.239.224.23", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "ASDDBK4YBW0", "Device IP": "10.238.1.106", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PCB04024GO0", "Device IP": "10.238.191.119", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR12004GO0", "Device IP": "10.239.155.38", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SRRRBK02VW0", "Device IP": "10.238.136.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "RYG01023GO0", "Device IP": "10.238.201.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT01030GO0", "Device IP": "10.238.220.24", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TRT03009GO0", "Device IP": "10.238.218.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RYG07001GO0", "Device IP": "10.238.201.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR04009GO0", "Device IP": "10.238.219.21", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CMICMI2NVW0", "Device IP": "10.238.160.64", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CBICBI2LVW0", "Device IP": "10.238.163.197", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TRT02006GO0", "Device IP": "10.238.218.24", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS10002GO0", "Device IP": "10.238.165.26", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PMTTNP1LBW0", "Device IP": "10.238.97.69", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR05004GO0", "Device IP": "10.239.182.126", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SSICMI1AVW0", "Device IP": "10.238.160.76", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NSUNMA1BVW0", "Device IP": "10.238.182.115", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BRR10015GO0", "Device IP": "10.238.182.48", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKO08001GO0", "Device IP": "10.238.203.7", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT02008GO0", "Device IP": "10.238.220.28", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR16015GO0", "Device IP": "10.239.182.53", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PNA04011GO0", "Device IP": "10.239.188.39", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN04007GO0", "Device IP": "10.238.168.37", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKA06009GO0", "Device IP": "10.239.187.9", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BKN03007GO0", "Device IP": "10.238.154.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST01010GO0", "Device IP": "10.239.224.35", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NMANMA51GW0", "Device IP": "10.238.182.116", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "TLGPKT1BVW0", "Device IP": "10.238.196.78", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PRIPRI1EVW0", "Device IP": "10.238.197.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "RYG04004GO0", "Device IP": "10.238.201.37", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT22011GO0", "Device IP": "10.238.220.33", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB03014GO0", "Device IP": "10.238.191.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKASKA1EVW0", "Device IP": "10.238.211.74", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR01017GO0", "Device IP": "10.238.182.23", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP09003GO0", "Device IP": "10.239.158.41", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "AYT02005GO0", "Device IP": "10.238.151.43", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP05009GO0", "Device IP": "10.239.158.32", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PSPPSP2OVW0", "Device IP": "10.238.107.77", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PYTTBK3IBW0", "Device IP": "10.238.117.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "YST03006GO0", "Device IP": "10.239.224.22", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PYTTBK3JBW0", "Device IP": "10.238.117.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "SRACBI1VVW0", "Device IP": "10.238.163.191", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "RYG03015GO0", "Device IP": "10.238.201.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCT08003GO0", "Device IP": "10.238.193.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KBI01008GO0", "Device IP": "10.239.169.28", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LBR06011GO0", "Device IP": "10.238.173.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB09101GO0", "Device IP": "10.238.191.103", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR07004GO0", "Device IP": "10.238.219.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR03010GO0", "Device IP": "10.239.155.47", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR16009GO0", "Device IP": "10.239.182.122", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR22007GO0", "Device IP": "10.239.182.55", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS01001GO0", "Device IP": "10.238.165.12", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP10018GO0", "Device IP": "10.239.158.56", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "YST07001GO0", "Device IP": "10.239.224.24", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN05005GO0", "Device IP": "10.238.168.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB02011GO0", "Device IP": "10.238.191.111", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS08016GO0", "Device IP": "10.238.156.40", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCINMA1BVW0", "Device IP": "10.238.228.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BGTTBK3SBW0", "Device IP": "10.238.28.83", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CCS08004GO0", "Device IP": "10.238.156.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SRN06013GO0", "Device IP": "10.239.215.33", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SMPPRI1PGW0", "Device IP": "10.238.197.63", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS07013GO0", "Device IP": "10.238.165.28", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR21035GO0", "Device IP": "10.239.228.142", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP12013GO0", "Device IP": "10.239.158.36", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KPP03003GO0", "Device IP": "10.238.166.37", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP05006GO0", "Device IP": "10.239.158.44", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RYG06023GO0", "Device IP": "10.238.201.40", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCT08009GO0", "Device IP": "10.238.193.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP04016GO0", "Device IP": "10.239.158.57", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BGTTBK3SBW2", "Device IP": "10.238.28.85", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "YST02002GO0", "Device IP": "10.239.224.38", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS09003GO0", "Device IP": "10.238.156.22", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST01013GO0", "Device IP": "10.239.224.28", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR01008GO0", "Device IP": "10.238.197.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN01014GO0", "Device IP": "10.238.204.36", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NBL03003GO0", "Device IP": "10.238.186.14", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RITTBK2YBW2", "Device IP": "10.238.19.63", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "RITTBK2YBW3", "Device IP": "10.238.19.64", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KKNKKN1YVW0", "Device IP": "10.238.168.83", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CTB02005GO0", "Device IP": "10.238.159.26", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BBTTNT01VW0", "Device IP": "10.238.8.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KPP07004GO0", "Device IP": "10.238.166.38", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SRACBI1NGW0", "Device IP": "10.238.163.38", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TRT07005GO0", "Device IP": "10.238.218.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CBR09019GO0", "Device IP": "10.238.162.52", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CTB07005GO0", "Device IP": "10.238.159.24", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "ATG02004GO0", "Device IP": "10.238.210.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN02002GO0", "Device IP": "10.238.168.21", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN17004GO0", "Device IP": "10.238.168.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR05003GO0", "Device IP": "10.239.228.147", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "AYT11032GO0", "Device IP": "10.238.151.49", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKI07003GO0", "Device IP": "10.238.185.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKNKKN1VGW0", "Device IP": "10.238.168.47", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST04007GO0", "Device IP": "10.239.224.48", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT23002GO0", "Device IP": "10.238.220.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN08011GO0", "Device IP": "10.238.204.41", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BGTTBK3PBW0", "Device IP": "10.238.28.78", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KLS07002GO0", "Device IP": "10.238.165.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR01010GO0", "Device IP": "10.238.197.24", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST01011GO0", "Device IP": "10.239.224.32", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST04011GO0", "Device IP": "10.239.224.42", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS08009GO0", "Device IP": "10.238.156.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS08008GO0", "Device IP": "10.238.156.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KRIKRI1BBW0", "Device IP": "10.238.167.65", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BRR10017GO0", "Device IP": "10.239.155.42", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR02025GO0", "Device IP": "10.238.197.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI09004GO0", "Device IP": "10.238.172.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LBR02013GO0", "Device IP": "10.238.173.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PNA07004GO0", "Device IP": "10.239.188.26", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS10007GO0", "Device IP": "10.238.156.32", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKN17007GO0", "Device IP": "10.238.204.42", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SRNSRN1DBW0", "Device IP": "10.238.215.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKI07004GO0", "Device IP": "10.238.185.18", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RETRET1DVW0", "Device IP": "10.238.202.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KKMMBK1BBW0", "Device IP": "10.238.115.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "EKCCBK2LBW1", "Device IP": "10.238.58.74", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "RITTBK2YBW1", "Device IP": "10.238.19.62", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KOSSNI13GW0", "Device IP": "10.238.214.67", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST04005GO0", "Device IP": "10.239.224.47", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SPKKSP1GBW0", "Device IP": "10.238.135.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CCS10008GO0", "Device IP": "10.238.156.35", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR06003GO0", "Device IP": "10.238.197.26", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "TMMMBK2RBW0", "Device IP": "10.238.141.69", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR04005GO0", "Device IP": "10.238.182.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDNUDN1WVW0", "Device IP": "10.238.220.64", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BGTTBK3SBW1", "Device IP": "10.238.28.84", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "SKN12008GO0", "Device IP": "10.238.204.33", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS02001GO0", "Device IP": "10.238.165.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LBR11006GO0", "Device IP": "10.238.173.32", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PSPPSP21VW0", "Device IP": "10.238.109.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR20032GO0", "Device IP": "10.239.228.124", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NBL01002GO0", "Device IP": "10.238.186.13", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST04006GO0", "Device IP": "10.239.224.50", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP14006GO0", "Device IP": "10.239.158.50", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR14003GO0", "Device IP": "10.238.219.37", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PKKKNT3VBW0", "Device IP": "10.238.95.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PSN09008GO0", "Device IP": "10.238.194.29", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP16001GO0", "Device IP": "10.238.158.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR07012GO0", "Device IP": "10.239.228.107", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR20013GO0", "Device IP": "10.238.228.44", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BLMCBI5RBW0", "Device IP": "10.238.162.131", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CPEKKN1AVW0", "Device IP": "10.238.168.73", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CYP01013GO0", "Device IP": "10.238.158.21", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SSK10006GO0", "Device IP": "10.239.209.21", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SKT02006GO0", "Device IP": "10.238.212.33", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CNT02008GO0", "Device IP": "10.238.157.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN07009GO0", "Device IP": "10.238.168.36", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT11007GO0", "Device IP": "10.238.220.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST07003GO0", "Device IP": "10.239.224.26", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI08006GO0", "Device IP": "10.238.172.16", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR04011GO0", "Device IP": "10.238.219.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP14004GO0", "Device IP": "10.239.158.42", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CBR09017GO0", "Device IP": "10.238.201.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PSN07007GO0", "Device IP": "10.238.194.27", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP05015GO0", "Device IP": "10.239.158.30", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PTCNMA1AVW0", "Device IP": "10.238.228.110", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PCB04005GO0", "Device IP": "10.238.191.37", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI02004GO0", "Device IP": "10.238.172.33", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BBTTNT21VW0", "Device IP": "10.238.11.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KGCCBK16VW0", "Device IP": "10.238.67.71", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "ONTTBK1VBW0", "Device IP": "10.238.92.75", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR04003GO0", "Device IP": "10.238.182.37", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "MDH04014GO0", "Device IP": "10.239.165.16", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BBGCBI1AVW0", "Device IP": "10.238.163.201", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BBTTNT01VW2", "Device IP": "10.238.8.63", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "SKN05004GO0", "Device IP": "10.238.204.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR02011GO0", "Device IP": "10.238.228.42", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR14013GO0", "Device IP": "10.239.228.123", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NBL01015GO0", "Device IP": "10.238.186.15", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBNUBN1EVW0", "Device IP": "10.238.219.63", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "BRR07015GO0", "Device IP": "10.239.155.40", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST01005GO0", "Device IP": "10.239.224.29", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN04013GO0", "Device IP": "10.238.168.43", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP12016GO0", "Device IP": "10.239.158.52", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCT04010GO0", "Device IP": "10.238.193.32", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR20003GO0", "Device IP": "10.239.155.43", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST03005GO0", "Device IP": "10.239.224.21", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BRR08009GO0", "Device IP": "10.238.155.23", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDNUDN1ZBW0", "Device IP": "10.238.220.66", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKN01010GO0", "Device IP": "10.238.177.12", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN10005GO0", "Device IP": "10.238.168.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB08005GO0", "Device IP": "10.238.191.59", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT17008GO0", "Device IP": "10.238.220.21", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR15007GO0", "Device IP": "10.239.182.117", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR09011GO0", "Device IP": "10.239.182.131", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "YST04008GO0", "Device IP": "10.239.224.34", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CRI05018GO0", "Device IP": "10.238.190.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UDT17015GO0", "Device IP": "10.238.185.27", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PNA08002GO0", "Device IP": "10.239.188.19", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "UBR09005GO0", "Device IP": "10.238.219.28", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI01024GO0", "Device IP": "10.238.172.30", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR15018G00", "Device IP": "10.239.182.133", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CBR02020GO0", "Device IP": "10.238.162.48", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LOI10002GO0", "Device IP": "10.238.172.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR03011GO0", "Device IP": "10.239.228.105", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKW01039GO0", "Device IP": "10.238.180.31", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP05013GO0", "Device IP": "10.239.158.45", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PHE06013GO0", "Device IP": "10.238.195.19", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SSK05016GO0", "Device IP": "10.239.209.23", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "ASDDBK4XBW0", "Device IP": "10.238.1.105", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "CYP04010GO0", "Device IP": "10.239.158.34", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKI05004GO0", "Device IP": "10.238.185.17", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCB06002GO0", "Device IP": "10.238.191.55", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SSK07013GO0", "Device IP": "10.239.215.37", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CBR06021GO0", "Device IP": "10.238.163.57", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "LBR02021GO0", "Device IP": "10.238.173.24", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RYG04003GO0", "Device IP": "10.238.201.33", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR11005GO0", "Device IP": "10.239.182.112", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CYP09009GO0", "Device IP": "10.239.158.54", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BBTTNT01VW3", "Device IP": "10.238.8.64", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "SRN10012GO0", "Device IP": "10.239.215.43", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PSPPSP2VBW0", "Device IP": "10.238.107.80", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "PSN04025GO0", "Device IP": "10.238.194.102", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CBR10004GO0", "Device IP": "10.238.163.55", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKW03011GO0", "Device IP": "10.238.180.38", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KLS07006GO0", "Device IP": "10.238.175.11", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PNA06001GO0", "Device IP": "10.239.188.17", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SNISNI2CBW0", "Device IP": "10.238.214.80", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KPP02008GO0", "Device IP": "10.238.166.36", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "MDH04013GO0", "Device IP": "10.239.176.16", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKI02003GO0", "Device IP": "10.238.185.25", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "DNMMBK1YBW0", "Device IP": "10.238.49.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KKN18004GO0", "Device IP": "10.238.168.38", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "KKN12003GO0", "Device IP": "10.238.168.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "SPBSPB1CVW0", "Device IP": "10.238.213.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR03010GO0", "Device IP": "10.239.228.104", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKI01015GO0", "Device IP": "10.238.185.20", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "BKN07003GO0", "Device IP": "10.238.154.24", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCR03006GO0", "Device IP": "10.238.197.22", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR32005GO0", "Device IP": "10.239.182.101", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CCS11001GO0", "Device IP": "10.238.156.33", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NMANMA2IVW0", "Device IP": "10.238.182.75", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "KKN13003GO0", "Device IP": "10.238.168.33", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKI01014GO0", "Device IP": "10.238.185.21", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NBL01008GO0", "Device IP": "10.238.186.16", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "PCHNMA1WBW0", "Device IP": "10.238.229.101", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "RITTBK2YBW0", "Device IP": "10.238.19.61", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 1, "uplink_speeds": "1 Gbps", "is_10g": false, "category": "Section 1: Single Board + Single Uplink"}, {"Device Name": "NKR17011GO0", "Device IP": "10.239.182.114", "Vendor_board": "ZTE", "Model_board": "C320", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NKR18011GO0", "Device IP": "10.238.228.46", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "RYGRYG1KGW0", "Device IP": "10.238.201.64", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "CNT01018GO0", "Device IP": "10.238.157.21", "Vendor_board": "Huawei", "Model_board": "MA5608T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}, {"Device Name": "NLGAYA1BGW0", "Device IP": "10.238.151.83", "Vendor_board": "Huawei", "Model_board": "MA5603T", "active_uplinks": 2, "uplink_speeds": "1 Gbps, 1 Gbps", "is_10g": false, "category": "Section 2: Single Board + Multiple Uplinks"}];
+
+    function init() {
+        try {
+            if (typeof asOfDate !== 'undefined') {
+                const asOfDateSpan = document.getElementById('as-of-date');
+                if (asOfDateSpan) {
+                    asOfDateSpan.innerText = `as of ${asOfDate}`;
+                }
+            }
+            // Filter out lab devices
+            allData = rawData.filter(d => !/LAB|TEST|QCENG/i.test(d['Device Name']));
+            populateFilters();
+            updateDisplay();
+
+            ['searchInput', 'modelFilter', 'vendorFilter', 'speedFilter', 'portFilter'].forEach(id => {
+                document.getElementById(id).addEventListener('input', updateDisplay);
+                document.getElementById(id).addEventListener('change', updateDisplay);
+            });
+        } catch (err) {
+            console.error('Failed to load dashboard data:', err);
+        }
+    }
+
+    function populateFilters() {
+        const models = [...new Set(allData.map(d => d.Model_board))].sort();
+        const vendors = [...new Set(allData.map(d => d.Vendor_board))].sort();
+        const mSel = document.getElementById('modelFilter');
+        models.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; mSel.appendChild(o); });
+        const vSel = document.getElementById('vendorFilter');
+        vendors.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; vSel.appendChild(o); });
+    }
+
+    function updateDisplay() {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const model = document.getElementById('modelFilter').value;
+        const vendor = document.getElementById('vendorFilter').value;
+        const speed = document.getElementById('speedFilter').value;
+        const ports = document.getElementById('portFilter').value;
+
+        const filtered = allData.filter(d => {
+            const matchesSearch = d['Device Name'].toLowerCase().includes(search) || d['Device IP'].includes(search);
+            const matchesModel = !model || d.Model_board === model;
+            const matchesVendor = !vendor || d.Vendor_board === vendor;
+            const matchesSpeed = !speed || (speed === '10G' ? d.is_10g : !d.is_10g);
+            const matchesPorts = !ports || (ports === '1' ? d.active_uplinks === 1 : d.active_uplinks >= 2);
+            return matchesSearch && matchesModel && matchesVendor && matchesSpeed && matchesPorts;
+        });
+
+        const s1 = filtered.filter(d => d.category.includes('Section 1'));
+        const s2 = filtered.filter(d => d.category.includes('Section 2'));
+
+        document.getElementById('count-s1').textContent = s1.length;
+        document.getElementById('count-s2').textContent = s2.length;
+        document.getElementById('count-total').textContent = s1.length + s2.length;
+
+        renderCharts(s1.length, s2.length, filtered);
+        renderTable('tbody-s1', 'empty-s1', s1, true);
+        renderTable('tbody-s2', 'empty-s2', s2, false);
+    }
+
+    function renderCharts(s1Len, s2Len, filteredData) {
+        // Doughnut Risk Chart
+        if (riskChart) riskChart.destroy();
+        
+        // Check if there is data to display
+        const total = s1Len + s2Len;
+        if (total === 0) {
+            riskChart = null;
+        } else {
+            riskChart = new Chart(document.getElementById('riskPieChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Section 1 (Vulnerable)', 'Section 2 (Lack of Redundancy)'],
+                    datasets: [{
+                        data: [s1Len, s2Len],
+                        backgroundColor: ['#ef4444', '#f59e0b'],
+                        borderWidth: 1,
+                        borderColor: '#1f2937'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, color: '#f8fafc', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Vendor Breakdown Chart
+        const vCounts = filteredData.reduce((acc, d) => { acc[d.Vendor_board] = (acc[d.Vendor_board] || 0) + 1; return acc; }, {});
+        const labels = Object.keys(vCounts);
+        const data = Object.values(vCounts);
+
+        if (vendorChart) vendorChart.destroy();
+        if (labels.length === 0) {
+            vendorChart = null;
+        } else {
+            vendorChart = new Chart(document.getElementById('vendorPieChart'), {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#ec4899', '#ef4444'],
+                        borderWidth: 1,
+                        borderColor: '#1f2937'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, color: '#f8fafc', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    function renderTable(tbodyId, emptyId, data, isS1) {
+        const tbody = document.getElementById(tbodyId);
+        const emptyDiv = document.getElementById(emptyId);
+        tbody.innerHTML = '';
+        if (data.length === 0) {
+            emptyDiv.style.display = 'block';
+            return;
+        } else {
+            emptyDiv.style.display = 'none';
+        }
+        
+        data.forEach(d => {
+            const row = document.createElement('tr');
+            const speedHtml = d.is_10g 
+                ? `<span class="flex items-center gap-1 font-semibold" style="color: #a78bfa;">${d.uplink_speeds} <span class="badge-10g">10G</span></span>`
+                : `<span style="color: #cbd5e1;">${d.uplink_speeds} <span class="badge-1g">1G</span></span>`;
+            
+            const vendorClass = d.Vendor_board.toLowerCase();
+            const vendorHtml = `<span class="vendor-badge vendor-${vendorClass}">${d.Vendor_board}</span>`;
+            
+            if (isS1) {
+                row.innerHTML = `
+                    <td style="font-weight: 700; color: #f8fafc;">${d['Device Name']}</td>
+                    <td style="font-family: monospace; color: var(--accent-cyan); font-weight: 500;">${d['Device IP']}</td>
+                    <td>${vendorHtml}</td>
+                    <td>${d.Model_board}</td>
+                    <td>${speedHtml}</td>
+                `;
+            } else {
+                row.innerHTML = `
+                    <td style="font-weight: 700; color: #f8fafc;">${d['Device Name']}</td>
+                    <td style="font-family: monospace; color: var(--accent-cyan); font-weight: 500;">${d['Device IP']}</td>
+                    <td>${vendorHtml}</td>
+                    <td>${d.Model_board}</td>
+                    <td style="text-align: center; font-weight: 700; color: #f8fafc;">${d.active_uplinks}</td>
+                    <td>${speedHtml}</td>
+                `;
+            }
+            tbody.appendChild(row);
+        });
+    }
+
+    function exportToExcel(tableId, filename) {
+        const table = document.getElementById(tableId);
+        const wb = XLSX.utils.table_to_book(table, { sheet: "Data" });
+        XLSX.writeFile(wb, filename);
+    }
+
+    init();
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+        
+
+        
+        
+
+        
+        
+
+        
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+
+        
+
+
+        
+
+        
+        
+
+        
+
+        
+
+
+        
+
+        
+
+        // --- AUTO-HIDE SIDEBAR CONTROLLER ---
+        (function initSidebarToggle() {
+            const toggleBtn = document.getElementById('sidebarToggleBtn');
+            const closeBtn = document.getElementById('sidebarCloseBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+            const sidebar = document.getElementById('mainSidebar');
+
+            if (!sidebar) return;
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                if (overlay) overlay.classList.add('active');
+                document.body.style.overflowY = 'hidden';
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                if (overlay) overlay.classList.remove('active');
+                document.body.style.overflowY = '';
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (sidebar.classList.contains('open')) {
+                        closeSidebar();
+                    } else {
+                        openSidebar();
+                    }
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    closeSidebar();
+                });
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    closeSidebar();
+                });
+            }
+
+            // Close when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                }
+            });
+        })();
+        // --- END AUTO-HIDE SIDEBAR CONTROLLER ---
+
+</script>
+</body>
+</html>
