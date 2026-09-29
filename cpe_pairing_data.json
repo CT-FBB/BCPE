@@ -1,440 +1,440 @@
 {
-  "total_devices": 3554300,
-  "total_subscribers": 3249724,
+  "total_devices": 3552742,
+  "total_subscribers": 3248101,
   "device_roles": {
-    "HGW": 3249724,
-    "Mesh": 212895,
-    "AP": 91681
+    "HGW": 3248101,
+    "Mesh": 213041,
+    "AP": 91600
   },
   "household_devices_dist": {
-    "1_device": 2958438,
-    "2_devices": 280224,
-    "3_plus_devices": 11062
+    "1_device": 2956767,
+    "2_devices": 280256,
+    "3_plus_devices": 11078
   },
   "pairing_types_dist": {
-    "routing_ont_mesh": 107740,
-    "2-box": 73156,
-    "as_mesh": 110376,
+    "routing_ont_mesh": 107718,
+    "2-box": 73085,
+    "as_mesh": 110517,
     "other_pairing": 14
   },
   "top_hgw_models": [
     {
       "ProductClass": "T626ProV2",
       "Type": "HGW",
-      "TotalDevices": 1051225,
-      "Share": 31.21983743024558
+      "TotalDevices": 1051498,
+      "Share": 31.241342878178436
     },
     {
       "ProductClass": "T623L",
       "Type": "HGW",
-      "TotalDevices": 377547,
-      "Share": 11.21259098887196
+      "TotalDevices": 377181,
+      "Share": 11.20652720987983
     },
     {
       "ProductClass": "GN542VF",
       "Type": "HGW",
-      "TotalDevices": 354800,
-      "Share": 10.537038521963547
+      "TotalDevices": 354596,
+      "Share": 10.53549813621192
     },
     {
       "ProductClass": "T626Pro",
       "Type": "HGW",
-      "TotalDevices": 322541,
-      "Share": 9.578993635604974
+      "TotalDevices": 322136,
+      "Share": 9.57107025349063
     },
     {
       "ProductClass": "ST-244F",
       "Type": "HGW",
-      "TotalDevices": 168229,
-      "Share": 4.996154040336544
+      "TotalDevices": 168086,
+      "Share": 4.994048832257884
     },
     {
       "ProductClass": "T625LM",
       "Type": "HGW",
-      "TotalDevices": 141551,
-      "Share": 4.203856651134336
+      "TotalDevices": 141408,
+      "Share": 4.201411523100811
     },
     {
       "ProductClass": "F688",
       "Type": "HGW",
-      "TotalDevices": 137262,
-      "Share": 4.076479655021873
+      "TotalDevices": 137174,
+      "Share": 4.075613998287443
     },
     {
       "ProductClass": "T625Pro",
       "Type": "HGW",
-      "TotalDevices": 135664,
-      "Share": 4.029021403730729
+      "TotalDevices": 135781,
+      "Share": 4.034226196666038
     },
     {
       "ProductClass": "HG8247W5-6T",
       "Type": "HGW",
-      "TotalDevices": 119123,
-      "Share": 3.5377780153660194
+      "TotalDevices": 119027,
+      "Share": 3.536443548880687
     },
     {
       "ProductClass": "T623",
       "Type": "HGW",
-      "TotalDevices": 80754,
-      "Share": 2.3982751093648376
+      "TotalDevices": 80713,
+      "Share": 2.3980858810253713
     },
     {
       "ProductClass": "F6600P",
       "Type": "HGW",
-      "TotalDevices": 66527,
-      "Share": 1.9757541199286046
+      "TotalDevices": 66444,
+      "Share": 1.974135743670162
     },
     {
       "ProductClass": "T628L",
       "Type": "HGW",
-      "TotalDevices": 64533,
-      "Share": 1.9165352506704443
+      "TotalDevices": 64486,
+      "Share": 1.915961073480135
     },
     {
       "ProductClass": "HG8247H",
       "Type": "HGW",
-      "TotalDevices": 61750,
-      "Share": 1.8338842410689096
+      "TotalDevices": 61694,
+      "Share": 1.8330072026065105
     },
     {
       "ProductClass": "T628",
       "Type": "HGW",
-      "TotalDevices": 57527,
-      "Share": 1.70846734795095
+      "TotalDevices": 57491,
+      "Share": 1.708130727219031
     },
     {
       "ProductClass": "T627Pro",
       "Type": "HGW",
-      "TotalDevices": 31506,
-      "Share": 0.9356818931031105
+      "TotalDevices": 31522,
+      "Share": 0.9365587097701953
     },
     {
       "ProductClass": "F668",
       "Type": "HGW",
-      "TotalDevices": 30864,
-      "Share": 0.9166154367020377
+      "TotalDevices": 30853,
+      "Share": 0.9166818689340726
     },
     {
       "ProductClass": "ST-244FV2",
       "Type": "HGW",
-      "TotalDevices": 28714,
-      "Share": 0.8527635967295978
+      "TotalDevices": 28694,
+      "Share": 0.8525352331116673
     },
     {
       "ProductClass": "F612C",
       "Type": "HGW",
-      "TotalDevices": 24278,
-      "Share": 0.7210209166748338
+      "TotalDevices": 24254,
+      "Share": 0.7206171863069067
     },
     {
       "ProductClass": "HG8122",
       "Type": "HGW",
-      "TotalDevices": 19836,
-      "Share": 0.5891000454387513
+      "TotalDevices": 19810,
+      "Share": 0.5885802944149345
     },
     {
       "ProductClass": "H662GR",
       "Type": "HGW",
-      "TotalDevices": 18495,
-      "Share": 0.5492743164140806
+      "TotalDevices": 18465,
+      "Share": 0.548618633840069
     },
     {
       "ProductClass": "GN2000-02GS-1VT",
       "Type": "HGW",
-      "TotalDevices": 11903,
-      "Share": 0.35350160520555834
+      "TotalDevices": 11878,
+      "Share": 0.3529104864745377
     },
     {
       "ProductClass": "HG6145F4",
       "Type": "HGW",
-      "TotalDevices": 11228,
-      "Share": 0.33345509730723427
+      "TotalDevices": 11229,
+      "Share": 0.3336278710744725
     },
     {
       "ProductClass": "HT803G-UA",
       "Type": "HGW",
-      "TotalDevices": 11181,
-      "Share": 0.3320592663869065
+      "TotalDevices": 11164,
+      "Share": 0.33169663840728564
     },
     {
       "ProductClass": "AN5506-04-CG",
       "Type": "HGW",
-      "TotalDevices": 9761,
-      "Share": 0.28988735347487654
+      "TotalDevices": 9752,
+      "Share": 0.2897443226216275
     },
     {
       "ProductClass": "HG8247W5",
       "Type": "HGW",
-      "TotalDevices": 7811,
-      "Share": 0.23197521954638464
+      "TotalDevices": 7805,
+      "Share": 0.23189647642143182
     },
     {
       "ProductClass": "T7281",
       "Type": "HGW",
-      "TotalDevices": 7142,
-      "Share": 0.21210690282937897
+      "TotalDevices": 7153,
+      "Share": 0.21252472720595794
     },
     {
       "ProductClass": "F6620",
       "Type": "HGW",
-      "TotalDevices": 4266,
-      "Share": 0.12669392991740838
+      "TotalDevices": 4262,
+      "Share": 0.12662944042384913
     },
     {
       "ProductClass": "T6825G",
       "Type": "HGW",
-      "TotalDevices": 2438,
-      "Share": 0.07240501667572471
+      "TotalDevices": 2437,
+      "Share": 0.07240636938360401
     },
     {
       "ProductClass": "AN5121-4G-B05",
       "Type": "HGW",
-      "TotalDevices": 2049,
-      "Share": 0.060852288420246085
+      "TotalDevices": 2054,
+      "Share": 0.06102695228310326
     },
     {
       "ProductClass": "AN5121-4G",
       "Type": "HGW",
       "TotalDevices": 1947,
-      "Share": 0.05782303833783266
+      "Share": 0.05784784620019574
     },
     {
       "ProductClass": "GN2000-04GS-2VT",
       "Type": "HGW",
-      "TotalDevices": 1372,
-      "Share": 0.04074638346148249
+      "TotalDevices": 1371,
+      "Share": 0.040734153641740295
     },
     {
       "ProductClass": "V163",
       "Type": "HGW",
-      "TotalDevices": 1235,
-      "Share": 0.03667768482137819
+      "TotalDevices": 1236,
+      "Share": 0.0367231319483523
     },
     {
       "ProductClass": "HG6249A",
       "Type": "HGW",
-      "TotalDevices": 835,
-      "Share": 0.02479827273348242
+      "TotalDevices": 833,
+      "Share": 0.024749489411794067
     },
     {
       "ProductClass": "T723",
       "Type": "HGW",
-      "TotalDevices": 790,
-      "Share": 0.023461838873594147
+      "TotalDevices": 806,
+      "Share": 0.02394728507311647
     },
     {
       "ProductClass": "F6600R",
       "Type": "HGW",
       "TotalDevices": 287,
-      "Share": 0.008523478173065216
+      "Share": 0.008527135007424847
     },
     {
       "ProductClass": "G6605",
       "Type": "HGW",
       "TotalDevices": 85,
-      "Share": 0.0025243750686778513
+      "Share": 0.0025254581032442924
     },
     {
       "ProductClass": "HG8141XR-10",
       "Type": "HGW",
       "TotalDevices": 62,
-      "Share": 0.0018413088736238445
+      "Share": 0.0018420988517781898
     },
     {
       "ProductClass": "H660RW",
       "Type": "HGW",
       "TotalDevices": 32,
-      "Share": 0.0009503529670316617
+      "Share": 0.000950760697691969
     },
     {
       "ProductClass": "V261a-20",
       "Type": "HGW",
       "TotalDevices": 6,
-      "Share": 0.00017819118131843654
+      "Share": 0.0001782676308172442
     },
     {
       "ProductClass": "ST-GPON",
       "Type": "HGW",
       "TotalDevices": 3,
-      "Share": 8.909559065921827e-05
+      "Share": 8.91338154086221e-05
     },
     {
       "ProductClass": "F6605P",
       "Type": "HGW",
       "TotalDevices": 2,
-      "Share": 5.9397060439478855e-05
+      "Share": 5.9422543605748063e-05
     },
     {
       "ProductClass": "HG6246R",
       "Type": "HGW",
       "TotalDevices": 2,
-      "Share": 5.9397060439478855e-05
+      "Share": 5.9422543605748063e-05
     },
     {
       "ProductClass": "G8605",
       "Type": "HGW",
       "TotalDevices": 2,
-      "Share": 5.9397060439478855e-05
+      "Share": 5.9422543605748063e-05
     },
     {
       "ProductClass": "T528",
       "Type": "HGW",
       "TotalDevices": 1,
-      "Share": 2.9698530219739428e-05
+      "Share": 2.9711271802874032e-05
     },
     {
       "ProductClass": "F8648P",
       "Type": "HGW",
       "TotalDevices": 1,
-      "Share": 2.9698530219739428e-05
+      "Share": 2.9711271802874032e-05
     },
     {
       "ProductClass": "HG8045H",
       "Type": "HGW",
       "TotalDevices": 1,
-      "Share": 2.9698530219739428e-05
+      "Share": 2.9711271802874032e-05
     },
     {
       "ProductClass": "V281s",
       "Type": "HGW",
       "TotalDevices": 1,
-      "Share": 2.9698530219739428e-05
+      "Share": 2.9711271802874032e-05
     },
     {
       "ProductClass": "F600G",
       "Type": "HGW",
       "TotalDevices": 1,
-      "Share": 2.9698530219739428e-05
+      "Share": 2.9711271802874032e-05
     }
   ],
   "top_mesh_models": [
     {
       "ProductClass": "A625M",
       "Type": "Mesh",
-      "TotalDevices": 37747,
-      "Share": 39.488440213411444
+      "TotalDevices": 37730,
+      "Share": 39.479742173112335
     },
     {
       "ProductClass": "A623",
       "Type": "Mesh",
-      "TotalDevices": 23758,
-      "Share": 24.85406423266032
+      "TotalDevices": 23749,
+      "Share": 24.85036832412523
     },
     {
       "ProductClass": "ZXHN H3601P V9",
       "Type": "Mesh",
-      "TotalDevices": 11656,
-      "Share": 12.193744115493251
+      "TotalDevices": 11651,
+      "Share": 12.191319270048552
     },
     {
       "ProductClass": "RN510",
       "Type": "Mesh",
-      "TotalDevices": 10410,
-      "Share": 10.890260487498693
+      "TotalDevices": 10409,
+      "Share": 10.891721078185167
     },
     {
       "ProductClass": "A662",
       "Type": "Mesh",
-      "TotalDevices": 8263,
-      "Share": 8.644209645360393
+      "TotalDevices": 8271,
+      "Share": 8.654570567553993
     },
     {
       "ProductClass": "A6268",
       "Type": "Mesh",
-      "TotalDevices": 3399,
-      "Share": 3.555811277330265
+      "TotalDevices": 3400,
+      "Share": 3.5576762096099115
     },
     {
       "ProductClass": "A626M",
       "Type": "Mesh",
-      "TotalDevices": 352,
-      "Share": 0.3682393555811277
+      "TotalDevices": 353,
+      "Share": 0.3693705005859702
     },
     {
       "ProductClass": "A5258",
       "Type": "Mesh",
       "TotalDevices": 3,
-      "Share": 0.0031384035987027928
+      "Share": 0.0031391260673028633
     },
     {
       "ProductClass": "K251a-21",
       "Type": "Mesh",
       "TotalDevices": 2,
-      "Share": 0.002092269065801862
+      "Share": 0.0020927507115352417
     }
   ],
   "top_ap_models": [
     {
       "ProductClass": "WR6221-T",
       "Type": "AP",
-      "TotalDevices": 31717,
-      "Share": 35.22115245805155
+      "TotalDevices": 31683,
+      "Share": 35.21624595685084
     },
     {
       "ProductClass": "RE1200R4GC-V3",
       "Type": "AP",
-      "TotalDevices": 23776,
-      "Share": 26.402816181941347
+      "TotalDevices": 23755,
+      "Share": 26.404125957295456
     },
     {
       "ProductClass": "T3ATv2",
       "Type": "AP",
-      "TotalDevices": 19330,
-      "Share": 21.465613929884178
+      "TotalDevices": 19313,
+      "Share": 21.466760034234774
     },
     {
       "ProductClass": "ST-R4D",
       "Type": "AP",
-      "TotalDevices": 6762,
-      "Share": 7.5090781890262175
+      "TotalDevices": 6752,
+      "Share": 7.504974046039104
     },
     {
       "ProductClass": "HG180Ev2",
       "Type": "AP",
-      "TotalDevices": 3134,
-      "Share": 3.4802500805099337
+      "TotalDevices": 3130,
+      "Share": 3.479053430702369
     },
     {
       "ProductClass": "IGD",
       "Type": "AP",
-      "TotalDevices": 2677,
-      "Share": 2.9727598805121542
+      "TotalDevices": 2681,
+      "Share": 2.979981548790112
     },
     {
       "ProductClass": "SR120-A",
       "Type": "AP",
-      "TotalDevices": 1437,
-      "Share": 1.5957624013059266
+      "TotalDevices": 1435,
+      "Share": 1.5950292885169006
     },
     {
       "ProductClass": "BiPAC 3301DL-T",
       "Type": "AP",
       "TotalDevices": 567,
-      "Share": 0.6296432021854282
+      "Share": 0.630231084731068
     },
     {
       "ProductClass": "ZXHN H198A V3.0",
       "Type": "AP",
       "TotalDevices": 399,
-      "Share": 0.44308225338974583
+      "Share": 0.4434959485144553
     },
     {
       "ProductClass": "RN104R4GC-A3",
       "Type": "AP",
       "TotalDevices": 236,
-      "Share": 0.262073713784411
+      "Share": 0.26231840563762265
     },
     {
       "ProductClass": "QT3AT",
       "Type": "AP",
       "TotalDevices": 14,
-      "Share": 0.015546745732973537
+      "Share": 0.015561261351384397
     },
     {
       "ProductClass": "T3Av2",
       "Type": "AP",
       "TotalDevices": 2,
-      "Share": 0.002220963676139077
+      "Share": 0.0022230373359120566
     }
   ],
   "top_pairings": [
@@ -442,879 +442,879 @@
       "HGW": "T626ProV2",
       "SubDevice": "T626ProV2",
       "Type": "as_mesh",
-      "Count": 91132,
-      "Percentage": 29.920939272956502
+      "Count": 91295,
+      "Percentage": 29.968060766607252
     },
     {
       "HGW": "T626Pro",
       "SubDevice": "T626Pro",
       "Type": "as_mesh",
-      "Count": 22478,
-      "Percentage": 7.380095608321076
+      "Count": 22475,
+      "Percentage": 7.377536181932176
     },
     {
       "HGW": "T623L",
       "SubDevice": "A623",
       "Type": "routing_ont_mesh",
-      "Count": 16599,
-      "Percentage": 5.449871296490859
+      "Count": 16594,
+      "Percentage": 5.447067203692215
     },
     {
       "HGW": "T625LM",
       "SubDevice": "A625M",
       "Type": "routing_ont_mesh",
-      "Count": 15660,
-      "Percentage": 5.141573860054633
+      "Count": 15651,
+      "Percentage": 5.1375225265148154
     },
     {
       "HGW": "T625Pro",
       "SubDevice": "A625M",
       "Type": "routing_ont_mesh",
-      "Count": 11068,
-      "Percentage": 3.6339041815507462
+      "Count": 11066,
+      "Percentage": 3.6324723198781514
     },
     {
       "HGW": "GN542VF",
       "SubDevice": "RN510",
       "Type": "routing_ont_mesh",
-      "Count": 9767,
-      "Percentage": 3.206752994326539
+      "Count": 9766,
+      "Percentage": 3.2057405273748443
     },
     {
       "HGW": "T626Pro",
       "SubDevice": "A625M",
       "Type": "routing_ont_mesh",
-      "Count": 9492,
-      "Percentage": 3.116463542761084
+      "Count": 9486,
+      "Percentage": 3.113829064374132
     },
     {
       "HGW": "F6600P",
       "SubDevice": "ZXHN H3601P V9",
       "Type": "routing_ont_mesh",
-      "Count": 8747,
-      "Percentage": 2.8718612103383063
+      "Count": 8745,
+      "Percentage": 2.870591942647247
     },
     {
       "HGW": "T623",
       "SubDevice": "A623",
       "Type": "routing_ont_mesh",
-      "Count": 6705,
-      "Percentage": 2.201420991805001
+      "Count": 6701,
+      "Percentage": 2.199638262742047
     },
     {
       "HGW": "T628",
       "SubDevice": "A662",
       "Type": "routing_ont_mesh",
-      "Count": 5480,
-      "Percentage": 1.799222525740702
+      "Count": 5484,
+      "Percentage": 1.8001516539139513
     },
     {
       "HGW": "HG8122",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 5216,
-      "Percentage": 1.712544652237865
+      "Count": 5212,
+      "Percentage": 1.710866232713259
     },
     {
       "HGW": "F612C",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 4940,
-      "Percentage": 1.6219268753939902
+      "Count": 4935,
+      "Percentage": 1.6199395353875545
     },
     {
       "HGW": "HG8247H",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 4681,
-      "Percentage": 1.5368906282832528
+      "Count": 4675,
+      "Percentage": 1.534593176886893
     },
     {
       "HGW": "F612C",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
-      "Count": 4296,
-      "Percentage": 1.410485396091616
+      "Count": 4295,
+      "Percentage": 1.4098561913859264
     },
     {
       "HGW": "HG8247H",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
-      "Count": 4078,
-      "Percentage": 1.3389104853960916
+      "Count": 4074,
+      "Percentage": 1.337311786660364
     },
     {
       "HGW": "H662GR",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
-      "Count": 3448,
-      "Percentage": 1.132065559991595
+      "Count": 3444,
+      "Percentage": 1.1305109949087615
     },
     {
       "HGW": "HG8247H",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
-      "Count": 3377,
-      "Percentage": 1.1087544652237866
+      "Count": 3373,
+      "Percentage": 1.107204873933581
     },
     {
       "HGW": "H662GR",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 3319,
-      "Percentage": 1.089711599075436
+      "Count": 3318,
+      "Percentage": 1.089150836558441
     },
     {
       "HGW": "HG8122",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
-      "Count": 3097,
-      "Percentage": 1.0168233872662324
+      "Count": 3093,
+      "Percentage": 1.0152934109328686
     },
     {
       "HGW": "F612C",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 2842,
-      "Percentage": 0.9331004412691742
+      "Percentage": 0.93290134945723
     },
     {
       "HGW": "T628L",
       "SubDevice": "A662",
       "Type": "routing_ont_mesh",
-      "Count": 2719,
-      "Percentage": 0.8927164320235343
+      "Count": 2723,
+      "Percentage": 0.8938389776819272
     },
     {
       "HGW": "GN2000-02GS-1VT",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
-      "Count": 2525,
-      "Percentage": 0.8290213280100862
+      "Count": 2521,
+      "Percentage": 0.8275314222314133
     },
     {
       "HGW": "GN2000-02GS-1VT",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 2473,
-      "Percentage": 0.8119484135322547
+      "Count": 2469,
+      "Percentage": 0.810462150531281
     },
     {
       "HGW": "H662GR",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
-      "Count": 2220,
-      "Percentage": 0.7288821180920361
+      "Count": 2216,
+      "Percentage": 0.7274135786056375
     },
     {
       "HGW": "HT803G-UA",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 2200,
-      "Percentage": 0.7223156125236394
+      "Count": 2197,
+      "Percentage": 0.7211767293305891
     },
     {
       "HGW": "HG8122",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 2005,
-      "Percentage": 0.6582921832317714
+      "Percentage": 0.6581517261301008
     },
     {
       "HGW": "AN5506-04-CG",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 1956,
-      "Percentage": 0.6422042445891994
+      "Count": 1953,
+      "Percentage": 0.6410824544299685
     },
     {
       "HGW": "HT803G-UA",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
-      "Count": 1799,
-      "Percentage": 0.5906571758772852
+      "Count": 1798,
+      "Percentage": 0.5902028945545741
     },
     {
       "HGW": "T628",
       "SubDevice": "A6268",
       "Type": "routing_ont_mesh",
       "Count": 1646,
-      "Percentage": 0.5404234082790502
+      "Percentage": 0.5403081003541874
     },
     {
       "HGW": "T626ProV2",
       "SubDevice": "T626Pro",
       "Type": "routing_ont_mesh",
-      "Count": 1622,
-      "Percentage": 0.5325436015969741
+      "Count": 1623,
+      "Percentage": 0.5327582301791289
     },
     {
       "HGW": "T626Pro",
       "SubDevice": "T626ProV2",
       "Type": "routing_ont_mesh",
       "Count": 1521,
-      "Percentage": 0.4993827484765707
+      "Percentage": 0.4992761972288694
     },
     {
       "HGW": "GN542VF",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
       "Count": 1511,
-      "Percentage": 0.4960994956923723
+      "Percentage": 0.49599364497884396
     },
     {
       "HGW": "ST-244F",
       "SubDevice": "IGD",
       "Type": "2-box",
-      "Count": 1410,
-      "Percentage": 0.4629386425719689
+      "Count": 1413,
+      "Percentage": 0.4638246329285946
     },
     {
       "HGW": "GN2000-02GS-1VT",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
-      "Count": 1400,
-      "Percentage": 0.4596553897877705
+      "Count": 1398,
+      "Percentage": 0.45890080455355653
     },
     {
       "HGW": "T628L",
       "SubDevice": "A6268",
       "Type": "routing_ont_mesh",
-      "Count": 1289,
-      "Percentage": 0.4232112838831687
+      "Count": 1290,
+      "Percentage": 0.42344924025328173
     },
     {
       "HGW": "AN5506-04-CG",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 1250,
-      "Percentage": 0.4104065980247951
+      "Percentage": 0.41031903125318
     },
     {
       "HGW": "HG8247H",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
-      "Count": 1192,
-      "Percentage": 0.39136373187644463
+      "Count": 1191,
+      "Percentage": 0.39095197297802986
     },
     {
       "HGW": "T627Pro",
       "SubDevice": "T627Pro",
       "Type": "as_mesh",
       "Count": 1155,
-      "Percentage": 0.3792156965749107
+      "Percentage": 0.3791347848779383
     },
     {
       "HGW": "AN5506-04-CG",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
-      "Count": 1054,
-      "Percentage": 0.34605484345450727
+      "Count": 1052,
+      "Percentage": 0.3453244967026763
     },
     {
       "HGW": "H662GR",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
-      "Count": 1038,
-      "Percentage": 0.3408016389997899
+      "Count": 1037,
+      "Percentage": 0.3404006683276381
     },
     {
       "HGW": "GN542VF",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
-      "Count": 972,
-      "Percentage": 0.31913217062408067
+      "Count": 970,
+      "Percentage": 0.3184075682524677
     },
     {
       "HGW": "T626ProV2",
       "SubDevice": "A625M",
       "Type": "routing_ont_mesh",
-      "Count": 956,
-      "Percentage": 0.3138789661693633
+      "Count": 957,
+      "Percentage": 0.3141402503274346
     },
     {
       "HGW": "F612C",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
-      "Count": 943,
-      "Percentage": 0.3096107375499054
+      "Count": 939,
+      "Percentage": 0.3082316562773888
     },
     {
       "HGW": "F668",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 905,
-      "Percentage": 0.29713437696995165
+      "Percentage": 0.2970709786273023
     },
     {
       "HGW": "GN542VF",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 817,
-      "Percentage": 0.26824175246900606
+      "Percentage": 0.26818451882707844
     },
     {
       "HGW": "HG8122",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
-      "Count": 754,
-      "Percentage": 0.2475572599285564
+      "Count": 752,
+      "Percentage": 0.24684792920191306
     },
     {
       "HGW": "T625Pro",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 708,
-      "Percentage": 0.23245429712124396
+      "Count": 707,
+      "Percentage": 0.2320764440767986
     },
     {
       "HGW": "F668",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
-      "Count": 677,
-      "Percentage": 0.22227621349022902
+      "Count": 676,
+      "Percentage": 0.22190053210171973
     },
     {
       "HGW": "ST-244FV2",
       "SubDevice": "IGD",
       "Type": "2-box",
-      "Count": 673,
-      "Percentage": 0.2209629123765497
+      "Count": 674,
+      "Percentage": 0.2212440216517146
     },
     {
       "HGW": "T626ProV2",
       "SubDevice": "T626ProV2",
       "Type": "routing_ont_mesh",
       "Count": 671,
-      "Percentage": 0.22030626181971003
+      "Percentage": 0.220259255976707
     },
     {
       "HGW": "F668",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 653,
-      "Percentage": 0.214396406808153
+      "Percentage": 0.21435066192666122
     },
     {
       "HGW": "T626ProV2",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
       "Count": 577,
-      "Percentage": 0.18944368564824543
+      "Percentage": 0.18940326482646788
     },
     {
       "HGW": "GN2000-02GS-1VT",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
       "Count": 553,
-      "Percentage": 0.18156387896616938
+      "Percentage": 0.18152513942640683
     },
     {
       "HGW": "HG8122",
       "SubDevice": "HG180Ev2",
       "Type": "2-box",
-      "Count": 551,
-      "Percentage": 0.18090722840932968
+      "Count": 549,
+      "Percentage": 0.18021211852639663
     },
     {
       "HGW": "ST-244F",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
       "Count": 511,
-      "Percentage": 0.16777421727253625
+      "Percentage": 0.16773841997629996
     },
     {
       "HGW": "F612C",
       "SubDevice": "ZXHN H3601P V9",
       "Type": "2-box",
       "Count": 508,
-      "Percentage": 0.16678924143727675
+      "Percentage": 0.16675365430129233
     },
     {
       "HGW": "HG8247H",
       "SubDevice": "HG180Ev2",
       "Type": "2-box",
       "Count": 485,
-      "Percentage": 0.1592377600336205
+      "Percentage": 0.15920378412623384
     },
     {
       "HGW": "F612C",
       "SubDevice": "HG180Ev2",
       "Type": "2-box",
       "Count": 467,
-      "Percentage": 0.15332790502206345
+      "Percentage": 0.15329519007618803
     },
     {
       "HGW": "HG8247H",
       "SubDevice": "ZXHN H3601P V9",
       "Type": "2-box",
-      "Count": 466,
-      "Percentage": 0.15299957974364362
+      "Count": 465,
+      "Percentage": 0.15263867962618294
     },
     {
       "HGW": "H662GR",
       "SubDevice": "HG180Ev2",
       "Type": "2-box",
       "Count": 456,
-      "Percentage": 0.14971632695944526
+      "Percentage": 0.14968438260116007
     },
     {
       "HGW": "T6825G",
       "SubDevice": "A6268",
       "Type": "routing_ont_mesh",
       "Count": 452,
-      "Percentage": 0.14840302584576592
+      "Percentage": 0.14837136170114987
     },
     {
       "HGW": "HT803G-UA",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
       "Count": 449,
-      "Percentage": 0.14741805001050642
+      "Percentage": 0.14738659602614224
     },
     {
       "HGW": "AN5506-04-CG",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
       "Count": 439,
-      "Percentage": 0.14413479722630806
+      "Percentage": 0.1441040437761168
     },
     {
       "HGW": "F688",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
       "Count": 438,
-      "Percentage": 0.1438064719478882
+      "Percentage": 0.14377578855111428
     },
     {
       "HGW": "HG8247W5-6T",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
       "Count": 409,
-      "Percentage": 0.13428503887371296
+      "Percentage": 0.13425638702604048
     },
     {
       "HGW": "T626Pro",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
       "Count": 394,
-      "Percentage": 0.12936015969741543
+      "Percentage": 0.12933255865100232
     },
     {
       "HGW": "T625Pro",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
-      "Count": 389,
-      "Percentage": 0.12771853330531624
+      "Count": 388,
+      "Percentage": 0.12736302730098706
     },
     {
       "HGW": "T626Pro",
       "SubDevice": "T626Pro",
       "Type": "routing_ont_mesh",
-      "Count": 379,
-      "Percentage": 0.12443528052111788
+      "Count": 380,
+      "Percentage": 0.12473698550096671
     },
     {
       "HGW": "T626ProV2",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
-      "Count": 378,
-      "Percentage": 0.12410695524269805
+      "Count": 377,
+      "Percentage": 0.12375221982595909
     },
     {
       "HGW": "T626ProV2",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 359,
-      "Percentage": 0.11786877495272116
+      "Percentage": 0.1178436257759133
     },
     {
       "HGW": "F6620",
       "SubDevice": "ZXHN H3601P V9",
       "Type": "routing_ont_mesh",
-      "Count": 353,
-      "Percentage": 0.11589882328220213
+      "Count": 354,
+      "Percentage": 0.11620234965090057
     },
     {
       "HGW": "HG8122",
       "SubDevice": "ZXHN H3601P V9",
       "Type": "2-box",
-      "Count": 348,
-      "Percentage": 0.11425719689010297
-    },
-    {
-      "HGW": "T623L",
-      "SubDevice": "WR6221-T",
-      "Type": "2-box",
-      "Count": 341,
-      "Percentage": 0.11195891994116411
+      "Count": 347,
+      "Percentage": 0.11390456307588276
     },
     {
       "HGW": "T625Pro",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 339,
-      "Percentage": 0.11130226938432443
+      "Percentage": 0.11127852127586241
+    },
+    {
+      "HGW": "T623L",
+      "SubDevice": "WR6221-T",
+      "Type": "2-box",
+      "Count": 339,
+      "Percentage": 0.11127852127586241
     },
     {
       "HGW": "AN5506-04-CG",
       "SubDevice": "ZXHN H3601P V9",
       "Type": "2-box",
       "Count": 326,
-      "Percentage": 0.10703404076486656
+      "Percentage": 0.10701120335082934
     },
     {
       "HGW": "F668",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
-      "Count": 325,
-      "Percentage": 0.10670571548644674
+      "Count": 324,
+      "Percentage": 0.10635469290082426
     },
     {
       "HGW": "HT803G-UA",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
-      "Count": 321,
-      "Percentage": 0.10539241437276738
+      "Count": 320,
+      "Percentage": 0.10504167200081407
     },
     {
       "HGW": "ST-244F",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 310,
-      "Percentage": 0.10178083631014918
+      "Percentage": 0.10175911975078863
     },
     {
       "HGW": "T628",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
       "Count": 308,
-      "Percentage": 0.10112418575330953
+      "Percentage": 0.10110260930078355
     },
     {
       "HGW": "F688",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 306,
-      "Percentage": 0.10046753519646985
+      "Percentage": 0.10044609885077845
     },
     {
       "HGW": "GN2000-02GS-1VT",
       "SubDevice": "HG180Ev2",
       "Type": "2-box",
       "Count": 304,
-      "Percentage": 0.09981088463963017
+      "Percentage": 0.09978958840077337
     },
     {
       "HGW": "H662GR",
       "SubDevice": "ZXHN H3601P V9",
       "Type": "2-box",
       "Count": 281,
-      "Percentage": 0.09225940323597394
+      "Percentage": 0.09223971822571485
     },
     {
       "HGW": "HT803G-UA",
       "SubDevice": "HG180Ev2",
       "Type": "2-box",
       "Count": 281,
-      "Percentage": 0.09225940323597394
+      "Percentage": 0.09223971822571485
     },
     {
       "HGW": "HG8247W5-6T",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 278,
-      "Percentage": 0.09127442740071444
+      "Percentage": 0.09125495255070723
     },
     {
       "HGW": "T623L",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 278,
-      "Percentage": 0.09127442740071444
+      "Percentage": 0.09125495255070723
     },
     {
       "HGW": "T626Pro",
       "SubDevice": "A626M",
       "Type": "routing_ont_mesh",
-      "Count": 269,
-      "Percentage": 0.08831949989493591
+      "Count": 270,
+      "Percentage": 0.08862891075068687
     },
     {
       "HGW": "F688",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 267,
-      "Percentage": 0.08766284933809623
+      "Percentage": 0.08764414507567923
     },
     {
       "HGW": "T623",
       "SubDevice": "WR6221-T",
       "Type": "2-box",
       "Count": 265,
-      "Percentage": 0.08700619878125657
+      "Percentage": 0.08698763462567415
     },
     {
       "HGW": "T626Pro",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
-      "Count": 250,
-      "Percentage": 0.08208131960495903
-    },
-    {
-      "HGW": "T623L",
-      "SubDevice": "T3ATv2",
-      "Type": "2-box",
-      "Count": 237,
-      "Percentage": 0.07781309098550115
+      "Count": 249,
+      "Percentage": 0.08173555102563346
     },
     {
       "HGW": "HG8247W5-6T",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 237,
-      "Percentage": 0.07781309098550115
+      "Percentage": 0.07779648832560292
+    },
+    {
+      "HGW": "T623L",
+      "SubDevice": "T3ATv2",
+      "Type": "2-box",
+      "Count": 236,
+      "Percentage": 0.07746823310060039
     },
     {
       "HGW": "T627Pro",
       "SubDevice": "T626ProV2",
       "Type": "routing_ont_mesh",
-      "Count": 233,
-      "Percentage": 0.07649978987182181
+      "Count": 234,
+      "Percentage": 0.07681172265059528
     },
     {
       "HGW": "T626ProV2",
       "SubDevice": "T627Pro",
       "Type": "routing_ont_mesh",
       "Count": 218,
-      "Percentage": 0.07157491069552427
+      "Percentage": 0.07155963905055458
     },
     {
       "HGW": "T626Pro",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 217,
-      "Percentage": 0.07124658541710444
+      "Percentage": 0.07123138382555204
     },
     {
       "HGW": "F612C",
       "SubDevice": "SR120-A",
       "Type": "2-box",
       "Count": 202,
-      "Percentage": 0.0663217062408069
+      "Percentage": 0.06630755545051388
     },
     {
       "HGW": "T623",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 199,
-      "Percentage": 0.06533673040554738
+      "Percentage": 0.06532278977550625
     },
     {
       "HGW": "GN542VF",
       "SubDevice": "ST-R4D",
       "Type": "2-box",
       "Count": 194,
-      "Percentage": 0.0636951040134482
+      "Percentage": 0.06368151365049353
     },
     {
       "HGW": "T623",
       "SubDevice": "RE1200R4GC-V3",
       "Type": "2-box",
       "Count": 192,
-      "Percentage": 0.06303845345660852
+      "Percentage": 0.06302500320048844
     },
     {
       "HGW": "GN2000-04GS-2VT",
       "SubDevice": "T3ATv2",
       "Type": "2-box",
       "Count": 191,
-      "Percentage": 0.06271012817818869
+      "Percentage": 0.0626967479754859
     },
     {
       "HGW": "HG8247H",
       "SubDevice": "SR120-A",
       "Type": "2-box",
       "Count": 188,
-      "Percentage": 0.06172515234292918
+      "Percentage": 0.061711982300478266
     }
   ],
   "fttr_leads_profile": [
     {
       "HGW": "T626ProV2",
-      "HouseholdCount": 3799,
-      "Share": 34.34279515458326
+      "HouseholdCount": 3817,
+      "Share": 34.455677920202206
     },
     {
       "HGW": "T626Pro",
-      "HouseholdCount": 1136,
-      "Share": 10.269390706924607
+      "HouseholdCount": 1139,
+      "Share": 10.281639285069508
     },
     {
       "HGW": "T625Pro",
-      "HouseholdCount": 1023,
-      "Share": 9.24787561019707
+      "HouseholdCount": 1022,
+      "Share": 9.225491966058856
     },
     {
       "HGW": "GN542VF",
       "HouseholdCount": 644,
-      "Share": 5.821732055686132
+      "Share": 5.813323704639826
     },
     {
       "HGW": "T628",
       "HouseholdCount": 575,
-      "Share": 5.197975049719761
+      "Share": 5.190467593428417
     },
     {
       "HGW": "T623L",
       "HouseholdCount": 492,
-      "Share": 4.4476586512384735
+      "Share": 4.441234879942227
     },
     {
       "HGW": "T625LM",
-      "HouseholdCount": 470,
-      "Share": 4.248779605857892
+      "HouseholdCount": 471,
+      "Share": 4.25166997653006
     },
     {
       "HGW": "T623",
-      "HouseholdCount": 396,
-      "Share": 3.579822816850479
+      "HouseholdCount": 395,
+      "Share": 3.56562556418126
     },
     {
       "HGW": "F612C",
       "HouseholdCount": 374,
-      "Share": 3.380943771469897
+      "Share": 3.3760606607690917
     },
     {
       "HGW": "HG8247H",
-      "HouseholdCount": 351,
-      "Share": 3.1730247694811067
+      "HouseholdCount": 350,
+      "Share": 3.159415056869471
     },
     {
       "HGW": "HG8122",
-      "HouseholdCount": 266,
-      "Share": 2.4046284577834025
+      "HouseholdCount": 265,
+      "Share": 2.392128543058314
     },
     {
       "HGW": "AN5506-04-CG",
       "HouseholdCount": 249,
-      "Share": 2.250949195443862
+      "Share": 2.2476981404585663
     },
     {
       "HGW": "F6600P",
       "HouseholdCount": 223,
-      "Share": 2.0159103236304468
+      "Share": 2.012998736233977
     },
     {
       "HGW": "H662GR",
       "HouseholdCount": 219,
-      "Share": 1.9797504971976136
+      "Share": 1.9768911355840406
     },
     {
       "HGW": "T628L",
-      "HouseholdCount": 216,
-      "Share": 1.9526306273729885
+      "HouseholdCount": 215,
+      "Share": 1.9407835349341036
     },
     {
       "HGW": "T627Pro",
       "HouseholdCount": 117,
-      "Share": 1.0576749231603688
+      "Share": 1.0561473190106518
     },
     {
       "HGW": "GN2000-02GS-1VT",
       "HouseholdCount": 91,
-      "Share": 0.8226360513469535
+      "Share": 0.8214479147860625
     },
     {
       "HGW": "ST-244F",
       "HouseholdCount": 87,
-      "Share": 0.7864762249141203
+      "Share": 0.7853403141361256
     },
     {
       "HGW": "T6825G",
       "HouseholdCount": 85,
-      "Share": 0.7683963116977038
+      "Share": 0.7672865138111573
     },
     {
       "HGW": "F668",
       "HouseholdCount": 73,
-      "Share": 0.6599168323992045
+      "Share": 0.6589637118613467
     },
     {
       "HGW": "F688",
       "HouseholdCount": 48,
-      "Share": 0.43391791719399747
+      "Share": 0.43329120779924174
     },
     {
       "HGW": "HG8247W5-6T",
       "HouseholdCount": 27,
-      "Share": 0.24407882842162357
+      "Share": 0.24372630438707346
     },
     {
       "HGW": "ST-244FV2",
       "HouseholdCount": 26,
-      "Share": 0.2350388718134153
+      "Share": 0.2346994042245893
     },
     {
       "HGW": "HT803G-UA",
       "HouseholdCount": 16,
-      "Share": 0.1446393057313325
+      "Share": 0.14443040259974724
     },
     {
       "HGW": "HG6249A",
-      "HouseholdCount": 12,
-      "Share": 0.10847947929849937
+      "HouseholdCount": 11,
+      "Share": 0.09929590178732624
     },
     {
       "HGW": "F6620",
       "HouseholdCount": 9,
-      "Share": 0.08135960947387452
+      "Share": 0.08124210146235783
     },
     {
       "HGW": "F6600R",
       "HouseholdCount": 9,
-      "Share": 0.08135960947387452
+      "Share": 0.08124210146235783
     },
     {
       "HGW": "T7281",
       "HouseholdCount": 7,
-      "Share": 0.06327969625745797
+      "Share": 0.06318830113738942
     },
     {
       "HGW": "HG6145F4",
       "HouseholdCount": 7,
-      "Share": 0.06327969625745797
+      "Share": 0.06318830113738942
     },
     {
       "HGW": "T723",
       "HouseholdCount": 5,
-      "Share": 0.0451997830410414
+      "Share": 0.04513450081242101
     },
     {
       "HGW": "GN2000-04GS-2VT",
       "HouseholdCount": 5,
-      "Share": 0.0451997830410414
+      "Share": 0.04513450081242101
     },
     {
       "HGW": "HG8247W5",
       "HouseholdCount": 2,
-      "Share": 0.01807991321641656
+      "Share": 0.018053800324968405
     },
     {
       "HGW": "V261a-20",
       "HouseholdCount": 1,
-      "Share": 0.00903995660820828
+      "Share": 0.009026900162484202
     },
     {
       "HGW": "T3ATv2",
       "HouseholdCount": 1,
-      "Share": 0.00903995660820828
+      "Share": 0.009026900162484202
     },
     {
       "HGW": "A625M",
       "HouseholdCount": 1,
-      "Share": 0.00903995660820828
+      "Share": 0.009026900162484202
     }
   ],
-  "generated_at": "280926"
+  "generated_at": "290926"
 }
