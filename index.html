@@ -409,6 +409,73 @@
             box-shadow: 0 0 26px rgba(249, 115, 22, 0.6), 0 0 10px rgba(251, 146, 60, 0.3);
         }
 
+        /* ── Type Pills Bar ── */
+        .type-pills-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .type-pill {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px 16px;
+            color: var(--text-secondary);
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(8px);
+        }
+        .type-pill:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #fff;
+            background: rgba(30, 41, 59, 0.85);
+            transform: translateY(-1px);
+        }
+        .type-pill.active {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(99, 102, 241, 0.25));
+            border-color: #06b6d4;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
+        }
+        .type-pill .pill-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-family: monospace;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+        .type-pill.active .pill-badge {
+            background: rgba(6, 182, 212, 0.35);
+            color: #a5f3fc;
+        }
+        .type-pill[data-type="Type 1"].active {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(249, 115, 22, 0.25));
+            border-color: #f59e0b;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
+        }
+        .type-pill[data-type="Type 1"].active .pill-badge {
+            background: rgba(245, 158, 11, 0.35);
+            color: #fde68a;
+        }
+        .type-pill[data-type="Type 5"].active {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(20, 184, 166, 0.25));
+            border-color: #10b981;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
+        }
+        .type-pill[data-type="Type 5"].active .pill-badge {
+            background: rgba(16, 185, 129, 0.35);
+            color: #a7f3d0;
+        }
+
         /* ── Interactive Tables ── */
         .table-container {
             width: 100%;
@@ -672,6 +739,9 @@
 
             </div>
         </header>
+
+        <!-- TYPE PILLS BAR -->
+        <div id="typePillsBar" class="type-pills-bar"></div>
 
         <!-- KPI GRID -->
         <section class="kpi-grid">
@@ -1383,7 +1453,7 @@
     },
     {
       "ProductClass": "HG8247H",
-      "Type": "HGW",
+      "Type": "Type 1",
       "TotalDevices": 65734,
       "VersionCount": 6,
       "Share": 1.7146082620673897,
@@ -1740,7 +1810,7 @@
     },
     {
       "ProductClass": "F668",
-      "Type": "HGW",
+      "Type": "Type 1",
       "TotalDevices": 32393,
       "VersionCount": 8,
       "Share": 0.8449402962416551,
@@ -1823,7 +1893,7 @@
     },
     {
       "ProductClass": "F612C",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 26964,
       "VersionCount": 4,
       "Share": 0.703330045005402,
@@ -1852,7 +1922,7 @@
     },
     {
       "ProductClass": "HG8122",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 21879,
       "VersionCount": 3,
       "Share": 0.5706927034072538,
@@ -1876,7 +1946,7 @@
     },
     {
       "ProductClass": "H662GR",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 20854,
       "VersionCount": 6,
       "Share": 0.5439565627704589,
@@ -1964,7 +2034,7 @@
     },
     {
       "ProductClass": "HT803G-UA",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 13686,
       "VersionCount": 4,
       "Share": 0.3569861665904143,
@@ -2012,7 +2082,7 @@
     },
     {
       "ProductClass": "GN2000-02GS-1VT",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 12755,
       "VersionCount": 4,
       "Share": 0.3327019256803109,
@@ -2133,7 +2203,7 @@
     },
     {
       "ProductClass": "AN5506-04-CG",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 11127,
       "VersionCount": 5,
       "Share": 0.2902371091371869,
@@ -2478,7 +2548,7 @@
     },
     {
       "ProductClass": "GN2000-04GS-2VT",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 1480,
       "VersionCount": 4,
       "Share": 0.038604378675567236,
@@ -2526,7 +2596,7 @@
     },
     {
       "ProductClass": "HG6249A",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 983,
       "VersionCount": 3,
       "Share": 0.025640610971677427,
@@ -2678,7 +2748,7 @@
     },
     {
       "ProductClass": "H660RW",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 34,
       "VersionCount": 2,
       "Share": 0.0008868573479522203,
@@ -2953,7 +3023,7 @@
     },
     {
       "ProductClass": "HG6246R",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 3,
       "VersionCount": 2,
       "Share": 7.825211893696062e-05,
@@ -3404,31 +3474,31 @@
       "ProductClass": "AN5506-04-CG",
       "SoftwareVersion": "RP2604",
       "TotalDevices": 67,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "AN5506-04-CG",
       "SoftwareVersion": "RP2605",
       "TotalDevices": 24,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "AN5506-04-CG",
       "SoftwareVersion": "RP2606",
       "TotalDevices": 2,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "AN5506-04-CG",
       "SoftwareVersion": "RP2607",
       "TotalDevices": 10914,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "AN5506-04-CG",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 120,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "ASL-74322RT",
@@ -3488,25 +3558,25 @@
       "ProductClass": "F612C",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 178,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "F612C",
       "SoftwareVersion": "V1.0.10P1T13",
       "TotalDevices": 8,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "F612C",
       "SoftwareVersion": "V1.0.10P1T14",
       "TotalDevices": 25552,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "F612C",
       "SoftwareVersion": "V1.0.10P1T3",
       "TotalDevices": 1226,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "F660",
@@ -3584,49 +3654,49 @@
       "ProductClass": "F668",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 374,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T1",
       "TotalDevices": 1,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T4",
       "TotalDevices": 2,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T5",
       "TotalDevices": 127,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T51",
       "TotalDevices": 30070,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T6",
       "TotalDevices": 20,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T7",
       "TotalDevices": 1793,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T8",
       "TotalDevices": 6,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "F688",
@@ -3722,49 +3792,49 @@
       "ProductClass": "GN2000-02GS-1VT",
       "SoftwareVersion": "R4.2.56.058",
       "TotalDevices": 25,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "GN2000-02GS-1VT",
       "SoftwareVersion": "R4.2.56.078",
       "TotalDevices": 9,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "GN2000-02GS-1VT",
       "SoftwareVersion": "R4.2.56.080g",
       "TotalDevices": 12632,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "GN2000-02GS-1VT",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 89,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "GN2000-04GS-2VT",
       "SoftwareVersion": "R4.2.56.058",
       "TotalDevices": 3,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "GN2000-04GS-2VT",
       "SoftwareVersion": "R4.2.56.080g",
       "TotalDevices": 1467,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "GN2000-04GS-2VT",
       "SoftwareVersion": "R4.2.56.44b",
       "TotalDevices": 1,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "GN2000-04GS-2VT",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 9,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "GN542VF",
@@ -3842,49 +3912,49 @@
       "ProductClass": "H660RW",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 1,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "H660RW",
       "SoftwareVersion": "V5.2.1050005",
       "TotalDevices": 33,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "H662GR",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 248,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "H662GR",
       "SoftwareVersion": "V5.2.2010001",
       "TotalDevices": 4,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "H662GR",
       "SoftwareVersion": "V5.2.2030003",
       "TotalDevices": 4,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "H662GR",
       "SoftwareVersion": "V5.2.2050007",
       "TotalDevices": 238,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "H662GR",
       "SoftwareVersion": "V5.2.2060020",
       "TotalDevices": 1,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "H662GR",
       "SoftwareVersion": "V5.2.2060021",
       "TotalDevices": 20359,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG180Ev2",
@@ -3926,31 +3996,31 @@
       "ProductClass": "HG6246R",
       "SoftwareVersion": "RP2801",
       "TotalDevices": 1,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG6246R",
       "SoftwareVersion": "RP2803",
       "TotalDevices": 2,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG6249A",
       "SoftwareVersion": "RP2702",
       "TotalDevices": 12,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG6249A",
       "SoftwareVersion": "RP2708",
       "TotalDevices": 964,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG6249A",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 7,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG8045A",
@@ -3968,19 +4038,19 @@
       "ProductClass": "HG8122",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 130,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG8122",
       "SoftwareVersion": "V3R018C10S018",
       "TotalDevices": 169,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG8122",
       "SoftwareVersion": "V3R019C10S108",
       "TotalDevices": 21580,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HG8141XR-10",
@@ -4010,37 +4080,37 @@
       "ProductClass": "HG8247H",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 856,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "HG8247H",
       "SoftwareVersion": "V3R015C10S116",
       "TotalDevices": 5,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "HG8247H",
       "SoftwareVersion": "V3R015C10S152",
       "TotalDevices": 39,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "HG8247H",
       "SoftwareVersion": "V3R017C10S103",
       "TotalDevices": 719,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "HG8247H",
       "SoftwareVersion": "V3R019C10S020",
       "TotalDevices": 5,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "HG8247H",
       "SoftwareVersion": "V3R019C10S107",
       "TotalDevices": 64110,
-      "Type": "HGW"
+      "Type": "Type 1"
     },
     {
       "ProductClass": "HG8247W5",
@@ -4076,25 +4146,25 @@
       "ProductClass": "HT803G-UA",
       "SoftwareVersion": "3.0.0",
       "TotalDevices": 10,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HT803G-UA",
       "SoftwareVersion": "3.0.2",
       "TotalDevices": 22,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HT803G-UA",
       "SoftwareVersion": "3.0.4",
       "TotalDevices": 13565,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HT803G-UA",
       "SoftwareVersion": "Unknown",
       "TotalDevices": 89,
-      "Type": "HGW"
+      "Type": "Type 5"
     },
     {
       "ProductClass": "HV100-02",
@@ -5202,24 +5272,95 @@
             }
         };
 
+        function getTypeBadge(t) {
+            if (t === "Type 1") return `<span style="background: rgba(245,158,11,0.18); color: #fbbf24; border: 1px solid rgba(245,158,11,0.45); padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 0.78rem;">🏷️ Type 1</span>`;
+            if (t === "Type 5") return `<span style="background: rgba(16,185,129,0.18); color: #34d399; border: 1px solid rgba(16,185,129,0.45); padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 0.78rem;">🔌 Type 5</span>`;
+            if (t === "HGW") return `<span style="background: rgba(6,182,212,0.18); color: #38bdf8; border: 1px solid rgba(6,182,212,0.4); padding: 2px 8px; border-radius: 6px; font-weight: 600; font-size: 0.78rem;">🏠 HGW</span>`;
+            if (t === "Mesh") return `<span style="background: rgba(139,92,246,0.18); color: #c084fc; border: 1px solid rgba(139,92,246,0.4); padding: 2px 8px; border-radius: 6px; font-weight: 600; font-size: 0.78rem;">📡 Mesh</span>`;
+            if (t === "AP") return `<span style="background: rgba(236,72,153,0.18); color: #f472b6; border: 1px solid rgba(236,72,153,0.4); padding: 2px 8px; border-radius: 6px; font-weight: 600; font-size: 0.78rem;">📶 AP</span>`;
+            if (t === "DSL") return `<span style="background: rgba(100,116,139,0.18); color: #94a3b8; border: 1px solid rgba(100,116,139,0.4); padding: 2px 8px; border-radius: 6px; font-weight: 600; font-size: 0.78rem;">☎️ DSL</span>`;
+            return `<span style="color: var(--text-secondary);">${t}</span>`;
+        }
+
         function populateTypeFilter() {
-            const types = new Set();
+            const typeCounts = {};
+            let totalAll = 0;
             DashboardData.RawData.forEach(row => {
-                if (row.Type) types.add(row.Type);
+                if (row.Type) {
+                    typeCounts[row.Type] = (typeCounts[row.Type] || 0) + row.TotalDevices;
+                    totalAll += row.TotalDevices;
+                }
             });
             const filter = document.getElementById("typeFilter");
-            filter.innerHTML = '<option value="ALL">All Types (All Devices)</option>';
-            Array.from(types).sort().forEach(t => {
+            filter.innerHTML = '<option value="ALL">All Types (' + fmt(totalAll) + ')</option>';
+
+            const priority = ["HGW", "Type 1", "Type 5", "Mesh", "AP", "DSL"];
+            const sortedTypes = Object.keys(typeCounts).sort((a, b) => {
+                let ia = priority.indexOf(a);
+                let ib = priority.indexOf(b);
+                if (ia === -1) ia = 99;
+                if (ib === -1) ib = 99;
+                return ia - ib || a.localeCompare(b);
+            });
+
+            sortedTypes.forEach(t => {
                 const opt = document.createElement("option");
                 opt.value = t;
-                opt.innerText = t + " Devices";
+                opt.innerText = t + " Devices (" + fmt(typeCounts[t]) + ")";
                 filter.appendChild(opt);
             });
+
+            // Render interactive pills
+            const pillsBar = document.getElementById("typePillsBar");
+            if (pillsBar) {
+                pillsBar.innerHTML = "";
+                
+                const allPill = document.createElement("button");
+                allPill.className = "type-pill" + (activeType === "ALL" ? " active" : "");
+                allPill.setAttribute("data-type", "ALL");
+                allPill.innerHTML = `<span>🌐 All Types</span><span class="pill-badge">${fmt(totalAll)}</span>`;
+                allPill.onclick = () => selectTypeFilter("ALL");
+                pillsBar.appendChild(allPill);
+
+                const iconMap = {
+                    "HGW": "🏠",
+                    "Type 1": "🏷️",
+                    "Type 5": "🔌",
+                    "Mesh": "📡",
+                    "AP": "📶",
+                    "DSL": "☎️"
+                };
+
+                sortedTypes.forEach(t => {
+                    const pill = document.createElement("button");
+                    pill.className = "type-pill" + (activeType === t ? " active" : "");
+                    pill.setAttribute("data-type", t);
+                    const icon = iconMap[t] || "📦";
+                    pill.innerHTML = `<span>${icon} ${t}</span><span class="pill-badge">${fmt(typeCounts[t])}</span>`;
+                    pill.onclick = () => selectTypeFilter(t);
+                    pillsBar.appendChild(pill);
+                });
+            }
+        }
+
+        function selectTypeFilter(typeVal) {
+            const filter = document.getElementById("typeFilter");
+            if (filter) filter.value = typeVal;
+            onTypeFilterChange(typeVal);
         }
 
         function onTypeFilterChange(typeVal) {
             activeType = typeVal;
             filterAndAggregateData(typeVal);
+
+            // Update active pill state
+            document.querySelectorAll(".type-pill").forEach(p => {
+                if (p.getAttribute("data-type") === typeVal) {
+                    p.classList.add("active");
+                } else {
+                    p.classList.remove("active");
+                }
+            });
 
             // Populate Model Selector for Dropdown (sorted alphabetically)
             const selector = document.getElementById("modelSelector");
@@ -5686,7 +5827,7 @@
 
                 row.innerHTML = `
                     <td style="font-weight: 600;">${item.ProductClass}</td>
-                    <td style="color: var(--text-secondary); font-weight: 500;">${item.Type}</td>
+                    <td>${getTypeBadge(item.Type)}</td>
                     <td style="text-align: right; font-weight: 700; font-family: monospace;">${fmt(item.TotalDevices)}</td>
                     <td style="text-align: right; font-family: monospace; color: var(--text-secondary);">${item.VersionCount}</td>
                     <td style="padding-left: 24px;">
@@ -5763,7 +5904,7 @@
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td style="font-weight: 600; color: #a5b4fc;">${item.ProductClass}</td>
-                    <td style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 500;">${item.Type}</td>
+                    <td>${getTypeBadge(item.Type)}</td>
                     <td style="font-family: monospace; color: var(--text-primary); font-size: 0.8rem;">${item.SoftwareVersion}</td>
                     <td style="text-align: right; font-weight: 700; font-family: monospace; color: #34d399;">${fmt(item.TotalDevices)}</td>
                     <td style="text-align: right; font-family: monospace; color: var(--text-secondary);">${item.Share.toFixed(1)}%</td>

@@ -92,7 +92,7 @@
     },
     {
       "ProductClass": "HG8247H",
-      "Type": "HGW",
+      "Type": "Type 1",
       "TotalDevices": 61355,
       "Share": 1.8149869914346104
     },
@@ -110,7 +110,7 @@
     },
     {
       "ProductClass": "F668",
-      "Type": "HGW",
+      "Type": "Type 1",
       "TotalDevices": 30680,
       "Share": 0.9075674500401572
     },
@@ -122,25 +122,25 @@
     },
     {
       "ProductClass": "F612C",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 24084,
       "Share": 0.7124463646273516
     },
     {
       "ProductClass": "HG8122",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 19708,
       "Share": 0.5829967179071518
     },
     {
       "ProductClass": "H662GR",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 18294,
       "Share": 0.5411681529020416
     },
     {
       "ProductClass": "GN2000-02GS-1VT",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 11819,
       "Share": 0.34962645671527437
     },
@@ -152,13 +152,13 @@
     },
     {
       "ProductClass": "HT803G-UA",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 11089,
       "Share": 0.32803179444248054
     },
     {
       "ProductClass": "AN5506-04-CG",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 9679,
       "Share": 0.2863215563539335
     },
@@ -200,7 +200,7 @@
     },
     {
       "ProductClass": "GN2000-04GS-2VT",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 1360,
       "Share": 0.04023115163150632
     },
@@ -218,7 +218,7 @@
     },
     {
       "ProductClass": "HG6249A",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 827,
       "Share": 0.024464089999452737
     },
@@ -242,7 +242,7 @@
     },
     {
       "ProductClass": "H660RW",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 31,
       "Share": 0.0009170336033652174
     },
@@ -260,7 +260,7 @@
     },
     {
       "ProductClass": "HG6246R",
-      "Type": "HGW",
+      "Type": "Type 5",
       "TotalDevices": 2,
       "Share": 5.916345828162694e-05
     },
