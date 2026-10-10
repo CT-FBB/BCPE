@@ -713,11 +713,12 @@
     <!-- TOP NAVIGATION BAR -->
     <nav class="topnav">
         <div class="topnav-logo">📦 <span>BCPE Monitor</span></div>
-        <div class="topnav-links">
+                <div class="topnav-links">
             <a href="index.html" class="active">Device (ACS)</a>
             <a href="onu_model_dashboard.html" id="nav-onumodel">ONU (QRUN)</a>
             <a href="cpe_pairing_dashboard.html" id="nav-cpepairing">CPE Pairing (ACS)</a>
             <a href="ftth_fttb_trend_dashboard.html" id="nav-mbtrend">FTTH/FTTB Trend (MB)</a>
+            <a href="cpe_optical_dashboard.html" id="nav-optical">ONU Tx Power (ACS)</a>
         </div>
         <div class="topnav-right"></div>
     </nav>
@@ -728,7 +729,7 @@
         <header class="header">
             <div class="header-title">
                 <h1>CPE Device Dashboard</h1>
-                <div class="sub">Total devices breakdown by Product Class and Software Version (All Models) | <span style="color: #fde047; font-weight: bold; font-size: 1.05em; text-shadow: 0 0 8px rgba(253, 224, 71, 0.4);">AS OF 091026</span></div>
+                <div class="sub">Total devices breakdown by Product Class and Software Version (All Models) | <span style="color: #fde047; font-weight: bold; font-size: 1.05em; text-shadow: 0 0 8px rgba(253, 224, 71, 0.4);">AS OF 101026</span></div>
             </div>
             <div class="badge-container" style="align-items: center; display: flex; gap: 12px;">
                 <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Device Type:</span>
@@ -893,1257 +894,1257 @@
     <script>
         // EMBEDDED DATA INJECTED BY PYTHON SCRIPT
         const DashboardData = {
-  "TotalDevices": 3835496,
+  "TotalDevices": 3834410,
   "TotalProductClasses": 93,
-  "TotalVersions": 237,
+  "TotalVersions": 236,
   "ProductClassSummary": [
     {
       "ProductClass": "T626ProV2",
       "Type": "HGW",
-      "TotalDevices": 1096436,
+      "TotalDevices": 1096452,
       "VersionCount": 9,
-      "Share": 28.586550474827767,
+      "Share": 28.59506416893342,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.12",
-          "Count": 695866,
-          "Share": 63.46617586434593
+          "Count": 706302,
+          "Share": 64.4170469842729
         },
         {
           "SoftwareVersion": "V1.0.07",
-          "Count": 234982,
-          "Share": 21.431437858662065
+          "Count": 228304,
+          "Share": 20.822069730366675
         },
         {
           "SoftwareVersion": "V1.0.10",
-          "Count": 139471,
-          "Share": 12.720395900900735
+          "Count": 136033,
+          "Share": 12.4066534604342
         },
         {
           "SoftwareVersion": "V1.0.05",
-          "Count": 15053,
-          "Share": 1.3729027503657305
+          "Count": 14776,
+          "Share": 1.347619412432099
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 10230,
-          "Share": 0.9330229945021871
+          "Count": 10197,
+          "Share": 0.9299996716682536
         },
         {
           "SoftwareVersion": "V1.0.04p5",
           "Count": 714,
-          "Share": 0.06512007996818783
+          "Share": 0.06511912970198422
         },
         {
           "SoftwareVersion": "V1.0.10_bate3",
           "Count": 60,
-          "Share": 0.00547227562757881
+          "Share": 0.005472195773275985
         },
         {
           "SoftwareVersion": "V1.0.04p2",
-          "Count": 44,
-          "Share": 0.004013002126891127
+          "Count": 45,
+          "Share": 0.004104146829956989
         },
         {
           "SoftwareVersion": "V1.0.14",
-          "Count": 16,
-          "Share": 0.0014592735006876826
+          "Count": 21,
+          "Share": 0.0019152685206465948
         }
       ]
     },
     {
       "ProductClass": "T623L",
       "Type": "HGW",
-      "TotalDevices": 392156,
+      "TotalDevices": 391739,
       "VersionCount": 4,
-      "Share": 10.224388188646266,
+      "Share": 10.21640878257672,
       "Versions": [
         {
           "SoftwareVersion": "V5R021C10S180",
-          "Count": 388532,
-          "Share": 99.07587796693153
+          "Count": 388130,
+          "Share": 99.07872333364817
         },
         {
           "SoftwareVersion": "V5R021C10S167",
-          "Count": 1899,
-          "Share": 0.4842460653413438
+          "Count": 1897,
+          "Share": 0.48425099364627977
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 1158,
-          "Share": 0.2952906496394292
+          "Count": 1147,
+          "Share": 0.292796989832516
         },
         {
           "SoftwareVersion": "V5R020C00S310",
-          "Count": 567,
-          "Share": 0.14458531808769978
+          "Count": 565,
+          "Share": 0.14422868287303536
         }
       ]
     },
     {
       "ProductClass": "GN542VF",
       "Type": "HGW",
-      "TotalDevices": 364932,
+      "TotalDevices": 364767,
       "VersionCount": 12,
-      "Share": 9.514597329784728,
+      "Share": 9.512988960491967,
       "Versions": [
         {
           "SoftwareVersion": "V2.1.0.20",
-          "Count": 362459,
-          "Share": 99.32233950434602
+          "Count": 362308,
+          "Share": 99.32587103548293
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 1509,
-          "Share": 0.41350169346618004
+          "Count": 1501,
+          "Share": 0.41149555743803573
         },
         {
           "SoftwareVersion": "V2.1.0.17",
-          "Count": 379,
-          "Share": 0.10385496476055812
+          "Count": 375,
+          "Share": 0.10280535245787037
         },
         {
           "SoftwareVersion": "V2.1.0.18",
           "Count": 278,
-          "Share": 0.07617857573465742
+          "Share": 0.07621303462210123
         },
         {
           "SoftwareVersion": "V2.0.0.7",
           "Count": 214,
-          "Share": 0.0586410618964629
+          "Share": 0.05866758780262469
         },
         {
           "SoftwareVersion": "V2.0.0.16",
           "Count": 38,
-          "Share": 0.010412898841427992
+          "Share": 0.010417609049064197
         },
         {
           "SoftwareVersion": "V2.1.0.19r2",
-          "Count": 36,
-          "Share": 0.009864851533984413
+          "Count": 34,
+          "Share": 0.009321018622846913
         },
         {
           "SoftwareVersion": "V2.1.0.16",
           "Count": 8,
-          "Share": 0.0021921892297743144
+          "Share": 0.0021931808524345677
         },
         {
           "SoftwareVersion": "V2.0.0.14r",
           "Count": 4,
-          "Share": 0.0010960946148871572
+          "Share": 0.0010965904262172838
         },
         {
           "SoftwareVersion": "V2.1.0.14",
           "Count": 4,
-          "Share": 0.0010960946148871572
+          "Share": 0.0010965904262172838
         },
         {
           "SoftwareVersion": "V2.0.0.14R3",
           "Count": 2,
-          "Share": 0.0005480473074435786
+          "Share": 0.0005482952131086419
         },
         {
           "SoftwareVersion": "V2.0.0.14",
           "Count": 1,
-          "Share": 0.0002740236537217893
+          "Share": 0.00027414760655432096
         }
       ]
     },
     {
       "ProductClass": "T626Pro",
       "Type": "HGW",
-      "TotalDevices": 334256,
+      "TotalDevices": 333944,
       "VersionCount": 4,
-      "Share": 8.714805073450735,
+      "Share": 8.709136477319849,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.0.7",
-          "Count": 330283,
-          "Share": 98.81139007227992
+          "Count": 330011,
+          "Share": 98.82225762403277
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 3774,
-          "Share": 1.1290747211717964
+          "Count": 3730,
+          "Share": 1.1169537407469516
         },
         {
           "SoftwareVersion": "V1.0.0.5",
-          "Count": 198,
-          "Share": 0.05923603465607199
+          "Count": 202,
+          "Share": 0.060489183815250466
         },
         {
           "SoftwareVersion": "V1.0.0.5T",
           "Count": 1,
-          "Share": 0.0002991718922023838
+          "Share": 0.00029945140502599235
         }
       ]
     },
     {
       "ProductClass": "ST-244F",
       "Type": "HGW",
-      "TotalDevices": 179044,
+      "TotalDevices": 178972,
       "VersionCount": 21,
-      "Share": 4.668079434837111,
+      "Share": 4.66752381722351,
       "Versions": [
         {
           "SoftwareVersion": "V3.3.9T5",
-          "Count": 89300,
-          "Share": 49.876008132079264
+          "Count": 89259,
+          "Share": 49.87316451735467
         },
         {
           "SoftwareVersion": "V3.3.9T10",
-          "Count": 54062,
-          "Share": 30.194812448336723
+          "Count": 54043,
+          "Share": 30.19634356212145
         },
         {
           "SoftwareVersion": "V3.3.8T10",
-          "Count": 18058,
-          "Share": 10.085788968074887
+          "Count": 18049,
+          "Share": 10.084817736852692
         },
         {
           "SoftwareVersion": "V3.3.9T9L",
-          "Count": 10210,
-          "Share": 5.702508880498648
+          "Count": 10206,
+          "Share": 5.702567999463603
         },
         {
           "SoftwareVersion": "V3.3.9T8",
           "Count": 4798,
-          "Share": 2.6797882084850655
+          "Share": 2.6808662807590014
         },
         {
           "SoftwareVersion": "V3.3.9T11",
-          "Count": 1481,
-          "Share": 0.827170974732468
+          "Count": 1480,
+          "Share": 0.8269449969827684
         },
         {
           "SoftwareVersion": "V3.3.8T5",
-          "Count": 818,
-          "Share": 0.45687093675297696
+          "Count": 819,
+          "Share": 0.45761348143843733
         },
         {
           "SoftwareVersion": "V3.3.9T2",
           "Count": 155,
-          "Share": 0.08657089877348585
+          "Share": 0.08660572603535749
         },
         {
           "SoftwareVersion": "V3.3.9T9",
           "Count": 78,
-          "Share": 0.04356471035052836
+          "Share": 0.04358223632747022
         },
         {
           "SoftwareVersion": "V3.3.7",
           "Count": 22,
-          "Share": 0.012287482406559282
+          "Share": 0.012292425630824935
         },
         {
           "SoftwareVersion": "V3.3.6T5",
           "Count": 20,
-          "Share": 0.011170438551417528
+          "Share": 0.01117493239165903
         },
         {
           "SoftwareVersion": "V3.3.9T10L",
           "Count": 19,
-          "Share": 0.010611916623846652
+          "Share": 0.010616185772076079
         },
         {
           "SoftwareVersion": "V3.3.8T8",
           "Count": 8,
-          "Share": 0.004468175420567011
+          "Share": 0.004469972956663612
         },
         {
           "SoftwareVersion": "V3.3.9T7",
           "Count": 3,
-          "Share": 0.0016755657827126293
+          "Share": 0.0016762398587488545
+        },
+        {
+          "SoftwareVersion": "V3.3.8T9",
+          "Count": 3,
+          "Share": 0.0016762398587488545
         },
         {
           "SoftwareVersion": "V3.3.5T7",
           "Count": 3,
-          "Share": 0.0016755657827126293
-        },
-        {
-          "SoftwareVersion": "V3.3.9T5.6971",
-          "Count": 2,
-          "Share": 0.0011170438551417528
+          "Share": 0.0016762398587488545
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 2,
-          "Share": 0.0011170438551417528
+          "Share": 0.001117493239165903
         },
         {
-          "SoftwareVersion": "V3.3.8T9",
+          "SoftwareVersion": "V3.3.9T5.6971",
           "Count": 2,
-          "Share": 0.0011170438551417528
+          "Share": 0.001117493239165903
         },
         {
           "SoftwareVersion": "V3.3.9T11L",
           "Count": 1,
-          "Share": 0.0005585219275708764
+          "Share": 0.0005587466195829515
         },
         {
           "SoftwareVersion": "V3.3.4",
           "Count": 1,
-          "Share": 0.0005585219275708764
+          "Share": 0.0005587466195829515
         },
         {
           "SoftwareVersion": "V3.3.6T5R2",
           "Count": 1,
-          "Share": 0.0005585219275708764
+          "Share": 0.0005587466195829515
         }
       ]
     },
     {
       "ProductClass": "T625LM",
       "Type": "HGW",
-      "TotalDevices": 150116,
+      "TotalDevices": 149983,
       "VersionCount": 7,
-      "Share": 3.9138614666786253,
+      "Share": 3.9115013783085275,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.13",
-          "Count": 113824,
-          "Share": 75.82402941725066
+          "Count": 114426,
+          "Share": 76.29264649993665
         },
         {
           "SoftwareVersion": "V1.0.09",
-          "Count": 36235,
-          "Share": 24.13799994670788
+          "Count": 35498,
+          "Share": 23.66801570844696
         },
         {
           "SoftwareVersion": "V1.0.08",
-          "Count": 51,
-          "Share": 0.033973726984465345
+          "Count": 52,
+          "Share": 0.0346705960008801
         },
         {
           "SoftwareVersion": "V1.0.14b2",
           "Count": 3,
-          "Share": 0.0019984545284979613
+          "Share": 0.0020002266923584673
+        },
+        {
+          "SoftwareVersion": "V1.0.06",
+          "Count": 2,
+          "Share": 0.0013334844615723114
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 1,
-          "Share": 0.0006661515094993205
+          "Share": 0.0006667422307861557
         },
         {
           "SoftwareVersion": "V1.0.05",
           "Count": 1,
-          "Share": 0.0006661515094993205
-        },
-        {
-          "SoftwareVersion": "V1.0.06",
-          "Count": 1,
-          "Share": 0.0006661515094993205
+          "Share": 0.0006667422307861557
         }
       ]
     },
     {
       "ProductClass": "T625Pro",
       "Type": "HGW",
-      "TotalDevices": 141229,
+      "TotalDevices": 141417,
       "VersionCount": 5,
-      "Share": 3.682157405456817,
+      "Share": 3.6881032544772205,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.12",
-          "Count": 138940,
-          "Share": 98.37922806222518
+          "Count": 139079,
+          "Share": 98.34673341960301
         },
         {
           "SoftwareVersion": "V1.0.07",
-          "Count": 2277,
-          "Share": 1.6122750993067998
+          "Count": 2326,
+          "Share": 1.6447810376404532
         },
         {
           "SoftwareVersion": "V1.0.11.1",
           "Count": 8,
-          "Share": 0.005664558978680016
-        },
-        {
-          "SoftwareVersion": "V1.0.15b1",
-          "Count": 3,
-          "Share": 0.002124209617005006
+          "Share": 0.0056570285043523755
         },
         {
           "SoftwareVersion": "V1.0.09",
-          "Count": 1,
-          "Share": 0.000708069872335002
+          "Count": 2,
+          "Share": 0.0014142571260880939
+        },
+        {
+          "SoftwareVersion": "V1.0.15b1",
+          "Count": 2,
+          "Share": 0.0014142571260880939
         }
       ]
     },
     {
       "ProductClass": "F688",
       "Type": "HGW",
-      "TotalDevices": 140343,
+      "TotalDevices": 140261,
       "VersionCount": 9,
-      "Share": 3.659057394402184,
+      "Share": 3.6579552004089284,
       "Versions": [
         {
           "SoftwareVersion": "V9.0.10P1T12R",
-          "Count": 93028,
-          "Share": 66.28617031130872
+          "Count": 92973,
+          "Share": 66.2857102116768
         },
         {
           "SoftwareVersion": "V9.0.10P1N13",
-          "Count": 46780,
-          "Share": 33.33262079334203
+          "Count": 46753,
+          "Share": 33.332858028960295
         },
         {
           "SoftwareVersion": "V9.0.10P1T12S",
           "Count": 263,
-          "Share": 0.18739801771374417
+          "Share": 0.1875075751634453
         },
         {
           "SoftwareVersion": "V9.0.10P1T12",
           "Count": 172,
-          "Share": 0.12255687850480608
+          "Share": 0.12262852824377411
         },
         {
           "SoftwareVersion": "V9.0.10P1T11",
           "Count": 36,
-          "Share": 0.025651439687052434
+          "Share": 0.025666436144045745
         },
         {
           "SoftwareVersion": "V9.0.10P1T11S",
           "Count": 31,
-          "Share": 0.022088739730517375
+          "Share": 0.022101653346261612
         },
         {
           "SoftwareVersion": "V9.0.10P1T10",
           "Count": 15,
-          "Share": 0.010688099869605183
+          "Share": 0.010694348393352393
         },
         {
           "SoftwareVersion": "V9.0.10P1T11r1",
           "Count": 15,
-          "Share": 0.010688099869605183
+          "Share": 0.010694348393352393
         },
         {
           "SoftwareVersion": "V9.0.10P1T9",
           "Count": 3,
-          "Share": 0.002137619973921036
+          "Share": 0.0021388696786704786
         }
       ]
     },
     {
       "ProductClass": "HG8247W5-6T",
       "Type": "HGW",
-      "TotalDevices": 121663,
+      "TotalDevices": 121589,
       "VersionCount": 4,
-      "Share": 3.1720278159591353,
+      "Share": 3.170996320163989,
       "Versions": [
         {
           "SoftwareVersion": "V5R020C00S060",
-          "Count": 121539,
-          "Share": 99.89807912019266
+          "Count": 121465,
+          "Share": 99.89801709036179
         },
         {
           "SoftwareVersion": "V5R019C30S040",
           "Count": 93,
-          "Share": 0.0764406598555025
+          "Share": 0.07648718222865555
         },
         {
           "SoftwareVersion": "V5R019C30S022",
           "Count": 30,
-          "Share": 0.024658277372742742
+          "Share": 0.024673284589888884
         },
         {
           "SoftwareVersion": "V5R020C00S320",
           "Count": 1,
-          "Share": 0.0008219425790914246
+          "Share": 0.0008224428196629629
         }
       ]
     },
     {
       "ProductClass": "T623",
       "Type": "HGW",
-      "TotalDevices": 85111,
+      "TotalDevices": 85071,
       "VersionCount": 2,
-      "Share": 2.219035034842951,
+      "Share": 2.2186203353319023,
       "Versions": [
         {
           "SoftwareVersion": "V5R021C10S185",
-          "Count": 85080,
-          "Share": 99.96357697594905
+          "Count": 85040,
+          "Share": 99.96355985000764
         },
         {
           "SoftwareVersion": "V5R020C00S341",
           "Count": 31,
-          "Share": 0.03642302405094524
+          "Share": 0.036440149992359325
         }
       ]
     },
     {
       "ProductClass": "F6600P",
       "Type": "HGW",
-      "TotalDevices": 70373,
+      "TotalDevices": 70334,
       "VersionCount": 6,
-      "Share": 1.8347822550199504,
+      "Share": 1.834284805224272,
       "Versions": [
         {
           "SoftwareVersion": "V9.0.10P1N8B",
-          "Count": 70033,
-          "Share": 99.51686015943615
+          "Count": 69996,
+          "Share": 99.51943583473142
         },
         {
           "SoftwareVersion": "V9.0.10P1N6",
-          "Count": 302,
-          "Share": 0.42914185838318675
+          "Count": 300,
+          "Share": 0.42653624136264107
         },
         {
           "SoftwareVersion": "V9.0.10P1N7",
           "Count": 21,
-          "Share": 0.02984099015247325
+          "Share": 0.029857536895384878
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 11,
-          "Share": 0.0156309948417717
+          "Share": 0.01563966218329684
         },
         {
           "SoftwareVersion": "V9.0.10P1N7B",
           "Count": 5,
-          "Share": 0.007104997655350774
+          "Share": 0.007108937356044019
         },
         {
           "SoftwareVersion": "V9.0.10P1N5",
           "Count": 1,
-          "Share": 0.0014209995310701547
+          "Share": 0.0014217874712088038
         }
       ]
     },
     {
       "ProductClass": "T628L",
       "Type": "HGW",
-      "TotalDevices": 67176,
+      "TotalDevices": 67122,
       "VersionCount": 6,
-      "Share": 1.7514292805936964,
+      "Share": 1.7505170286954186,
       "Versions": [
         {
           "SoftwareVersion": "V1.1.16L",
-          "Count": 51119,
-          "Share": 76.09711801833988
+          "Count": 51400,
+          "Share": 76.5769792318465
         },
         {
           "SoftwareVersion": "V1.1.11L",
-          "Count": 16038,
-          "Share": 23.87459807073955
+          "Count": 15703,
+          "Share": 23.394714102678705
         },
         {
           "SoftwareVersion": "V1.1.10L",
           "Count": 8,
-          "Share": 0.011909015124449208
+          "Share": 0.01191859598939245
         },
         {
           "SoftwareVersion": "V1.1.06L",
           "Count": 6,
-          "Share": 0.008931761343336906
+          "Share": 0.008938946992044337
         },
         {
           "SoftwareVersion": "V1.1.05L",
           "Count": 4,
-          "Share": 0.005954507562224604
+          "Share": 0.005959297994696225
         },
         {
           "SoftwareVersion": "V1.1.09L",
           "Count": 1,
-          "Share": 0.001488626890556151
+          "Share": 0.0014898244986740563
         }
       ]
     },
     {
       "ProductClass": "HG8247H",
       "Type": "Type 1",
-      "TotalDevices": 65705,
+      "TotalDevices": 65650,
       "VersionCount": 6,
-      "Share": 1.713077004903668,
+      "Share": 1.7121278110582852,
       "Versions": [
         {
           "SoftwareVersion": "V3R019C10S107",
-          "Count": 64082,
-          "Share": 97.52986835096263
+          "Count": 64031,
+          "Share": 97.53389185072353
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 855,
-          "Share": 1.3012708317479644
+          "Count": 851,
+          "Share": 1.2962680883472961
         },
         {
           "SoftwareVersion": "V3R017C10S103",
           "Count": 719,
-          "Share": 1.0942850620196332
+          "Share": 1.0952018278750952
         },
         {
           "SoftwareVersion": "V3R015C10S152",
           "Count": 39,
-          "Share": 0.05935621337797732
+          "Share": 0.0594059405940594
         },
         {
           "SoftwareVersion": "V3R015C10S116",
           "Count": 5,
-          "Share": 0.007609770945894529
+          "Share": 0.007616146230007615
         },
         {
           "SoftwareVersion": "V3R019C10S020",
           "Count": 5,
-          "Share": 0.007609770945894529
+          "Share": 0.007616146230007615
         }
       ]
     },
     {
       "ProductClass": "T628",
       "Type": "HGW",
-      "TotalDevices": 61233,
+      "TotalDevices": 61212,
       "VersionCount": 14,
-      "Share": 1.5964819152464245,
+      "Share": 1.5963864062528526,
       "Versions": [
         {
           "SoftwareVersion": "V1.1.27",
-          "Count": 45129,
-          "Share": 73.7004556366665
+          "Count": 45440,
+          "Share": 74.23381036398092
         },
         {
           "SoftwareVersion": "V1.1.19",
-          "Count": 15403,
-          "Share": 25.15473682491467
+          "Count": 15083,
+          "Share": 24.6405933477096
         },
         {
           "SoftwareVersion": "V1.1.26",
-          "Count": 607,
-          "Share": 0.9912955432528212
+          "Count": 599,
+          "Share": 0.9785662941906815
         },
         {
           "SoftwareVersion": "V1.1.22D",
-          "Count": 41,
-          "Share": 0.06695735959368315
+          "Count": 40,
+          "Share": 0.06534666405280011
         },
         {
           "SoftwareVersion": "V1.1.12",
-          "Count": 27,
-          "Share": 0.04409387095193768
+          "Count": 25,
+          "Share": 0.04084166503300007
         },
         {
           "SoftwareVersion": "V1.1.18",
           "Count": 7,
-          "Share": 0.011431744320872732
+          "Share": 0.011435666209240018
         },
         {
           "SoftwareVersion": "V1.1.08T",
           "Count": 4,
-          "Share": 0.0065324253262129895
-        },
-        {
-          "SoftwareVersion": "Unknown",
-          "Count": 3,
-          "Share": 0.004899318994659742
+          "Share": 0.00653466640528001
         },
         {
           "SoftwareVersion": "V1.1.22",
           "Count": 3,
-          "Share": 0.004899318994659742
+          "Share": 0.004900999803960008
         },
         {
           "SoftwareVersion": "V1.1.22D2",
           "Count": 3,
-          "Share": 0.004899318994659742
+          "Share": 0.004900999803960008
+        },
+        {
+          "SoftwareVersion": "Unknown",
+          "Count": 2,
+          "Share": 0.003267333202640005
         },
         {
           "SoftwareVersion": "V1.1.11",
           "Count": 2,
-          "Share": 0.0032662126631064947
+          "Share": 0.003267333202640005
         },
         {
           "SoftwareVersion": "V1.1.13",
           "Count": 2,
-          "Share": 0.0032662126631064947
+          "Share": 0.003267333202640005
         },
         {
           "SoftwareVersion": "V1.1.07",
           "Count": 1,
-          "Share": 0.0016331063315532474
+          "Share": 0.0016336666013200025
         },
         {
           "SoftwareVersion": "V1.1.17",
           "Count": 1,
-          "Share": 0.0016331063315532474
+          "Share": 0.0016336666013200025
         }
       ]
     },
     {
       "ProductClass": "A625M",
       "Type": "Mesh",
-      "TotalDevices": 58352,
+      "TotalDevices": 58434,
       "VersionCount": 5,
-      "Share": 1.5213677709480078,
+      "Share": 1.5239371898153824,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.09",
-          "Count": 57550,
-          "Share": 98.62558267068823
+          "Count": 57624,
+          "Share": 98.61382072081322
         },
         {
           "SoftwareVersion": "V1.0.05",
-          "Count": 457,
-          "Share": 0.7831779544831368
+          "Count": 461,
+          "Share": 0.7889242564260533
         },
         {
           "SoftwareVersion": "V1.0.08",
-          "Count": 303,
-          "Share": 0.5192624074581849
+          "Count": 306,
+          "Share": 0.5236677276927816
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 32,
-          "Share": 0.054839594187003016
+          "Share": 0.05476263819009481
         },
         {
           "SoftwareVersion": "V1.0.03",
-          "Count": 10,
-          "Share": 0.017137373183438442
+          "Count": 11,
+          "Share": 0.01882465687784509
         }
       ]
     },
     {
       "ProductClass": "WR6221-T",
       "Type": "AP",
-      "TotalDevices": 49945,
+      "TotalDevices": 49951,
       "VersionCount": 6,
-      "Share": 1.3021783884013958,
+      "Share": 1.302703675402474,
       "Versions": [
         {
           "SoftwareVersion": "1.3.4719",
-          "Count": 46529,
-          "Share": 93.16047652417659
+          "Count": 46535,
+          "Share": 93.16129807211067
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 2293,
-          "Share": 4.591050155170688
+          "Count": 2292,
+          "Share": 4.588496726792257
         },
         {
           "SoftwareVersion": "1.3.3803",
-          "Count": 847,
-          "Share": 1.6958654519971967
+          "Count": 848,
+          "Share": 1.6976637104362275
         },
         {
           "SoftwareVersion": "1.3.3607",
           "Count": 160,
-          "Share": 0.320352387626389
+          "Share": 0.32031390762947687
         },
         {
           "SoftwareVersion": "1.3.4307",
           "Count": 114,
-          "Share": 0.22825107618380217
+          "Share": 0.2282236591860023
         },
         {
           "SoftwareVersion": "1.3.4098",
           "Count": 2,
-          "Share": 0.004004404845329863
+          "Share": 0.004003923845368461
         }
       ]
     },
     {
       "ProductClass": "A623",
       "Type": "Mesh",
-      "TotalDevices": 42710,
+      "TotalDevices": 42737,
       "VersionCount": 4,
-      "Share": 1.1135456796200542,
+      "Share": 1.1145652134226647,
       "Versions": [
         {
           "SoftwareVersion": "V5R021C10S176",
-          "Count": 41827,
-          "Share": 97.9325684851323
+          "Count": 41851,
+          "Share": 97.92685495004328
         },
         {
           "SoftwareVersion": "V5R020C10S150",
-          "Count": 853,
-          "Share": 1.9971903535471787
+          "Count": 856,
+          "Share": 2.002948264969464
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 27,
-          "Share": 0.06321704518848045
+          "Share": 0.06317710648852282
         },
         {
           "SoftwareVersion": "V5R020C10S963T",
           "Count": 3,
-          "Share": 0.0070241161320533825
+          "Share": 0.007019678498724758
         }
       ]
     },
     {
       "ProductClass": "RE1200R4GC-V3",
       "Type": "AP",
-      "TotalDevices": 38162,
+      "TotalDevices": 38174,
       "VersionCount": 6,
-      "Share": 0.994969099172571,
+      "Share": 0.9955638546738612,
       "Versions": [
         {
           "SoftwareVersion": "RE4GC_A_v3411b_2T2R_TRU_38A_180731",
-          "Count": 25912,
-          "Share": 67.90000524081547
+          "Count": 25917,
+          "Share": 67.89175878870435
         },
         {
           "SoftwareVersion": "RE4GC_A_v3411b_2T2R_TRU_38R7_190617",
-          "Count": 6133,
-          "Share": 16.070960641475814
+          "Count": 6138,
+          "Share": 16.079006653743384
         },
         {
           "SoftwareVersion": "RE4GC_A_v3411b_2T2R_TRU_38_180420",
-          "Count": 2954,
-          "Share": 7.740684450500498
+          "Count": 2956,
+          "Share": 7.743490333735002
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 1996,
-          "Share": 5.230333839945495
+          "Count": 1995,
+          "Share": 5.226070100068109
         },
         {
           "SoftwareVersion": "RE4GC_A_v3411b_2T2R_TRU_38K_181122",
-          "Count": 1166,
-          "Share": 3.0553954195272786
+          "Count": 1167,
+          "Share": 3.0570545397390894
         },
         {
           "SoftwareVersion": "TXMAPv3i_v01.",
           "Count": 1,
-          "Share": 0.002620407735443635
+          "Share": 0.002619584010059203
         }
       ]
     },
     {
       "ProductClass": "T3ATv2",
       "Type": "AP",
-      "TotalDevices": 37021,
+      "TotalDevices": 37026,
       "VersionCount": 12,
-      "Share": 0.9652206650717403,
+      "Share": 0.9656244376579448,
       "Versions": [
         {
           "SoftwareVersion": "1.0.44",
-          "Count": 14740,
-          "Share": 39.81523999891953
+          "Count": 14742,
+          "Share": 39.815264948954784
         },
         {
           "SoftwareVersion": "1.0.46",
           "Count": 13755,
-          "Share": 37.15458793657654
+          "Share": 37.14957057203046
         },
         {
           "SoftwareVersion": "1.0.37",
           "Count": 2139,
-          "Share": 5.77780178817428
+          "Share": 5.777021552422622
         },
         {
           "SoftwareVersion": "1.0.41",
           "Count": 1947,
-          "Share": 5.259177223737878
+          "Share": 5.258467023172905
         },
         {
           "SoftwareVersion": "1.0.33",
-          "Count": 1764,
-          "Share": 4.764863185759434
+          "Count": 1766,
+          "Share": 4.769621347161454
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 1544,
-          "Share": 4.170605872342724
+          "Share": 4.17004267271647
         },
         {
           "SoftwareVersion": "1.0.20",
-          "Count": 974,
-          "Share": 2.630939196672159
+          "Count": 975,
+          "Share": 2.633284718846216
         },
         {
           "SoftwareVersion": "1.0.35",
           "Count": 58,
-          "Share": 0.15666783717349614
+          "Share": 0.15664668071085183
         },
         {
           "SoftwareVersion": "1.0.35_pretest2",
           "Count": 42,
-          "Share": 0.11344912347046271
+          "Share": 0.11343380327337546
         },
         {
           "SoftwareVersion": "1.0.40",
           "Count": 26,
-          "Share": 0.0702304097674293
+          "Share": 0.07022092583589909
         },
         {
           "SoftwareVersion": "2",
           "Count": 19,
-          "Share": 0.05132222252235218
+          "Share": 0.05131529195700319
         },
         {
           "SoftwareVersion": "1.99.41",
           "Count": 13,
-          "Share": 0.03511520488371465
+          "Share": 0.035110462917949545
         }
       ]
     },
     {
       "ProductClass": "T627Pro",
       "Type": "HGW",
-      "TotalDevices": 33134,
+      "TotalDevices": 33202,
       "VersionCount": 4,
-      "Share": 0.8638778400498919,
+      "Share": 0.8658959266223487,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.0.5",
-          "Count": 16947,
-          "Share": 51.146858212108405
+          "Count": 16928,
+          "Share": 50.984880428889824
         },
         {
           "SoftwareVersion": "V1.0.0.7",
-          "Count": 13842,
-          "Share": 41.77581940001207
+          "Count": 13871,
+          "Share": 41.77760375880971
         },
         {
           "SoftwareVersion": "V1.0.0.2",
-          "Count": 2341,
-          "Share": 7.065250196173115
+          "Count": 2399,
+          "Share": 7.2254683452804045
         },
         {
           "SoftwareVersion": "V1.0.0.8",
           "Count": 4,
-          "Share": 0.012072191706404297
+          "Share": 0.012047467020059032
         }
       ]
     },
     {
       "ProductClass": "F668",
       "Type": "Type 1",
-      "TotalDevices": 32379,
+      "TotalDevices": 32369,
       "VersionCount": 8,
-      "Share": 0.844193293383698,
+      "Share": 0.8441715935437265,
       "Versions": [
         {
           "SoftwareVersion": "V5.2.10P3T51",
-          "Count": 30055,
-          "Share": 92.82250841594862
+          "Count": 30047,
+          "Share": 92.82646977045938
         },
         {
           "SoftwareVersion": "V5.2.10P3T7",
-          "Count": 1794,
-          "Share": 5.54062818493468
+          "Count": 1795,
+          "Share": 5.545429268744787
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 374,
-          "Share": 1.155069643905
+          "Count": 371,
+          "Share": 1.146158361395162
         },
         {
           "SoftwareVersion": "V5.2.10P3T5",
           "Count": 127,
-          "Share": 0.3922295314864573
+          "Share": 0.39235070592233307
         },
         {
           "SoftwareVersion": "V5.2.10P3T6",
           "Count": 20,
-          "Share": 0.06176843015534761
+          "Share": 0.0617875127436745
         },
         {
           "SoftwareVersion": "V5.2.10P3T8",
           "Count": 6,
-          "Share": 0.01853052904660428
+          "Share": 0.01853625382310235
         },
         {
           "SoftwareVersion": "V5.2.10P3T4",
           "Count": 2,
-          "Share": 0.0061768430155347605
+          "Share": 0.00617875127436745
         },
         {
           "SoftwareVersion": "V5.2.10P3T1",
           "Count": 1,
-          "Share": 0.0030884215077673803
+          "Share": 0.003089375637183725
         }
       ]
     },
     {
       "ProductClass": "ST-244FV2",
       "Type": "HGW",
-      "TotalDevices": 30529,
+      "TotalDevices": 30515,
       "VersionCount": 5,
-      "Share": 0.7959596359897129,
+      "Share": 0.7958199566556523,
       "Versions": [
         {
           "SoftwareVersion": "V3.3.8T9",
-          "Count": 28181,
-          "Share": 92.30895214386321
+          "Count": 28168,
+          "Share": 92.30870063902998
         },
         {
           "SoftwareVersion": "V3.3.9T10L",
-          "Count": 1600,
-          "Share": 5.240918470962036
+          "Count": 1599,
+          "Share": 5.240045879075864
         },
         {
           "SoftwareVersion": "V3.3.9T11L",
           "Count": 743,
-          "Share": 2.4337515149529954
+          "Share": 2.43486809765689
         },
         {
           "SoftwareVersion": "V3.3.9T9L",
           "Count": 4,
-          "Share": 0.01310229617740509
+          "Share": 0.01310830738980829
         },
         {
           "SoftwareVersion": "V3.3.9T5.6971",
           "Count": 1,
-          "Share": 0.0032755740443512725
+          "Share": 0.0032770768474520724
         }
       ]
     },
     {
       "ProductClass": "F612C",
       "Type": "Type 5",
-      "TotalDevices": 26954,
+      "TotalDevices": 26931,
       "VersionCount": 4,
-      "Share": 0.7027513521067419,
+      "Share": 0.702350557191328,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.10P1T14",
-          "Count": 25542,
-          "Share": 94.7614454255398
+          "Count": 25518,
+          "Share": 94.75325832683524
         },
         {
           "SoftwareVersion": "V1.0.10P1T3",
-          "Count": 1226,
-          "Share": 4.548490020034132
+          "Count": 1227,
+          "Share": 4.556087779881921
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 178,
-          "Share": 0.6603843585367664
+          "Share": 0.6609483494857228
         },
         {
           "SoftwareVersion": "V1.0.10P1T13",
           "Count": 8,
-          "Share": 0.029680195889292868
+          "Share": 0.02970554379711114
         }
       ]
     },
     {
       "ProductClass": "HG8122",
       "Type": "Type 5",
-      "TotalDevices": 21869,
+      "TotalDevices": 21853,
       "VersionCount": 3,
-      "Share": 0.570173974891383,
+      "Share": 0.5699181881958372,
       "Versions": [
         {
           "SoftwareVersion": "V3R019C10S108",
-          "Count": 21570,
-          "Share": 98.6327678448946
+          "Count": 21554,
+          "Share": 98.63176680547294
         },
         {
           "SoftwareVersion": "V3R018C10S018",
           "Count": 169,
-          "Share": 0.7727833920160959
+          "Share": 0.7733491969066032
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 130,
-          "Share": 0.5944487630893045
+          "Share": 0.594883997620464
         }
       ]
     },
     {
       "ProductClass": "H662GR",
       "Type": "Type 5",
-      "TotalDevices": 20844,
+      "TotalDevices": 20821,
       "VersionCount": 6,
-      "Share": 0.5434499214703913,
+      "Share": 0.5430040084393688,
       "Versions": [
         {
           "SoftwareVersion": "V5.2.2060021",
-          "Count": 20349,
-          "Share": 97.62521588946458
+          "Count": 20328,
+          "Share": 97.63219826137073
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 248,
-          "Share": 1.1897908270965267
+          "Count": 246,
+          "Share": 1.1814994476730223
         },
         {
           "SoftwareVersion": "V5.2.2050007",
           "Count": 238,
-          "Share": 1.1418153905200539
+          "Share": 1.1430767014072332
         },
         {
           "SoftwareVersion": "V5.2.2010001",
           "Count": 4,
-          "Share": 0.019190174630589137
+          "Share": 0.01921137313289467
         },
         {
           "SoftwareVersion": "V5.2.2030003",
           "Count": 4,
-          "Share": 0.019190174630589137
+          "Share": 0.01921137313289467
         },
         {
           "SoftwareVersion": "V5.2.2060020",
           "Count": 1,
-          "Share": 0.004797543657647284
+          "Share": 0.004802843283223668
         }
       ]
     },
     {
       "ProductClass": "IGD",
       "Type": "AP",
-      "TotalDevices": 15522,
+      "TotalDevices": 15532,
       "VersionCount": 8,
-      "Share": 0.40469342165915434,
+      "Share": 0.4050688371874682,
       "Versions": [
         {
           "SoftwareVersion": "TXVDA6i_v07",
-          "Count": 11426,
-          "Share": 73.61164798350728
+          "Count": 11429,
+          "Share": 73.58356940509914
         },
         {
           "SoftwareVersion": "V1.1.1.TRU",
-          "Count": 3410,
-          "Share": 21.96881845123051
+          "Count": 3415,
+          "Share": 21.986865825392737
         },
         {
           "SoftwareVersion": "6.0.2",
           "Count": 429,
-          "Share": 2.763819095477387
+          "Share": 2.762039660056657
         },
         {
           "SoftwareVersion": "V1.0.6.TRU",
-          "Count": 230,
-          "Share": 1.481767813426105
+          "Count": 232,
+          "Share": 1.4936904455318054
         },
         {
           "SoftwareVersion": "V1.0.5.TRU",
           "Count": 23,
-          "Share": 0.14817678134261048
+          "Share": 0.14808138037599794
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 2,
-          "Share": 0.012884937508053087
+          "Share": 0.01287664177182591
         },
         {
           "SoftwareVersion": "6.0.1",
           "Count": 1,
-          "Share": 0.006442468754026543
+          "Share": 0.006438320885912955
         },
         {
           "SoftwareVersion": "6.0.3",
           "Count": 1,
-          "Share": 0.006442468754026543
+          "Share": 0.006438320885912955
         }
       ]
     },
     {
       "ProductClass": "ZXHN H3601P V9",
       "Type": "Mesh",
-      "TotalDevices": 13676,
+      "TotalDevices": 13680,
       "VersionCount": 2,
-      "Share": 0.3565640532541293,
+      "Share": 0.35676935956248806,
       "Versions": [
         {
           "SoftwareVersion": "V9.0.0P1N7_TRUE",
-          "Count": 13130,
-          "Share": 96.00760456273764
+          "Count": 13133,
+          "Share": 96.00146198830409
         },
         {
           "SoftwareVersion": "V9.0.0P1N4_TRUE",
-          "Count": 546,
-          "Share": 3.9923954372623576
+          "Count": 547,
+          "Share": 3.998538011695906
         }
       ]
     },
     {
       "ProductClass": "HT803G-UA",
       "Type": "Type 5",
-      "TotalDevices": 13674,
+      "TotalDevices": 13648,
       "VersionCount": 4,
-      "Share": 0.35651190875964933,
+      "Share": 0.3559348113529852,
       "Versions": [
         {
           "SoftwareVersion": "3.0.4",
-          "Count": 13553,
-          "Share": 99.11510896592073
+          "Count": 13528,
+          "Share": 99.12075029308323
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 89,
-          "Share": 0.6508702647359953
+          "Count": 88,
+          "Share": 0.6447831184056272
         },
         {
           "SoftwareVersion": "3.0.2",
           "Count": 22,
-          "Share": 0.16088927892350446
+          "Share": 0.1611957796014068
         },
         {
           "SoftwareVersion": "3.0.0",
           "Count": 10,
-          "Share": 0.07313149041977475
+          "Share": 0.07327080890973037
         }
       ]
     },
     {
       "ProductClass": "GN2000-02GS-1VT",
       "Type": "Type 5",
-      "TotalDevices": 12750,
+      "TotalDevices": 12735,
       "VersionCount": 4,
-      "Share": 0.33242115230989683,
+      "Share": 0.3321241077506057,
       "Versions": [
         {
           "SoftwareVersion": "R4.2.56.080g",
-          "Count": 12627,
-          "Share": 99.03529411764706
+          "Count": 12612,
+          "Share": 99.03415783274441
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 89,
-          "Share": 0.6980392156862745
+          "Share": 0.6988614055751865
         },
         {
           "SoftwareVersion": "R4.2.56.058",
           "Count": 25,
-          "Share": 0.19607843137254902
+          "Share": 0.19630938358853553
         },
         {
           "SoftwareVersion": "R4.2.56.078",
           "Count": 9,
-          "Share": 0.07058823529411765
+          "Share": 0.0706713780918728
         }
       ]
     },
     {
       "ProductClass": "RN510",
       "Type": "Mesh",
-      "TotalDevices": 12684,
+      "TotalDevices": 12690,
       "VersionCount": 6,
-      "Share": 0.33070038399205737,
+      "Share": 0.33095052433099226,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.0.13r2",
-          "Count": 10876,
-          "Share": 85.74582150741091
+          "Count": 10881,
+          "Share": 85.74468085106382
         },
         {
           "SoftwareVersion": "V1.0.0.13",
-          "Count": 913,
-          "Share": 7.198044780826238
+          "Count": 914,
+          "Share": 7.202521670606778
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 875,
-          "Share": 6.898454746136866
+          "Share": 6.895193065405832
         },
         {
           "SoftwareVersion": "V1.0.0.13r1",
           "Count": 18,
-          "Share": 0.14191106906338694
+          "Share": 0.14184397163120568
         },
         {
           "SoftwareVersion": "V1.0.0.12",
           "Count": 1,
-          "Share": 0.007883948281299274
+          "Share": 0.007880220646178094
         },
         {
           "SoftwareVersion": "V1.0.0.9",
           "Count": 1,
-          "Share": 0.007883948281299274
+          "Share": 0.007880220646178094
         }
       ]
     },
@@ -2152,7 +2153,7 @@
       "Type": "AP",
       "TotalDevices": 12616,
       "VersionCount": 3,
-      "Share": 0.32892747117973786,
+      "Share": 0.3290206315965168,
       "Versions": [
         {
           "SoftwareVersion": "V2.0.7T3",
@@ -2174,134 +2175,134 @@
     {
       "ProductClass": "HG6145F4",
       "Type": "HGW",
-      "TotalDevices": 11619,
+      "TotalDevices": 11628,
       "VersionCount": 4,
-      "Share": 0.30293344068146594,
+      "Share": 0.30325395562811486,
       "Versions": [
         {
           "SoftwareVersion": "RP3351",
-          "Count": 7972,
-          "Share": 68.61175660555986
+          "Count": 7983,
+          "Share": 68.65325077399382
         },
         {
           "SoftwareVersion": "RP2914",
-          "Count": 3642,
-          "Share": 31.34521043119029
+          "Count": 3640,
+          "Share": 31.303749570003443
         },
         {
           "SoftwareVersion": "RT4576",
           "Count": 4,
-          "Share": 0.03442637059987951
+          "Share": 0.03439972480220158
         },
         {
           "SoftwareVersion": "RP3352",
           "Count": 1,
-          "Share": 0.008606592649969878
+          "Share": 0.008599931200550396
         }
       ]
     },
     {
       "ProductClass": "AN5506-04-CG",
       "Type": "Type 5",
-      "TotalDevices": 11125,
+      "TotalDevices": 11122,
       "VersionCount": 5,
-      "Share": 0.29005375054490995,
+      "Share": 0.2900576620653504,
       "Versions": [
         {
           "SoftwareVersion": "RP2607",
-          "Count": 10912,
-          "Share": 98.08539325842696
+          "Count": 10909,
+          "Share": 98.08487682071569
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 120,
-          "Share": 1.0786516853932584
+          "Count": 119,
+          "Share": 1.0699514475813703
         },
         {
           "SoftwareVersion": "RP2604",
-          "Count": 67,
-          "Share": 0.6022471910112359
+          "Count": 68,
+          "Share": 0.6114008271893544
         },
         {
           "SoftwareVersion": "RP2605",
           "Count": 24,
-          "Share": 0.21573033707865166
+          "Share": 0.21578852724330158
         },
         {
           "SoftwareVersion": "RP2606",
           "Count": 2,
-          "Share": 0.017977528089887642
+          "Share": 0.01798237727027513
         }
       ]
     },
     {
       "ProductClass": "T7281",
       "Type": "HGW",
-      "TotalDevices": 10812,
+      "TotalDevices": 10821,
       "VersionCount": 6,
-      "Share": 0.2818931371587925,
+      "Share": 0.2822076929697137,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.09",
-          "Count": 10640,
-          "Share": 98.40917499075101
+          "Count": 10647,
+          "Share": 98.39201552536734
         },
         {
           "SoftwareVersion": "V1.0.08",
-          "Count": 110,
-          "Share": 1.0173880873103958
+          "Count": 111,
+          "Share": 1.0257831993346271
         },
         {
           "SoftwareVersion": "V1.0.04",
-          "Count": 51,
-          "Share": 0.4716981132075472
+          "Count": 52,
+          "Share": 0.4805470843729785
         },
         {
           "SoftwareVersion": "V1.0.03",
           "Count": 9,
-          "Share": 0.0832408435072142
+          "Share": 0.08317161075686166
         },
         {
           "SoftwareVersion": "V1.0.07b2",
           "Count": 1,
-          "Share": 0.00924898261191269
+          "Share": 0.00924129008409574
         },
         {
           "SoftwareVersion": "V1.0.10",
           "Count": 1,
-          "Share": 0.00924898261191269
+          "Share": 0.00924129008409574
         }
       ]
     },
     {
       "ProductClass": "A662",
       "Type": "Mesh",
-      "TotalDevices": 9272,
+      "TotalDevices": 9277,
       "VersionCount": 2,
-      "Share": 0.24174187640920497,
+      "Share": 0.241940741861199,
       "Versions": [
         {
           "SoftwareVersion": "V1.1.05RL",
-          "Count": 9152,
-          "Share": 98.70578084555652
+          "Count": 9156,
+          "Share": 98.69569904063815
         },
         {
           "SoftwareVersion": "V1.1.02RL",
-          "Count": 120,
-          "Share": 1.2942191544434858
+          "Count": 121,
+          "Share": 1.3043009593618626
         }
       ]
     },
     {
       "ProductClass": "HG8247W5",
       "Type": "HGW",
-      "TotalDevices": 8027,
+      "TotalDevices": 8026,
       "VersionCount": 1,
-      "Share": 0.20928192859541503,
+      "Share": 0.20931512279594514,
       "Versions": [
         {
           "SoftwareVersion": "V5R019C10S109",
-          "Count": 8027,
+          "Count": 8026,
           "Share": 100.0
         }
       ]
@@ -2309,72 +2310,72 @@
     {
       "ProductClass": "HG180Ev2",
       "Type": "AP",
-      "TotalDevices": 5420,
+      "TotalDevices": 5427,
       "VersionCount": 2,
-      "Share": 0.14131158004075614,
+      "Share": 0.1415341604053818,
       "Versions": [
         {
           "SoftwareVersion": "L08H1.01",
-          "Count": 5243,
-          "Share": 96.73431734317344
+          "Count": 5251,
+          "Share": 96.75695596093607
         },
         {
           "SoftwareVersion": "Unknown",
-          "Count": 177,
-          "Share": 3.265682656826568
+          "Count": 176,
+          "Share": 3.2430440390639395
         }
       ]
     },
     {
       "ProductClass": "F6620",
       "Type": "HGW",
-      "TotalDevices": 4523,
+      "TotalDevices": 4520,
       "VersionCount": 2,
-      "Share": 0.1179247742664834,
+      "Share": 0.11787993459228409,
       "Versions": [
         {
           "SoftwareVersion": "V2.0.10P1N7",
-          "Count": 3627,
-          "Share": 80.19013928808313
+          "Count": 3625,
+          "Share": 80.19911504424779
         },
         {
           "SoftwareVersion": "V2.0.10P1N8",
-          "Count": 896,
-          "Share": 19.80986071191687
+          "Count": 895,
+          "Share": 19.800884955752213
         }
       ]
     },
     {
       "ProductClass": "SR120-A",
       "Type": "AP",
-      "TotalDevices": 4114,
+      "TotalDevices": 4116,
       "VersionCount": 5,
-      "Share": 0.1072612251453267,
+      "Share": 0.10734376344731002,
       "Versions": [
         {
           "SoftwareVersion": "SR_V1.05",
-          "Count": 1742,
-          "Share": 42.34321827904716
+          "Count": 1743,
+          "Share": 42.3469387755102
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 1593,
-          "Share": 38.72143898881867
+          "Share": 38.70262390670554
         },
         {
           "SoftwareVersion": "SR_V1.01",
           "Count": 405,
-          "Share": 9.844433641225086
+          "Share": 9.839650145772595
         },
         {
           "SoftwareVersion": "SR_V1.00",
           "Count": 362,
-          "Share": 8.799222168206125
+          "Share": 8.794946550048591
         },
         {
           "SoftwareVersion": "SR_V1.06",
-          "Count": 12,
-          "Share": 0.2916869227029655
+          "Count": 13,
+          "Share": 0.31584062196307094
         }
       ]
     },
@@ -2383,7 +2384,7 @@
       "Type": "Mesh",
       "TotalDevices": 3991,
       "VersionCount": 4,
-      "Share": 0.10405433873480771,
+      "Share": 0.10408380950393933,
       "Versions": [
         {
           "SoftwareVersion": "V1.2.09R",
@@ -2410,129 +2411,129 @@
     {
       "ProductClass": "AN5121-4G",
       "Type": "HGW",
-      "TotalDevices": 3354,
+      "TotalDevices": 3356,
       "VersionCount": 3,
-      "Share": 0.08744631724293285,
+      "Share": 0.08752324347161623,
       "Versions": [
         {
           "SoftwareVersion": "RP0300",
-          "Count": 2126,
-          "Share": 63.387000596302926
+          "Count": 2128,
+          "Share": 63.4088200238379
         },
         {
           "SoftwareVersion": "RP0400",
-          "Count": 902,
-          "Share": 26.89326177698271
+          "Count": 903,
+          "Share": 26.907032181168056
         },
         {
           "SoftwareVersion": "RP0200",
-          "Count": 326,
-          "Share": 9.719737626714371
+          "Count": 325,
+          "Share": 9.68414779499404
         }
       ]
     },
     {
       "ProductClass": "HV100-02",
       "Type": "DSL",
-      "TotalDevices": 3107,
+      "TotalDevices": 3102,
       "VersionCount": 2,
-      "Share": 0.08100647217465486,
+      "Share": 0.08089901705868699,
       "Versions": [
         {
           "SoftwareVersion": "Unknown",
-          "Count": 3105,
-          "Share": 99.93562922433216
+          "Count": 3100,
+          "Share": 99.93552546744036
         },
         {
           "SoftwareVersion": "V1.00.17B03",
           "Count": 2,
-          "Share": 0.0643707756678468
+          "Share": 0.06447453255963895
         }
       ]
     },
     {
       "ProductClass": "AN5121-4G-B05",
       "Type": "HGW",
-      "TotalDevices": 2868,
+      "TotalDevices": 2884,
       "VersionCount": 3,
-      "Share": 0.07477520508429679,
+      "Share": 0.07521365738144851,
       "Versions": [
         {
           "SoftwareVersion": "RP0300",
           "Count": 1468,
-          "Share": 51.185495118549504
+          "Share": 50.90152565880721
         },
         {
           "SoftwareVersion": "RP0400",
-          "Count": 1399,
-          "Share": 48.77963737796374
+          "Count": 1415,
+          "Share": 49.06380027739251
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 1,
-          "Share": 0.03486750348675035
+          "Share": 0.03467406380027739
         }
       ]
     },
     {
       "ProductClass": "T6825G",
       "Type": "HGW",
-      "TotalDevices": 2600,
+      "TotalDevices": 2599,
       "VersionCount": 2,
-      "Share": 0.06778784282397896,
+      "Share": 0.06778096239056335,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.10",
           "Count": 2547,
-          "Share": 97.96153846153847
+          "Share": 97.99923047325895
         },
         {
           "SoftwareVersion": "V1.0.03",
-          "Count": 53,
-          "Share": 2.0384615384615383
+          "Count": 52,
+          "Share": 2.0007695267410543
         }
       ]
     },
     {
       "ProductClass": "RN104R4GC-A3",
       "Type": "AP",
-      "TotalDevices": 2308,
+      "TotalDevices": 2306,
       "VersionCount": 2,
-      "Share": 0.06017474662990132,
+      "Share": 0.06013963034730245,
       "Versions": [
         {
           "SoftwareVersion": "Unknown",
-          "Count": 2307,
-          "Share": 99.95667244367418
+          "Count": 2305,
+          "Share": 99.95663486556808
         },
         {
           "SoftwareVersion": "104R4GC-A3_v1.2.43_TRU152V7",
           "Count": 1,
-          "Share": 0.04332755632582322
+          "Share": 0.04336513443191674
         }
       ]
     },
     {
       "ProductClass": "T723",
       "Type": "HGW",
-      "TotalDevices": 1655,
+      "TotalDevices": 1699,
       "VersionCount": 3,
-      "Share": 0.043149569182186605,
+      "Share": 0.04430929399829439,
       "Versions": [
         {
           "SoftwareVersion": "V5R025C00S126",
-          "Count": 1620,
-          "Share": 97.88519637462235
+          "Count": 1667,
+          "Share": 98.11653914067098
         },
         {
           "SoftwareVersion": "V5R025C00S121",
-          "Count": 24,
-          "Share": 1.4501510574018126
+          "Count": 21,
+          "Share": 1.2360211889346673
         },
         {
           "SoftwareVersion": "V5R025C00S182",
           "Count": 11,
-          "Share": 0.6646525679758308
+          "Share": 0.6474396703943496
         }
       ]
     },
@@ -2541,7 +2542,7 @@
       "Type": "DSL",
       "TotalDevices": 1535,
       "VersionCount": 1,
-      "Share": 0.04002089951338758,
+      "Share": 0.04003223442459205,
       "Versions": [
         {
           "SoftwareVersion": "V1.06",
@@ -2553,29 +2554,29 @@
     {
       "ProductClass": "GN2000-04GS-2VT",
       "Type": "Type 5",
-      "TotalDevices": 1479,
+      "TotalDevices": 1475,
       "VersionCount": 4,
-      "Share": 0.038560853667948036,
+      "Share": 0.03846745653177412,
       "Versions": [
         {
           "SoftwareVersion": "R4.2.56.080g",
-          "Count": 1466,
-          "Share": 99.12102772143339
+          "Count": 1462,
+          "Share": 99.11864406779661
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 9,
-          "Share": 0.6085192697768762
+          "Share": 0.6101694915254238
         },
         {
           "SoftwareVersion": "R4.2.56.058",
           "Count": 3,
-          "Share": 0.2028397565922921
+          "Share": 0.2033898305084746
         },
         {
           "SoftwareVersion": "R4.2.56.44b",
           "Count": 1,
-          "Share": 0.0676132521974307
+          "Share": 0.06779661016949153
         }
       ]
     },
@@ -2584,7 +2585,7 @@
       "Type": "HGW",
       "TotalDevices": 1290,
       "VersionCount": 2,
-      "Share": 0.03363319893958956,
+      "Share": 0.0336427246955855,
       "Versions": [
         {
           "SoftwareVersion": "V5R022C10S192",
@@ -2601,24 +2602,24 @@
     {
       "ProductClass": "HG6249A",
       "Type": "Type 5",
-      "TotalDevices": 983,
+      "TotalDevices": 982,
       "VersionCount": 3,
-      "Share": 0.025629019036912042,
+      "Share": 0.025610198179120126,
       "Versions": [
         {
           "SoftwareVersion": "RP2708",
-          "Count": 964,
-          "Share": 98.06714140386572
+          "Count": 963,
+          "Share": 98.06517311608961
         },
         {
           "SoftwareVersion": "RP2702",
           "Count": 12,
-          "Share": 1.2207527975584944
+          "Share": 1.2219959266802443
         },
         {
           "SoftwareVersion": "Unknown",
           "Count": 7,
-          "Share": 0.7121057985757884
+          "Share": 0.7128309572301426
         }
       ]
     },
@@ -2627,7 +2628,7 @@
       "Type": "AP",
       "TotalDevices": 868,
       "VersionCount": 2,
-      "Share": 0.022630710604312976,
+      "Share": 0.022637120182766056,
       "Versions": [
         {
           "SoftwareVersion": "1.3.2832",
@@ -2646,7 +2647,7 @@
       "Type": "AP",
       "TotalDevices": 622,
       "VersionCount": 2,
-      "Share": 0.016216937783274966,
+      "Share": 0.016221530822212542,
       "Versions": [
         {
           "SoftwareVersion": "V3.0.0_TUE.1T5",
@@ -2665,7 +2666,7 @@
       "Type": "Mesh",
       "TotalDevices": 489,
       "VersionCount": 4,
-      "Share": 0.012749328900356042,
+      "Share": 0.012752939826466133,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.0.4",
@@ -2694,7 +2695,7 @@
       "Type": "HGW",
       "TotalDevices": 320,
       "VersionCount": 1,
-      "Share": 0.00834311911679741,
+      "Share": 0.008345482095028962,
       "Versions": [
         {
           "SoftwareVersion": "V9.0.10P1N30",
@@ -2706,13 +2707,13 @@
     {
       "ProductClass": "G1611",
       "Type": "Mesh",
-      "TotalDevices": 126,
+      "TotalDevices": 129,
       "VersionCount": 1,
-      "Share": 0.0032851031522389803,
+      "Share": 0.00336427246955855,
       "Versions": [
         {
           "SoftwareVersion": "V9.0.10P1N15",
-          "Count": 126,
+          "Count": 129,
           "Share": 100.0
         }
       ]
@@ -2720,13 +2721,13 @@
     {
       "ProductClass": "G6605",
       "Type": "HGW",
-      "TotalDevices": 89,
+      "TotalDevices": 92,
       "VersionCount": 1,
-      "Share": 0.00232043000435928,
+      "Share": 0.0023993261023208265,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.10P2N11",
-          "Count": 89,
+          "Count": 92,
           "Share": 100.0
         }
       ]
@@ -2736,7 +2737,7 @@
       "Type": "HGW",
       "TotalDevices": 67,
       "VersionCount": 2,
-      "Share": 0.0017468405650794578,
+      "Share": 0.0017473353136466887,
       "Versions": [
         {
           "SoftwareVersion": "V5R022C10S308",
@@ -2755,7 +2756,7 @@
       "Type": "Type 5",
       "TotalDevices": 34,
       "VersionCount": 2,
-      "Share": 0.0008864564061597249,
+      "Share": 0.0008867074725968272,
       "Versions": [
         {
           "SoftwareVersion": "V5.2.1050005",
@@ -2774,7 +2775,7 @@
       "Type": "AP",
       "TotalDevices": 31,
       "VersionCount": 4,
-      "Share": 0.0008082396644397491,
+      "Share": 0.0008084685779559307,
       "Versions": [
         {
           "SoftwareVersion": "1.0.0",
@@ -2803,7 +2804,7 @@
       "Type": "HGW",
       "TotalDevices": 25,
       "VersionCount": 2,
-      "Share": 0.0006518061809997977,
+      "Share": 0.0006519907886741376,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.10P3N11",
@@ -2822,7 +2823,7 @@
       "Type": "Mesh",
       "TotalDevices": 23,
       "VersionCount": 2,
-      "Share": 0.0005996616865198139,
+      "Share": 0.0005998315255802066,
       "Versions": [
         {
           "SoftwareVersion": "V5R023C10S313",
@@ -2840,8 +2841,8 @@
       "ProductClass": "PE3102-00",
       "Type": "AP",
       "TotalDevices": 13,
-      "VersionCount": 6,
-      "Share": 0.0003389392141198948,
+      "VersionCount": 5,
+      "Share": 0.0003390352101105516,
       "Versions": [
         {
           "SoftwareVersion": "Unknown",
@@ -2849,12 +2850,12 @@
           "Share": 46.15384615384615
         },
         {
-          "SoftwareVersion": "V7.20(BSQ.0)b2_0922",
-          "Count": 2,
-          "Share": 15.384615384615385
+          "SoftwareVersion": "V7.20(BSQ.0)b3",
+          "Count": 3,
+          "Share": 23.076923076923077
         },
         {
-          "SoftwareVersion": "V7.20(BSQ.0)b3",
+          "SoftwareVersion": "V7.20(BSQ.0)b2_0922",
           "Count": 2,
           "Share": 15.384615384615385
         },
@@ -2864,12 +2865,7 @@
           "Share": 7.6923076923076925
         },
         {
-          "SoftwareVersion": "V7.20(BSQ.0)b3_1002",
-          "Count": 1,
-          "Share": 7.6923076923076925
-        },
-        {
-          "SoftwareVersion": "V7.20(BSQ.0)b3_1005",
+          "SoftwareVersion": "V7.20(BSQ.0)b3_1009",
           "Count": 1,
           "Share": 7.6923076923076925
         }
@@ -2880,7 +2876,7 @@
       "Type": "Mesh",
       "TotalDevices": 12,
       "VersionCount": 2,
-      "Share": 0.0003128669668799029,
+      "Share": 0.00031295557856358605,
       "Versions": [
         {
           "SoftwareVersion": "V1.1.1.TRU",
@@ -2899,7 +2895,7 @@
       "Type": "HGW",
       "TotalDevices": 12,
       "VersionCount": 1,
-      "Share": 0.0003128669668799029,
+      "Share": 0.00031295557856358605,
       "Versions": [
         {
           "SoftwareVersion": "V5R023C10S313",
@@ -2913,7 +2909,7 @@
       "Type": "HGW",
       "TotalDevices": 10,
       "VersionCount": 1,
-      "Share": 0.00026072247239991906,
+      "Share": 0.00026079631546965505,
       "Versions": [
         {
           "SoftwareVersion": "V5.2.10P1T1",
@@ -2927,7 +2923,7 @@
       "Type": "HGW",
       "TotalDevices": 9,
       "VersionCount": 1,
-      "Share": 0.00023465022515992717,
+      "Share": 0.00023471668392268953,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.01",
@@ -2941,17 +2937,17 @@
       "Type": "Unknown",
       "TotalDevices": 8,
       "VersionCount": 2,
-      "Share": 0.00020857797791993526,
+      "Share": 0.00020863705237572403,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.1",
-          "Count": 6,
-          "Share": 75.0
+          "Count": 7,
+          "Share": 87.5
         },
         {
           "SoftwareVersion": "V1.0.1beta1",
-          "Count": 2,
-          "Share": 25.0
+          "Count": 1,
+          "Share": 12.5
         }
       ]
     },
@@ -2960,7 +2956,7 @@
       "Type": "Unknown",
       "TotalDevices": 7,
       "VersionCount": 1,
-      "Share": 0.00018250573067994335,
+      "Share": 0.00018255742082875853,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.1",
@@ -2974,7 +2970,7 @@
       "Type": "DSL",
       "TotalDevices": 7,
       "VersionCount": 1,
-      "Share": 0.00018250573067994335,
+      "Share": 0.00018255742082875853,
       "Versions": [
         {
           "SoftwareVersion": "V100R019C00SPC101",
@@ -2988,7 +2984,7 @@
       "Type": "HGW",
       "TotalDevices": 5,
       "VersionCount": 2,
-      "Share": 0.00013036123619995953,
+      "Share": 0.00013039815773482753,
       "Versions": [
         {
           "SoftwareVersion": "V3.1.10P2N2C",
@@ -3007,7 +3003,7 @@
       "Type": "Mesh",
       "TotalDevices": 5,
       "VersionCount": 1,
-      "Share": 0.00013036123619995953,
+      "Share": 0.00013039815773482753,
       "Versions": [
         {
           "SoftwareVersion": "V5R022C10S181",
@@ -3021,7 +3017,7 @@
       "Type": "AP",
       "TotalDevices": 4,
       "VersionCount": 1,
-      "Share": 0.00010428898895996763,
+      "Share": 0.00010431852618786201,
       "Versions": [
         {
           "SoftwareVersion": "1.0.21",
@@ -3035,7 +3031,7 @@
       "Type": "Type 5",
       "TotalDevices": 3,
       "VersionCount": 2,
-      "Share": 7.821674171997572e-05,
+      "Share": 7.823889464089651e-05,
       "Versions": [
         {
           "SoftwareVersion": "RP2803",
@@ -3054,7 +3050,7 @@
       "Type": "HGW",
       "TotalDevices": 3,
       "VersionCount": 1,
-      "Share": 7.821674171997572e-05,
+      "Share": 7.823889464089651e-05,
       "Versions": [
         {
           "SoftwareVersion": "V3.3.8T10",
@@ -3068,7 +3064,7 @@
       "Type": "Unknown",
       "TotalDevices": 3,
       "VersionCount": 1,
-      "Share": 7.821674171997572e-05,
+      "Share": 7.823889464089651e-05,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.1",
@@ -3082,7 +3078,7 @@
       "Type": "AP",
       "TotalDevices": 2,
       "VersionCount": 1,
-      "Share": 5.2144494479983815e-05,
+      "Share": 5.2159263093931006e-05,
       "Versions": [
         {
           "SoftwareVersion": "1.3.3803",
@@ -3096,10 +3092,24 @@
       "Type": "Unknown",
       "TotalDevices": 2,
       "VersionCount": 1,
-      "Share": 5.2144494479983815e-05,
+      "Share": 5.2159263093931006e-05,
       "Versions": [
         {
           "SoftwareVersion": "Unknown",
+          "Count": 2,
+          "Share": 100.0
+        }
+      ]
+    },
+    {
+      "ProductClass": "HG8045H",
+      "Type": "HGW",
+      "TotalDevices": 2,
+      "VersionCount": 1,
+      "Share": 5.2159263093931006e-05,
+      "Versions": [
+        {
+          "SoftwareVersion": "V3R019C10S107",
           "Count": 2,
           "Share": 100.0
         }
@@ -3110,7 +3120,7 @@
       "Type": "HGW",
       "TotalDevices": 2,
       "VersionCount": 1,
-      "Share": 5.2144494479983815e-05,
+      "Share": 5.2159263093931006e-05,
       "Versions": [
         {
           "SoftwareVersion": "V5R020C00S060",
@@ -3124,7 +3134,7 @@
       "Type": "Mesh",
       "TotalDevices": 2,
       "VersionCount": 1,
-      "Share": 5.2144494479983815e-05,
+      "Share": 5.2159263093931006e-05,
       "Versions": [
         {
           "SoftwareVersion": "V5R023C10S969T",
@@ -3138,7 +3148,7 @@
       "Type": "HGW",
       "TotalDevices": 2,
       "VersionCount": 1,
-      "Share": 5.2144494479983815e-05,
+      "Share": 5.2159263093931006e-05,
       "Versions": [
         {
           "SoftwareVersion": "V1.0.05",
@@ -3152,7 +3162,7 @@
       "Type": "HGW",
       "TotalDevices": 2,
       "VersionCount": 1,
-      "Share": 5.2144494479983815e-05,
+      "Share": 5.2159263093931006e-05,
       "Versions": [
         {
           "SoftwareVersion": "V5R023C10S313",
@@ -3166,7 +3176,7 @@
       "Type": "Unknown",
       "TotalDevices": 2,
       "VersionCount": 1,
-      "Share": 5.2144494479983815e-05,
+      "Share": 5.2159263093931006e-05,
       "Versions": [
         {
           "SoftwareVersion": "1.24.7",
@@ -3180,7 +3190,7 @@
       "Type": "Unknown",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "Unknown",
@@ -3194,7 +3204,7 @@
       "Type": "HGW",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "V5.2.10P3T51",
@@ -3208,7 +3218,7 @@
       "Type": "HGW",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "V2.0.12P1N2",
@@ -3222,7 +3232,7 @@
       "Type": "AP",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "R4.2.56.058",
@@ -3236,21 +3246,7 @@
       "Type": "HGW",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
-      "Versions": [
-        {
-          "SoftwareVersion": "V3R019C10S107",
-          "Count": 1,
-          "Share": 100.0
-        }
-      ]
-    },
-    {
-      "ProductClass": "HG8045H",
-      "Type": "HGW",
-      "TotalDevices": 1,
-      "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "V3R019C10S107",
@@ -3264,7 +3260,7 @@
       "Type": "HGW",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "V1R003C00S106",
@@ -3278,7 +3274,7 @@
       "Type": "Mesh",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "V5R023C10S313",
@@ -3292,7 +3288,7 @@
       "Type": "HGW",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "Unknown",
@@ -3306,7 +3302,7 @@
       "Type": "Unknown",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "Unknown",
@@ -3320,7 +3316,7 @@
       "Type": "HGW",
       "TotalDevices": 1,
       "VersionCount": 1,
-      "Share": 2.6072247239991908e-05,
+      "Share": 2.6079631546965503e-05,
       "Versions": [
         {
           "SoftwareVersion": "Unknown",
@@ -3352,7 +3348,7 @@
     {
       "ProductClass": "A623",
       "SoftwareVersion": "V5R020C10S150",
-      "TotalDevices": 853,
+      "TotalDevices": 856,
       "Type": "Mesh"
     },
     {
@@ -3364,7 +3360,7 @@
     {
       "ProductClass": "A623",
       "SoftwareVersion": "V5R021C10S176",
-      "TotalDevices": 41827,
+      "TotalDevices": 41851,
       "Type": "Mesh"
     },
     {
@@ -3376,25 +3372,25 @@
     {
       "ProductClass": "A625M",
       "SoftwareVersion": "V1.0.03",
-      "TotalDevices": 10,
+      "TotalDevices": 11,
       "Type": "Mesh"
     },
     {
       "ProductClass": "A625M",
       "SoftwareVersion": "V1.0.05",
-      "TotalDevices": 457,
+      "TotalDevices": 461,
       "Type": "Mesh"
     },
     {
       "ProductClass": "A625M",
       "SoftwareVersion": "V1.0.08",
-      "TotalDevices": 303,
+      "TotalDevices": 306,
       "Type": "Mesh"
     },
     {
       "ProductClass": "A625M",
       "SoftwareVersion": "V1.0.09",
-      "TotalDevices": 57550,
+      "TotalDevices": 57624,
       "Type": "Mesh"
     },
     {
@@ -3448,31 +3444,31 @@
     {
       "ProductClass": "A662",
       "SoftwareVersion": "V1.1.02RL",
-      "TotalDevices": 120,
+      "TotalDevices": 121,
       "Type": "Mesh"
     },
     {
       "ProductClass": "A662",
       "SoftwareVersion": "V1.1.05RL",
-      "TotalDevices": 9152,
+      "TotalDevices": 9156,
       "Type": "Mesh"
     },
     {
       "ProductClass": "AN5121-4G",
       "SoftwareVersion": "RP0200",
-      "TotalDevices": 326,
+      "TotalDevices": 325,
       "Type": "HGW"
     },
     {
       "ProductClass": "AN5121-4G",
       "SoftwareVersion": "RP0300",
-      "TotalDevices": 2126,
+      "TotalDevices": 2128,
       "Type": "HGW"
     },
     {
       "ProductClass": "AN5121-4G",
       "SoftwareVersion": "RP0400",
-      "TotalDevices": 902,
+      "TotalDevices": 903,
       "Type": "HGW"
     },
     {
@@ -3484,7 +3480,7 @@
     {
       "ProductClass": "AN5121-4G-B05",
       "SoftwareVersion": "RP0400",
-      "TotalDevices": 1399,
+      "TotalDevices": 1415,
       "Type": "HGW"
     },
     {
@@ -3496,7 +3492,7 @@
     {
       "ProductClass": "AN5506-04-CG",
       "SoftwareVersion": "RP2604",
-      "TotalDevices": 67,
+      "TotalDevices": 68,
       "Type": "Type 5"
     },
     {
@@ -3514,13 +3510,13 @@
     {
       "ProductClass": "AN5506-04-CG",
       "SoftwareVersion": "RP2607",
-      "TotalDevices": 10912,
+      "TotalDevices": 10909,
       "Type": "Type 5"
     },
     {
       "ProductClass": "AN5506-04-CG",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 120,
+      "TotalDevices": 119,
       "Type": "Type 5"
     },
     {
@@ -3532,13 +3528,13 @@
     {
       "ProductClass": "Air6",
       "SoftwareVersion": "V1.0.1",
-      "TotalDevices": 6,
+      "TotalDevices": 7,
       "Type": "Unknown"
     },
     {
       "ProductClass": "Air6",
       "SoftwareVersion": "V1.0.1beta1",
-      "TotalDevices": 2,
+      "TotalDevices": 1,
       "Type": "Unknown"
     },
     {
@@ -3598,13 +3594,13 @@
     {
       "ProductClass": "F612C",
       "SoftwareVersion": "V1.0.10P1T14",
-      "TotalDevices": 25542,
+      "TotalDevices": 25518,
       "Type": "Type 5"
     },
     {
       "ProductClass": "F612C",
       "SoftwareVersion": "V1.0.10P1T3",
-      "TotalDevices": 1226,
+      "TotalDevices": 1227,
       "Type": "Type 5"
     },
     {
@@ -3628,7 +3624,7 @@
     {
       "ProductClass": "F6600P",
       "SoftwareVersion": "V9.0.10P1N6",
-      "TotalDevices": 302,
+      "TotalDevices": 300,
       "Type": "HGW"
     },
     {
@@ -3646,7 +3642,7 @@
     {
       "ProductClass": "F6600P",
       "SoftwareVersion": "V9.0.10P1N8B",
-      "TotalDevices": 70033,
+      "TotalDevices": 69996,
       "Type": "HGW"
     },
     {
@@ -3670,19 +3666,19 @@
     {
       "ProductClass": "F6620",
       "SoftwareVersion": "V2.0.10P1N7",
-      "TotalDevices": 3627,
+      "TotalDevices": 3625,
       "Type": "HGW"
     },
     {
       "ProductClass": "F6620",
       "SoftwareVersion": "V2.0.10P1N8",
-      "TotalDevices": 896,
+      "TotalDevices": 895,
       "Type": "HGW"
     },
     {
       "ProductClass": "F668",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 374,
+      "TotalDevices": 371,
       "Type": "Type 1"
     },
     {
@@ -3706,7 +3702,7 @@
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T51",
-      "TotalDevices": 30055,
+      "TotalDevices": 30047,
       "Type": "Type 1"
     },
     {
@@ -3718,7 +3714,7 @@
     {
       "ProductClass": "F668",
       "SoftwareVersion": "V5.2.10P3T7",
-      "TotalDevices": 1794,
+      "TotalDevices": 1795,
       "Type": "Type 1"
     },
     {
@@ -3730,7 +3726,7 @@
     {
       "ProductClass": "F688",
       "SoftwareVersion": "V9.0.10P1N13",
-      "TotalDevices": 46780,
+      "TotalDevices": 46753,
       "Type": "HGW"
     },
     {
@@ -3766,7 +3762,7 @@
     {
       "ProductClass": "F688",
       "SoftwareVersion": "V9.0.10P1T12R",
-      "TotalDevices": 93028,
+      "TotalDevices": 92973,
       "Type": "HGW"
     },
     {
@@ -3790,7 +3786,7 @@
     {
       "ProductClass": "G1611",
       "SoftwareVersion": "V9.0.10P1N15",
-      "TotalDevices": 126,
+      "TotalDevices": 129,
       "Type": "Mesh"
     },
     {
@@ -3802,7 +3798,7 @@
     {
       "ProductClass": "G6605",
       "SoftwareVersion": "V1.0.10P2N11",
-      "TotalDevices": 89,
+      "TotalDevices": 92,
       "Type": "HGW"
     },
     {
@@ -3832,7 +3828,7 @@
     {
       "ProductClass": "GN2000-02GS-1VT",
       "SoftwareVersion": "R4.2.56.080g",
-      "TotalDevices": 12627,
+      "TotalDevices": 12612,
       "Type": "Type 5"
     },
     {
@@ -3850,7 +3846,7 @@
     {
       "ProductClass": "GN2000-04GS-2VT",
       "SoftwareVersion": "R4.2.56.080g",
-      "TotalDevices": 1466,
+      "TotalDevices": 1462,
       "Type": "Type 5"
     },
     {
@@ -3868,7 +3864,7 @@
     {
       "ProductClass": "GN542VF",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 1509,
+      "TotalDevices": 1501,
       "Type": "HGW"
     },
     {
@@ -3916,7 +3912,7 @@
     {
       "ProductClass": "GN542VF",
       "SoftwareVersion": "V2.1.0.17",
-      "TotalDevices": 379,
+      "TotalDevices": 375,
       "Type": "HGW"
     },
     {
@@ -3928,13 +3924,13 @@
     {
       "ProductClass": "GN542VF",
       "SoftwareVersion": "V2.1.0.19r2",
-      "TotalDevices": 36,
+      "TotalDevices": 34,
       "Type": "HGW"
     },
     {
       "ProductClass": "GN542VF",
       "SoftwareVersion": "V2.1.0.20",
-      "TotalDevices": 362459,
+      "TotalDevices": 362308,
       "Type": "HGW"
     },
     {
@@ -3958,7 +3954,7 @@
     {
       "ProductClass": "H662GR",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 248,
+      "TotalDevices": 246,
       "Type": "Type 5"
     },
     {
@@ -3988,31 +3984,31 @@
     {
       "ProductClass": "H662GR",
       "SoftwareVersion": "V5.2.2060021",
-      "TotalDevices": 20349,
+      "TotalDevices": 20328,
       "Type": "Type 5"
     },
     {
       "ProductClass": "HG180Ev2",
       "SoftwareVersion": "L08H1.01",
-      "TotalDevices": 5243,
+      "TotalDevices": 5251,
       "Type": "AP"
     },
     {
       "ProductClass": "HG180Ev2",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 177,
+      "TotalDevices": 176,
       "Type": "AP"
     },
     {
       "ProductClass": "HG6145F4",
       "SoftwareVersion": "RP2914",
-      "TotalDevices": 3642,
+      "TotalDevices": 3640,
       "Type": "HGW"
     },
     {
       "ProductClass": "HG6145F4",
       "SoftwareVersion": "RP3351",
-      "TotalDevices": 7972,
+      "TotalDevices": 7983,
       "Type": "HGW"
     },
     {
@@ -4048,7 +4044,7 @@
     {
       "ProductClass": "HG6249A",
       "SoftwareVersion": "RP2708",
-      "TotalDevices": 964,
+      "TotalDevices": 963,
       "Type": "Type 5"
     },
     {
@@ -4066,7 +4062,7 @@
     {
       "ProductClass": "HG8045H",
       "SoftwareVersion": "V3R019C10S107",
-      "TotalDevices": 1,
+      "TotalDevices": 2,
       "Type": "HGW"
     },
     {
@@ -4084,7 +4080,7 @@
     {
       "ProductClass": "HG8122",
       "SoftwareVersion": "V3R019C10S108",
-      "TotalDevices": 21570,
+      "TotalDevices": 21554,
       "Type": "Type 5"
     },
     {
@@ -4114,7 +4110,7 @@
     {
       "ProductClass": "HG8247H",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 855,
+      "TotalDevices": 851,
       "Type": "Type 1"
     },
     {
@@ -4144,13 +4140,13 @@
     {
       "ProductClass": "HG8247H",
       "SoftwareVersion": "V3R019C10S107",
-      "TotalDevices": 64082,
+      "TotalDevices": 64031,
       "Type": "Type 1"
     },
     {
       "ProductClass": "HG8247W5",
       "SoftwareVersion": "V5R019C10S109",
-      "TotalDevices": 8027,
+      "TotalDevices": 8026,
       "Type": "HGW"
     },
     {
@@ -4168,7 +4164,7 @@
     {
       "ProductClass": "HG8247W5-6T",
       "SoftwareVersion": "V5R020C00S060",
-      "TotalDevices": 121539,
+      "TotalDevices": 121465,
       "Type": "HGW"
     },
     {
@@ -4192,19 +4188,19 @@
     {
       "ProductClass": "HT803G-UA",
       "SoftwareVersion": "3.0.4",
-      "TotalDevices": 13553,
+      "TotalDevices": 13528,
       "Type": "Type 5"
     },
     {
       "ProductClass": "HT803G-UA",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 89,
+      "TotalDevices": 88,
       "Type": "Type 5"
     },
     {
       "ProductClass": "HV100-02",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 3105,
+      "TotalDevices": 3100,
       "Type": "DSL"
     },
     {
@@ -4234,7 +4230,7 @@
     {
       "ProductClass": "IGD",
       "SoftwareVersion": "TXVDA6i_v07",
-      "TotalDevices": 11426,
+      "TotalDevices": 11429,
       "Type": "AP"
     },
     {
@@ -4252,13 +4248,13 @@
     {
       "ProductClass": "IGD",
       "SoftwareVersion": "V1.0.6.TRU",
-      "TotalDevices": 230,
+      "TotalDevices": 232,
       "Type": "AP"
     },
     {
       "ProductClass": "IGD",
       "SoftwareVersion": "V1.1.1.TRU",
-      "TotalDevices": 3410,
+      "TotalDevices": 3415,
       "Type": "AP"
     },
     {
@@ -4312,18 +4308,12 @@
     {
       "ProductClass": "PE3102-00",
       "SoftwareVersion": "V7.20(BSQ.0)b3",
-      "TotalDevices": 2,
+      "TotalDevices": 3,
       "Type": "AP"
     },
     {
       "ProductClass": "PE3102-00",
-      "SoftwareVersion": "V7.20(BSQ.0)b3_1002",
-      "TotalDevices": 1,
-      "Type": "AP"
-    },
-    {
-      "ProductClass": "PE3102-00",
-      "SoftwareVersion": "V7.20(BSQ.0)b3_1005",
+      "SoftwareVersion": "V7.20(BSQ.0)b3_1009",
       "TotalDevices": 1,
       "Type": "AP"
     },
@@ -4354,25 +4344,25 @@
     {
       "ProductClass": "RE1200R4GC-V3",
       "SoftwareVersion": "RE4GC_A_v3411b_2T2R_TRU_38A_180731",
-      "TotalDevices": 25912,
+      "TotalDevices": 25917,
       "Type": "AP"
     },
     {
       "ProductClass": "RE1200R4GC-V3",
       "SoftwareVersion": "RE4GC_A_v3411b_2T2R_TRU_38K_181122",
-      "TotalDevices": 1166,
+      "TotalDevices": 1167,
       "Type": "AP"
     },
     {
       "ProductClass": "RE1200R4GC-V3",
       "SoftwareVersion": "RE4GC_A_v3411b_2T2R_TRU_38R7_190617",
-      "TotalDevices": 6133,
+      "TotalDevices": 6138,
       "Type": "AP"
     },
     {
       "ProductClass": "RE1200R4GC-V3",
       "SoftwareVersion": "RE4GC_A_v3411b_2T2R_TRU_38_180420",
-      "TotalDevices": 2954,
+      "TotalDevices": 2956,
       "Type": "AP"
     },
     {
@@ -4384,7 +4374,7 @@
     {
       "ProductClass": "RE1200R4GC-V3",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 1996,
+      "TotalDevices": 1995,
       "Type": "AP"
     },
     {
@@ -4396,7 +4386,7 @@
     {
       "ProductClass": "RN104R4GC-A3",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 2307,
+      "TotalDevices": 2305,
       "Type": "AP"
     },
     {
@@ -4414,7 +4404,7 @@
     {
       "ProductClass": "RN510",
       "SoftwareVersion": "V1.0.0.13",
-      "TotalDevices": 913,
+      "TotalDevices": 914,
       "Type": "Mesh"
     },
     {
@@ -4426,7 +4416,7 @@
     {
       "ProductClass": "RN510",
       "SoftwareVersion": "V1.0.0.13r2",
-      "TotalDevices": 10876,
+      "TotalDevices": 10881,
       "Type": "Mesh"
     },
     {
@@ -4450,13 +4440,13 @@
     {
       "ProductClass": "SR120-A",
       "SoftwareVersion": "SR_V1.05",
-      "TotalDevices": 1742,
+      "TotalDevices": 1743,
       "Type": "AP"
     },
     {
       "ProductClass": "SR120-A",
       "SoftwareVersion": "SR_V1.06",
-      "TotalDevices": 12,
+      "TotalDevices": 13,
       "Type": "AP"
     },
     {
@@ -4504,13 +4494,13 @@
     {
       "ProductClass": "ST-244F",
       "SoftwareVersion": "V3.3.8T10",
-      "TotalDevices": 18058,
+      "TotalDevices": 18049,
       "Type": "HGW"
     },
     {
       "ProductClass": "ST-244F",
       "SoftwareVersion": "V3.3.8T5",
-      "TotalDevices": 818,
+      "TotalDevices": 819,
       "Type": "HGW"
     },
     {
@@ -4522,13 +4512,13 @@
     {
       "ProductClass": "ST-244F",
       "SoftwareVersion": "V3.3.8T9",
-      "TotalDevices": 2,
+      "TotalDevices": 3,
       "Type": "HGW"
     },
     {
       "ProductClass": "ST-244F",
       "SoftwareVersion": "V3.3.9T10",
-      "TotalDevices": 54062,
+      "TotalDevices": 54043,
       "Type": "HGW"
     },
     {
@@ -4540,7 +4530,7 @@
     {
       "ProductClass": "ST-244F",
       "SoftwareVersion": "V3.3.9T11",
-      "TotalDevices": 1481,
+      "TotalDevices": 1480,
       "Type": "HGW"
     },
     {
@@ -4558,7 +4548,7 @@
     {
       "ProductClass": "ST-244F",
       "SoftwareVersion": "V3.3.9T5",
-      "TotalDevices": 89300,
+      "TotalDevices": 89259,
       "Type": "HGW"
     },
     {
@@ -4588,19 +4578,19 @@
     {
       "ProductClass": "ST-244F",
       "SoftwareVersion": "V3.3.9T9L",
-      "TotalDevices": 10210,
+      "TotalDevices": 10206,
       "Type": "HGW"
     },
     {
       "ProductClass": "ST-244FV2",
       "SoftwareVersion": "V3.3.8T9",
-      "TotalDevices": 28181,
+      "TotalDevices": 28168,
       "Type": "HGW"
     },
     {
       "ProductClass": "ST-244FV2",
       "SoftwareVersion": "V3.3.9T10L",
-      "TotalDevices": 1600,
+      "TotalDevices": 1599,
       "Type": "HGW"
     },
     {
@@ -4660,13 +4650,13 @@
     {
       "ProductClass": "T3ATv2",
       "SoftwareVersion": "1.0.20",
-      "TotalDevices": 974,
+      "TotalDevices": 975,
       "Type": "AP"
     },
     {
       "ProductClass": "T3ATv2",
       "SoftwareVersion": "1.0.33",
-      "TotalDevices": 1764,
+      "TotalDevices": 1766,
       "Type": "AP"
     },
     {
@@ -4702,7 +4692,7 @@
     {
       "ProductClass": "T3ATv2",
       "SoftwareVersion": "1.0.44",
-      "TotalDevices": 14740,
+      "TotalDevices": 14742,
       "Type": "AP"
     },
     {
@@ -4750,31 +4740,31 @@
     {
       "ProductClass": "T623",
       "SoftwareVersion": "V5R021C10S185",
-      "TotalDevices": 85080,
+      "TotalDevices": 85040,
       "Type": "HGW"
     },
     {
       "ProductClass": "T623L",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 1158,
+      "TotalDevices": 1147,
       "Type": "HGW"
     },
     {
       "ProductClass": "T623L",
       "SoftwareVersion": "V5R020C00S310",
-      "TotalDevices": 567,
+      "TotalDevices": 565,
       "Type": "HGW"
     },
     {
       "ProductClass": "T623L",
       "SoftwareVersion": "V5R021C10S167",
-      "TotalDevices": 1899,
+      "TotalDevices": 1897,
       "Type": "HGW"
     },
     {
       "ProductClass": "T623L",
       "SoftwareVersion": "V5R021C10S180",
-      "TotalDevices": 388532,
+      "TotalDevices": 388130,
       "Type": "HGW"
     },
     {
@@ -4792,25 +4782,25 @@
     {
       "ProductClass": "T625LM",
       "SoftwareVersion": "V1.0.06",
-      "TotalDevices": 1,
+      "TotalDevices": 2,
       "Type": "HGW"
     },
     {
       "ProductClass": "T625LM",
       "SoftwareVersion": "V1.0.08",
-      "TotalDevices": 51,
+      "TotalDevices": 52,
       "Type": "HGW"
     },
     {
       "ProductClass": "T625LM",
       "SoftwareVersion": "V1.0.09",
-      "TotalDevices": 36235,
+      "TotalDevices": 35498,
       "Type": "HGW"
     },
     {
       "ProductClass": "T625LM",
       "SoftwareVersion": "V1.0.13",
-      "TotalDevices": 113824,
+      "TotalDevices": 114426,
       "Type": "HGW"
     },
     {
@@ -4822,13 +4812,13 @@
     {
       "ProductClass": "T625Pro",
       "SoftwareVersion": "V1.0.07",
-      "TotalDevices": 2277,
+      "TotalDevices": 2326,
       "Type": "HGW"
     },
     {
       "ProductClass": "T625Pro",
       "SoftwareVersion": "V1.0.09",
-      "TotalDevices": 1,
+      "TotalDevices": 2,
       "Type": "HGW"
     },
     {
@@ -4840,25 +4830,25 @@
     {
       "ProductClass": "T625Pro",
       "SoftwareVersion": "V1.0.12",
-      "TotalDevices": 138940,
+      "TotalDevices": 139079,
       "Type": "HGW"
     },
     {
       "ProductClass": "T625Pro",
       "SoftwareVersion": "V1.0.15b1",
-      "TotalDevices": 3,
+      "TotalDevices": 2,
       "Type": "HGW"
     },
     {
       "ProductClass": "T626Pro",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 3774,
+      "TotalDevices": 3730,
       "Type": "HGW"
     },
     {
       "ProductClass": "T626Pro",
       "SoftwareVersion": "V1.0.0.5",
-      "TotalDevices": 198,
+      "TotalDevices": 202,
       "Type": "HGW"
     },
     {
@@ -4870,19 +4860,19 @@
     {
       "ProductClass": "T626Pro",
       "SoftwareVersion": "V1.0.0.7",
-      "TotalDevices": 330283,
+      "TotalDevices": 330011,
       "Type": "HGW"
     },
     {
       "ProductClass": "T626ProV2",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 10230,
+      "TotalDevices": 10197,
       "Type": "HGW"
     },
     {
       "ProductClass": "T626ProV2",
       "SoftwareVersion": "V1.0.04p2",
-      "TotalDevices": 44,
+      "TotalDevices": 45,
       "Type": "HGW"
     },
     {
@@ -4894,19 +4884,19 @@
     {
       "ProductClass": "T626ProV2",
       "SoftwareVersion": "V1.0.05",
-      "TotalDevices": 15053,
+      "TotalDevices": 14776,
       "Type": "HGW"
     },
     {
       "ProductClass": "T626ProV2",
       "SoftwareVersion": "V1.0.07",
-      "TotalDevices": 234982,
+      "TotalDevices": 228304,
       "Type": "HGW"
     },
     {
       "ProductClass": "T626ProV2",
       "SoftwareVersion": "V1.0.10",
-      "TotalDevices": 139471,
+      "TotalDevices": 136033,
       "Type": "HGW"
     },
     {
@@ -4918,31 +4908,31 @@
     {
       "ProductClass": "T626ProV2",
       "SoftwareVersion": "V1.0.12",
-      "TotalDevices": 695866,
+      "TotalDevices": 706302,
       "Type": "HGW"
     },
     {
       "ProductClass": "T626ProV2",
       "SoftwareVersion": "V1.0.14",
-      "TotalDevices": 16,
+      "TotalDevices": 21,
       "Type": "HGW"
     },
     {
       "ProductClass": "T627Pro",
       "SoftwareVersion": "V1.0.0.2",
-      "TotalDevices": 2341,
+      "TotalDevices": 2399,
       "Type": "HGW"
     },
     {
       "ProductClass": "T627Pro",
       "SoftwareVersion": "V1.0.0.5",
-      "TotalDevices": 16947,
+      "TotalDevices": 16928,
       "Type": "HGW"
     },
     {
       "ProductClass": "T627Pro",
       "SoftwareVersion": "V1.0.0.7",
-      "TotalDevices": 13842,
+      "TotalDevices": 13871,
       "Type": "HGW"
     },
     {
@@ -4954,7 +4944,7 @@
     {
       "ProductClass": "T628",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 3,
+      "TotalDevices": 2,
       "Type": "HGW"
     },
     {
@@ -4978,7 +4968,7 @@
     {
       "ProductClass": "T628",
       "SoftwareVersion": "V1.1.12",
-      "TotalDevices": 27,
+      "TotalDevices": 25,
       "Type": "HGW"
     },
     {
@@ -5002,7 +4992,7 @@
     {
       "ProductClass": "T628",
       "SoftwareVersion": "V1.1.19",
-      "TotalDevices": 15403,
+      "TotalDevices": 15083,
       "Type": "HGW"
     },
     {
@@ -5014,7 +5004,7 @@
     {
       "ProductClass": "T628",
       "SoftwareVersion": "V1.1.22D",
-      "TotalDevices": 41,
+      "TotalDevices": 40,
       "Type": "HGW"
     },
     {
@@ -5026,13 +5016,13 @@
     {
       "ProductClass": "T628",
       "SoftwareVersion": "V1.1.26",
-      "TotalDevices": 607,
+      "TotalDevices": 599,
       "Type": "HGW"
     },
     {
       "ProductClass": "T628",
       "SoftwareVersion": "V1.1.27",
-      "TotalDevices": 45129,
+      "TotalDevices": 45440,
       "Type": "HGW"
     },
     {
@@ -5062,19 +5052,19 @@
     {
       "ProductClass": "T628L",
       "SoftwareVersion": "V1.1.11L",
-      "TotalDevices": 16038,
+      "TotalDevices": 15703,
       "Type": "HGW"
     },
     {
       "ProductClass": "T628L",
       "SoftwareVersion": "V1.1.16L",
-      "TotalDevices": 51119,
+      "TotalDevices": 51400,
       "Type": "HGW"
     },
     {
       "ProductClass": "T6825G",
       "SoftwareVersion": "V1.0.03",
-      "TotalDevices": 53,
+      "TotalDevices": 52,
       "Type": "HGW"
     },
     {
@@ -5086,13 +5076,13 @@
     {
       "ProductClass": "T723",
       "SoftwareVersion": "V5R025C00S121",
-      "TotalDevices": 24,
+      "TotalDevices": 21,
       "Type": "HGW"
     },
     {
       "ProductClass": "T723",
       "SoftwareVersion": "V5R025C00S126",
-      "TotalDevices": 1620,
+      "TotalDevices": 1667,
       "Type": "HGW"
     },
     {
@@ -5110,7 +5100,7 @@
     {
       "ProductClass": "T7281",
       "SoftwareVersion": "V1.0.04",
-      "TotalDevices": 51,
+      "TotalDevices": 52,
       "Type": "HGW"
     },
     {
@@ -5122,13 +5112,13 @@
     {
       "ProductClass": "T7281",
       "SoftwareVersion": "V1.0.08",
-      "TotalDevices": 110,
+      "TotalDevices": 111,
       "Type": "HGW"
     },
     {
       "ProductClass": "T7281",
       "SoftwareVersion": "V1.0.09",
-      "TotalDevices": 10640,
+      "TotalDevices": 10647,
       "Type": "HGW"
     },
     {
@@ -5188,7 +5178,7 @@
     {
       "ProductClass": "WR6221-T",
       "SoftwareVersion": "1.3.3803",
-      "TotalDevices": 847,
+      "TotalDevices": 848,
       "Type": "AP"
     },
     {
@@ -5206,13 +5196,13 @@
     {
       "ProductClass": "WR6221-T",
       "SoftwareVersion": "1.3.4719",
-      "TotalDevices": 46529,
+      "TotalDevices": 46535,
       "Type": "AP"
     },
     {
       "ProductClass": "WR6221-T",
       "SoftwareVersion": "Unknown",
-      "TotalDevices": 2293,
+      "TotalDevices": 2292,
       "Type": "AP"
     },
     {
@@ -5236,17 +5226,17 @@
     {
       "ProductClass": "ZXHN H3601P V9",
       "SoftwareVersion": "V9.0.0P1N4_TRUE",
-      "TotalDevices": 546,
+      "TotalDevices": 547,
       "Type": "Mesh"
     },
     {
       "ProductClass": "ZXHN H3601P V9",
       "SoftwareVersion": "V9.0.0P1N7_TRUE",
-      "TotalDevices": 13130,
+      "TotalDevices": 13133,
       "Type": "Mesh"
     }
   ],
-  "GeneratedAt": "20261009"
+  "GeneratedAt": "20261010"
 };
 
         // GLOBAL CHARTS AND STATES
