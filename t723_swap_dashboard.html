@@ -185,9 +185,9 @@ function downloadSwapCSV(filename) {
       return;
   }
   const data = globalData.change_rows;
-  let csv = "\uFEFFAccessNumber,Type,OLT,Serial_Old,Serial_New,Model_Old,Model_New\n";
+  let csv = "\uFEFFAccessNumber,Type,Serial_Old,Serial_New,Model_Old,Model_New\n";
   data.forEach(r => { 
-      csv += (r.homepassID||'') + "," + (r.Type||'') + "," + (r.Device||'') + "," + (r.Old_Serial||'') + "," + (r.New_Serial||'') + "," + (r.From_Model||'') + "," + (r.To_Model||'') + "\n"; 
+      csv += (r.homepassID||'') + "," + (r.Type||'') + "," + (r.Old_Serial||'') + "," + (r.New_Serial||'') + "," + (r.From_Model||'') + "," + (r.To_Model||'') + "\n"; 
   });
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = window.URL.createObjectURL(blob);
@@ -301,7 +301,14 @@ function renderDashboard(d){
   };
 
   // Change detail rows
-  const detailRows = chgRows.slice(0,100).map(r=>`
+    const typeOrder = {'Swap Out': 1, 'Swap In': 2, 'New Install': 3};
+  const sortedChgRows = [...chgRows].sort((a, b) => {
+    const pA = typeOrder[a.Type] || 99;
+    const pB = typeOrder[b.Type] || 99;
+    if (pA !== pB) return pA - pB;
+    return (b.Date || '').localeCompare(a.Date || '');
+  });
+  const detailRows = sortedChgRows.slice(0,100).map(r=>`
     <tr>
       <td style="font-size:.72rem;color:var(--muted);white-space:nowrap">${r.homepassID||''}</td>
       <td style="white-space:nowrap">${typePill[r.Type] || `<span class="pill p-gy" style="font-size:.65rem;padding:2px 6px;white-space:nowrap">${r.Type||'-'}</span>`}</td>
@@ -400,7 +407,7 @@ function renderDashboard(d){
   <!-- Trend chart (if data) -->
   ${trendAdv.length>1?`
   <div class="card">
-    <h3><span class="dot" style="background:#10b981"></span> แนวโน้ม T723 รวม และ Swap OUT สะสม (เทียบ 20/05)</h3>
+    <h3><span class="dot" style="background:#10b981"></span> แนวโน้ม T723 รวม และ Swap OUT สะสม (เทียบ 15/07)</h3>
     <div class="ch tall"><canvas id="trendChart"></canvas></div>
   </div>`:''}
 
