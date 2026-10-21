@@ -1,7 +1,22 @@
 {
     "baseline_date": "2026-01-05",
-    "latest_file": "device_export_20260807_003001.csv",
+    "latest_mb_date": "2026-10-19",
+    "jan_active_baseline": 3125727,
+    "still_active_count": 2768702,
+    "still_active_pct": 88.58,
+    "suspended_due_count": 85008,
+    "suspended_due_pct": 2.72,
+    "suspended_breakdown": {
+        "Temp OverDue": 54294,
+        "Soft Suspend": 17991,
+        "Pre Suspend": 5076,
+        "Suspend by Customer": 7619,
+        "Bill Return": 28
+    },
+    "churn_count": 272017,
+    "churn_pct": 8.7,
+    "total_at_risk_or_lost": 357025,
+    "total_at_risk_or_lost_pct": 11.42,
     "jan_total": 3286617,
-    "latest_total": 3195665,
-    "churn_count": 465678
+    "latest_total": 3394930
 }
