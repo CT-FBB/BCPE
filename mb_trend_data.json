@@ -1,20 +1,20 @@
 {
   "kpi": {
-    "latest_date": "2026-10-19",
+    "latest_date": "2026-11-02",
     "baseline_date": "2025-12-29",
-    "latest_total": 3427928,
+    "latest_total": 3432491,
     "baseline_total": 3321991,
-    "net_growth_total": 105937,
-    "pct_growth_total": 3.19,
-    "latest_ftth": 3394897,
+    "net_growth_total": 110500,
+    "pct_growth_total": 3.33,
+    "latest_ftth": 3399758,
     "baseline_ftth": 3284469,
-    "net_growth_ftth": 110428,
-    "pct_growth_ftth": 3.36,
-    "latest_fttb": 33031,
+    "net_growth_ftth": 115289,
+    "pct_growth_ftth": 3.51,
+    "latest_fttb": 32733,
     "baseline_fttb": 37522,
-    "net_growth_fttb": -4491,
-    "pct_growth_fttb": -11.97,
-    "total_checkpoints": 25
+    "net_growth_fttb": -4789,
+    "pct_growth_fttb": -12.76,
+    "total_checkpoints": 27
   },
   "timeline": [
     {
@@ -665,6 +665,58 @@
         "FIBERHOME_1G_500": 294666,
         "FIBERHOME_1G_200": 183413,
         "FIBERHOME_1G_1G": 90314
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "total_active": 3431396,
+      "ftth": 3398552,
+      "fttb": 32844,
+      "fttb_estimated": false,
+      "delta_total": 3468,
+      "delta_ftth": 3655,
+      "delta_fttb": -187,
+      "by_region": {
+        "BMA": 1508926,
+        "Central": 559218,
+        "North": 421608,
+        "Northeast": 681018,
+        "South": 298901,
+        "Other": 1867
+      },
+      "top_speeds": {
+        "FIBERHOME_500_500": 1451973,
+        "FIBERHOME_200_200": 661660,
+        "FIBERHOME_300_300": 635839,
+        "FIBERHOME_1G_500": 293754,
+        "FIBERHOME_1G_200": 181753,
+        "FIBERHOME_1G_1G": 90270
+      }
+    },
+    {
+      "date": "2026-11-02",
+      "total_active": 3432491,
+      "ftth": 3399758,
+      "fttb": 32733,
+      "fttb_estimated": false,
+      "delta_total": 1095,
+      "delta_ftth": 1206,
+      "delta_fttb": -111,
+      "by_region": {
+        "BMA": 1510780,
+        "Central": 559022,
+        "North": 422242,
+        "Northeast": 678772,
+        "South": 299349,
+        "Other": 1735
+      },
+      "top_speeds": {
+        "FIBERHOME_500_500": 1456645,
+        "FIBERHOME_200_200": 660830,
+        "FIBERHOME_300_300": 634067,
+        "FIBERHOME_1G_500": 293374,
+        "FIBERHOME_1G_200": 180876,
+        "FIBERHOME_1G_1G": 90279
       }
     }
   ]
