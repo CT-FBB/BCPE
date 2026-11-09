@@ -9,8 +9,8 @@
     "suspended_breakdown": {
         "Temp OverDue": 51248,
         "Suspend by Customer": 7287,
-        "Pre Suspend": 3078,
-        "Soft Suspend": 9660
+        "Soft Suspend": 9660,
+        "Pre Suspend": 3078
     },
     "churn_count": 286291,
     "churn_pct": 9.16,
