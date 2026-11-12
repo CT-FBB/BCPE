@@ -1,21 +1,22 @@
 {
     "baseline_date": "2026-01-05",
-    "latest_mb_date": "2026-11-02",
+    "latest_mb_date": "2026-11-09",
     "jan_active_baseline": 3125727,
-    "still_active_count": 2768163,
-    "still_active_pct": 88.56,
-    "suspended_due_count": 71273,
-    "suspended_due_pct": 2.28,
+    "still_active_count": 2755512,
+    "still_active_pct": 88.16,
+    "suspended_due_count": 75694,
+    "suspended_due_pct": 2.42,
     "suspended_breakdown": {
-        "Temp OverDue": 51248,
-        "Suspend by Customer": 7287,
-        "Soft Suspend": 9660,
-        "Pre Suspend": 3078
+        "Suspend by Customer": 7268,
+        "Pre Suspend": 5085,
+        "Temp OverDue": 49709,
+        "Soft Suspend": 13604,
+        "Bill Return": 28
     },
-    "churn_count": 286291,
-    "churn_pct": 9.16,
-    "total_at_risk_or_lost": 357564,
-    "total_at_risk_or_lost_pct": 11.44,
+    "churn_count": 294521,
+    "churn_pct": 9.42,
+    "total_at_risk_or_lost": 370215,
+    "total_at_risk_or_lost_pct": 11.84,
     "jan_total": 3286617,
-    "latest_total": 3399791
+    "latest_total": 3401352
 }
